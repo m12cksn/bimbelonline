@@ -29,12 +29,20 @@ export async function GET(
       );
     }
 
-    // validasi student terdaftar di kelas
+    const nowIso = new Date().toISOString();
+    const activePeriodOr =
+      `and(start_date.lte.${nowIso},end_date.gte.${nowIso}),` +
+      `and(start_date.is.null,end_date.is.null),` +
+      `and(start_date.is.null,end_date.gte.${nowIso}),` +
+      `and(start_date.lte.${nowIso},end_date.is.null)`;
+
+    // validasi student terdaftar di kelas & periode masih aktif
     const { data: cs } = await supabase
       .from("class_students")
       .select("id")
       .eq("class_id", classId)
       .eq("student_id", user.id)
+      .or(activePeriodOr)
       .maybeSingle();
 
     if (!cs) {

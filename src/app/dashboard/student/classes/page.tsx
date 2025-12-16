@@ -12,15 +12,26 @@ type ClassRow = {
 export default function StudentClassesPage() {
   const [classes, setClasses] = useState<ClassRow[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function load() {
-      const res = await fetch("/api/student/classes");
-      const json = await res.json();
-      if (res.ok && json.ok) {
-        setClasses(json.classes ?? []);
+      try {
+        const res = await fetch("/api/student/classes");
+        const json = await res.json();
+
+        if (res.ok && json.ok) {
+          setClasses(json.classes ?? []);
+          setError(null);
+        } else {
+          setError(json.error ?? "Gagal memuat kelas");
+        }
+      } catch (err) {
+        console.error("load student classes error", err);
+        setError("Tidak dapat terhubung ke server");
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     }
     load();
   }, []);
@@ -31,7 +42,9 @@ export default function StudentClassesPage() {
     <div className="space-y-4">
       <h1 className="text-2xl font-bold">My Classes</h1>
 
-      {classes.length === 0 && (
+      {error && <p className="text-red-500">{error}</p>}
+
+      {classes.length === 0 && !error && (
         <p className="text-gray-400">Belum tergabung di kelas</p>
       )}
 

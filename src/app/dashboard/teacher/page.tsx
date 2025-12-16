@@ -19,21 +19,33 @@ export default function TeacherDashboardPage() {
   } | null>(null);
 
   useEffect(() => {
-    fetchClasses();
-    fetchStats();
+    let isMounted = true;
+
+    async function fetchAll() {
+      try {
+        const [classesRes, statsRes] = await Promise.all([
+          fetch("/api/teacher/classes"),
+          fetch("/api/teacher/stats"),
+        ]);
+
+        if (!isMounted) return;
+
+        const classesJson = await classesRes.json();
+        const statsJson = await statsRes.json();
+
+        setClasses(classesJson.classes ?? []);
+        setStats(statsJson);
+      } catch (err) {
+        console.error("fetch teacher dashboard data error", err);
+      }
+    }
+
+    fetchAll();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
-
-  async function fetchClasses() {
-    const res = await fetch("/api/teacher/classes");
-    const json = await res.json();
-    setClasses(json.classes ?? []);
-  }
-
-  async function fetchStats() {
-    const res = await fetch("/api/teacher/stats");
-    const json = await res.json();
-    setStats(json);
-  }
 
   return (
     <div className="p-6 space-y-6">
