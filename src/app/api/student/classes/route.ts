@@ -15,11 +15,19 @@ export async function GET() {
     );
   }
 
-  // 1️⃣ ambil relasi student → class_id
+  const nowIso = new Date().toISOString();
+  const activePeriodOr =
+    `and(start_date.lte.${nowIso},end_date.gte.${nowIso}),` +
+    `and(start_date.is.null,end_date.is.null),` +
+    `and(start_date.is.null,end_date.gte.${nowIso}),` +
+    `and(start_date.lte.${nowIso},end_date.is.null)`;
+
+  // 1️⃣ ambil relasi student → class_id hanya yang aktif
   const { data: relations, error: relErr } = await supabase
     .from("class_students")
     .select("class_id")
-    .eq("student_id", user.id);
+    .eq("student_id", user.id)
+    .or(activePeriodOr);
 
   if (relErr) {
     console.error("class_students error", relErr);

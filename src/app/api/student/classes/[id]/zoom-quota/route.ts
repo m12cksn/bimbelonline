@@ -19,6 +19,23 @@ export async function GET(
   if (!user) return NextResponse.json({ ok: false }, { status: 401 });
 
   const nowIso = new Date().toISOString();
+  const activePeriodOr =
+    `and(start_date.lte.${nowIso},end_date.gte.${nowIso}),` +
+    `and(start_date.is.null,end_date.is.null),` +
+    `and(start_date.is.null,end_date.gte.${nowIso}),` +
+    `and(start_date.lte.${nowIso},end_date.is.null)`;
+
+  const { data: membership } = await supabase
+    .from("class_students")
+    .select("id")
+    .eq("class_id", classId)
+    .eq("student_id", user.id)
+    .or(activePeriodOr)
+    .maybeSingle();
+
+  if (!membership) {
+    return NextResponse.json({ ok: false, error: "Forbidden" }, { status: 403 });
+  }
 
   const { data: quota } = await supabase
     .from("class_student_zoom_quota")
