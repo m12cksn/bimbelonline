@@ -303,6 +303,7 @@ export default async function AdminFinancePage(props: {
                 href={`/dashboard/admin/finance?status=${status}&page=${
                   page - 1
                 }`}
+                prefetch={false}
                 className="rounded-full border border-slate-600 px-3 py-1 hover:bg-slate-800"
               >
                 ⬅️ Sebelumnya
@@ -317,6 +318,7 @@ export default async function AdminFinancePage(props: {
                 href={`/dashboard/admin/finance?status=${status}&page=${
                   page + 1
                 }`}
+                prefetch={false}
                 className="rounded-full border border-slate-600 px-3 py-1 hover:bg-slate-800"
               >
                 Berikutnya ➜

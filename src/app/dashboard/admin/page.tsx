@@ -39,6 +39,7 @@ export default async function AdminDashboardPage() {
       </p>
       <Link
         href="/dashboard/admin/finance"
+        prefetch={false}
         className="rounded-xl border border-cyan-400/70 bg-cyan-500/30 px-3 py-2 text-[11px] font-semibold text-cyan-50 shadow-sm hover:bg-cyan-500/50"
       >
         📊 Laporan Keuangan
