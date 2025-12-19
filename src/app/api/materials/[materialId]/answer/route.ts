@@ -9,6 +9,7 @@ interface MaterialParams {
 
 const FREE_LIMIT = 8;
 const MAX_ATTEMPTS_PER_QUESTION = 2;
+const MAX_ATTEMPTS_PER_MATERIAL = 2;
 
 export async function POST(req: Request, props: MaterialParams) {
   const { materialId: materialIdStr } = await props.params;
@@ -57,7 +58,22 @@ export async function POST(req: Request, props: MaterialParams) {
     return NextResponse.json({ error: "Unauthenticated" }, { status: 401 });
   }
 
-  // 2. AMBIL STATUS PREMIUM LANGSUNG DARI PROFILES (sinkron dengan subscriptions)
+  // 2. Ambil status premium langsung via subscription + fallback kolom profile
+  const nowIso = new Date().toISOString();
+
+  const { data: activeSub, error: activeSubError } = await supabase
+    .from("subscriptions")
+    .select("id")
+    .eq("user_id", user.id)
+    .eq("status", "active")
+    .lte("start_at", nowIso)
+    .gte("end_at", nowIso)
+    .maybeSingle();
+
+  if (activeSubError) {
+    console.error("subscription check error:", activeSubError);
+  }
+
   const { data: profile, error: profileError } = await supabase
     .from("profiles")
     .select("is_premium")
@@ -68,7 +84,7 @@ export async function POST(req: Request, props: MaterialParams) {
     console.error("Profile error:", profileError);
   }
 
-  const isPremium = !!profile?.is_premium;
+  const isPremium = !!activeSub || !!profile?.is_premium;
 
   // 3. validasi questionId
   const qId = Number(questionId);
@@ -115,6 +131,38 @@ export async function POST(req: Request, props: MaterialParams) {
   }
 
   // 6. cek jumlah attempt existing (berlaku untuk semua user)
+  const { data: completedAttempts, error: completedError } = await supabase
+    .from("material_attempts")
+    .select("id")
+    .eq("user_id", user.id)
+    .eq("material_id", materialId);
+
+  const missingMaterialAttempts =
+    completedError &&
+    (completedError.code === "PGRST205" ||
+      completedError.message?.includes("material_attempts"));
+
+  if (completedError && !missingMaterialAttempts) {
+    console.error("Completed attempts query error:", completedError);
+  }
+
+  if (
+    !missingMaterialAttempts &&
+    completedAttempts &&
+    completedAttempts.length >= MAX_ATTEMPTS_PER_MATERIAL
+  ) {
+    return NextResponse.json(
+      {
+        locked: true,
+        reason: "max_material_attempts",
+        message:
+          "Kamu sudah memakai 2 percobaan untuk materi ini. Coba materi lain atau hubungi guru ya.",
+      },
+      { status: 403 }
+    );
+  }
+
+  // 6b. cek jumlah attempt existing per soal (berlaku untuk semua user)
   const { data: existingAttempts, error: attemptsError } = await supabase
     .from("question_attempts")
     .select("id")

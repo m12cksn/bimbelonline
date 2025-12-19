@@ -1,8 +1,7 @@
 // app/materials/[id]/quiz_client.tsx
 "use client";
-/* eslint-disable @next/next/no-img-element */
 
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 
 type QuestionOption = {
@@ -24,7 +23,6 @@ interface Props {
   materialId: number;
   questions: Question[];
   initialLastNumber: number;
-  userId: string;
   isPremium: boolean;
 }
 
@@ -35,7 +33,6 @@ export default function MaterialQuiz({
   materialId,
   questions,
   initialLastNumber,
-  userId: _userId, // belum dipakai di client
   isPremium,
 }: Props) {
   // index = posisi di array questions (0-based)
@@ -52,6 +49,7 @@ export default function MaterialQuiz({
 
   // lock dari server (premium / max_attempts)
   const [serverLockPremium, setServerLockPremium] = useState(false);
+  const [materialLocked, setMaterialLocked] = useState(false);
 
   // feedback penjelasan untuk soal yang baru saja dijawab
   const [feedback, setFeedback] = useState<{
@@ -62,6 +60,13 @@ export default function MaterialQuiz({
   // tracking percobaan per materi
   const [attemptNumber, setAttemptNumber] = useState(1);
   const [attemptScores, setAttemptScores] = useState<number[]>([]); // misal [score percobaan1]
+  const [bestSavedScore, setBestSavedScore] = useState<number | null>(null);
+  const [attemptsLoaded, setAttemptsLoaded] = useState(false);
+  const [savingAttempt, setSavingAttempt] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
+  const [hasRecordedCurrentAttempt, setHasRecordedCurrentAttempt] =
+    useState(false);
+  const [autoSaveTriggered, setAutoSaveTriggered] = useState(false);
 
   const totalQuestions = questions.length;
   const q = questions[index];
@@ -78,7 +83,57 @@ export default function MaterialQuiz({
   // premium lock berdasarkan nomor soal & status subscription
   const numberLocked = !isPremium && q && q.question_number > FREE_LIMIT;
 
-  const isLocked = numberLocked || serverLockPremium;
+  const isLocked = numberLocked || serverLockPremium || materialLocked;
+
+  const loadAttempts = useCallback(
+    async (options?: { preserveAttemptNumber?: boolean }) => {
+      const preserveAttemptNumber = options?.preserveAttemptNumber ?? false;
+      try {
+        setAttemptsLoaded(false);
+        const res = await fetch(`/api/materials/${materialId}/attempts`);
+        const data = await res.json();
+
+        if (!res.ok || !data.ok) {
+          throw new Error(data.error || "Gagal memuat riwayat percobaan");
+        }
+
+        const scores = (data.attempts ?? []).map(
+          (row: { score: number | null }) => row.score ?? 0
+        );
+
+        setAttemptScores(scores);
+        if (!preserveAttemptNumber) {
+          setAttemptNumber(
+            scores.length >= MAX_MATERIAL_ATTEMPTS
+              ? MAX_MATERIAL_ATTEMPTS
+              : scores.length + 1
+          );
+        }
+        setBestSavedScore(data.bestScore ?? null);
+        setMaterialLocked(scores.length >= MAX_MATERIAL_ATTEMPTS);
+        setIndex(
+          scores.length > 0
+            ? 0 // mulai ulang dari soal 1 setelah percobaan sebelumnya selesai
+            : initialLastNumber > 0
+            ? initialLastNumber
+            : 0
+        );
+        setSaveError(null);
+      } catch (err) {
+        console.error("loadAttempts error", err);
+        setSaveError(
+          err instanceof Error ? err.message : "Gagal memuat riwayat percobaan"
+        );
+      } finally {
+        setAttemptsLoaded(true);
+      }
+    },
+    [initialLastNumber, materialId]
+  );
+
+  useEffect(() => {
+    loadAttempts();
+  }, [loadAttempts]);
 
   // normalisasi options
   const options = useMemo(() => {
@@ -90,6 +145,23 @@ export default function MaterialQuiz({
   }, [q]);
 
   const hasAnsweredCurrent = q ? !!bubble[q.id] : false;
+
+  const attemptResult = useMemo(() => {
+    const values = Object.values(bubble).filter(
+      (v): v is "correct" | "wrong" => !!v
+    );
+    const correctCount = values.filter((v) => v === "correct").length;
+    const total = totalQuestions;
+    const wrongCount = Math.max(0, total - correctCount);
+    const score = total > 0 ? Math.round((correctCount / total) * 100) : 0;
+
+    return { correctCount, wrongCount, total, score };
+  }, [bubble, totalQuestions]);
+
+  const recordedScores = attemptScores.filter(
+    (score): score is number => typeof score === "number"
+  );
+  const knownBestScore = Math.max(0, bestSavedScore ?? 0, ...recordedScores);
 
   // pindah ke soal berikutnya
   function goNext() {
@@ -105,12 +177,85 @@ export default function MaterialQuiz({
       setIndex(totalQuestions);
       setSelected(null);
       setFeedback({ state: null, msg: null });
+      setHasRecordedCurrentAttempt(false);
+      setAutoSaveTriggered(false);
     }
+  }
+
+  const persistAttempt = useCallback(async () => {
+    if (hasRecordedCurrentAttempt) return;
+    if (totalQuestions === 0) return;
+
+    setAutoSaveTriggered(true);
+    setSavingAttempt(true);
+    setSaveError(null);
+
+    try {
+      const res = await fetch(`/api/materials/${materialId}/attempts`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          correctCount: attemptResult.correctCount,
+          wrongCount: attemptResult.wrongCount,
+          totalQuestions,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.ok) {
+        throw new Error(data.error || data.message || "Gagal menyimpan nilai");
+      }
+
+      setHasRecordedCurrentAttempt(true);
+      await loadAttempts({ preserveAttemptNumber: true });
+    } catch (err) {
+      console.error("persistAttempt error", err);
+      setSaveError(
+        err instanceof Error ? err.message : "Gagal menyimpan nilai percobaan"
+      );
+    } finally {
+      setSavingAttempt(false);
+    }
+  }, [
+    attemptResult.correctCount,
+    attemptResult.wrongCount,
+    hasRecordedCurrentAttempt,
+    loadAttempts,
+    materialId,
+    totalQuestions,
+  ]);
+
+  useEffect(() => {
+    if (!attemptsLoaded) return;
+    if (index < totalQuestions || totalQuestions === 0) return;
+    if (materialLocked) return;
+    if (hasRecordedCurrentAttempt) return;
+    if (autoSaveTriggered) return;
+
+    setAutoSaveTriggered(true);
+    persistAttempt();
+  }, [
+    autoSaveTriggered,
+    attemptsLoaded,
+    hasRecordedCurrentAttempt,
+    index,
+    materialLocked,
+    persistAttempt,
+    totalQuestions,
+  ]);
+
+  if (!attemptsLoaded) {
+    return (
+      <div className="mt-6 rounded-xl border border-slate-800 bg-slate-900/80 p-4 text-xs text-slate-200">
+        Memuat progres & riwayat percobaan...
+      </div>
+    );
   }
 
   // SUBMIT jawaban (satu kali per soal per percobaan)
   async function submit() {
     if (!selected || !q) return;
+    if (materialLocked) return;
 
     // soal ini sudah tercatat → jangan dihitung ulang
     if (bubble[q.id]) return;
@@ -129,7 +274,11 @@ export default function MaterialQuiz({
 
     // jika API mengunci (premium / max attempts)
     if (data.locked) {
-      setServerLockPremium(true);
+      if (data.reason === "max_material_attempts") {
+        setMaterialLocked(true);
+      } else {
+        setServerLockPremium(true);
+      }
       return;
     }
 
@@ -170,32 +319,26 @@ export default function MaterialQuiz({
 
   // ----------------- REVIEW PAGE -------------------
   if (index >= totalQuestions && totalQuestions > 0) {
-    const values = Object.values(bubble).filter(
-      (v): v is "correct" | "wrong" => !!v
-    );
-    const correct = values.filter((v) => v === "correct").length;
+    const { correctCount: correct, wrongCount: wrong, score, total } =
+      attemptResult;
 
-    // ❗TOTAL = jumlah soal di materi
-    const total = totalQuestions;
-    const wrong = Math.max(0, total - correct);
-    const score = total > 0 ? Math.round((correct / total) * 100) : 0;
-
-    const firstAttemptScore = attemptScores[0];
-
-    const bestOverall =
-      firstAttemptScore != null ? Math.max(firstAttemptScore, score) : score;
+    const firstAttemptScore = recordedScores[0];
+    const bestOverall = Math.max(score, knownBestScore);
 
     const canRetry = attemptNumber < MAX_MATERIAL_ATTEMPTS;
 
     function handleRetry() {
-      // simpan nilai percobaan ini ke array scores (maks 2 item)
-      setAttemptScores((prev) => {
-        if (prev.length === 0) return [score];
-        if (prev.length >= MAX_MATERIAL_ATTEMPTS) return prev;
-        return [...prev, score];
-      });
-
       if (!canRetry) return;
+
+      // Pastikan skor percobaan ini tetap tercatat secara lokal
+      setAttemptScores((prev) => {
+        const next = [...prev];
+        const slot = attemptNumber - 1;
+        if (slot >= 0 && !next[slot]) {
+          next[slot] = score;
+        }
+        return next.slice(0, MAX_MATERIAL_ATTEMPTS);
+      });
 
       setAttemptNumber((prev) => prev + 1);
       setIndex(0);
@@ -203,6 +346,9 @@ export default function MaterialQuiz({
       setSelected(null);
       setFeedback({ state: null, msg: null });
       setServerLockPremium(false);
+      setMaterialLocked(false);
+      setHasRecordedCurrentAttempt(false);
+      setAutoSaveTriggered(false);
     }
 
     return (
@@ -229,6 +375,18 @@ export default function MaterialQuiz({
           </div>
         </div>
 
+        {savingAttempt && (
+          <p className="mb-2 text-[11px] text-cyan-200">
+            Menyimpan nilai percobaan ke server...
+          </p>
+        )}
+
+        {saveError && (
+          <p className="mb-3 rounded-lg border border-red-500/40 bg-red-500/10 p-2 text-[11px] text-red-100">
+            {saveError}
+          </p>
+        )}
+
         {/* Nilai percobaan sekarang */}
         <p className="mb-1 text-sm">
           Nilai percobaan {attemptNumber}:{" "}
@@ -244,6 +402,17 @@ export default function MaterialQuiz({
             </span>{" "}
             • Percobaan 2:{" "}
             <span className="font-semibold text-cyan-300">{score}%</span>
+          </p>
+        )}
+        {recordedScores.length > 0 && (
+          <p className="mb-1 text-[11px] text-slate-300">
+            Nilai tersimpan: Percobaan 1 {recordedScores[0] ?? "-"}%
+            {recordedScores.length > 1 && (
+              <>
+                {" "}
+                • Percobaan 2 {recordedScores[1] ?? "-"}%
+              </>
+            )}
           </p>
         )}
 
@@ -276,7 +445,39 @@ export default function MaterialQuiz({
               digunakan untuk leaderboard.
             </p>
           )}
+
+          {saveError && (
+            <button
+              type="button"
+              onClick={() => {
+                setAutoSaveTriggered(false);
+                persistAttempt();
+              }}
+              className="inline-block rounded-xl border border-red-400/60 bg-red-500/10 px-4 py-3 text-red-100"
+            >
+              💾 Coba simpan lagi
+            </button>
+          )}
         </div>
+      </div>
+    );
+  }
+
+  if (materialLocked) {
+    return (
+      <div className="mt-6 rounded-xl border border-cyan-400/40 bg-slate-900/80 p-4 text-xs text-cyan-50">
+        <p className="mb-1 font-bold text-cyan-200">
+          Kamu sudah menyelesaikan 2x percobaan untuk materi ini.
+        </p>
+        <p className="mb-2 text-slate-200">
+          Nilai terbaikmu:{" "}
+          <span className="font-semibold text-emerald-300">
+            {knownBestScore}%
+          </span>
+        </p>
+        <p className="text-[11px] text-slate-400">
+          Coba materi lainnya atau hubungi guru jika butuh reset percobaan.
+        </p>
       </div>
     );
   }
