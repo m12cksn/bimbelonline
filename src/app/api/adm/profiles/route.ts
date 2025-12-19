@@ -30,6 +30,19 @@ export async function GET(req: Request) {
         { status: 401 }
       );
 
+    const { data: profile, error: profileError } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .single();
+
+    if (profileError || !profile || profile.role !== "admin") {
+      return NextResponse.json(
+        { ok: false, error: "Forbidden" },
+        { status: 403 }
+      );
+    }
+
     // ambil semua kolom (safe)
     let query = supabase.from("profiles").select("*");
     if (role) query = query.eq("role", role);

@@ -32,6 +32,19 @@ export async function GET() {
       );
     }
 
+    const { data: profile, error: profileError } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .single();
+
+    if (profileError || !profile || profile.role !== "admin") {
+      return NextResponse.json(
+        { ok: false, error: "Forbidden" },
+        { status: 403 }
+      );
+    }
+
     // Ambil subscriptions dengan relasi; ambil semua kolom relasi (*) untuk toleransi skema
     const { data, error } = await supabase
       .from("subscriptions")

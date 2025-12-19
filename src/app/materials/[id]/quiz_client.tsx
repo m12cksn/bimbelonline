@@ -1,13 +1,23 @@
+// app/materials/[id]/quiz_client.tsx
 "use client";
+/* eslint-disable @next/next/no-img-element */
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
+
+type QuestionOption = {
+  value: string;
+  label: string;
+  imageUrl?: string;
+};
+
+type RawOption = string | QuestionOption;
 
 type Question = {
   id: number;
   question_number: number;
   text: string;
-  options: string[] | null;
+  options: RawOption[] | null;
 };
 
 interface Props {
@@ -19,285 +29,393 @@ interface Props {
 }
 
 const FREE_LIMIT = 8;
+const MAX_MATERIAL_ATTEMPTS = 2;
 
 export default function MaterialQuiz({
   materialId,
   questions,
   initialLastNumber,
-  userId,
+  userId: _userId, // belum dipakai di client
   isPremium,
 }: Props) {
-  const [currentNumber, setCurrentNumber] = useState(
-    initialLastNumber > 0 ? initialLastNumber + 1 : 1
+  // index = posisi di array questions (0-based)
+  const [index, setIndex] = useState(
+    initialLastNumber > 0 ? initialLastNumber : 0
   );
-  const [loading, setLoading] = useState(false);
+
+  const [selected, setSelected] = useState<string | null>(null);
+
+  // status per soal di percobaan ini: correct / wrong
+  const [bubble, setBubble] = useState<
+    Record<number, "correct" | "wrong" | null | undefined>
+  >({});
+
+  // lock dari server (premium / max_attempts)
+  const [serverLockPremium, setServerLockPremium] = useState(false);
+
+  // feedback penjelasan untuk soal yang baru saja dijawab
   const [feedback, setFeedback] = useState<{
-    isCorrect: boolean | null;
-    message: string | null;
-  }>({ isCorrect: null, message: null });
+    state: "correct" | "wrong" | null;
+    msg: string | null;
+  }>({ state: null, msg: null });
 
-  const [lockedMessage, setLockedMessage] = useState<string | null>(null);
-
-  // ⬇️ statistik sesi untuk review akhir
-  const [sessionStats, setSessionStats] = useState<{
-    totalAnswered: number;
-    correct: number;
-  }>({ totalAnswered: 0, correct: 0 });
+  // tracking percobaan per materi
+  const [attemptNumber, setAttemptNumber] = useState(1);
+  const [attemptScores, setAttemptScores] = useState<number[]>([]); // misal [score percobaan1]
 
   const totalQuestions = questions.length;
+  const q = questions[index];
 
-  const currentQuestion = questions.find(
-    (q) => q.question_number === currentNumber
-  );
+  // index soal terakhir yang sudah dijawab (untuk lock navigasi)
+  const maxAnsweredIndex = questions.reduce((max, qq, i) => {
+    if (bubble[qq.id]) return Math.max(max, i);
+    return max;
+  }, -1);
 
-  // ✅ Kalau sudah tidak ada soal lagi → tampilkan halaman review
-  if (!currentQuestion) {
-    const answered = sessionStats.totalAnswered;
-    const correct = sessionStats.correct;
-    const wrong = Math.max(0, answered - correct);
-    const score = answered > 0 ? Math.round((correct / answered) * 100) : 0;
+  // index paling jauh yang boleh dibuka (soal berikutnya setelah yg sudah dijawab)
+  const unlockedIndex = maxAnsweredIndex + 1;
 
-    let messageTitle = "Keren, kamu sudah menyelesaikan materi ini! 🎉";
-    let messageBody =
-      "Terima kasih sudah berusaha mengerjakan semua soal di materi ini.";
+  // premium lock berdasarkan nomor soal & status subscription
+  const numberLocked = !isPremium && q && q.question_number > FREE_LIMIT;
 
-    if (score >= 90) {
-      messageTitle = "Luar biasa! 🔥";
-      messageBody =
-        "Kamu menjawab hampir semua soal dengan benar. Pertahankan ya, kamu sudah sangat menguasai materi ini!";
-    } else if (score >= 80) {
-      messageTitle = "Sangat bagus! 😄";
-      messageBody =
-        "Kamu hampir menjawab benar semua soal. Sedikit lagi latihan, kamu pasti bisa 100%!";
-    } else if (score >= 60) {
-      messageTitle = "Cukup bagus 👍";
-      messageBody =
-        "Kamu sudah mengerti sebagian besar materi, tapi masih ada beberapa soal yang perlu kamu latihan lagi.";
-    } else if (answered > 0) {
-      messageTitle = "Jangan menyerah ya 💪";
-      messageBody =
-        "Kamu sudah berusaha mengerjakan soal. Coba ulangi lagi materi dan latihan pelan-pelan, kamu pasti bisa meningkat!";
+  const isLocked = numberLocked || serverLockPremium;
+
+  // normalisasi options
+  const options = useMemo(() => {
+    if (!q?.options) return [];
+    return q.options.map((op) => {
+      if (typeof op === "string") return { value: op, label: op };
+      return op as QuestionOption;
+    });
+  }, [q]);
+
+  const hasAnsweredCurrent = q ? !!bubble[q.id] : false;
+
+  // pindah ke soal berikutnya
+  function goNext() {
+    if (!q) return;
+    if (!hasAnsweredCurrent) return; // wajib sudah jawab
+
+    if (index < totalQuestions - 1) {
+      setIndex(index + 1);
+      setSelected(null);
+      setFeedback({ state: null, msg: null });
+    } else {
+      // selesai → masuk ke mode review
+      setIndex(totalQuestions);
+      setSelected(null);
+      setFeedback({ state: null, msg: null });
+    }
+  }
+
+  // SUBMIT jawaban (satu kali per soal per percobaan)
+  async function submit() {
+    if (!selected || !q) return;
+
+    // soal ini sudah tercatat → jangan dihitung ulang
+    if (bubble[q.id]) return;
+
+    const res = await fetch(`/api/materials/${materialId}/answer`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        questionId: q.id,
+        questionNumber: q.question_number,
+        selectedAnswer: selected,
+      }),
+    });
+
+    const data = await res.json();
+
+    // jika API mengunci (premium / max attempts)
+    if (data.locked) {
+      setServerLockPremium(true);
+      return;
     }
 
+    const correct = !!data.isCorrect;
+    const correctAnswer: string | undefined = data.correctAnswer ?? undefined;
+    const explanation: string | undefined = data.explanation ?? undefined;
+
+    // catat status bubble: benar / salah
+    setBubble((b) => ({
+      ...b,
+      [q.id]: correct ? "correct" : "wrong",
+    }));
+
+    // buat pesan penjelasan
+    let msg = "";
+
+    if (correct) {
+      msg = "Mantap! Jawaban kamu benar. 🎉";
+      if (explanation) {
+        msg += `\nPenjelasan: ${explanation}`;
+      }
+    } else {
+      if (correctAnswer) {
+        msg = `Belum tepat. Jawaban yang benar: ${correctAnswer}.`;
+      } else {
+        msg = "Belum tepat. Jawaban kamu salah.";
+      }
+      if (explanation) {
+        msg += `\nPenjelasan: ${explanation}`;
+      }
+    }
+
+    setFeedback({
+      state: correct ? "correct" : "wrong",
+      msg,
+    });
+  }
+
+  // ----------------- REVIEW PAGE -------------------
+  if (index >= totalQuestions && totalQuestions > 0) {
+    const values = Object.values(bubble).filter(
+      (v): v is "correct" | "wrong" => !!v
+    );
+    const correct = values.filter((v) => v === "correct").length;
+
+    // ❗TOTAL = jumlah soal di materi
+    const total = totalQuestions;
+    const wrong = Math.max(0, total - correct);
+    const score = total > 0 ? Math.round((correct / total) * 100) : 0;
+
+    const firstAttemptScore = attemptScores[0];
+
+    const bestOverall =
+      firstAttemptScore != null ? Math.max(firstAttemptScore, score) : score;
+
+    const canRetry = attemptNumber < MAX_MATERIAL_ATTEMPTS;
+
     function handleRetry() {
-      // mulai lagi dari soal pertama (percobaan kedua)
-      setCurrentNumber(1);
-      setFeedback({ isCorrect: null, message: null });
-      setLockedMessage(null);
-      setSessionStats({ totalAnswered: 0, correct: 0 });
-      // tidak perlu reset ke server, karena kita memang batasi 2x attempt per soal di backend
+      // simpan nilai percobaan ini ke array scores (maks 2 item)
+      setAttemptScores((prev) => {
+        if (prev.length === 0) return [score];
+        if (prev.length >= MAX_MATERIAL_ATTEMPTS) return prev;
+        return [...prev, score];
+      });
+
+      if (!canRetry) return;
+
+      setAttemptNumber((prev) => prev + 1);
+      setIndex(0);
+      setBubble({});
+      setSelected(null);
+      setFeedback({ state: null, msg: null });
+      setServerLockPremium(false);
     }
 
     return (
-      <div className="mt-6 rounded-2xl border border-emerald-500/40 bg-slate-900/90 p-4 text-sm text-slate-50 shadow-xl shadow-black/40">
-        <h2 className="text-lg font-bold text-emerald-300 mb-1">
-          {messageTitle}
-        </h2>
-        <p className="text-xs text-slate-200 mb-3 whitespace-pre-line">
-          {messageBody}
+      <div className="mt-6 rounded-xl border border-emerald-500/40 bg-slate-900/80 p-4 text-slate-100 text-xs">
+        <div className="mb-2 flex items-center gap-2">
+          <span className="text-lg">🎉</span>
+          <h1 className="text-base font-bold text-emerald-300">
+            Selesai! (Percobaan {attemptNumber} dari {MAX_MATERIAL_ATTEMPTS})
+          </h1>
+        </div>
+
+        <div className="mb-4 grid grid-cols-3 gap-2">
+          <div className="rounded-xl bg-slate-800/80 p-2 text-center">
+            <p className="text-[10px] text-slate-300">Benar</p>
+            <p className="text-lg font-bold text-emerald-300">{correct}</p>
+          </div>
+          <div className="rounded-xl bg-slate-800/80 p-2 text-center">
+            <p className="text-[10px] text-slate-300">Salah</p>
+            <p className="text-lg font-bold text-red-300">{wrong}</p>
+          </div>
+          <div className="rounded-xl bg-slate-800/80 p-2 text-center">
+            <p className="text-[10px] text-slate-300">Total</p>
+            <p className="text-lg font-bold text-slate-100">{total}</p>
+          </div>
+        </div>
+
+        {/* Nilai percobaan sekarang */}
+        <p className="mb-1 text-sm">
+          Nilai percobaan {attemptNumber}:{" "}
+          <span className="font-bold text-lime-300">{score}%</span>
         </p>
 
-        <div className="grid grid-cols-3 gap-2 text-[11px] mb-3">
-          <div className="rounded-xl bg-slate-800/80 p-2 text-center">
-            <div className="text-slate-400">Benar</div>
-            <div className="text-lg font-bold text-emerald-300">{correct}</div>
-          </div>
-          <div className="rounded-xl bg-slate-800/80 p-2 text-center">
-            <div className="text-slate-400">Salah</div>
-            <div className="text-lg font-bold text-red-300">{wrong}</div>
-          </div>
-          <div className="rounded-xl bg-slate-800/80 p-2 text-center">
-            <div className="text-slate-400">Total dijawab</div>
-            <div className="text-lg font-bold text-slate-100">{answered}</div>
-          </div>
-        </div>
+        {/* Rekap percobaan 1 & 2 */}
+        {firstAttemptScore != null && attemptNumber === 2 && (
+          <p className="mb-1 text-xs text-slate-300">
+            • Percobaan 1:{" "}
+            <span className="font-semibold text-emerald-300">
+              {firstAttemptScore}%
+            </span>{" "}
+            • Percobaan 2:{" "}
+            <span className="font-semibold text-cyan-300">{score}%</span>
+          </p>
+        )}
 
-        <div className="mb-3 text-[11px] text-slate-200">
-          Nilai sesi ini:{" "}
-          <span className="font-bold text-emerald-300">{score}%</span>
-        </div>
+        {/* Nilai terbaik */}
+        <p className="mb-4 text-xs text-slate-300">
+          Nilai terbaik sementara:{" "}
+          <span className="font-semibold text-emerald-300">{bestOverall}%</span>{" "}
+          (nilai ini yang nanti bisa dipakai di leaderboard).
+        </p>
 
-        <div className="mb-4 h-1.5 w-full rounded-full bg-slate-800 overflow-hidden">
-          <div
-            className="h-full rounded-full bg-Linear-to-r from-emerald-400 via-cyan-400 to-purple-400"
-            style={{ width: `${score}%` }}
-          />
-        </div>
-
-        <div className="flex flex-wrap gap-2 text-[11px]">
+        <div className="flex flex-wrap gap-2">
           <Link
             href="/dashboard/student"
-            className="rounded-xl border border-cyan-400/70 bg-cyan-500/20 px-3 py-2 font-semibold text-cyan-100 hover:bg-cyan-500/40"
+            className="inline-block rounded-xl border border-cyan-400/60 bg-cyan-500/20 px-4 py-3 text-cyan-200"
           >
-            ⬅️ Kembali ke Dashboard
+            ⬅ Kembali ke Dashboard
           </Link>
-          <button
-            type="button"
-            onClick={handleRetry}
-            className="rounded-xl border border-emerald-400/70 bg-emerald-500/20 px-3 py-2 font-semibold text-emerald-100 hover:bg-emerald-500/40"
-          >
-            🔁 Mulai percobaan kedua
-          </button>
+
+          {canRetry ? (
+            <button
+              type="button"
+              onClick={handleRetry}
+              className="inline-block rounded-xl border border-emerald-400/60 bg-emerald-500/20 px-4 py-3 text-emerald-200"
+            >
+              🔁 Mulai percobaan ke-{attemptNumber + 1}
+            </button>
+          ) : (
+            <p className="mt-3 text-[11px] text-slate-400">
+              Kamu sudah melakukan 2x percobaan. Nilai tertinggimu akan
+              digunakan untuk leaderboard.
+            </p>
+          )}
         </div>
       </div>
     );
   }
 
-  const isLockedPremium =
-    !isPremium && currentQuestion.question_number > FREE_LIMIT;
+  // PREMIUM BLOCK (kalau soal sekarang terkunci)
+  if (isLocked) {
+    return (
+      <div className="mt-6 rounded-xl border border-yellow-400/50 bg-yellow-500/15 p-4 text-xs text-yellow-100">
+        <p className="mb-2 font-bold">Soal Premium 🔒</p>
+        Kamu telah menyelesaikan soal gratis. Untuk lanjut ke soal selanjutnya:
+        <br />
+        hubungi admin/guru.
+      </div>
+    );
+  }
 
-  async function handleAnswer(selected: string) {
-    if (!currentQuestion) return;
-
-    setLoading(true);
-    setFeedback({ isCorrect: null, message: null });
-    setLockedMessage(null);
-
-    try {
-      const res = await fetch(`/api/materials/${materialId}/answer`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          questionId: currentQuestion.id,
-          questionNumber: currentQuestion.question_number,
-          selectedAnswer: selected,
-        }),
-      });
-
-      const data = await res.json();
-
-      // debug
-      console.log("API answer response:", data);
-
-      if (data.locked) {
-        setLockedMessage(
-          data.message ||
-            "Soal ini terkunci. Untuk lanjut, silakan hubungi guru / admin."
-        );
-        return;
-      }
-
-      const isCorrect: boolean = !!data.isCorrect;
-      const correctAnswer: string | undefined = data.correctAnswer;
-      const explanation: string | undefined = data.explanation ?? undefined;
-
-      // ⬇️ update statistik sesi hanya kalau jawaban benar-benar diproses
-      setSessionStats((prev) => ({
-        totalAnswered: prev.totalAnswered + 1,
-        correct: prev.correct + (isCorrect ? 1 : 0),
-      }));
-
-      let message: string;
-
-      if (isCorrect) {
-        message = "Mantap! Jawaban kamu benar 😄";
-      } else {
-        if (correctAnswer) {
-          message = `Belum tepat. Jawaban yang benar: ${correctAnswer}`;
-        } else {
-          message = "Belum tepat. Coba lagi ya, kamu pasti bisa!";
-        }
-
-        if (explanation) {
-          message += `\nPenjelasan: ${explanation}`;
-        }
-      }
-
-      setFeedback({
-        isCorrect,
-        message,
-      });
-
-      // pindah ke soal berikutnya setelah delay
-      setTimeout(() => {
-        setCurrentNumber((prev) => prev + 1);
-        setFeedback({ isCorrect: null, message: null });
-      }, 900);
-    } catch (e) {
-      console.error(e);
-      setFeedback({
-        isCorrect: null,
-        message: "Ups, terjadi error saat mengirim jawaban.",
-      });
-    } finally {
-      setLoading(false);
-    }
+  // tidak ada soal sama sekali
+  if (!q || totalQuestions === 0) {
+    return (
+      <div className="mt-6 rounded-xl border border-slate-700 bg-slate-900/80 p-4 text-xs text-slate-200">
+        Belum ada soal untuk materi ini.
+      </div>
+    );
   }
 
   return (
     <div className="mt-6">
-      <div className="mb-3 flex items-center justify-between text-xs text-slate-300">
-        <div>
-          Soal{" "}
-          <span className="font-semibold text-cyan-300">
-            {currentQuestion.question_number}
-          </span>{" "}
-          dari{" "}
-          <span className="font-semibold text-cyan-300">
-            {questions.length}
-          </span>
-        </div>
-        <div className="rounded-full bg-slate-900 px-2 py-1 text-[10px] border border-slate-700">
-          {currentQuestion.question_number <= FREE_LIMIT ? (
-            <span className="text-emerald-300">Gratis 🎁</span>
-          ) : isPremium ? (
-            <span className="text-amber-300">Premium (terbuka) ⭐</span>
-          ) : (
-            <span className="text-yellow-300">Premium 🔒</span>
-          )}
-        </div>
+      {/* Navigation Bubbles */}
+      <div className="mb-4 flex flex-wrap justify-center gap-1">
+        {questions.map((qq, i) => {
+          const status = bubble[qq.id];
+          const active = i === index;
+          const unlocked = i <= unlockedIndex;
+
+          let base =
+            "w-7 h-7 rounded-full text-[10px] font-bold border transition";
+
+          if (active) {
+            base +=
+              " bg-pink-500 border-pink-300 text-white shadow-[0_0_12px_rgba(236,72,153,0.75)]";
+          } else if (status === "correct") {
+            base += " bg-emerald-600 border-emerald-400 text-white";
+          } else if (status === "wrong") {
+            base += " bg-red-600 border-red-300 text-white";
+          } else if (unlocked) {
+            base += " bg-slate-800 border-slate-600 text-slate-300";
+          } else {
+            base += " bg-slate-900 border-slate-800 text-slate-600";
+          }
+
+          return (
+            <button
+              key={qq.id}
+              disabled={!unlocked}
+              onClick={() => {
+                if (!unlocked) return;
+                setIndex(i);
+                setSelected(null);
+                setFeedback({ state: null, msg: null });
+              }}
+              className={base}
+            >
+              {qq.question_number}
+            </button>
+          );
+        })}
       </div>
 
-      <div className="relative overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/90 p-4 shadow-xl shadow-black/40">
-        {/* dekorasi */}
-        <div className="pointer-events-none absolute -top-6 -right-6 h-20 w-20 rounded-full bg-Linear-to-tr from-cyan-500/30 via-purple-500/30 to-pink-500/30 blur-xl" />
+      {/* CARD SOAL */}
+      <div className="rounded-3xl border border-slate-800 bg-slate-900/90 px-5 py-6 shadow-xl shadow-black/40">
+        <h1 className="mb-2 text-base font-bold text-white">
+          Soal {q.question_number} • Percobaan {attemptNumber}/
+          {MAX_MATERIAL_ATTEMPTS}
+        </h1>
 
-        <p className="relative z-10 mb-4 text-sm text-slate-50">
-          {currentQuestion.text}
-        </p>
+        <p className="mb-4 text-lg text-white">{q.text}</p>
 
-        {isLockedPremium ? (
-          <div className="relative z-10 rounded-xl border border-yellow-400/50 bg-yellow-500/15 p-3 text-xs text-yellow-100">
-            <p className="mb-1 font-semibold">Soal premium 🔒</p>
-            <p className="text-[11px] text-yellow-100">
-              Kamu sudah menyelesaikan semua soal gratis. Untuk membuka soal
-              berikutnya, silakan hubungi guru / admin untuk upgrade paket ya.
-              🙂
-            </p>
-          </div>
-        ) : (
-          <div className="relative z-10 space-y-2">
-            {(currentQuestion.options || []).map((opt, i) => (
+        {/* Options */}
+        <div className="space-y-3">
+          {options.map((op) => {
+            const disabled = hasAnsweredCurrent;
+            return (
               <button
-                key={i}
-                disabled={loading}
-                onClick={() => handleAnswer(opt)}
-                className="w-full rounded-xl border border-slate-700 bg-slate-800 px-3 py-2 text-left text-sm text-slate-50 transition hover:-translate-y-px hover:border-cyan-400 hover:bg-slate-750 hover:shadow-md hover:shadow-cyan-500/30 disabled:opacity-60"
+                key={op.value}
+                disabled={disabled}
+                onClick={() => !disabled && setSelected(op.value)}
+                className={`block w-full rounded-2xl border px-4 py-3 text-left 
+                  ${
+                    disabled
+                      ? "bg-slate-800 text-slate-500 border-slate-700 cursor-not-allowed"
+                      : selected === op.value
+                      ? "bg-lime-400 text-slate-900 border-lime-300"
+                      : "bg-slate-800 text-slate-100 border-slate-700 hover:border-cyan-400 hover:text-cyan-100"
+                  }`}
               >
-                {opt}
+                {op.label}
               </button>
-            ))}
-          </div>
-        )}
+            );
+          })}
+        </div>
 
-        {feedback.message && (
-          <div
-            className={`relative z-10 mt-4 rounded-xl px-3 py-2 text-xs ${
-              feedback.isCorrect === null
-                ? "bg-yellow-500/15 text-yellow-100 border border-yellow-500/40"
-                : feedback.isCorrect
-                ? "bg-emerald-500/15 text-emerald-100 border border-emerald-500/40"
-                : "bg-red-500/15 text-red-100 border border-red-500/40"
+        {/* Tombol Submit + Next */}
+        <div className="mt-5 flex items-center gap-2">
+          <button
+            onClick={submit}
+            disabled={!selected || hasAnsweredCurrent}
+            className={`rounded-xl px-6 py-2 text-xs shadow-[0_0_12px_rgba(236,72,153,0.8)]
+              ${
+                !selected || hasAnsweredCurrent
+                  ? "bg-pink-500/40 text-white/60 cursor-not-allowed"
+                  : "bg-pink-500 text-white"
+              }`}
+          >
+            Submit
+          </button>
+
+          <button
+            onClick={goNext}
+            disabled={!hasAnsweredCurrent}
+            className={`ml-auto rounded-xl px-6 py-2 text-xs
+              ${
+                hasAnsweredCurrent
+                  ? "bg-sky-500 text-white shadow-[0_0_12px_rgba(56,189,248,0.7)]"
+                  : "bg-slate-800 text-slate-400 border border-slate-700 cursor-not-allowed"
+              }`}
+          >
+            Next ▶
+          </button>
+        </div>
+
+        {/* Feedback penjelasan */}
+        {feedback.msg && (
+          <p
+            className={`mt-4 whitespace-pre-line text-xs ${
+              feedback.state === "correct" ? "text-emerald-300" : "text-red-300"
             }`}
           >
-            {feedback.message}
-          </div>
-        )}
-
-        {lockedMessage && (
-          <div className="relative z-10 mt-3 rounded-xl border border-cyan-400/40 bg-cyan-500/10 px-3 py-2 text-xs text-cyan-100">
-            {lockedMessage}
-          </div>
+            {feedback.msg}
+          </p>
         )}
       </div>
     </div>

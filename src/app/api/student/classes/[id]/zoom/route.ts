@@ -57,7 +57,7 @@ export async function GET(
     // ambil jadwal zoom
     const { data: zoomSessions, error } = await supabase
       .from("class_zoom_sessions")
-      .select("id, title, start_time, end_time, zoom_link")
+      .select("id, title, start_time, end_time")
       .eq("class_id", classId)
       .order("start_time", { ascending: true });
 

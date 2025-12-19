@@ -12,6 +12,28 @@ export async function GET() {
   try {
     const supabase = await createSupabaseServerClient();
 
+    // cek login & role admin
+    const { data: userData } = await supabase.auth.getUser();
+    const user = userData?.user ?? null;
+    if (!user)
+      return NextResponse.json(
+        { ok: false, error: "Unauthenticated" },
+        { status: 401 }
+      );
+
+    const { data: profile, error: profileErr } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .single();
+
+    if (profileErr || !profile || profile.role !== "admin") {
+      return NextResponse.json(
+        { ok: false, error: "Forbidden" },
+        { status: 403 }
+      );
+    }
+
     // jika kamu ingin hanya menampilkan kelas publik atau semua kelas,
     // ubah query sesuai kebutuhan (mis. where is_active = true)
     const { data, error } = await supabase

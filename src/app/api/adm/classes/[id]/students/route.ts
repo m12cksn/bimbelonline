@@ -9,19 +9,6 @@ function hasCodeProp(v: unknown): v is { code?: unknown } {
   return typeof v === "object" && v !== null && "code" in v;
 }
 
-/** safe helper: baca string dari raw row */
-function getStringFromRaw(
-  row: RawRow | null | undefined,
-  key: string,
-  fallback = ""
-): string {
-  if (!row || typeof row !== "object") return fallback;
-  const v = row[key];
-  if (typeof v === "string") return v;
-  if (typeof v === "number") return String(v);
-  return fallback;
-}
-
 export async function POST(
   req: Request,
   { params }: { params: { id: string } | Promise<{ id: string }> }
@@ -90,13 +77,14 @@ export async function POST(
       );
     }
 
-    // jika subscription_id diberikan, ambil data subscription (untuk derive start/end)
+    // jika subscription_id diberikan, ambil data subscription (untuk derive start/end + quota)
     let start_date: string | null = null;
     let end_date: string | null = null;
+    let allowedSessions: number | null = null;
     if (subscription_id) {
       const { data: subData, error: subErr } = await supabase
         .from("subscriptions")
-        .select("id, user_id, start_at, end_at, status")
+        .select("id, user_id, start_at, end_at, status, plan_id")
         .eq("id", subscription_id)
         .single();
 
@@ -127,6 +115,26 @@ export async function POST(
         typeof (subData as RawRow)["end_at"] === "string"
           ? String((subData as RawRow)["end_at"])
           : null;
+      const planId = (subData as RawRow)["plan_id"];
+      if (typeof planId === "string" || typeof planId === "number") {
+        const { data: planData, error: planErr } = await supabase
+          .from("subscription_plans")
+          .select("zoom_sessions_per_month")
+          .eq("id", planId)
+          .single();
+
+        if (planErr || !planData) {
+          return NextResponse.json(
+            { ok: false, error: "Plan not found" },
+            { status: 400 }
+          );
+        }
+
+        const rawAllowed = (planData as RawRow)["zoom_sessions_per_month"];
+        if (typeof rawAllowed === "number") {
+          allowedSessions = rawAllowed;
+        }
+      }
     }
 
     // masukkan row ke class_students
@@ -160,6 +168,44 @@ export async function POST(
         { ok: false, error: "Failed to add student" },
         { status: 500 }
       );
+    }
+
+    if (subscription_id && allowedSessions !== null) {
+      const { data: existingQuota } = await supabase
+        .from("class_student_zoom_quota")
+        .select("used_sessions")
+        .eq("class_id", classId)
+        .eq("student_id", student_id)
+        .eq("subscription_id", subscription_id)
+        .single();
+
+      const used_sessions =
+        existingQuota && typeof existingQuota.used_sessions === "number"
+          ? existingQuota.used_sessions
+          : 0;
+
+      const { error: quotaErr } = await supabase
+        .from("class_student_zoom_quota")
+        .upsert(
+          {
+            class_id: classId,
+            student_id,
+            subscription_id,
+            period_start: start_date,
+            period_end: end_date,
+            allowed_sessions: allowedSessions,
+            used_sessions,
+          },
+          { onConflict: "class_id,student_id,subscription_id" }
+        );
+
+      if (quotaErr) {
+        console.error("quota upsert error", quotaErr);
+        return NextResponse.json(
+          { ok: false, error: "Failed to generate quota" },
+          { status: 500 }
+        );
+      }
     }
 
     return NextResponse.json({ ok: true, student: insertData });

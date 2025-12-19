@@ -1,10 +1,10 @@
+// app/api/materials/[id]/answer/route.ts
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { createServerClient } from "@supabase/ssr";
-import { getUserSubscriptionStatus } from "@/lib/subcription"; // ✅ PAKAI SYSTEM BARU
 
 interface MaterialParams {
-  params: Promise<{ materialId: string }>;
+  params: Promise<{ materialId: string }>; // pastikan folder-nya [materialId]
 }
 
 const FREE_LIMIT = 8;
@@ -48,7 +48,7 @@ export async function POST(req: Request, props: MaterialParams) {
     }
   );
 
-  // 1. cek user
+  // 1. cek user login
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -57,10 +57,20 @@ export async function POST(req: Request, props: MaterialParams) {
     return NextResponse.json({ error: "Unauthenticated" }, { status: 401 });
   }
 
-  // ✅ 1b. AMBIL STATUS PREMIUM DARI SUBSCRIPTIONS (BUKAN LAGI DARI PROFILES)
-  const { isPremium } = await getUserSubscriptionStatus();
+  // 2. AMBIL STATUS PREMIUM LANGSUNG DARI PROFILES (sinkron dengan subscriptions)
+  const { data: profile, error: profileError } = await supabase
+    .from("profiles")
+    .select("is_premium")
+    .eq("id", user.id)
+    .single();
 
-  // 2. validasi questionId
+  if (profileError) {
+    console.error("Profile error:", profileError);
+  }
+
+  const isPremium = !!profile?.is_premium;
+
+  // 3. validasi questionId
   const qId = Number(questionId);
   if (!qId || Number.isNaN(qId)) {
     return NextResponse.json(
@@ -69,7 +79,7 @@ export async function POST(req: Request, props: MaterialParams) {
     );
   }
 
-  // 3. ambil data soal
+  // 4. ambil data soal
   const { data: question, error: questionError } = await supabase
     .from("questions")
     .select("id, material_id, question_number, correct_answer, explanation")
@@ -91,20 +101,20 @@ export async function POST(req: Request, props: MaterialParams) {
     );
   }
 
-  // ✅ 4. BATAS SOAL GRATIS → SEKARANG SINKRON DENGAN SUBSCRIPTIONS
+  // 5. BATAS SOAL GRATIS — hanya kalau BUKAN premium
   if (!isPremium && question.question_number > FREE_LIMIT) {
     return NextResponse.json(
       {
         locked: true,
         reason: "premium",
         message:
-          "Soal ini termasuk soal premium. Untuk melanjutkan, silakan upgrade paket / hubungi guru ya.",
+          "Soal ini termasuk soal gratis yang sudah habis. Untuk lanjut ke soal premium, silakan upgrade paket / hubungi guru ya.",
       },
       { status: 403 }
     );
   }
 
-  // 5. cek jumlah attempt existing
+  // 6. cek jumlah attempt existing (berlaku untuk semua user)
   const { data: existingAttempts, error: attemptsError } = await supabase
     .from("question_attempts")
     .select("id")
@@ -131,17 +141,17 @@ export async function POST(req: Request, props: MaterialParams) {
     );
   }
 
-  // 6. cek jawaban
+  // 7. cek jawaban
   const isCorrect = selectedAnswer === question.correct_answer;
 
-  // 7. simpan attempt
+  // 8. simpan attempt
   const { error: attemptError } = await supabase
     .from("question_attempts")
     .insert({
       user_id: user.id,
       material_id: materialId,
       question_id: question.id,
-      selected_answer: selectedAnswer, // <-- tambahan
+      selected_answer: selectedAnswer,
       is_correct: isCorrect,
     });
 
@@ -149,7 +159,7 @@ export async function POST(req: Request, props: MaterialParams) {
     console.error("Attempt save error:", attemptError);
   }
 
-  // 8. simpan progress
+  // 9. simpan progress last_question_number
   const { data: progressRows, error: progressSelectError } = await supabase
     .from("student_material_progress")
     .select("id, last_question_number")
@@ -196,7 +206,7 @@ export async function POST(req: Request, props: MaterialParams) {
     console.error("Progress save error:", progressError);
   }
 
-  // 9. respon
+  // 10. respon
   return NextResponse.json({
     locked: false,
     isCorrect,

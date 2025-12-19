@@ -253,6 +253,15 @@ export default function AdminClassesPage() {
                   Zoom
                 </button>
 
+                <button
+                  className="px-3 py-1 bg-amber-600 text-white rounded"
+                  onClick={() =>
+                    router.push(`/dashboard/admin/classes/${cls.id}/quota`)
+                  }
+                >
+                  Rekap Kuota
+                </button>
+
                 {/* (opsional, tetap ada) */}
                 <button
                   className="px-3 py-1 bg-blue-600 text-white rounded"

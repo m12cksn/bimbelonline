@@ -9,9 +9,29 @@ type ZoomSession = {
   title: string | null;
   start_time: string;
   end_time: string;
-  zoom_link: string;
   already_present?: boolean;
 };
+
+async function handleJoin(zoomId: number) {
+  try {
+    const res = await fetch(`/api/student/zoom/${zoomId}/join`, {
+      method: "GET",
+      credentials: "same-origin",
+    });
+
+    const json = await res.json();
+
+    if (!res.ok || !json.ok) {
+      alert(json.error ?? "Gagal join zoom");
+      return;
+    }
+
+    window.open(json.zoom_link, "_blank", "noopener,noreferrer");
+  } catch (e) {
+    console.error("join error", e);
+    alert("Terjadi kesalahan");
+  }
+}
 
 type ZoomQuota = {
   allowed: number;
@@ -165,15 +185,19 @@ export default function StudentZoomPage({
             </button>
           )}
 
-          <Link
-            href={z.zoom_link}
-            prefetch={false}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block mt-2 px-4 py-2 bg-blue-600 text-white rounded"
+          <button
+            onClick={() => handleJoin(z.id)}
+            disabled={!quota || quota.remaining <= 0}
+            className={`inline-block mt-2 px-4 py-2 rounded text-white ${
+              !quota || quota.remaining <= 0
+                ? "bg-gray-500 cursor-not-allowed"
+                : "bg-blue-600"
+            }`}
           >
-            Join Zoom
-          </Link>
+            {!quota || quota.remaining <= 0
+              ? "Zoom Terkunci (Kuota Habis)"
+              : "Join Zoom"}
+          </button>
         </div>
       ))}
     </div>

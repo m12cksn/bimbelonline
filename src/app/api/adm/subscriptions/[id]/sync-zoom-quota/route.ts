@@ -1,10 +1,6 @@
 import { NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabaseServer";
 
-type Body = {
-  subscription_id?: string;
-};
-
 type SubscriptionRow = {
   id: string;
   user_id: string | null;
@@ -25,17 +21,15 @@ type ClassStudentRow = {
   student_id: string;
 };
 
-export async function POST(req: Request) {
+export async function POST(
+  _req: Request,
+  { params }: { params: { id: string } | Promise<{ id: string }> }
+) {
   try {
-    const body = (await req.json().catch(() => ({}))) as Body;
-    const subscriptionId = body.subscription_id;
+    const resolved =
+      typeof params === "object" && "then" in params ? await params : params;
 
-    if (!subscriptionId) {
-      return NextResponse.json(
-        { ok: false, error: "subscription_id wajib diisi" },
-        { status: 400 }
-      );
-    }
+    const subscriptionId = resolved.id;
 
     const supabase = await createSupabaseServerClient();
 
@@ -81,13 +75,6 @@ export async function POST(req: Request) {
 
     const sub = subData as SubscriptionRow;
 
-    if (sub.status !== "active") {
-      return NextResponse.json(
-        { ok: false, error: "Subscription belum active / sudah berakhir" },
-        { status: 400 }
-      );
-    }
-
     if (!sub.user_id || !sub.plan_id) {
       return NextResponse.json(
         { ok: false, error: "User atau plan belum di-set di subscription" },
@@ -95,7 +82,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // 2) ambil data plan → zoom_per_month
+    // 2) ambil plan
     const { data: planData, error: planErr } = await supabase
       .from("plans")
       .select("id, name, zoom_per_month")
@@ -104,13 +91,12 @@ export async function POST(req: Request) {
 
     if (planErr || !planData) {
       console.error("plan fetch error:", planErr);
-      // fallback default 8 sesi/bulan
     }
 
     const plan = (planData ?? null) as PlanRow | null;
     const zoomPerMonth = plan?.zoom_per_month ?? 8;
 
-    // 3) cari semua kelas yang diikuti student ini
+    // 3) kelas student ini
     const { data: csData, error: csErr } = await supabase
       .from("class_students")
       .select("class_id, student_id")
@@ -134,38 +120,39 @@ export async function POST(req: Request) {
       });
     }
 
-    // 4) buat / update quota per kelas
+    // 4) update allowed_sessions berdasarkan plan
     const rows = rels.map((r) => ({
       class_id: r.class_id,
       student_id: r.student_id,
       allowed_sessions: zoomPerMonth,
-      used_sessions: 0,
+      // used_sessions sengaja tidak di-set supaya tidak di-reset
     }));
 
     const { data: upserted, error: upErr } = await supabase
       .from("class_student_zoom_quota")
       .upsert(rows, {
         onConflict: "class_id,student_id",
+        ignoreDuplicates: false,
       })
       .select("class_id, student_id");
 
     if (upErr) {
       console.error("quota upsert error:", upErr);
       return NextResponse.json(
-        { ok: false, error: "Gagal membuat quota Zoom" },
+        { ok: false, error: "Gagal sync quota Zoom" },
         { status: 500 }
       );
     }
 
-    const created = Array.isArray(upserted) ? upserted.length : 0;
+    const count = Array.isArray(upserted) ? upserted.length : 0;
 
     return NextResponse.json({
       ok: true,
-      created,
-      message: `Quota Zoom dibuat/diperbarui untuk ${created} kelas.`,
+      created: count,
+      message: `Quota Zoom disinkronkan untuk ${count} kelas.`,
     });
   } catch (err) {
-    console.error("generate_quota fatal:", err);
+    console.error("sync-zoom-quota fatal:", err);
     return NextResponse.json(
       { ok: false, error: "Internal server error" },
       { status: 500 }

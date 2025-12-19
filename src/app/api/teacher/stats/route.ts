@@ -14,6 +14,23 @@ export async function GET() {
         { status: 401 }
       );
 
+    const { data: profile, error: profileError } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .single();
+
+    if (
+      profileError ||
+      !profile ||
+      (profile.role !== "teacher" && profile.role !== "admin")
+    ) {
+      return NextResponse.json(
+        { ok: false, error: "Forbidden" },
+        { status: 403 }
+      );
+    }
+
     // ambil kelas teacher
     const { data: classRows } = await supabase
       .from("class_teachers")
