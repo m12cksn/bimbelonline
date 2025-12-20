@@ -16,6 +16,8 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
+  // ... state dll sama persis
+
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setErrorMsg(null);
@@ -35,9 +37,10 @@ export default function LoginPage() {
           return;
         }
 
-        router.push("/dashboard");
+        router.push("/dashboard/student");
+        router.refresh();
       } else {
-        const { error } = await supabase.auth.signUp({
+        const { data, error } = await supabase.auth.signUp({
           email: cleanedEmail,
           password,
           options: {
@@ -52,7 +55,14 @@ export default function LoginPage() {
           return;
         }
 
-        router.push("/dashboard");
+        if (data.session) {
+          router.push("/dashboard/student");
+          router.refresh();
+        } else {
+          setErrorMsg(
+            "Pendaftaran berhasil. Silakan cek email untuk konfirmasi, lalu login kembali."
+          );
+        }
       }
     } catch (err) {
       console.error(err);

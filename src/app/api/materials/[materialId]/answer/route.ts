@@ -1,29 +1,40 @@
-// app/api/materials/[id]/answer/route.ts
+// app/api/materials/[materialId]/answer/route.ts
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { createServerClient } from "@supabase/ssr";
 
 interface MaterialParams {
-  params: Promise<{ materialId: string }>; // pastikan folder-nya [materialId]
+  params: Promise<{ materialId: string }>;
 }
 
+// FREE_LIMIT masih belum dipakai (premium lock dimatikan sementara)
 const FREE_LIMIT = 8;
-const MAX_ATTEMPTS_PER_QUESTION = 2;
 
 export async function POST(req: Request, props: MaterialParams) {
   const { materialId: materialIdStr } = await props.params;
-
   const materialId = parseInt(materialIdStr, 10);
+
   if (Number.isNaN(materialId)) {
-    console.error("Invalid materialId from params:", materialIdStr);
     return NextResponse.json(
       { error: "Invalid material id", raw: materialIdStr },
       { status: 400 }
     );
   }
 
-  const body = await req.json();
+  const body = (await req.json()) as {
+    questionId: number | string;
+    questionNumber?: number;
+    selectedAnswer: string;
+    attemptNumber?: number;
+  };
+
   const { questionId, selectedAnswer } = body;
+
+  // --- Ambil attemptNumber dari body (1 atau 2). Default = 1 ---
+  let attemptNumber = Number(body.attemptNumber);
+  if (!attemptNumber || ![1, 2].includes(attemptNumber)) {
+    attemptNumber = 1;
+  }
 
   const cookieStore = await cookies();
 
@@ -41,7 +52,7 @@ export async function POST(req: Request, props: MaterialParams) {
               cookieStore.set(name, value, options);
             });
           } catch {
-            // ignore
+            // di RSC kadang gagal set cookie, aman diabaikan
           }
         },
       },
@@ -57,18 +68,9 @@ export async function POST(req: Request, props: MaterialParams) {
     return NextResponse.json({ error: "Unauthenticated" }, { status: 401 });
   }
 
-  // 2. AMBIL STATUS PREMIUM LANGSUNG DARI PROFILES (sinkron dengan subscriptions)
-  const { data: profile, error: profileError } = await supabase
-    .from("profiles")
-    .select("is_premium")
-    .eq("id", user.id)
-    .single();
-
-  if (profileError) {
-    console.error("Profile error:", profileError);
-  }
-
-  const isPremium = !!profile?.is_premium;
+  // 2. sementara semua dianggap premium (lock soal dimatikan)
+  const isPremium = true;
+  console.log("isPremium (temporary override) =>", isPremium);
 
   // 3. validasi questionId
   const qId = Number(questionId);
@@ -92,59 +94,18 @@ export async function POST(req: Request, props: MaterialParams) {
       materialId,
     });
     return NextResponse.json(
-      {
-        error: "Question not found",
-        questionId: qId,
-        materialId,
-      },
+      { error: "Question not found", questionId: qId, materialId },
       { status: 404 }
     );
   }
 
-  // 5. BATAS SOAL GRATIS — hanya kalau BUKAN premium
-  if (!isPremium && question.question_number > FREE_LIMIT) {
-    return NextResponse.json(
-      {
-        locked: true,
-        reason: "premium",
-        message:
-          "Soal ini termasuk soal gratis yang sudah habis. Untuk lanjut ke soal premium, silakan upgrade paket / hubungi guru ya.",
-      },
-      { status: 403 }
-    );
-  }
+  // (Limit soal gratis & limit attempt per soal masih non-aktif)
+  // if (!isPremium && question.question_number > FREE_LIMIT) { ... }
 
-  // 6. cek jumlah attempt existing (berlaku untuk semua user)
-  const { data: existingAttempts, error: attemptsError } = await supabase
-    .from("question_attempts")
-    .select("id")
-    .eq("user_id", user.id)
-    .eq("material_id", materialId)
-    .eq("question_id", question.id);
-
-  if (attemptsError) {
-    console.error("Attempts query error:", attemptsError);
-  }
-
-  if (
-    existingAttempts &&
-    existingAttempts.length >= MAX_ATTEMPTS_PER_QUESTION
-  ) {
-    return NextResponse.json(
-      {
-        locked: true,
-        reason: "max_attempts",
-        message:
-          "Kamu sudah menggunakan 2x kesempatan untuk soal ini. Lanjut ke soal berikutnya ya.",
-      },
-      { status: 403 }
-    );
-  }
-
-  // 7. cek jawaban
+  // 5. cek jawaban
   const isCorrect = selectedAnswer === question.correct_answer;
 
-  // 8. simpan attempt
+  // 6. simpan attempt per soal (PASTI ada attempt_number)
   const { error: attemptError } = await supabase
     .from("question_attempts")
     .insert({
@@ -153,13 +114,14 @@ export async function POST(req: Request, props: MaterialParams) {
       question_id: question.id,
       selected_answer: selectedAnswer,
       is_correct: isCorrect,
+      attempt_number: attemptNumber,
     });
 
   if (attemptError) {
     console.error("Attempt save error:", attemptError);
   }
 
-  // 9. simpan progress last_question_number
+  // 7. simpan progress last_question_number
   const { data: progressRows, error: progressSelectError } = await supabase
     .from("student_material_progress")
     .select("id, last_question_number")
@@ -188,7 +150,6 @@ export async function POST(req: Request, props: MaterialParams) {
       is_completed: false,
       updated_at: new Date().toISOString(),
     });
-
     progressError = error;
   } else {
     const { error } = await supabase
@@ -198,7 +159,6 @@ export async function POST(req: Request, props: MaterialParams) {
         updated_at: new Date().toISOString(),
       })
       .eq("id", existingProgress.id);
-
     progressError = error;
   }
 
@@ -206,7 +166,7 @@ export async function POST(req: Request, props: MaterialParams) {
     console.error("Progress save error:", progressError);
   }
 
-  // 10. respon
+  // 8. response ke frontend
   return NextResponse.json({
     locked: false,
     isCorrect,

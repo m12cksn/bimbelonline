@@ -24,3 +24,13 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.scroll-fade {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.scroll-fade.show {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}

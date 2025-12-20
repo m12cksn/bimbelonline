@@ -163,8 +163,10 @@ export default function DashboardSidebar({
           </div>
           <button
             type="button"
-            className="md:hidden inline-flex h-9 w-9 items-center justify-center rounded-xl border border-slate-700 bg-slate-900 text-slate-200 transition hover:border-cyan-400/50 hover:text-cyan-100"
-            onClick={onClose}
+            className="lg:hidden inline-flex h-9 w-9 items-center justify-center rounded-xl border border-slate-700 bg-slate-900 text-slate-200 transition hover:border-cyan-400/50 hover:text-cyan-100"
+            onClick={() => {
+              if (window.innerWidth < 1024) onClose?.();
+            }}
             aria-label="Tutup sidebar"
           >
             ✕
@@ -178,7 +180,9 @@ export default function DashboardSidebar({
               key={item.href}
               {...item}
               active={isActive(item.href)}
-              onClick={onClose}
+              onClick={() => {
+                if (window.innerWidth < 1024) onClose?.();
+              }}
             />
           ))}
         </nav>

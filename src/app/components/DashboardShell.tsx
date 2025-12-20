@@ -66,17 +66,15 @@ export default function DashboardShell({
                 {/* Toggle sidebar */}
                 <button
                   type="button"
-                  onClick={() => setSidebarOpen((prev) => !prev)}
+                  onClick={() => {
+                    if (window.innerWidth < 1024) setSidebarOpen(true);
+                  }}
                   className="inline-flex h-11 items-center justify-center rounded-2xl border border-slate-700 bg-slate-900/80 px-4 text-sm font-semibold text-slate-50 shadow-lg shadow-black/40 transition hover:border-cyan-400/60 hover:text-cyan-100 lg:h-12 lg:px-5 lg:text-base"
-                  aria-label="Toggle sidebar"
                 >
-                  <span className="text-lg">{sidebarOpen ? "✕" : "☰"}</span>
-                  <span className="ml-2 hidden lg:inline">
-                    {sidebarOpen ? "Sembunyikan" : "Menu"}
-                  </span>
+                  <span className="text-lg">☰</span>
                 </button>
 
-                <div className="rounded-2xl border border-white/10 bg-gradient-to-r from-sky-500/20 via-purple-500/20 to-pink-500/20 px-4 py-2 shadow-inner">
+                <div className="rounded-2xl border border-white/10 bg-linear-to-r from-sky-500/20 via-purple-500/20 to-pink-500/20 px-4 py-2 shadow-inner">
                   <p className="text-xs uppercase tracking-[0.25em] text-cyan-200/80">
                     Dashboard
                   </p>

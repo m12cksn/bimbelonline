@@ -3,6 +3,7 @@
 
 import React, { useState } from "react";
 import MaterialQuiz from "./quiz_client";
+import MaterialLeaderboard from "./leaderboard_client";
 
 type Question = {
   id: number;
@@ -151,13 +152,19 @@ export default function MaterialWithResources({
 
       {/* Quiz hanya muncul setelah tombol diklik */}
       {showQuiz && (
-        <MaterialQuiz
-          materialId={material.id}
-          questions={questions}
-          initialLastNumber={initialLastNumber}
-          userId={userId}
-          isPremium={isPremium}
-        />
+        <div className="mt-4 grid gap-4 lg:grid-cols-[2fr_1fr]">
+          <MaterialQuiz
+            materialId={material.id}
+            questions={questions}
+            initialLastNumber={initialLastNumber}
+            userId={userId}
+            isPremium={isPremium}
+          />
+          <MaterialLeaderboard
+            materialId={material.id}
+            currentUserId={userId}
+          />
+        </div>
       )}
     </div>
   );
