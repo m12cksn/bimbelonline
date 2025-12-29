@@ -18,11 +18,11 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://besmartkids.id"),
   applicationName: "BeSmartKids",
   title: {
-    default: "BeSmartKids - Bimbel Matematika Interaktif",
+    default: "BeSmartKids - Bimbel Matematika dan Coding Interaktif",
     template: "%s | BeSmartKids",
   },
   description:
-    "BeSmartKids adalah bimbel matematika interaktif dengan latihan adaptif, evaluasi hasil, dan kelas Zoom untuk siswa SD.",
+    "BeSmartKids adalah bimbel matematika dan Coding interaktif dengan latihan adaptif, evaluasi hasil, dan kelas Zoom untuk siswa SD.",
   keywords: [
     "bimbel matematika",
     "les matematika",
@@ -45,15 +45,15 @@ export const metadata: Metadata = {
     type: "website",
     locale: "id_ID",
     siteName: "BeSmartKids",
-    title: "BeSmartKids - Bimbel Matematika Interaktif",
+    title: "BeSmartKids - Bimbel Matematika dan Coding Interaktif",
     description:
-      "Latihan matematika interaktif, rangkuman hasil, dan kelas Zoom untuk siswa SD.",
+      "Latihan matematika, dan coding interaktif rangkuman hasil, dan kelas Zoom untuk siswa SD dan SMP.",
   },
   twitter: {
     card: "summary",
-    title: "BeSmartKids - Bimbel Matematika Interaktif",
+    title: "BeSmartKids - Bimbel Matematika dan Coding Interaktif",
     description:
-      "Latihan matematika interaktif, rangkuman hasil, dan kelas Zoom untuk siswa SD.",
+      "Latihan matematika, dan coding interaktif rangkuman hasil, dan kelas Zoom untuk siswa SD dan SMP",
   },
   icons: {
     icon: "/favicon.png",
