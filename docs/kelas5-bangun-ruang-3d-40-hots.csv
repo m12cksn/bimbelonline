@@ -1,0 +1,41 @@
+material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
+13,1,essay,practice,Sebutkan 3 bangun ruang yang kamu lihat di kelas beserta contohnya.,,,,"contoh: kubus, balok, tabung",,,,,,,,,,,,,
+13,2,mcq,practice,Consider a cube. Jumlah sisi persegi pada kubus tertutup adalah...,,,,B,,,5,6,7,8,,,,,,,
+13,3,drag_drop,practice,Pasangkan bangun ruang dengan cirinya.,,,,,,,,,,,,,,,kubus;balok;tabung;limas segiempat;prisma segitiga,"6 sisi persegi,6 sisi persegi panjang,2 lingkaran + 1 sisi lengkung,alas persegi + 4 sisi segitiga,2 segitiga + 3 persegi panjang",
+13,4,essay,practice,Bangun dengan 2 sisi lingkaran dan 1 sisi lengkung adalah...,,,,tabung,,,,,,,,,,,,,
+13,5,essay,practice,Bangun dengan 6 sisi persegi panjang dan tidak semua sama panjang adalah...,,,,balok,,,,,,,,,,,,,
+13,6,multipart,practice,Sifat kubus.,,,,,,,,,,,,,,,,,a|Jumlah sisi|6;b|Jumlah rusuk|12;c|Jumlah titik sudut|8
+13,7,mcq,practice,Kubus terbuka memiliki ... sisi persegi.,,,,A,,,5,6,4,7,,,,,,,
+13,8,essay,practice,Sebuah jaring-jaring dengan 6 persegi terhubung tetapi membentuk garis lurus. Apakah dapat membentuk kubus?,,,,tidak,,,,,,,,,,,,,
+13,9,drag_drop,practice,Pasangkan benda dengan bangun ruangnya.,,,,,,,,,,,,,,,dadu;kaleng;kotak tisu;kemasan cokelat segitiga,"kubus,tabung,balok,prisma segitiga",
+13,10,essay,practice,Mengapa jaring-jaring kubus harus terdiri dari 6 persegi yang saling terhubung?,,,,agar bisa dilipat menjadi kubus tertutup,,,,,,,,,,,,,
+13,11,multipart,practice,Kubus tertutup vs terbuka.,,,,,,,,,,,,,,,,,a|Jumlah persegi kubus tertutup|6;b|Jumlah persegi kubus terbuka|5
+13,12,mcq,practice,Bangun dengan alas persegi dan 4 sisi segitiga adalah...,,,,C,,,prisma segitiga,tabung,limas segiempat,balok,,,,,,,
+13,13,essay,practice,"Jika sebuah kotak terlihat sebagai persegi dari semua arah, bangun apakah itu?",,,,kubus,,,,,,,,,,,,,
+13,14,drag_drop,practice,Pasangkan jumlah sisi dengan bangun.,,,,,,,,,,,,,,,3;5;6;6,"tabung,limas segiempat,kubus,balok",
+13,15,essay,practice,"Sebuah balok memiliki panjang 10 cm, lebar 5 cm, tinggi 4 cm. Apakah ini kubus? Jelaskan singkat.",,,,tidak,,,,,,,,,,,,,
+13,16,multipart,practice,Jaring-jaring kubus.,,,TODO_IMG_NET_CUBE_A.png,,,,,,,,,,,,,,a|Jaring A bisa membentuk kubus tertutup?|ya;b|Jaring B bisa membentuk kubus tertutup?|tidak
+13,17,essay,practice,Sebuah pen holder tanpa tutup termasuk kubus...,,,,terbuka,,,,,,,,,,,,,
+13,18,mcq,practice,Bangun dengan 2 sisi segitiga sejajar disebut...,,,,B,,,limas,prisma segitiga,kubus,tabung,,,,,,,
+13,19,essay,practice,"Jika sebuah kubus memiliki rusuk 5 cm, berapa total panjang semua rusuknya?",,,,60 cm,,,,,,,,,,,,,
+13,20,drag_drop,practice,Pasangkan bangun dengan jumlah titik sudutnya.,,,,,,,,,,,,,,,kubus;balok;limas segiempat;prisma segitiga,"8,8,5,6",
+13,21,essay,practice,Sebutkan dua ciri tabung.,,,,2 sisi lingkaran; 1 sisi lengkung,,,,,,,,,,,,,
+13,22,multipart,practice,Sifat balok.,,,,,,,,,,,,,,,,,"a|Jumlah sisi|6;b|Jika semua sisi persegi, menjadi|kubus"
+13,23,mcq,practice,Prisma segitiga memiliki ... sisi.,,,,B,,,4,5,5,6,,,,,,,
+13,24,essay,practice,Gambar menunjukkan lubang 10x5 cm dan balok 9x15x4 cm. Bagian mana yang harus menghadap lubang?,,,,9x4,,,,,,,,,,,,,
+13,25,drag_drop,practice,Pasangkan bentuk jaring dengan jenis kubus.,,,TODO_IMG_NET_CUBE_B.png,,,,,,,,,,,,jaring 1;jaring 2;jaring 3,tertutup;terbuka;tertutup,
+13,26,essay,practice,Sebuah bangun memiliki semua sisi sama panjang dan semua sisi berbentuk persegi. Bangun apakah itu?,,,,kubus,,,,,,,,,,,,,
+13,27,mcq,practice,Bangun ruang yang memiliki 1 alas persegi dan 4 sisi segitiga adalah...,,,,C,,,prisma segitiga,balok,limas segiempat,tabung,,,,,,,
+13,28,essay,practice,Sebutkan perbedaan kubus dan balok.,,,,kubus semua sisi persegi; balok sisi persegi panjang,,,,,,,,,,,,,
+13,29,multipart,practice,Hitung elemen balok.,,,,,,,,,,,,,,,,,a|Jumlah rusuk balok|12;b|Jumlah titik sudut balok|8
+13,30,essay,practice,Sebuah jaring-jaring dengan 5 persegi dapat membentuk kubus...,,,,terbuka,,,,,,,,,,,,,
+13,31,drag_drop,practice,Pasangkan bangun dengan jumlah sisinya.,,,,,,,,,,,,,,,kubus;balok;tabung;limas segiempat;prisma segitiga,"6,6,3,5,5",
+13,32,essay,practice,"Sebuah menara tersusun dari 4 kubus (3 di bawah, 1 di atas). Berapa banyak kubus yang terlihat?",,,,4,,,,,,,,,,,,,
+13,33,mcq,practice,Jaring-jaring kubus tertutup terdiri dari ... persegi.,,,,B,,,5,6,7,8,,,,,,,
+13,34,essay,practice,Balok memiliki 3 pasang sisi berhadapan. Bentuk tiap sisi adalah...,,,,persegi panjang,,,,,,,,,,,,,
+13,35,drag_drop,practice,Pasangkan bangun ruang dengan jumlah sisi lengkung.,,,,,,,,,,,,,,,tabung;kubus;balok;limas segiempat,"1,0,0,0",
+13,36,essay,practice,Sebuah kubus terbuka jika ditutup pada sisi atas akan menjadi...,,,,kubus tertutup,,,,,,,,,,,,,
+13,37,multipart,practice,Klasifikasi jaring.,,,TODO_IMG_NET_CUBE_C.png,,,,,,,,,,,,,,a|Jaring A|terbuka;b|Jaring B|tertutup;c|Jaring C|tidak bisa
+13,38,essay,practice,Sebutkan satu contoh benda berbentuk prisma segitiga.,,,,contoh: kemasan cokelat segitiga,,,,,,,,,,,,,
+13,39,essay,practice,Mengapa semua sisi kubus berbentuk persegi?,,,,karena semua rusuk sama panjang,,,,,,,,,,,,,
+13,40,essay,practice,"Jika sebuah bangun memiliki 5 sisi persegi yang saling terhubung dan satu sisi terbuka, itu adalah...",,,,kubus terbuka,,,,,,,,,,,,,

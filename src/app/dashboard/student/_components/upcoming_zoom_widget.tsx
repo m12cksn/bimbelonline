@@ -63,19 +63,19 @@ export default function UpcomingZoomWidget() {
   return (
     <section
       className="
-        relative overflow-hidden rounded-3xl
-        border border-slate-800 bg-slate-950/80
+        relative overflow-hidden rounded-xl
+        border border-slate-200 bg-white
         px-5 py-4 md:px-6 md:py-5
-        shadow-[0_20px_60px_-45px_rgba(0,0,0,1)]
+        shadow-sm
       "
     >
       {/* dekorasi */}
       <div
-        className="pointer-events-none absolute -left-10 top-0 h-24 w-24 rounded-full bg-emerald-500/25 blur-2xl"
+        className="pointer-events-none absolute -left-10 top-0 h-24 w-24 rounded-full bg-emerald-300/30 blur-2xl"
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute -right-12 bottom-0 h-28 w-28 rounded-full bg-sky-500/25 blur-2xl"
+        className="pointer-events-none absolute -right-12 bottom-0 h-28 w-28 rounded-full bg-cyan-300/30 blur-2xl"
         aria-hidden
       />
 
@@ -83,14 +83,14 @@ export default function UpcomingZoomWidget() {
         {/* header */}
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-emerald-300/80">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-emerald-600/80">
               Upcoming Zoom
             </p>
-            <h2 className="text-lg md:text-xl font-bold text-white flex items-center gap-2">
+            <h2 className="text-lg md:text-xl font-bold text-emerald-900 flex items-center gap-2 mb-1">
               Jadwal Zoom terdekat
               <span className="text-base">📅</span>
             </h2>
-            <p className="text-xs md:text-sm text-slate-300">
+            <p className="text-xs md:text-sm text-slate-600">
               Lihat kelas Zoom yang akan datang. Klik untuk masuk ke ruang kelas
               atau lihat detail kelas.
             </p>
@@ -101,9 +101,9 @@ export default function UpcomingZoomWidget() {
             onClick={load}
             className="
               inline-flex items-center gap-2 rounded-full
-              bg-emerald-500/80 hover:bg-emerald-400
+              bg-emerald-500 hover:bg-emerald-600
               px-3 py-1.5 text-xs font-semibold text-white
-              shadow-md shadow-emerald-500/40
+              shadow-sm
               transition
             "
           >
@@ -114,12 +114,12 @@ export default function UpcomingZoomWidget() {
 
         {/* content */}
         {loading ? (
-          <div className="flex items-center gap-3 rounded-2xl bg-slate-900/60 px-4 py-3 text-sm text-slate-200">
+          <div className="flex items-center gap-3 rounded-2xl bg-slate-50 px-4 py-3 text-sm text-slate-600">
             <span className="text-lg animate-spin">🌀</span>
             <span>Mencari jadwal Zoom terdekat...</span>
           </div>
         ) : error ? (
-          <div className="flex items-center gap-3 rounded-2xl bg-red-900/40 px-4 py-3 text-sm text-red-100 border border-red-600/40">
+          <div className="flex items-center gap-3 rounded-2xl bg-rose-50 px-4 py-3 text-sm text-rose-700 border border-rose-200">
             <span className="text-lg">😿</span>
             <div>
               <p className="font-semibold">Ups, ada kendala</p>
@@ -127,17 +127,17 @@ export default function UpcomingZoomWidget() {
             </div>
           </div>
         ) : sessions.length === 0 ? (
-          <div className="flex flex-col items-start gap-2 rounded-2xl bg-slate-900/60 px-4 py-3 text-sm text-slate-200">
+          <div className="flex flex-col items-start gap-2 rounded-2xl border border-slate-200 bg-slate-50 shadow-sm px-4 py-3 text-sm text-slate-600">
             <span className="text-2xl">🌈</span>
-            <p className="font-semibold">
+            <p className="font-semibold text-lg text-slate-600">
               Belum ada jadwal Zoom yang akan datang
             </p>
-            <p className="text-xs text-slate-400">
+            <p className="text-sm text-slate-600">
               Kalau kamu sudah terdaftar di kelas, jadwal Zoom akan muncul di
               sini. Kamu juga bisa cek daftar kelas di halaman{" "}
               <Link
                 href="/dashboard/student/classes"
-                className="font-semibold text-emerald-300 underline-offset-2 hover:underline"
+                className="font-semibold text-emerald-700 underline-offset-2 hover:underline"
               >
                 My Classes
               </Link>
@@ -153,25 +153,25 @@ export default function UpcomingZoomWidget() {
                   relative overflow-hidden rounded-2xl border
                   ${
                     index === 0
-                      ? "border-emerald-400/60 bg-emerald-500/10"
-                      : "border-slate-800 bg-slate-900/60"
+                      ? "border-emerald-200 bg-emerald-50"
+                      : "border-slate-200 bg-slate-50"
                   }
                   px-4 py-3 flex flex-col gap-2 md:flex-row md:items-center md:justify-between
-                  transition hover:border-emerald-400/80 hover:bg-emerald-500/15
+                  transition hover:border-emerald-300 hover:bg-emerald-50
                 `}
               >
                 <div className="flex items-start gap-3">
-                  <div className="mt-1 flex h-8 w-8 items-center justify-center rounded-xl bg-emerald-500/20 text-lg">
+                  <div className="mt-1 flex h-8 w-8 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700 text-lg">
                     {index === 0 ? "⭐" : "📚"}
                   </div>
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-wide text-emerald-300/90">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-emerald-700/90">
                       {index === 0 ? "Next session" : "Upcoming"}
                     </p>
-                    <p className="text-sm md:text-base font-semibold text-slate-50 line-clamp-1">
+                    <p className="text-sm md:text-base font-semibold text-slate-900 line-clamp-1">
                       {s.className}
                     </p>
-                    <p className="text-xs text-slate-300">
+                    <p className="text-xs text-slate-600">
                       {formatDateTime(s.startTime)}
                       {s.endTime && (
                         <>
@@ -195,9 +195,9 @@ export default function UpcomingZoomWidget() {
                     href={`/dashboard/student/classes/${s.classId}/zoom`}
                     className="
                       inline-flex items-center justify-center gap-1
-                      rounded-full bg-sky-500/80 hover:bg-sky-400
+                      rounded-full bg-emerald-500 hover:bg-emerald-600
                       px-3 py-1.5 text-xs font-semibold text-white
-                      shadow-sm shadow-sky-500/40
+                      shadow-sm
                       transition
                     "
                   >
@@ -211,9 +211,9 @@ export default function UpcomingZoomWidget() {
                       rel="noopener noreferrer"
                       className="
                         inline-flex items-center justify-center gap-1
-                        rounded-full border border-emerald-400/70
+                        rounded-full border border-emerald-200
                         bg-transparent px-3 py-1.5 text-[11px] font-medium
-                        text-emerald-200 hover:bg-emerald-500/10
+                        text-emerald-700 hover:bg-emerald-50
                         transition
                       "
                     >

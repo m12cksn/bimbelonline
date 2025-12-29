@@ -2,6 +2,7 @@
 
 import { use, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/app/components/ToastProvider";
 
 type Profile = { id: string; full_name?: string | null; email?: string | null };
 
@@ -15,6 +16,7 @@ export default function AddTeacherPage({
   const [selected, setSelected] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const toast = useToast();
 
   useEffect(() => {
     fetchProfiles();
@@ -42,7 +44,7 @@ export default function AddTeacherPage({
 
   async function handleAdd() {
     if (!selected) {
-      alert("Pilih teacher");
+      toast.error("Pilih teacher");
       return;
     }
     setLoading(true);
@@ -57,21 +59,23 @@ export default function AddTeacherPage({
       const text = await res.text();
       const ct = res.headers.get("content-type") ?? "";
       if (!ct.includes("application/json")) {
-        alert("Respons server tidak valid");
+        toast.error("Respons server tidak valid");
         return;
       }
       const json = JSON.parse(text) as { ok?: boolean; error?: string };
 
       if (!res.ok || !json.ok) {
-        alert("Gagal menambahkan teacher: " + (json.error ?? "Unknown error"));
+        toast.error(
+          "Gagal menambahkan teacher: " + (json.error ?? "Unknown error")
+        );
         return;
       }
 
-      alert("Teacher berhasil ditambahkan");
+      toast.success("Teacher berhasil ditambahkan");
       router.push(`/dashboard/admin/classes/${classId}/teachers`);
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
-      alert("Gagal menambahkan teacher: " + msg);
+      toast.error("Gagal menambahkan teacher: " + msg);
       console.error("handleAdd error", err);
     } finally {
       setLoading(false);

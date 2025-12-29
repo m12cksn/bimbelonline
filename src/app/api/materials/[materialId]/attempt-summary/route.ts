@@ -7,7 +7,15 @@ interface MaterialParams {
   params: Promise<{ materialId: string }>;
 }
 
-// 🔹 Versi async, sama pola-nya seperti /api/materials/[id]/answer
+type SummaryRow = {
+  attempt_number: number;
+  total_answered: number;
+  correct: number;
+  wrong: number;
+  score: number;
+};
+
+// Helper Supabase dengan cookies
 async function createSupabaseFromCookies() {
   const cookieStore = await cookies();
 
@@ -25,7 +33,7 @@ async function createSupabaseFromCookies() {
               cookieStore.set(name, value, options);
             });
           } catch {
-            // ignore
+            // ignore di edge runtime
           }
         },
       },
@@ -33,8 +41,10 @@ async function createSupabaseFromCookies() {
   );
 }
 
-// GET → ambil semua percobaan user untuk materi ini
-export async function GET(req: Request, props: MaterialParams) {
+// =====================================================
+// GET → ambil ringkasan percobaan dari VIEW
+// =====================================================
+export async function GET(_req: Request, props: MaterialParams) {
   const { materialId: materialIdStr } = await props.params;
   const materialId = parseInt(materialIdStr, 10);
 
@@ -47,131 +57,98 @@ export async function GET(req: Request, props: MaterialParams) {
 
   const supabase = await createSupabaseFromCookies();
 
-  const {
-    data: { user },
-    error: userError,
-  } = await supabase.auth.getUser();
+  const { data: userData, error: userError } = await supabase.auth.getUser();
+  const user = userData?.user;
 
   if (userError || !user) {
     return NextResponse.json({ error: "Unauthenticated" }, { status: 401 });
   }
 
+  const userId = user.id;
+
+  // ⬇️ PAKAI VIEW yang sudah kamu buat
   const { data, error } = await supabase
-    .from("material_attempts")
-    .select("attempt_number, correct, wrong, total_answered, score")
-    .eq("user_id", user.id)
+    .from("question_attempts")
+    .select("attempt_number, question_id, is_correct, created_at")
+    .eq("user_id", userId)
     .eq("material_id", materialId)
-    .order("attempt_number", { ascending: true });
+    .order("created_at", { ascending: false });
 
   if (error) {
-    console.error("material_attempts GET error:", error);
+    console.error("question_attempts GET error:", error);
     return NextResponse.json(
-      { error: "Failed to fetch attempts" },
+      { error: "Failed to fetch attempts", attempts: [] },
       { status: 500 }
     );
   }
 
-  return NextResponse.json({
-    attempts: data ?? [],
-  });
+  const normalizeAttemptNumber = (value: unknown) => {
+    if (value === 2 || value === "2") return 2;
+    if (value === 1 || value === "1" || value === 0 || value === "0") return 1;
+    if (value === null || value === undefined) return 1;
+    return null;
+  };
+
+  const latestByQuestionAttempt = new Map<string, SummaryRow>();
+  const questionStatus: Array<{
+    attempt_number: number;
+    question_id: string;
+    is_correct: boolean;
+  }> = [];
+  for (const row of data ?? []) {
+    const attemptNumber = normalizeAttemptNumber(row.attempt_number);
+    const questionId = String(row.question_id ?? "");
+    if (!attemptNumber || !questionId) continue;
+    const key = `${attemptNumber}-${questionId}`;
+    if (latestByQuestionAttempt.has(key)) continue;
+    latestByQuestionAttempt.set(key, {
+      attempt_number: attemptNumber,
+      total_answered: 0,
+      correct: row.is_correct ? 1 : 0,
+      wrong: row.is_correct ? 0 : 1,
+      score: 0,
+    });
+    questionStatus.push({
+      attempt_number: attemptNumber,
+      question_id: questionId,
+      is_correct: !!row.is_correct,
+    });
+  }
+
+  const byAttempt = new Map<number, { total: number; correct: number }>();
+  for (const row of latestByQuestionAttempt.values()) {
+    const stats = byAttempt.get(row.attempt_number) ?? { total: 0, correct: 0 };
+    stats.total += 1;
+    stats.correct += row.correct ? 1 : 0;
+    byAttempt.set(row.attempt_number, stats);
+  }
+
+  const attempts = Array.from(byAttempt.entries())
+    .sort(([a], [b]) => a - b)
+    .map(([attemptNumber, stats]) => {
+      const wrong = Math.max(0, stats.total - stats.correct);
+      const score =
+        stats.total > 0
+          ? Math.round((stats.correct / stats.total) * 100)
+          : 0;
+      return {
+        attempt_number: attemptNumber,
+        total_answered: stats.total,
+        correct: stats.correct,
+        wrong,
+        score,
+      } satisfies SummaryRow;
+    });
+
+  return NextResponse.json({ attempts, question_status: questionStatus });
 }
 
-// POST → simpan / update ringkasan satu percobaan
-export async function POST(req: Request, props: MaterialParams) {
-  const { materialId: materialIdStr } = await props.params;
-  const materialId = parseInt(materialIdStr, 10);
-
-  if (Number.isNaN(materialId)) {
-    return NextResponse.json(
-      { error: "Invalid material id", raw: materialIdStr },
-      { status: 400 }
-    );
-  }
-
-  const body = await req.json();
-  const attemptNumberRaw = Number(body.attemptNumber);
-  const correctRaw = Number(body.correct);
-  const totalAnsweredRaw = Number(body.totalAnswered);
-
-  const attemptNumber = Math.min(2, Math.max(1, attemptNumberRaw || 1));
-  const totalAnswered = Math.max(0, totalAnsweredRaw || 0);
-  const correct = Math.max(0, correctRaw || 0);
-  const wrong = Math.max(0, totalAnswered - correct);
-  const score = totalAnswered > 0 ? (correct / totalAnswered) * 100 : 0;
-
-  const supabase = await createSupabaseFromCookies();
-
-  const {
-    data: { user },
-    error: userError,
-  } = await supabase.auth.getUser();
-
-  if (userError || !user) {
-    return NextResponse.json({ error: "Unauthenticated" }, { status: 401 });
-  }
-
-  // cek apakah attempt ini sudah ada
-  const { data: existing, error: existingError } = await supabase
-    .from("material_attempts")
-    .select("id")
-    .eq("user_id", user.id)
-    .eq("material_id", materialId)
-    .eq("attempt_number", attemptNumber)
-    .limit(1);
-
-  if (existingError) {
-    console.error("material_attempts select error:", existingError);
-    return NextResponse.json(
-      { error: "Failed to check existing attempt" },
-      { status: 500 }
-    );
-  }
-
-  let dbError = null;
-
-  if (!existing || existing.length === 0) {
-    const { error } = await supabase.from("material_attempts").insert({
-      user_id: user.id,
-      material_id: materialId,
-      attempt_number: attemptNumber,
-      correct,
-      wrong,
-      total_answered: totalAnswered,
-      score,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-    });
-    dbError = error;
-  } else {
-    const attemptId = existing[0].id;
-    const { error } = await supabase
-      .from("material_attempts")
-      .update({
-        correct,
-        wrong,
-        total_answered: totalAnswered,
-        score,
-        updated_at: new Date().toISOString(),
-      })
-      .eq("id", attemptId);
-
-    dbError = error;
-  }
-
-  if (dbError) {
-    console.error("material_attempts upsert error:", dbError);
-    return NextResponse.json(
-      { error: "Failed to save attempt" },
-      { status: 500 }
-    );
-  }
-
-  return NextResponse.json({
-    success: true,
-    attemptNumber,
-    correct,
-    wrong,
-    totalAnswered,
-    score,
-  });
+// =====================================================
+// POST → sekarang tidak perlu hitung apa pun
+// frontend kamu tetap bisa panggil POST tanpa error
+// =====================================================
+export async function POST(_req: Request, _props: MaterialParams) {
+  // VIEW sudah otomatis menghitung dari material_answer_log,
+  // jadi di sini kita cukup balas sukses supaya tidak mengganggu flow di client.
+  return NextResponse.json({ ok: true });
 }

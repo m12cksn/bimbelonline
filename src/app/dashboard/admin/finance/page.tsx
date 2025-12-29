@@ -156,10 +156,10 @@ export default async function AdminFinancePage(props: {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-extrabold text-white">
+        <h1 className="text-2xl font-extrabold text-slate-900">
           Dashboard Keuangan 📊
         </h1>
-        <p className="mt-1 text-xs text-slate-300">
+        <p className="mt-1 text-xs text-slate-600">
           Lihat ringkasan pemasukan dan riwayat pembayaran siswa.
         </p>
       </div>
@@ -174,13 +174,13 @@ export default async function AdminFinancePage(props: {
       </div>
 
       {/* Riwayat Pembayaran */}
-      <div className="mt-4 rounded-2xl border border-slate-700 bg-slate-900/80 p-4 text-sm text-slate-50">
+      <div className="mt-4 rounded-2xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
         <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
           <div>
-            <h2 className="text-base font-semibold text-white">
+            <h2 className="text-base font-semibold text-slate-900">
               Riwayat Pembayaran 💰
             </h2>
-            <p className="text-[11px] text-slate-400">
+            <p className="text-[11px] text-slate-7000">
               Lihat semua permintaan upgrade dan pembayaran yang sudah
               dikonfirmasi.
             </p>
@@ -210,38 +210,38 @@ export default async function AdminFinancePage(props: {
             {/* Tombol export CSV */}
             <a
               href={`/api/adm/finance/export?status=${status}`}
-              className="rounded-full border border-emerald-400/70 bg-emerald-500/20 px-3 py-1 font-semibold text-emerald-100 hover:bg-emerald-500/40"
+              className="rounded-full border border-emerald-600 bg-emerald-600 px-3 py-1 font-semibold text-white hover:bg-emerald-700"
             >
-              ⬇️ Export CSV
+              Export CSV
             </a>
           </div>
         </div>
 
         {payments.length === 0 ? (
-          <div className="rounded-xl border border-slate-700 bg-slate-900/80 p-3 text-xs text-slate-300">
+          <div className="rounded-xl border border-slate-200 bg-white p-3 text-xs text-slate-600">
             Belum ada data pembayaran untuk filter ini.
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="min-w-full text-xs">
               <thead>
-                <tr className="border-b border-slate-700/70 bg-slate-900/80">
-                  <th className="px-2 py-2 text-left font-semibold text-slate-300">
+                <tr className="border-b border-slate-200 bg-white">
+                  <th className="px-2 py-2 text-left font-semibold text-slate-600">
                     Tanggal
                   </th>
-                  <th className="px-2 py-2 text-left font-semibold text-slate-300">
+                  <th className="px-2 py-2 text-left font-semibold text-slate-600">
                     User ID
                   </th>
-                  <th className="px-2 py-2 text-left font-semibold text-slate-300">
+                  <th className="px-2 py-2 text-left font-semibold text-slate-600">
                     Paket
                   </th>
-                  <th className="px-2 py-2 text-right font-semibold text-slate-300">
+                  <th className="px-2 py-2 text-right font-semibold text-slate-600">
                     Nominal
                   </th>
-                  <th className="px-2 py-2 text-center font-semibold text-slate-300">
+                  <th className="px-2 py-2 text-center font-semibold text-slate-600">
                     Status
                   </th>
-                  <th className="px-2 py-2 text-center font-semibold text-slate-300">
+                  <th className="px-2 py-2 text-center font-semibold text-slate-600">
                     Metode
                   </th>
                 </tr>
@@ -250,12 +250,12 @@ export default async function AdminFinancePage(props: {
                 {payments.map((p) => (
                   <tr
                     key={p.id}
-                    className="border-b border-slate-800/60 hover:bg-slate-800/60"
+                    className="border-b border-slate-200 hover:bg-slate-50/60"
                   >
                     <td className="px-2 py-2 align-top">
                       {new Date(p.created_at).toLocaleString("id-ID")}
                     </td>
-                    <td className="px-2 py-2 align-top font-mono text-[11px] text-slate-300">
+                    <td className="px-2 py-2 align-top font-mono text-[11px] text-slate-600">
                       {p.user_id.slice(0, 8)}...
                     </td>
                     <td className="px-2 py-2 align-top">
@@ -267,7 +267,7 @@ export default async function AdminFinancePage(props: {
                     <td className="px-2 py-2 align-top text-center">
                       <StatusBadge status={p.status} />
                     </td>
-                    <td className="px-2 py-2 align-top text-center text-slate-300">
+                    <td className="px-2 py-2 align-top text-center text-slate-600">
                       {p.method || "-"}
                     </td>
                   </tr>
@@ -278,7 +278,7 @@ export default async function AdminFinancePage(props: {
         )}
 
         {/* Pagination sederhana */}
-        <div className="mt-3 flex items-center justify-between text-[11px] text-slate-300">
+        <div className="mt-3 flex items-center justify-between text-[11px] text-slate-600">
           <div>
             Halaman <span className="font-semibold">{page}</span>
             {status !== "all" && (
@@ -304,12 +304,12 @@ export default async function AdminFinancePage(props: {
                   page - 1
                 }`}
                 prefetch={false}
-                className="rounded-full border border-slate-600 px-3 py-1 hover:bg-slate-800"
+                className="rounded-full border border-slate-200 px-3 py-1 hover:bg-slate-50"
               >
                 ⬅️ Sebelumnya
               </Link>
             ) : (
-              <span className="rounded-full border border-slate-800 px-3 py-1 text-slate-600">
+              <span className="rounded-full border border-slate-200 px-3 py-1 text-slate-600">
                 ⬅️ Sebelumnya
               </span>
             )}
@@ -319,12 +319,12 @@ export default async function AdminFinancePage(props: {
                   page + 1
                 }`}
                 prefetch={false}
-                className="rounded-full border border-slate-600 px-3 py-1 hover:bg-slate-800"
+                className="rounded-full border border-slate-200 px-3 py-1 hover:bg-slate-50"
               >
                 Berikutnya ➜
               </Link>
             ) : (
-              <span className="rounded-full border border-slate-800 px-3 py-1 text-slate-600">
+              <span className="rounded-full border border-slate-200 px-3 py-1 text-slate-600">
                 Berikutnya ➜
               </span>
             )}
@@ -337,9 +337,9 @@ export default async function AdminFinancePage(props: {
 
 function Card({ title, value }: { title: string; value: number | string }) {
   return (
-    <div className="rounded-xl border border-slate-700 bg-slate-900/80 p-4 text-sm text-slate-50 shadow">
-      <div className="text-xs text-slate-400 mb-1">{title}</div>
-      <div className="text-lg font-bold">{value}</div>
+    <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700 shadow">
+      <div className="text-xs text-slate-7000 mb-1">{title}</div>
+      <div className="text-lg font-bold text-slate-900">{value}</div>
     </div>
   );
 }
@@ -356,27 +356,27 @@ function StatusBadge({ status }: { status: string }) {
   const s = status.toLowerCase();
   if (s === "pending") {
     return (
-      <span className="rounded-full bg-yellow-500/20 px-2 py-1 text-[11px] font-semibold text-yellow-200">
+      <span className="rounded-full bg-yellow-100 px-2 py-1 text-[11px] font-semibold text-yellow-700">
         Pending
       </span>
     );
   }
   if (s === "confirmed") {
     return (
-      <span className="rounded-full bg-emerald-500/20 px-2 py-1 text-[11px] font-semibold text-emerald-200">
+      <span className="rounded-full bg-emerald-100 px-2 py-1 text-[11px] font-semibold text-emerald-600">
         Confirmed
       </span>
     );
   }
   if (s === "rejected") {
     return (
-      <span className="rounded-full bg-red-500/20 px-2 py-1 text-[11px] font-semibold text-red-200">
+      <span className="rounded-full bg-rose-100 px-2 py-1 text-[11px] font-semibold text-rose-700">
         Rejected
       </span>
     );
   }
   return (
-    <span className="rounded-full bg-slate-600/30 px-2 py-1 text-[11px] font-semibold text-slate-100">
+    <span className="rounded-full bg-slate-100 px-2 py-1 text-[11px] font-semibold text-slate-900">
       {status}
     </span>
   );
@@ -393,7 +393,7 @@ function FilterChip({
 }) {
   if (active) {
     return (
-      <span className="rounded-full border border-cyan-400/70 bg-cyan-500/30 px-3 py-1 font-semibold text-cyan-50">
+      <span className="rounded-full border border-cyan-600 bg-cyan-600 px-3 py-1 font-semibold text-white">
         {label}
       </span>
     );
@@ -401,7 +401,7 @@ function FilterChip({
   return (
     <Link
       href={href}
-      className="rounded-full border border-slate-600 px-3 py-1 text-slate-200 hover:border-cyan-400 hover:text-cyan-200"
+      className="rounded-full border border-slate-200 px-3 py-1 text-slate-700 hover:border-cyan-400 hover:text-cyan-700"
     >
       {label}
     </Link>

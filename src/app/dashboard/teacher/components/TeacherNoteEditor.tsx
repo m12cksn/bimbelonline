@@ -1,6 +1,7 @@
 // app/dashboard/teacher/components/TeacherNoteEditor.tsx
 "use client";
 import React, { useEffect, useState, startTransition } from "react";
+import { useToast } from "@/app/components/ToastProvider";
 
 type Note = {
   id: string;
@@ -23,6 +24,7 @@ export default function TeacherNoteEditor({
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
   const [loadingNotes, setLoadingNotes] = useState(false);
+  const toast = useToast();
 
   useEffect(() => {
     // pattern: definisikan async di dalam effect, gunakan startTransition saat setState
@@ -90,11 +92,11 @@ export default function TeacherNoteEditor({
           }
         });
       } else {
-        alert(j?.error || "Gagal membuat catatan");
+        toast.error(j?.error || "Gagal membuat catatan");
       }
     } catch (err) {
       console.error(err);
-      alert("Gagal membuat catatan (network).");
+      toast.error("Gagal membuat catatan (network).");
     } finally {
       setLoading(false);
     }

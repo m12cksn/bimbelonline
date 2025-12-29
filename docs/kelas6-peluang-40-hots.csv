@@ -1,0 +1,41 @@
+material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
+20,1,essay,practice,"Sebuah kotak berisi 4 bola merah, 5 bola biru, dan 3 bola hijau. Jika diambil 1 bola, berapa banyak hasil yang mungkin?",,,,12,,,,,,,,,,,,,
+20,2,essay,practice,Dadu dilempar dua kali. Berapa banyak pasangan hasil yang mungkin?,,,,36,,,,,,,,,,,,,
+20,3,mcq,practice,Pernyataan yang benar tentang peluang adalah...,,,,B,,,peluang besar berarti pasti terjadi,peluang besar masih bisa tidak terjadi,peluang kecil berarti mustahil,peluang tidak bisa dibandingkan,,,,,,,
+20,4,essay,practice,Di dalam tas ada 2 bola merah dan 8 bola biru. Berapa banyak bola merah yang harus ditambahkan agar peluang mengambil merah sama dengan biru?,,,,6,,,,,,,,,,,,,
+20,5,drag_drop,practice,Pasangkan percobaan dengan banyak kemungkinan hasilnya.,,,,,,,,,,,,,,,Koin dilempar sekali;Koin dilempar dua kali;Dadu dilempar sekali;Spinner 5 bagian sama besar;Kartu bernomor 1-10 diambil satu,2;4;6;5;10,
+20,6,essay,practice,"Spinner 12 bagian sama besar terdiri dari 5 kuning, 4 hijau, 3 biru. Jika diputar sekali, berapa banyak hasil yang bukan kuning?",,,TODO_IMG_SPINNER_12.png,7,,,,,,,,,,,,,
+20,7,essay,practice,Di kelas ada 20 siswa. Guru memilih 1 siswa acak untuk memimpin doa. Berapa banyak kemungkinan siswa yang bisa terpilih?,,,,20,,,,,,,,,,,,,
+20,8,mcq,practice,Kotak A berisi 3 kelereng merah dan 7 biru. Kotak B berisi 6 merah dan 6 biru. Kotak mana memberi peluang lebih besar mendapat merah?,,,,B,,,Kotak A,Kotak B,Sama besar,Tidak bisa ditentukan,,,,,,,
+20,9,essay,practice,"Dari kartu angka 1 sampai 15, berapa banyak kartu yang merupakan kelipatan 3 atau 5?",,,,7,,,,,,,,,,,,,
+20,10,essay,practice,"Dari angka 1 sampai 20, berapa banyak bilangan prima?",,,,8,,,,,,,,,,,,,
+20,11,drag_drop,practice,Pasangkan situasi dengan banyak hasil yang menguntungkan.,,,,,,,,,,,,,,,Dadu: hasil >4;Koin: sisi gambar;Kartu 1-12: kelipatan 4;Spinner 8 bagian: 3 merah;Kotak 10 bola: 6 hijau,2;1;3;3;6,
+20,12,essay,practice,Sebuah undian memiliki 60 tiket dan 5 hadiah. Berapa banyak tiket yang bukan hadiah?,,,,55,,,,,,,,,,,,,
+20,13,mcq,practice,Pernyataan yang tepat tentang permainan adil adalah...,,,,C,,,hadiahnya besar,pemainnya banyak,semua pemain punya peluang sama,pemenang selalu sama,,,,,,,
+20,14,essay,practice,"Kotak berisi 2 merah, 4 biru, 6 hijau. Berapa banyak bola harus diambil minimal agar pasti mendapat minimal 1 bola hijau?",,,,7,,,,,,,,,,,,,
+20,15,multipart,practice,Hitung banyak hasil yang mungkin.,,,,,,,,,,,,,,,,,a|Koin dilempar tiga kali|8;b|Dadu dilempar sekali|6;c|Spinner 4 bagian sama besar|4
+20,16,essay,practice,"Sebuah roda putar memiliki 10 bagian sama besar: 2 merah, 5 kuning, 3 hijau. Berapa banyak hasil yang lebih mungkin dibanding merah?",,,TODO_IMG_SPINNER_10_RGB.png,8,,,,,,,,,,,,,
+20,17,drag_drop,practice,Pasangkan pernyataan dengan hasil paling mungkin.,,,,,,,,,,,,,,,Kotak A 1 cokelat 9 jeruk pilih cokelat;Kotak B 5 cokelat 5 jeruk pilih cokelat;Dadu: pilih angka >3;Koin seimbang: pilih gambar;Spinner 6 bagian: 1 hijau 5 biru pilih hijau,kecil;sedang;lebih besar;sama besar;sangat kecil,
+20,18,essay,practice,"Sebuah kantong berisi 9 bola merah dan 1 bola putih. Jika satu bola diambil, berapa banyak hasil yang paling mungkin?",,,,9,,,,,,,,,,,,,
+20,19,mcq,practice,Pernyataan berikut yang salah adalah...,,,,D,,,peluang bisa dibandingkan,kejadian pasti ada,kejadian tidak mungkin ada,peluang besar berarti pasti terjadi,,,,,,,
+20,20,essay,practice,Sebuah permainan menang jika hasil dadu adalah bilangan prima. Berapa banyak hasil yang membuat menang?,,,,3,,,,,,,,,,,,,
+20,21,multipart,practice,Hitung jumlah hasil menguntungkan.,,,,,,,,,,,,,,,,,a|Dadu: hasil genap|3;b|Koin: sisi angka|1;c|Spinner 8 bagian dengan 2 hijau: hasil hijau|2
+20,22,essay,practice,"Di kelas ada 28 siswa. Jika guru memilih 2 siswa satu per satu tanpa pengulangan, berapa banyak pasangan urutan yang mungkin?",,,,756,,,,,,,,,,,,,
+20,23,drag_drop,practice,Pasangkan situasi dengan peluang relatifnya (lebih besar/lebih kecil).,,,,,,,,,,,,,,,Kotak A 2 merah 8 biru vs Kotak B 5 merah 5 biru (pilih merah);Dadu: hasil >4 vs hasil <4;Koin seimbang: gambar vs angka;Spinner 10 bagian 7 kuning 3 hijau (pilih hijau);Kartu 1-20: pilih kelipatan 5 vs kelipatan 2,B lebih besar;lebih kecil;sama;lebih kecil;lebih kecil,
+20,24,essay,practice,"Kotak hadiah berisi 12 kartu dan 3 di antaranya bertuliskan ""Hadiah"". Jika diambil 2 kartu tanpa pengembalian, berapa banyak pasangan kartu yang mungkin?",,,,66,,,,,,,,,,,,,
+20,25,mcq,practice,Spinner 8 bagian sama besar: 5 hijau dan 3 merah. Kejadian yang lebih mungkin adalah...,,,,A,,,mendapat hijau,mendapat merah,keduanya sama mungkin,tidak mungkin mendapat hijau,,,,,,,
+20,26,essay,practice,Koin dilempar dua kali. Berapa banyak hasil yang memuat tepat satu sisi gambar?,,,,2,,,,,,,,,,,,,
+20,27,multipart,practice,Ambil keputusan berdasarkan peluang (jawab 1 atau 2).,,,,,,,,,,,,,,,,,"a|Kotak A 2 merah 8 biru vs Kotak B 7 merah 3 biru (pilih kotak untuk merah)|2;b|Dadu: pilih kejadian (1=genap,2=ganjil) jika dadu seimbang|3;c|Spinner 6 bagian 4 kuning 2 biru (pilih warna lebih mungkin: 1=kuning,2=biru)|1"
+20,28,essay,practice,"Dari angka 1 sampai 30, berapa banyak bilangan yang merupakan kelipatan 4 atau 6?",,,,11,,,,,,,,,,,,,
+20,29,drag_drop,practice,Pasangkan situasi dengan jumlah hasil yang mungkin.,,,,,,,,,,,,,,,Koin dilempar tiga kali;Dadu dilempar dua kali;Spinner 6 bagian;Kartu 1-8 diambil satu;Kartu 1-5 diambil dua kali dengan pengembalian,8;36;6;8;25,
+20,30,essay,practice,"Dalam tas ada 3 bola putih, 5 bola hitam, 2 bola kuning. Berapa banyak total bola?",,,,10,,,,,,,,,,,,,
+20,31,multipart,practice,Hitung hasil menguntungkan dan simpulkan skala peluang.,,,,,,,,,,,,,,,,,a|Dadu: hasil 1 atau 2|2;b|Dadu: hasil 5 atau 6|2;c|Koin: sisi gambar|1
+20,32,essay,practice,"Sebuah kelas ingin memilih ketua dengan spinner 12 bagian: 6 nama A, 4 nama B, 2 nama C. Berapa banyak hasil yang membuat C terpilih?",,,TODO_IMG_SPINNER_ABC.png,2,,,,,,,,,,,,,
+20,33,mcq,practice,"Jika peluang dua kejadian sama, maka...",,,,B,,,kejadian pertama pasti terjadi,kejadian keduanya sama mungkin,kejadian pertama lebih mungkin,kejadian kedua mustahil,,,,,,,
+20,34,essay,practice,Sebuah toko mengadakan undian 100 kupon dan 4 hadiah. Berapa banyak kupon yang bukan hadiah?,,,,96,,,,,,,,,,,,,
+20,35,drag_drop,practice,Pasangkan konteks dengan jumlah hasil yang menguntungkan.,,,,,,,,,,,,,,,Kartu 1-12: bilangan ganjil;Dadu: hasil prima;Spinner 10 bagian: 4 merah;Kotak 9 bola: 5 biru;Koin: sisi angka,6;3;4;5;1,
+20,36,essay,practice,"Dari 1 sampai 24, berapa banyak bilangan yang merupakan kelipatan 3 tetapi bukan kelipatan 6?",,,,4,,,,,,,,,,,,,
+20,37,multipart,practice,Tentukan hasil lebih mungkin (jawab 1 atau 2).,,,,,,,,,,,,,,,,,"a|Kotak A 3 merah 7 biru vs Kotak B 6 merah 4 biru (1=A,2=B)|2;b|Dadu: hasil >2 vs hasil <=2 (1=>2,2=<=2)|1;c|Spinner 8 bagian 2 hijau 6 kuning (1=hijau,2=kuning)|2"
+20,38,multipart,practice,Skala peluang sederhana (1=tidak mungkin,,,,,,,,,,,,,,,,,a|Matahari terbit besok|5;b|Mendapat angka 7 saat melempar dadu|1;c|Mendapat angka genap saat melempar dadu|3
+20,39,multipart,practice,Analisis cerita peluang.,,,,,,,,,,,,,,,,,"a|Tas 9 merah 1 hijau. Warna paling mungkin (1=merah,2=hijau)|1;b|Tas 5 merah 5 hijau. Warna paling mungkin (1=merah,2=hijau,3=sama)|3;c|Dadu: hasil terkecil yang mungkin|1"
+20,40,multipart,practice,Evaluasi permainan adil.,,,,,,,,,,,,,,,,,"a|Dua pemain melempar koin seimbang. Adil? (1=ya,2=tidak)|1;b|Spinner 10 bagian 8 biru 2 merah untuk memilih warna. Adil? (1=ya,2=tidak)|2;c|Dadu seimbang untuk memilih angka 1-6. Adil? (1=ya,2=tidak)|1"

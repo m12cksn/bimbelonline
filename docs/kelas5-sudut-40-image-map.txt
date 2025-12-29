@@ -1,0 +1,16 @@
+TODO_IMG_SUDUT_A01.png -> Soal #1: Soal #1: Gambar beberapa benda di rumah: buku, pintu, jam dinding
+TODO_IMG_SUDUT_A02.png -> Soal #2: Soal #2: Lapangan persegi dan tiang gawang
+TODO_IMG_SUDUT_A03.png -> Soal #4: Soal #4: Empat benda dengan sudut ditandai
+TODO_IMG_SUDUT_B02.png -> Soal #5: Diagram sudut AOB dengan titik sudut dan kaki sudut
+TODO_IMG_SUDUT_B03.png -> Soal #7: Kumpulan sudut dengan ukuran berbeda untuk diklasifikasi
+TODO_IMG_SUDUT_B01.png -> Soal #8: Soal #8: Gambar sudut AOB
+TODO_IMG_SUDUT_C01.png -> Soal #9: Soal #9: Sudut diukur dengan busur derajat menunjukkan 60°
+TODO_IMG_SUDUT_C02.png -> Soal #10: Soal #10: Dua sudut berbeda: 35° dan 70°
+TODO_IMG_SUDUT_C03.png -> Soal #11: Dua sudut berlabel A dan B dengan ukuran 48° dan 72°
+TODO_IMG_SUDUT_D01.png -> Soal #13: Soal #13: Langkah melukis sudut 75° dengan busur derajat
+TODO_IMG_SUDUT_D02.png -> Soal #15: Peta kota berbentuk persegi dengan persimpangan
+TODO_IMG_SUDUT_E01.png -> Soal #18: Sudut berpelurus pada garis lurus dengan satu sudut 125°
+TODO_IMG_SUDUT_E02.png -> Soal #19: Dua garis berpotongan dengan sudut berseberangan 68°
+TODO_IMG_SUDUT_E03.png -> Soal #20: Segitiga dengan dua sudut diketahui 40° dan 70°
+TODO_IMG_SUDUT_E04.png -> Soal #21: Sudut luar segitiga 130° pada salah satu titik
+TODO_IMG_SUDUT_E05.png -> Soal #22: Jam menunjukkan pukul 03.00

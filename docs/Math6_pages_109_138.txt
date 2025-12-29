@@ -1,0 +1,900 @@
+--- page 109 ---
+103
+ Kubus dan BalokMelalui Eksplorasi dan diskusi diharapkan peserta didik dapat menemukan 
+bahwa jarak minimal (banyaknya peserta didik yang diperlukan untuk 
+membantu proses pengiriman pesan) adalah selisih jarak horizontal 
+ditambah selisih jarak vertikal. Contoh: jarak dari (D,5) ke (F,1) adalah (jarak 
+D ke F) ditambah (jarak 5 ke 1), yaitu 2 + 4 = 6
+Peserta didik yang kemampuan belajarnya cepat, dapat diminta untuk 
+mengerjakan Pengayaan yang terdapat pada bagian akhir bab.
+Kunci Jawaban Latihan 3.4 
+1. Ada beberapa jalur yang dapat dipilih. Berikut diberikan tiga kemungkinan 
+jawaban (masih ada jawaban benar yang tidak ditampilkan di sini).
+a. 
+b. Ayo Berkomunikasi
+Diferensiasi
+A123456
+B C D E F A123456
+B C D E F
+A123456
+B C D E F A123456
+B C D E F A123456
+B C D E F
+
+--- page 110 ---
+104
+Buku Panduan Guru Matematika untuk SD Kelas VI2. Jarak antara dua titik
+a. dari (A,3) ke (E,5) berjarak 4 petak ke kanan dan 2 petak ke atas.
+b. dari (B,6) ke (D,3) membutuhkan 2 langkah ke kanan dan 3 langkah ke 
+bawah.
+3. a.   
+ (ada tiga kemungkinan jawaban, peserta didik cukup menunjukkan   
+ salah satu)
+b. 3
+c. Jawaban akan berbeda tergantung jawaban (a)
+1) Jika jawaban (a) warna biru  
+ 
+2) Jika jawaban (a) warna merah  
+3) Jika jawaban (a) warna hijau
+ A123456
+B C D E F A123456
+B C D E F A123456
+B C D E F
+
+--- page 111 ---
+105
+ Kubus dan BalokTutup pembelajaran dengan meminta peserta didik melakukan refleksi 
+terhadap apa yang sudah mereka pelajari dengan menjawab pertanyaan 
+refleksi.
+Uji Kompetensi
+1. 4
+2. Peserta didik dapat menganggap sisi 5 sebagai sisi kiri atau sisi depan. 
+Jika sisi 5 dianggap sisi kiri, sisi depan adalah 1. Apabila sisi 5 dianggap sisi 
+depan, maka sisi kanan adalah 1.
+3. (D,4)
+Pengayaan
+Proyek ini bersifat opsional dan dapat diberikan sebagai tugas tambahan.
+1. Dari titik K(A,1) ke titik L(D,5) membutuhkan gerak 3 jarak ke kanan dan 4 
+jarak ke atas.
+2. Dari titik K(A,1) ke titik
+a. (A,2) bisa dilakukan dengan 1 cara, yaitu 1 langkah ke atas
+b. (B,1) bisa dilakukan dengan 1 cara, yaitu 1 langkah ke kanan
+c. (B,2) bisa dilakukan dengan 2 cara, yaitu 
+1) (A,1) → (A,2) → (B,2) 
+2) (A,1) → (B,1) → (B,2) 
+d. (A,3) bisa dilakukan dengan 1 cara, yaitu (A,1) → (A,2) → (A,3) Ayo Berefleksi
+Tampak atas Tampak kiri/depan Tampak depan/kanan
+
+--- page 112 ---
+106
+Buku Panduan Guru Matematika untuk SD Kelas VIe. (B,3) bisa dilakukan dengan 3 cara, yaitu
+1) (A,1) → (A,2) → (A,3) → (B,3)
+2) (A,1) → (A,2) → (B,2) → (B,3)
+3) (A,1) → (B,1) → (B,2) → (B,3)
+f. (C,1) bisa dilakukan dengan 1 cara, yaitu (A,1) → (B,1) → (C,1)
+g. (C,2) bisa dilakukan dengan 3 cara, yaitu
+1) (A,1) → (B,1) → (C,1) → (C,2)
+2) (A,1) → (A,2) → (B,2) → (C,2)
+3) (A,1) → (B,1) → (B,2) → (C,2)
+Perhatikan bahwa untuk mencapai titik (C,2), satu langkah sebelumnya 
+harus berada di posisi (C,1) atau (B,2) sehingga banyaknya cara 
+mencapai titik (C,2) adalah penjumlahan dari banyaknya cara mencapai 
+titik (C,1) dengan banyaknya cara mencapai titik (B,2).
+h. (C,3) dapat dicapai jika sebelumnya berada pada posisi (B,3) atau (C,2) 
+sehingga banyaknya cara mencapai titik (C,3) adalah penjumlahan 
+banyaknya cara mencapai titik (B,3) dengan banyaknya cara mencapai 
+titik (C,2) atau 6 cara.
+3. Bilangan pada titik-titik berikut menunjukkan banyaknya cara mencapai 
+titik tersebut dari (A,1) jika hanya boleh bergerak ke arah kanan atau atas.
+A123456
+5
+4
+11111
+1 115 35
+10 20
+3 6 10
+2 3 4
+BKL
+C D E F
+
+--- page 113 ---
+107
+ Kubus dan Balok4. 35 cara.  
+Banyaknya cara ini mirip dengan segitiga Pascal. 
+Setiap bilangan pada segitiga Pascal ini merupakan penjumlahan dari 
+dua bilangan yang ada di baris sebelumnya (yang ada di sisi kiri dan sisi 
+kanannya). Segitiga Pascal banyak digunakan pada cabang Matematika 
+yang membahas tentang Kombinatorik.
+5. Pengujian untuk beberapa titik awal dan titik akhir yang berbeda 
+menunjukkan bahwa banyaknya cara dapat dihitung dengan segitiga 
+Pascal.1
+1
+1
+1
+1
+1
+1 11112
+3
+4
+5
+6 65 10
+15 15 20106 4311
+
+--- page 114 ---
+108
+Buku Panduan Guru Matematika untuk SD Kelas VI
+
+--- page 115 ---
+Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi 
+Republik Indonesia, 2022
+Buku Panduan Guru Matematika untuk SD Kelas VI
+Penulis: Dicky Susanto, dkk. 
+ISBN: 978-602-427-900-4 (jil.6)Bab 4 
+Peluang
+
+--- page 116 ---
+110
+Buku Panduan Guru Matematika untuk SD Kelas VITujuan Pembelajaran
+Setelah mempelajari Bab 4 ini, diharapkan peserta didik dapat:
+• melihat kegunaan konsep peluang dalam kehidupan sehari-hari;
+• mengenal apa itu peluang;
+• membuat skala peluang;
+• membandingkan peluang dari dua kejadian untuk membuat keputusan; 
+dan
+• menerapkan konsep peluang untuk memecahkan masalah dan mencoba 
+memenangkan permainan.
+Pertanyaan Pemantik
+Pertanyaan pemantik dimanfaatkan untuk menggali rasa ingin tahu peserta 
+didik sehingga pembelajaran yang berjalan memiliki makna yang nyata bagi 
+mereka.
+• Apa yang menentukan peluang terjadinya suatu kejadian?
+• Apakah ada kejadian yang tidak mungkin terjadi sama sekali?
+• Apakah ada kejadian yang selamanya pasti akan terjadi?
+• Bagaimana peran konsep peluang dalam suatu permainan?
+• Mengapa ada permainan dengan peluang yang adil dan yang tidak adil?
+Peta Konsep
+Skala
+Peluang
+Seberapa mungkin?Membandingkan
+Peluang KejadianPeluang
+Berapa besar
+kemungkinan?
+
+--- page 117 ---
+111
+ PeluangGambaran Umum Bab
+Konsep peluang pertama dikenalkan kepada peserta didik pada fase ini. Dalam 
+mempelajari konsep peluang, peserta didik perlu diperkenalkan dengan 
+berbagai contoh relevan dari peluang dalam kehidupan nyata. Pada bab 
+ini, keterampilan analisis peserta didik berdasarkan konsep peluang mulai 
+dikembangkan dengan menentukan kejadian dengan peluang besar dan 
+kejadian dengan peluang lebih kecil. 
+Pada subbab A, peserta didik diperkenalkan konsep peluang yang 
+ditemukan dalam kehidupan mereka sehari-hari. Peserta didik perlu 
+dibimbing untuk menyadari bahwa setiap harinya tanpa sadar setiap dari kita 
+membuat prediksi kemungkinan (peluang) terjadinya suatu hal. Pada subbab 
+pertama ini, peserta didik juga diperkenalkan kepada skala peluang serta cara 
+merepresentasikan peluang kejadian menggunakan skala tersebut.
+Pada subbab B, peserta didik akan melakukan berbagai percobaan dan 
+permainan untuk mengeksplorasi konsep peluang lebih dalam dengan 
+membandingkan peluang dari dua kejadian. Pertama, peserta didik akan 
+mengeksplorasi perbedaan antara permainan dengan peluang menang 
+yang adil dengan yang kurang adil. Kemudian peserta didik akan berlatih 
+membandingkan peluang dari dua kejadian untuk mengambil keputusan 
+dalam konteks kehidupan sehari-hari.
+Pemahaman peserta didik tentang konsep peluang di jenjang ini sangat 
+penting. Pada fase ini, peserta didik belum diperkenalkan dengan peluang 
+secara kuantitatif dalam bentuk pecahan. Pembangunan dasar konsep yang 
+kokoh tanpa pecahan merupakan fondasi untuk pembelajaran pada fase 
+selanjutnya. 
+Konsep Matematika
+Peluang merupakan sebuah ukuran dari kemungkinan terjadinya sebuah 
+peristiwa. Pada tahap awal di fase ini, peserta didik diarahkan untuk mengenali 
+bahwa adanya ketidakpastian terjadinya peristiwa dalam kehidupan sehari-
+hari, dan adanya lebih dari satu kemungkinan dari sebuah peristiwa. Mereka 
+menggunakan skala informal untuk menentukan kemungkinan terjadinya 
+sebuah peristiwa. Mereka kemudian dapat secara informal menentukan 
+kemungkinan apa saja hasil dari sebuah kejadian, dan membandingkan mana 
+yang memiliki kemungkinan lebih besar terjadi. 
+
+--- page 118 ---
+112
+Buku Panduan Guru Matematika untuk SD Kelas VIPerlu dicermati bahwa pada fase ini, peserta didik belum diperkenalkan 
+peluang dalam bentuk pecahan, tetapi lebih diutamakan membangun fondasi 
+bahwa peluang itu merupakan sebuah ukuran kemungkinan terjadinya 
+peristiwa secara informal atau kualitatif. Mereka menggunakan bahasa “pasti 
+terjadi, tidak mungkin terjadi, lebih mungkin terjadi, kemungkinan besar 
+terjadi, kemungkinan kecil terjadi”, dan lain sebagainya. 
+Guru dapat menggunakan berbagai macam permainan anak tradisional 
+maupun modern sederhana sebagai konteks untuk membicarakan 
+kemungkinan memenangkan permainan. Peserta didik menentukan apa saja 
+kemungkinan kejadian, misalnya ketika melempar sebuah dadu, dan mana 
+yang lebih mungkin terjadi, misalnya mendapatkan angka lebih besar dari 3 
+atau lebih kecil dari 3.
+
+--- page 119 ---
+113
+ PeluangSkema Pembelajaran
+SubbabWaktu 
+(JP)*Tujuan Pokok Materi Kosakata Metode dan Aktivitas
+Skala Peluang 6 • Menyadari konsep 
+peluang dalam konteks 
+sehari-hari
+• Membuat skala peluang 
+untuk menjelaskan 
+kemungkinanMengategorikan kejadian 
+dengan skala peluangPeluang, skala 
+peluang• Penemuan 
+terbimbing
+• Eksplorasi
+• Tanya jawab
+• Diskusi berpasangan
+Menghitung 
+Peluang 
+Kejadian6 • Membandingkan 
+permainan dengan 
+peluang yang adil dan 
+yang kurang adil
+• Membandingkan 
+peluang dari dua 
+kejadian untuk 
+mengambil keputusanMenentukan permainan 
+adil dan kurang adil, 
+membandingkan peluang 
+dua kejadianPerbandingan 
+peluang, 
+permainan 
+adil, 
+permainan 
+kurang adil• Permainan 
+• Eksplorasi
+• Tanya jawab
+• Diskusi kelompok
+Catatan:
+* Waktu merupakan saran tentang jam pelajaran. Guru dapat menyesuaikan dengan kondisi aktual pembelajaran.
+
+--- page 120 ---
+114
+Buku Panduan Guru Matematika untuk SD Kelas VIPanduan Pembelajaran
+A.  Skala Peluang
+Sebelum memasuki materi mengenai peluang, guru diharapkan dapat 
+menjelaskan pengalaman belajar yang akan didapat peserta didik setelah 
+mempelajari bab ini. Setelah mempelajari subbab ini, peserta didik dapat:
+• menyadari konsep peluang dalam konteks sehari-hari; dan
+• membuat skala peluang untuk menjelaskan kemungkinan.
+• Alat tulis
+• Penggaris
+• Buku catatan/buku tulis 
+• Lembar Kerja Siswa
+• Klip kertas atau karet gelang (minimal sejumlah banyaknya siswa di kelas)
+Perkenalkan konsep peluang dengan bersama-sama membaca cerita komik 
+di Buku Siswa. Untuk memperkuat kemampuan literasi, sebelum mulai 
+membaca, guru dapat meminta peserta didik untuk memperhatikan bagian 
+cerita mana yang berhubungan dengan peluang. Pembacaan cerita bisa 
+dilakukan bersama-sama atau secara mandiri oleh peserta didik. Guru dapat 
+menilai metode yang lebih efektif berdasarkan karakteristik para peserta didik 
+dalam kelasnya.
+Setelah selesai membaca cerita, guru memberikan kesempatan kepada 
+peserta didik untuk membagikan cerita tentang apa yang baru saja mereka baca 
+serta menjawab pertanyaan di awal: “Bagian cerita mana yang berhubungan 
+dengan peluang?” Guru juga bisa bertanya: “Apa kira-kira maksud dari peluang 
+besar atau peluang kecil?” sebagai pertanyaan pemantik.Pengalaman Belajar
+Sarana & Prasarana Pembelajaran
+Apersepsi
+
+--- page 121 ---
+115
+ PeluangSampaikan kepada peserta didik bahwa peluang berkaitan erat dengan 
+konsep yang mereka pelajari di jenjang sebelumnya, yaitu data. Gunakan 
+bagian Mengingat Kembali untuk mengulas ulang cara mendata dan manfaat 
+mengorganisasi data yang sudah dipelajari di jenjang sebelumnya. Pertanyaan-
+pertanyaan berikut dapat digunakan untuk mengaktifkan prapengetahuan 
+peserta didik:
+• Data apa saja yang ada di sekitar kita?
+• Apa contoh pendataan yang bermanfaat?
+Apabila peserta didik kesulitan menjawab pertanyaannya, berikan beberapa 
+contoh sehingga peserta didik terbantu untuk mencari contoh lainnya.
+Ajak peserta didik melakukan Eksplorasi 4.1 secara berkelompok. Dengan 
+metode discovery learning di kegiatan ini, peserta didik diharapkan dapat 
+menantang pemikiran awal (prasangka) mereka terhadap konsep peluang. 
+Peserta didik juga diajak untuk melihat kedekatan konsep peluang dalam 
+kehidupan sehari-hari karena seringkali pernyataan yang kita katakan adalah 
+pernyataan yang menyangkut konsep peluang.
+Setelah itu, peserta didik akan belajar tentang skala peluang dengan 5 
+(lima) kategori sebagai pendahuluan konsep peluang. Melalui contoh serta 
+latihan berpikir kreatif, peserta didik akan diajak memecahkan masalah 
+dengan petunjuk di skala peluang. Tujuan kegiatan pemecahan masalah serta 
+latihan yang ada adalah untuk memperkenalkan peluang sebagai besaran 
+kemungkinan terjadinya suatu kejadian.
+Pada akhir subbab, peserta didik diberikan kesempatan untuk melakukan 
+percobaan menggunakan roda putar ( spinner). Percobaan ini juga dirancang 
+untuk memperkenalkan peserta didik terhadap konsep peluang secara 
+langsung. Diharapkan peserta didik dapat mengambil kesimpulan tentang 
+peran peluang di dalam fungsi roda putar.Metode & Aktivitas Pembelajaran
+
+--- page 122 ---
+116
+Buku Panduan Guru Matematika untuk SD Kelas VI1. Skala Peluang
+Permasalahan
+Baca cerita pembuka yang tersedia bersama peserta didik dan gunakan 
+pertanyaan yang tersedia untuk berdiskusi.
+Pertanyaan diskusi (juga tertera di buku siswa):
+Apakah benar Dhien tidak memiliki peluang untuk menang sama sekali? 
+Atau ia sebenarnya mungkin terpilih menjadi pemenang ajang kompetisi 
+menyanyi itu? Menurut kalian bagaimana?
+Tidak benar, Dhien sebenarnya memiliki peluang untuk menang. Hanya 
+saja, dia merasa tidak ada peluang sama sekali.
+Eksplorasi 4.1 
+Peserta didik diajak berdiskusi di dalam kelompok untuk menentukan apakah 
+mereka setuju dengan beberapa pertanyaan. Tujuan kegiatan ini adalah untuk 
+memperkenalkan konsep peluang dalam kehidupan sehari-hari. 
+Berikut beberapa tip untuk guru saat memimpin kegiatan eksplorasi ini.
+• Guru dapat mengarahkan peserta didik bagaimana melakukan diskusi 
+dengan menghormati pendapat dan perspektif orang lain. Perdebatan 
+yang tidak produktif (misalnya peserta didik jadi tersinggung) perlu 
+diintervensi oleh guru dan diingatkan kembali tentang kesepakatan awal 
+untuk saling menghormati.
+• Apabila ada sedikit perdebatan dalam berdiskusi yang masih kondusif, 
+jangan dihentikan, tetapi dengarkan alasan/argumen peserta didik. 
+Gunakan contoh-contoh argumen yang didengar saat guru menjelaskan 
+di akhir diskusi.
+• Perkenalkan jenis-jenis peran peserta didik sebelum memulai kegiatan. 
+Bagikan pentingnya membagi peran dalam kelompok agar diskusi yang 
+berlangsung produktif.
+
+--- page 123 ---
+117
+ Peluang• Apabila dirasa perlu, buatlah tanda pengenal atau stiker nama ( name tag)  
+berupa nama-nama peran untuk digunakan peserta didik saat beraktivitas. 
+Kesimpulan di akhir kegiatan yang dapat guru sampaikan:
+• Kunci jawaban untuk pernyataan yang didiskusikan:
+• Saat liburan sekolah, selalu hujan. (Tidak setuju karena hujan tidak 
+selalu turun saat liburan sekolah)
+• Saat melempar koin, lebih mudah untuk mendapatkan sisi gambar 
+dibandingkan sisi angka. (Tidak setuju karena sisinya sama dan 
+lemparannya acak, maka kemungkinan mendapatkan sisi gambar dan 
+sisi angka sama)
+• Aku tidak mungkin bertemu dengan presiden negara Indonesia. (Tidak 
+setuju karena ada kemungkinan aku bertemu dengan presiden negara 
+Indonesia, hanya saja kemungkinannya kecil)
+• Setiap orang yang mengikuti undian akan menang setidaknya satu kali 
+dalam hidupnya. (Tidak setuju karena tidak ada jaminan seseorang 
+akan menang satu kali dalam hidupnya)
+• Besok, matahari pasti terbit. (Setuju karena fenomena alam yang 
+sudah pasti terjadi)
+• Klaim “pasti”, “selalu”, “tidak pernah” biasanya jarang benar-benar 
+terjadi kecuali untuk beberapa kejadian yang memang menjadi bagian 
+dari fenomena alam atau hukum alam (misalnya apabila memegang 
+panci yang baru digunakan saat memasak, kalian pasti akan merasakan 
+panas atau ketika bola dilempar dari ketinggian, bola pasti akan jatuh ke 
+bawah). Kejadian sehari-hari lainnya hampir selalu mungkin terjadi, hanya KETUA JURU TULIS JURU WAKTU JURU BICARA
+Bertugas 
+memimpin 
+kelompok, 
+membaca 
+langkah 
+kegiatan, dan 
+memastikan 
+tujuan kegiatan 
+tercapaiBertugas 
+memperhatikan 
+dan mencatat 
+hasil kegiatan di 
+lembar kerja 
+eksplorasiBertugas 
+memperhatikan 
+dan 
+mengingatkan 
+kelompoknya 
+tentang batas 
+waktuBertugas 
+menjelaskan 
+hasil kegiatan 
+kepada seluruh 
+kelas
+*peran ini 
+dihapus apabila 
+hanya ada 3 siswa
+
+--- page 124 ---
+118
+Buku Panduan Guru Matematika untuk SD Kelas VIsaja peluang atau kemungkinannya sangat kecil. Misalnya kalimat “Aku 
+tidak mungkin bertemu dengan presiden Indonesia” adalah kalimat yang 
+kurang tepat karena ada kemungkinannya, hanya saja kemungkinannya 
+bisa saja kecil. Konsep peluang sangat dekat dengan kehidupan kita. 
+Seringkali pernyataan yang kita katakan merupakan pernyataan yang 
+mengandung konsep peluang. Oleh karena itu, kita perlu mengeksplorasi 
+dan memahaminya agar dapat bermanfaat dalam kehidupan kita sehari-
+hari.
+Saat belajar mengonstruksi skala peluang, sangat umum bagi peserta didik 
+untuk berpikir bahwa skala peluang harus berbentuk garis dengan 5 kategori 
+seperti yang digunakan dalam pembelajaran ini. Namun, penting untuk guru 
+juga menjelaskan bahwa kategori ini dapat ditambah atau dikurangi sesuai 
+dengan keperluan. Bahkan, skala prioritas dapat dibuat lebih terbuka tanpa 
+kategori kecuali titik pasti dan titik tidak mungkin harus berada pada kedua 
+ujung garis. Bentuk skala peluang dalam pembelajaran ini digunakan secara 
+konsisten karena dianggap yang paling umum digunakan.
+ 
+Saat membuat skala peluang secara 
+mandiri, besar kemungkinan ada 
+peserta didik yang akan mengalami 
+kesulitan membagi garis menjadi 
+4 bagian. Apabila dibiarkan, hal 
+ini mungkin akan berujung pada 
+banyaknya waktu yang terkuras 
+atau peserta didik yang frustrasi 
+dan menyerah sebelum ia mulai 
+melakukan tugas yang sebenarnya. 
+Untuk menghindari hal tersebut, 
+guru dapat memberikan tip bagaimana membuat garis yang dibagi menjadi 
+4 bagian yang sama dengan beberapa strategi, yaitu 1) buat setiap bagian 
+dengan penggaris misalnya 5 cm untuk setiap bagian atau 2) lipat kertas untuk 
+membuat garis skala peluang. Apabila ada peserta didik berkebutuhan khusus, 
+guru juga dapat memberikan templat garis skala peluang untuk digunakan. Miskonsepsi !?
+Diferensiasi
+Sumber: paige/The Happy Flammily (2015)
+
+--- page 125 ---
+119
+ PeluangUntuk membuat garis skala peluang yang dapat digunakan berulang kali, guru 
+juga bisa memasukkan dalam folder plastik dan peserta didik dapat menulis 
+di skala peluang ini menggunakan spidol papan tulis yang dapat dihapus dan 
+digunakan ulang.
+Untuk aktivitas latihan ini, peserta didik bisa diminta mencari pasangan 
+untuk memecahkan teka-tekinya. Guru perlu memberikan batasan waktu 
+dan ketentuan apabila peserta didik perlu mencatat hasil diskusi dan 
+jawaban mereka. Setelah peserta didik selesai melakukan aktivitas ini, guru 
+meminta beberapa kelompok untuk membagikan jawaban serta proses 
+berpikir mereka.
+Salah satu jawaban yang mungkin adalah:  
+Ayah memiliki 6 pakaian berwarna kuning, 6 pakaian berwarna hijau, 3 
+pakaian berwarna biru, dan 1 pakaian berwarna hitam.
+Kunci Jawaban Latihan 4.1 
+1. a. Jawaban yang benar bisa beragam.
+b. 
+*tidak harus dituliskan
+c. Ayo Berpikir Kreatif
+Tidak
+mungkinKurang
+mungkinMungkinSangat
+mungkinPasti
+*
+Tidak
+mungkinKurang
+mungkinMungkinSangat
+mungkinPasti
+1
+5
+2
+6
+3
+7
+4
+8
+
+--- page 126 ---
+120
+Buku Panduan Guru Matematika untuk SD Kelas VId. 
+*tidak harus dituliskan
+e. 
+f. Mengambil 1 bola secara acak dari tas.Tidak
+mungkinKurang
+mungkinMungkinSangat
+mungkinPasti
+1
+ 2
+3
+ 4
+5
+6
+7
+ 8*
+Tidak
+mungkinKurang
+mungkinMungkinSangat
+mungkinPasti
+
+
+--- page 127 ---
+121
+ Peluangg. 
+2. Guru perlu mencetak artikel berikut apabila tidak  ada 
+akses perangkat di sekolah yang dapat digunakan 
+peserta didik untuk membaca. 
+Jawaban:
+Peserta didik tidak perlu mendaftar setiap provinsi untuk 
+dimasukkan ke dalam skala peluang. Yang diharapkan 
+adalah peserta didik mampu membaca data dan 
+membuat perkiraan yang dituangkan ke dalam skala 
+peluang. Berikut salah satu kemungkinan jawaban yang 
+benar.Tidak
+mungkinKurang
+mungkinMungkinSangat
+mungkinPasti
+https://www.bps.go.id/
+indicator/168/954/1/
+banyaknya-desa-kelurahan-
+menurut-jenis-bencana-alam-
+dalam-tiga-tahun-terakhir.
+htmlTidak
+mungkin
+Tsunami,
+gunung
+meletusTanah
+longsorGempa bumi,
+banjirKurang
+mungkinMungkinSangat
+mungkinPasti
+Tidak
+mungkin
+Kalimantan Barat,
+Kalimantan Tengah,
+Kalimantan SelatanBanten,
+Jawa Tengah,
+Papua,
+GorontaloSumatra Utara,
+Maluku Utara,
+Sulawesi Barat,
+Sulawesi TengahJawa TimurKurang
+mungkinMungkinSangat
+mungkinPasti
+
+--- page 128 ---
+122
+Buku Panduan Guru Matematika untuk SD Kelas VI3. Jawab pertanyaan dengan petunjuk yang tersedia pada skala peluangnya.
+a. 2, 2, 2, 4, 4, 1
+b. 3, 3, 4, 4, 5, 5
+c. 6, 6, 6, 4, 4, 5, 5, 3
+d. 8, 8, 8, 8, 8, 8, 8, 8
+e. Jawaban benar bervariasi sebagai berikut:
+• 6 bola putih, 3 bola merah, 1 bola kuning
+• 5 bola putih, 3 bola merah, 2 bola kuning
+f. Jawaban benar bervariasi sebagai berikut:
+• 7 bola merah, 4 bola hijau, 4 bola biru 
+• 8 bola merah, 3 bola hijau, 4 bola biru
+• 8 bola merah, 4 bola hijau, 3 bola biru
+• 9 bola merah, 3 bola hijau, 3 bola biru
+Catatan tambahan untuk guru:
+Soal nomor 3e) dan 3f) dengan sengaja dibuat bersifat terbuka (open-
+ended) di mana ada lebih dari 1 jawaban benar yang diharapkan menantang 
+peserta didik untuk berpikir kritis dan tingkat tinggi. Pertanyaan yang 
+bersifat terbuka mendorong peserta didik untuk menerapkan konsep 
+matematika dalam situasi yang baru dan untuk memecahkan masalah 
+berdasarkan pemahaman mereka. 
+Pertanyaan bersifat terbuka bukan berarti tidak memiliki jawaban yang 
+salah. Misalnya untuk nomor 3e), jawaban 4 bola putih, 4 bola merah, dan 
+2 bola kuning salah karena tidak sesuai dengan informasi skala peluang 
+yang disediakan.
+4. Untuk soal nomor 4, yang diharapkan dari peserta didik adalah diskusi 
+produktif di mana mereka menyadari ada beberapa jawaban yang benar 
+untuk soal nomor 3f). Mereka juga diminta untuk mencari variasi jawaban 
+benar lainnya untuk nomor 3f).
+Setelah peserta didik selesai dengan soal nomor 4, guru dapat menjelaskan 
+pentingnya pemecahan masalah dalam matematika. Jelaskan juga bahwa 
+dalam dunia nyata, seringkali pemecahan masalah punya tidak hanya satu 
+solusi, tetapi ada lebih dari satu.
+
+--- page 129 ---
+123
+ Peluang 
+Persiapan guru:
+• Apabila guru memiliki akses internet, guru dapat memperkenalkan apa itu 
+roda putar dengan beberapa alat gratis di internet seperti berikut:
+• Apabila guru tidak memiliki akses internet di sekolah, buatlah roda putar 
+sederhana yang bisa didemonstrasikan di depan peserta didik.
+Hal yang perlu diperhatikan saat mendampingi peserta didik:
+• Siswa perlu berpasangan dengan 1–2 siswa. Tidak disarankan untuk 
+membuat kelompok lebih besar dari 3 siswa.
+• Untuk tabel yang perlu dibuat, siswa dapat menggunakan buku tulis mereka 
+atau apabila dirasa perlu, guru dapat menyediakan lembar kerjanya.
+Kesimpulan kegiatan:
+• Minta peserta didik membagikan penemuan mereka tentang prediksi dan 
+kejadian nyata percobaan mereka.
+• Minta peserta didik menjawab pertanyaan: “Berdasarkan percobaan ini, 
+coba jelaskan mengapa warna kuning memiliki peluang paling besar untuk 
+terpilih?”Ayo Mencoba
+Roda Putar Nama:
+https://wheelofnames.com/Google spinner:
+https://g.co/kgs/s9QFsf
+
+
+--- page 130 ---
+124
+Buku Panduan Guru Matematika untuk SD Kelas VI• Bagikan kesimpulan kalau pada dasarnya peluang adalah prediksi terbaik 
+berdasarkan data/informasi yang tersedia walaupun pada realitanya belum 
+tentu hasilnya akan selalu sama dengan prediksi terbaik kita. Tekankan 
+kembali bahwa peluang tetap bermanfaat dalam kehidupan kita karena 
+dengan belajar peluang kita dapat membuat prediksi yang mendasar.
+Bagi peserta didik yang kesulitan membuat skala peluang untuk roda putar, 
+minta mereka untuk mencoba menggunakan roda putar terlebih dahulu 
+sebelum membuat skala peluangnya. Dengan memutar roda putar, peserta 
+didik akan lebih dapat membayangkan warna mana yang lebih memungkinkan 
+terpilih dibandingkan yang lain. Gunakan juga strategi tanya jawab ketika 
+membimbing peserta didik untuk menggunakan roda putar.
+Bagi peserta didik yang kecepatan belajarnya tinggi ( advanced), minta 
+mereka membuat roda putar dengan lebih banyak warna dan proporsi yang 
+berbeda.
+B.  Membandingkan Peluang Kejadian
+Sampaikan kepada peserta didik bahwa pembelajaran di subbab ini merupakan 
+pengembangan dari apa yang sudah dipelajari tentang peluang sebelumnya. 
+Namun, sekarang mereka akan mencoba membandingkan peluang dari 
+berbagai kejadian. 
+Guru diharapkan dapat menjelaskan pengalaman belajar yang akan 
+didapat peserta didik setelah mempelajari bab ini. Setelah mempelajari bab 
+ini, peserta didik dapat:
+• membandingkan permainan dengan peluang yang adil dan yang kurang 
+adil; dan
+• membandingkan peluang dari dua kejadian untuk mengambil keputusan.Diferensiasi
+Pengalaman Belajar
+
+--- page 131 ---
+125
+ Peluang• Alat tulis
+• Penggaris
+• Buku catatan/buku tulis 
+• Dadu, sejumlah paling sedikit 1
+2 dari jumlah siswa di dalam kelas (misalnya 
+ada 20 siswa, maka setidaknya harus disediakan 10 dadu)
+• Koin logam, sejumlah paling sedikit 1
+2 dari jumlah siswa di dalam kelas 
+(misalnya ada 20 siswa, maka setidaknya harus disediakan 10 koin logam) 
+ 
+Perkenalkan bab ini dengan bersama-sama membaca cerita komik untuk 
+memperkenalkan konsep peluang. Sebelum mulai membaca, guru dapat 
+meminta peserta didik untuk memperhatikan bagian cerita mana yang 
+berhubungan dengan peluang. Pembacaan cerita bisa dilakukan bersama-
+sama atau secara mandiri oleh peserta didik. Guru dapat menilai metode yang 
+lebih efektif berdasarkan karakteristik para peserta didik di dalam kelasnya.
+Setelah selesai membaca cerita, guru memandu peserta didik untuk 
+berdiskusi dengan teman sebangkunya menggunakan pertanyaan berikut. 
+a. Menurut kalian, apakah peluang menang Dhien termasuk besar atau 
+kecil? Coba jelaskan alasan kalian.
+b. Kalau Dhien sekarang sudah SMP, apakah peluang menangnya lebih 
+besar atau lebih kecil? Coba diskusikan perkiraan kalian dengan teman 
+sebangku kalian.
+Berikan batasan waktu untuk peserta didik berdiskusi dan minta beberapa 
+peserta didik membagikan hasil diskusinya kepada teman satu kelas. Sampaikan 
+kepada peserta didik bahwa jawaban atau kesimpulannya akan dijawab 
+setelah pembahasan konsep ini. Peserta didik diminta untuk menyimak agar 
+mendapatkan kesimpulan dari pertanyaan diskusi.Sarana & Prasarana Pembelajaran
+Apersepsi
+Ayo Berpikir Kritis
+
+--- page 132 ---
+126
+Buku Panduan Guru Matematika untuk SD Kelas VI 
+Peserta didik diajak melakukan Eksplorasi 4.2 melalui konteks permainan 
+dengan dadu dan koin guna memahami hubungan peluang dalam permainan 
+dan mencoba sendiri permainan yang adil serta yang kurang adil. Di bagian 
+ini, peserta didik perlu membedakan dan dapat mengidentifikasi permainan 
+seperti apa yang adil dan yang kurang adil.
+Selanjutnya, pada Eksplorasi 4.3, peserta didik melakukan percobaan 
+dengan permen di mana mereka diminta membuat prediksi dan mengambil 
+acak permen. Melalui percobaan ini, peserta didik diharapkan dapat memahami 
+hubungan antara banyaknya permen dengan warna tertentu dan peluang 
+terpilihnya warna tersebut secara acak.
+Setelah itu, peserta didik akan dibimbing untuk melakukan perbandingan 
+peluang di dua kejadian yang  dekat dengan kehidupan sehari-hari. Agar 
+berhasil dalam membandingkan peluang di dua kejadian, pemahaman konsep 
+peluang peserta didik perlu dipandu dengan keterampilan menganalisis.
+1. Membandingkan Peluang dalam Permainan
+Eksplorasi 4.2 
+Perkenalkan peserta didik pada aturan main permainan 3 ronde ini (petunjuk 
+juga disediakan pada buku siswa). Pastikan peserta didik memiliki pasangan 
+dan alat yang dibutuhkan, yaitu 1 dadu dan 1 koin logam untuk setiap kelompok. 
+Sampaikan kepada peserta didik bahwa tujuan aktivitas ini adalah agar mereka 
+mengalami langsung perbandingan peluang untuk menang dalam beberapa 
+permainan. Minta peserta didik untuk memperhatikan peluang menang pada 
+setiap rondenya karena akan disimpulkan bersama di akhir aktivitas.
+Yang perlu diperhatikan guru dalam mempersiapkan aktivitas ini adalah:
+• Siswa perlu berpasangan dengan 1 siswa lainnya. Apabila jumlah siswa 
+ganjil, ajak siswa yang karakternya cekatan untuk menjadi teman bermain 
+2 siswa. Alternatif lain adalah untuk guru menjadi pasangan bermain siswa 
+yang tidak mendapatkan pasangan (tidak disarankan karena guru tidak 
+dapat berkeliling untuk mengobservasi dan memberikan arahan).
+• Untuk hasil diskusi setiap rondenya, minta siswa untuk mencatatnya di 
+buku tulis atau di selembar kertas sesuai keperluan.Metode & Aktivitas Pembelajaran
+
+--- page 133 ---
+127
+ Peluang• Selama permainan 3 ronde ini, biarkan suasana kelas lebih rileks asalkan 
+siswa tetap melakukan permainan sesuai dengan arahan.
+• Berikan batasan waktu yang cukup untuk permainan 3 ronde ini. Apabila 
+ada kelompok siswa yang selesai lebih dahulu, persilakan mereka untuk 
+lanjut bermain sambil menunggu teman-teman lain selesai. Alternatif lain 
+adalah untuk memberikan mereka kesempatan mengamati permainan 
+teman lainnya. 
+Kunci Jawaban Latihan 4.2 
+1. Peluang mendapatkan sisi garuda saat melempar koin 500 rupiah adalah 
+__1__ dari __2__ jumlah kemungkinan yang ada.
+Peluang mendapatkan sisi angka saat melempar koin 500 rupiah adalah 
+__1__ dari __2__ jumlah kemungkinan yang ada.
+Peluang mendapatkan sisi angka dan sisi garuda (pilih satu) sama/berbeda.
+2. Jawab beberapa pertanyaan di bawah ini.
+• Dengan roda putar yang dibuat, tentukan siapa yang memiliki peluang 
+menang paling besar?  
+Maryam memiliki peluang menang paling besar.
+• Menurut kalian, apakah kelas Dhien sebaiknya menggunakan roda 
+putar ini untuk menentukan ketua kelas mereka? Mengapa? Sebaiknya 
+kelas Dhien menggunakan roda putar yang adil untuk menentukan 
+ketua kelas mereka.
+• Coba buat roda putar yang lebih adil 
+untuk menentukan ketua kelas mereka 
+Contoh roda putar yang dapat dibuat 
+seperti gambar berikut.
+Maryam TutiAbdillah Reimon
+
+--- page 134 ---
+128
+Buku Panduan Guru Matematika untuk SD Kelas VI3. Jawaban benar bervariasi. Salah satu contohnya adalah sebagai berikut.
+Permainan adil: saat setiap orang yang main punya peluang menang yang 
+sama, jadi tidak ada yang lebih mungkin menang dari yang lain.Permainan 
+kurang adil: saat peluang menang orang yang bermain beda, jadi ada yang 
+lebih mungkin menang dari yang lain.
+4. 
+Bagi peserta didik yang kecepatan belajarnya tinggi ( advanced), minta mereka 
+mengerjakan latihan tanpa bantuan. Pada saat yang sama, guru dapat 
+mendampingi peserta didik yang mengalami kesulitan dengan bertanya jawab.
+2. Membandingkan Peluang dalam Kejadian Sehari-hari
+Eksplorasi 4.3 
+Pada kegiatan eksplorasi ini, peserta didik akan melakukan percobaan di dalam 
+kelompok. Sebelum memberikan waktu kerja mandiri di dalam kelompok, baca 
+lembar kerja bersama-sama agar peserta didik paham apa yang perlu mereka 
+lakukan. Saat aktivitas dimulai, guru bisa berkeliling untuk memberikan arahan 
+atau bertanya untuk memantik pemikiran peserta didik. Pastikan peserta didik 
+terbagi ke dalam kelompok 3–4 orang dan memiliki bahan-bahan yang mereka 
+butuhkan.
+Setiap kelompoknya membutuhkan:
+• Kantong plastik (sebisa mungkin yang tidak transparan)
+• Kain penutup mataBuat satu skenario permainan yang adil dan satu skenario permainan 
+yang kurang adil.
+Jawaban yang benar bervariasi. Contoh: Syarat untuk menang 
+permainan mendapatkan 1 atau 3.Ayo Berpikir Kreatif
+Diferensiasi
+
+--- page 135 ---
+129
+ Peluang• 10 Permen* (dengan bungkusnya, atau bisa menggunakan permen yang 
+dibungkus satu per satu)  
+*Guru bisa menentukan apakah ingin menggunakan bahan lain selain permen 
+untuk melakukan percobaan
+• Pensil warna
+Beberapa tip untuk guru saat memimpin kegiatan eksplorasi ini:
+• Percobaan yang dilakukan menggunakan permen sehingga guru dapat 
+menggunakan permen sebagai motivasi untuk peserta didik melaksanakan 
+kegiatan ini dengan baik. Guru dapat menyampaikan apabila kegiatan 
+berjalan dengan lancar, maka peserta didik akan diberikan kesempatan 
+untuk menikmati permennya di akhir kegiatan.
+• Apabila masih diperlukan, perkenalkan jenis-jenis peran peserta didik 
+sebelum memulai kegiatan. Bagikan pentingnya membagi peran dalam 
+kelompok agar diskusi yang berlangsung produktif.
+• Apabila dirasa perlu, buatlah tanda pengenal atau stiker nama ( name tag) 
+berupa nama-nama peran untuk digunakan peserta didik saat beraktivitas. KETUA JURU TULIS JURU WAKTU JURU BICARA
+Bertugas 
+memimpin 
+kelompok, 
+membaca 
+langkah 
+kegiatan, dan 
+memastikan 
+tujuan kegiatan 
+tercapaiBertugas 
+memperhatikan 
+dan mencatat 
+hasil kegiatan di 
+lembar kerja 
+eksplorasiBertugas 
+memperhatikan 
+dan 
+mengingatkan 
+kelompoknya 
+tentang batas 
+waktuBertugas 
+menjelaskan 
+hasil kegiatan 
+kepada seluruh 
+kelas
+*peran ini 
+dihapus apabila 
+hanya ada 3 siswa
+
+--- page 136 ---
+130
+Buku Panduan Guru Matematika untuk SD Kelas VIApakah dengan memilih Kotak Hadiah Mantap, Ibu Dhien akan pasti 
+mendapatkan piring? Coba jelaskan alasannya.
+Dengan memilih kotak hadiah mantap, Ibu Dhien belum tentu pasti 
+mendapat piring. Pilihan kotak hadian mantap memiliki peluang paling 
+besar untuk mendapatkan piring, tetapi tidak pasti dapat piring.
+Bagi peserta didik yang mengalami kesulitan membandingkan peluang di satu 
+kotak dibandingkan kotak yang lain, coba lakukan demonstrasi dengan barang 
+yang ada. Sambil mendemonstrasikan, tanyakan beberapa pertanyaan yang 
+akan memantik pemikiran peserta didik seperti:
+• Apa saja kemungkinan bola yang diambil di kotak ini?
+• Mana yang lebih besar peluangnya: terambil bola X atau bola y?
+• Apabila dibandingkan dengan kotak yang lainnya, lebih besar mana 
+peluang terambilnya bola X?
+Metode lain yang dapat dicoba untuk memberikan dukungan kepada 
+peserta didik yang kecepatan belajarnya tidak cepat adalah menggunakan 
+cerita. Cerita berfungsi untuk menyediakan konteks pada persoalan matematika 
+yang abstrak. Gunakan soal perbandingan peluang yang lebih sederhana dan 
+buatlah cerita seputarnya. Lakukan tanya jawab menggunakan cerita tersebut 
+bersama peserta didik. Apabila pemahaman sudah lebih terbangun, bawa 
+peserta didik ke soal yang lebih kompleks.
+Ada miskonsepsi umum bahwa peluang besar artinya ada kemungkinan pasti 
+mendapatkan situasi yang diinginkan. Padahal, peluang besar artinya masih 
+ada kemungkinan peluang tidak terjadinya kejadian. Saat membahas ini, guru 
+bisa mengingatkan peserta didik kembali ke skala peluang dan perbedaan 
+kategori sangat mungkin dan pasti. Gunakan contoh supaya peserta didik bisa 
+memahami dengan kontekstual.Ayo Berpikir Kritis
+Diferensiasi
+Miskonsepsi !?
+
+--- page 137 ---
+131
+ PeluangKunci Jawaban Latihan 4.3 
+1. a.  Warna silver
+b. Warna biru
+2. a.  Kotak pensil? Kotak 2
+b. Buku bacaan? Kotak 1
+c. Pensil dan penghapus? Kotak 2
+3. Soal tantangan
+a. Kotak pensil? Kotak x
+b. Buku bacaan? Kotak x
+c. Pensil dan penghapus? Kotak x
+Soal tantangan bisa diberikan kepada peserta didik yang kecepatan belajarnya 
+tinggi ( advanced) atau yang selesai lebih dahulu. Sampaikan bahwa mereka 
+perlu mencari tahu alasan mereka memilih jawaban di soal tantangannya. Guru 
+dapat menjelaskan jawaban soal tantangan bersama-sama dengan satu kelas. 
+Buatlah skala kemungkinan untuk kedua kotak tersebut untuk membantu 
+pemahaman peserta didik yang lebih lambat pemahamannya.
+Contoh penjelasan yang diberikan sebagai berikut:
+• Untuk kotak pensil, anak harus memilih kotak 2 bukan kotak 1 walaupun 
+jumlah kotak pensil di kotak 1 lebih banyak dari kotak 2. Jika dilihat secara 
+keseluruhan, kotak 1 diisi dengan banyak buku bacaan sehingga peluang 
+mendapatkan kotak pensil kecil. Memilih kotak 2 masih tetap memberikan 
+peluang terbesar mendapatkan kotak pensil.
+Refleksi
+Guru dapat mengajak peserta didik melakukan refleksi diri menggunakan 
+rubrik yang tersedia. Jelaskan kepada peserta didik arti setiap kategori di rubrik 
+dan minta peserta didik berpikir dalam keheningan selama 1 menit. Setelah 
+itu mereka bisa melingkari angka yang paling sesuai menjelaskan keadaan 
+mereka.Diferensiasi
+
+--- page 138 ---
+132
+Buku Panduan Guru Matematika untuk SD Kelas VI1 2 3 4
+Aku kurang 
+pahamAku paham, tetapi 
+masih ada pertanyaan 
+atau masih ada yang 
+membingungkanAku paham 
+keseluruhan 
+konsep dan 
+materiAku paham dan aku 
+bisa membantu teman 
+lain untuk memahami 
+materinya
+Selanjutnya, guru memberikan waktu kepada peserta didik untuk 
+menjawab pertanyaan refleksi yang juga terdapat di buku siswa.
+1. Apakah kalian telah memahami apa itu peluang?
+2. Apakah kalian telah memahami kegunaan peluang dalam kehidupan 
+sehari-hari?
+3. Apakah kalian dapat membedakan permainan yang adil dan yang kurang 
+adil?
+4. Apakah kalian dapat membandingkan peluang dua kejadian untuk 
+mengambil keputusan?
+Uji Kompetensi
+1. Jelaskan apa manfaat peluang dalam kehidupan sehari-hari? Berikan 1–2 
+contohnya.
+• Peluang bermanfaat saat menentukan pilihan waktu perjalanan 
+ke kampung untuk menghindari macet atau kenaikan harga biaya 
+transportasi.
+• Peluang bermanfaat untuk memecahkan teka-teki saat hanya tersedia 
+sedikit petunjuknya.
+2. Jawablah beberapa pertanyaan berikut ini.
+a. Pemain mana yang memiliki peluang paling besar untuk menang? 
+Pemain yang memiliki peluang paling besar untuk menang adalah 
+pemain ketiga.
+b. Apakah permainan ini termasuk permainan adil atau kurang adil?  
+Permainan itu kurang adil karena setiap pemain memiliki peluang 
+untuk menang yang berbeda-beda.

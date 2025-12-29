@@ -20,11 +20,17 @@ export default async function DashboardIndexPage() {
     .eq("id", user.id)
     .single();
 
-  if (error || !profile) {
-    redirect("/login");
+  if (error) {
+    console.warn("profiles fetch error", error);
   }
 
-  const role = profile.role as UserRole;
+  const role =
+    (profile?.role as UserRole | undefined) ||
+    (user.user_metadata?.role as UserRole | undefined) ||
+    ((user as { app_metadata?: { role?: UserRole } })?.app_metadata?.role as
+      | UserRole
+      | undefined) ||
+    "student";
 
   if (role === "student") redirect("/dashboard/student");
   if (role === "teacher") redirect("/dashboard/teacher");

@@ -1,0 +1,41 @@
+material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
+9,1,essay,practice,Selisih penjualan minggu pertama 245.680 dan minggu kedua 238.950 adalah?,,,,6.730,,,,,,,,,,,,,
+9,2,drag_drop,practice,Pasangkan bilangan dengan pembulatannya ke ratusan ribu terdekat.,,,,,,,,,,,,,,,149.999;150.001;499.500;650.400,"100.000,200.000,500.000,700.000",
+9,3,essay,practice,Tulis bilangan terbesar yang dapat dibentuk dari angka 0 2 5 7 9 tanpa pengulangan.,,,,97.520,,,,,,,,,,,,,
+9,4,essay,practice,Nilai tempat angka 4 pada bilangan 640.315 adalah...,,,,40.000,,,,,,,,,,,,,
+9,5,mcq,practice,Pernyataan yang benar tentang bilangan 905.070 adalah...,,,TODO_IMG_PLACE_VALUE_905070.png,B,,,Angka 9 bernilai 9.000,Angka 5 bernilai 5.000,Angka 7 bernilai 7.000,Angka 0 di depan 7 bernilai 0 ratus,,,,,,,
+9,6,mcq,practice,Hasil 320.450 + 79.580 adalah...,,,,A,,,400.030,399.030,401.030,400.300,,,,,,,
+9,7,essay,practice,Seorang siswa menulis 120.030 sebagai seratus dua puluh ribu tiga puluh. Apakah benar?,,,,ya/benar,,,,,,,,,,,,,
+9,8,mcq,practice,Bilangan yang paling dekat dengan 1.000.000 adalah...,,,,A,,,999.500,1.002.000,998.900,1.010.000,,,,,,,
+9,9,essay,practice,Urutkan dari terbesar: 705.120 705.210 705.021,,,TODO_IMG_URUT_705.png,705.210>705.120>705.021,,,,,,,,,,,,,
+9,10,essay,practice,Gudang memiliki 480.000 unit. Setiap hari keluar 12.500 unit selama 4 hari. Berapa sisa unit?,,,,430.000,,,,,,,,,,,,,
+9,11,drag_drop,practice,Pasangkan bilangan dengan bentuk dekomposisinya.,,,,,,,,,,,,,,,503.040;870.605;120.009,"500.000+3.000+40,800.000+70.000+600+9,100.000+20.000+9",
+9,12,essay,practice,Tuliskan bilangan dari 6x100.000 + 2x10.000 + 9x1.000 + 4x100 + 8.,,,,629.408,,,,,,,,,,,,,
+9,13,mcq,practice,Bilangan yang lebih kecil dari 560.500 adalah...,,,,A,,,560.499,560.500,560.550,560.900,,,,,,,
+9,14,drag_drop,practice,Kelompokkan bilangan yang dibulatkan ke puluhan ribu terdekat menjadi 320.000.,,,TODO_IMG_BULAT_320000.png,,,,,,,,,,,,315.001;324.999;325.000;319.499,"Ya,Ya,Tidak,Ya",
+9,15,essay,practice,"Bandingkan 450.090 dan 450.009 (>,<,=).",,,,>,,,,,,,,,,,,,
+7,16,essay,practice,Pada peta skala 1 cm mewakili 25.000 cm. Jika jarak pada peta 18 cm berapa jarak sebenarnya dalam meter?,,,TODO_IMG_SKALA_25K.png,4.500,,,,,,,,,,,,,
+7,17,essay,practice,Tentukan bilangan terkecil yang lebih besar dari 399.990 dan habis dibagi 5.,,,,399.997,,,,,,,,,,,,,
+7,18,essay,practice,Harga turun dari 750.000 menjadi 685.000. Berapa besar penurunan harga?,,,TODO_IMG_DISKON_750.png,65.000,,,,,,,,,,,,,
+7,19,multipart,practice,Tiga bilangan berurutan berjumlah 1.002.003.,,,,,,,,,,,,,,,,,"a|Tuliskan ketiga bilangan tersebut|334.000,334.001,334.002;b|Bilangan terbesar adalah|334.002"
+7,20,essay,practice,Tuliskan angka dari kalimat empat ratus delapan puluh dua ribu sembilan belas.,,,,482.019,,,,,,,,,,,,,
+7,21,multipart,practice,Pembulatan bilangan 768.450.,,,,,,,,,,,,,,,,,a|Ke ratusan ribu terdekat|800.000;b|Ke ribuan terdekat|768.000
+7,22,drag_drop,practice,Pasangkan pernyataan nilai tempat dengan bilangan yang sesuai.,,,TODO_IMG_PASANG_NILAI.png,,,,,,,,,,,,6 bernilai 60.000;3 bernilai 300;9 bernilai 9.000,"364.127,582.341,219.845",
+7,23,essay,practice,Seorang siswa menulis 70.500 sebagai tujuh puluh ribu lima. Apakah benar? Tuliskan yang benar.,,,,salah/tidak; tujuh puluh ribu lima ratus,,,,,,,,,,,,,
+7,24,multipart,practice,Lengkapi.,,,,,,,,,,,,,,,,,a|Bilangan dari 9x100.000 + 8x1.000 + 7x10|908.070;b|Dekomposisi 405.060|400.000+5.000+60
+7,25,mcq,practice,Hasil 1.000.000 - 275.640 adalah...,,,TODO_IMG_PENGURANGAN_1JUTA.png,A,,,724.360,724.460,725.360,724.306,,,,,,,
+9,26,multipart,practice,Kerjakan.,,,,,,,,,,,,,,,,,"a|540.000 ... 539.999 (>,<,=)|>;b|Bilangan terkecil dari 120.450 120.405 120.540|120.405;c|Selisih 600.000 dan 598.750|1.250"
+9,27,essay,practice,Toko A menjual 3 karung beras masing masing 75.500 gram. Berapa total gram?,,,,226.500,,,,,,,,,,,,,
+9,28,essay,practice,Skor peserta: 250.120 250.102 250.210 250.012. Peringkat kedua adalah...,,,,250.120,,,,,,,,,,,,,
+9,29,essay,practice,Setiap rak berisi 12.500 barang dan ada 8 rak. Berapa total barang?,,,TODO_IMG_RAK_8x12500.png,100.000,,,,,,,,,,,,,
+9,30,essay,practice,630.000 dibagi rata ke 9 kelas. Berapa per kelas?,,,,70.000,,,,,,,,,,,,,
+9,31,essay,practice,Nilai 482.000 dalam satuan ribuan adalah...,,,,482 ribu,,,,,,,,,,,,,
+9,32,multipart,practice,Lengkapi bilangan.,,,,,,,,,,,,,,,,,a|Bilangan sebelum 300.000|299.999;b|Bilangan sesudah 999.999|1.000.000;c|Bilangan di antara 450.000 dan 450.002|450.001
+9,33,mcq,practice,Bilangan terbesar yang dapat dibentuk dari angka 1 1 0 5 9 adalah...,,,,A,,,95110,91510,95101,91150,,,,,,,
+9,34,drag_drop,practice,Pasangkan operasi dengan hasilnya.,,,TODO_IMG_OPERASI_4.png,,,,,,,,,,,,12.500x4;950.000-125.750;2.500x300;1.000.000:8,"50.000,824.250,750.000,125.000",
+9,35,multipart,practice,Nilai tempat dan bilangan.,,,,,,,,,,,,,,,,,a|Nilai angka 8 pada 780.045|80.000;b|Nilai angka 4 pada 780.045|40;c|Bilangan dengan 9 ratus ribu 2 puluh ribu 6 ratus 3 puluh 1 satuan|920.631
+9,36,multipart,practice,Belanja.,,,,,,,,,,,,,,,,,a|Total dari 2 buku 45.750 dan 3 pensil 12.500|129.000;b|Kembalian dari 150.000|21.000
+9,37,drag_drop,practice,Pasangkan bilangan dengan urutan yang benar.,,,TODO_IMG_URUT_402.png,,,,,,,,,,,,402.150;402.105;402.510,"tengah,terkecil,terbesar",
+9,38,multipart,practice,Hitung dan simpulkan.,,,,,,,,,,,,,,,,,a|250.000 + 75.000 + 1.250|326.250;b|Apakah hasilnya lebih dari 326.000 (ya/tidak)|ya
+9,39,essay,practice,Stadion menampung 85.000 orang dan terisi 79.450. Berapa kursi kosong?,,,,5.550,,,,,,,,,,,,,
+9,40,essay,practice,Dari 1.000.000 tersisa 875.000. Berapa persen yang hilang?,,,,"12,5",,,,,,,,,,,,,

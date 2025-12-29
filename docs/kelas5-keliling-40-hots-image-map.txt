@@ -1,0 +1,13 @@
+# Image placeholders for docs/kelas5-keliling-40-hots.csv
+# Format: question_number | placeholder | description
+2 | TODO_IMG_PERSEGI_45CM.png | Gambar persegi sisi 45 cm (tampilan jelas ukuran sisi)
+20 | TODO_IMG_KUE_DONAT.png | (Tidak dipakai di materi ini, abaikan jika muncul)
+21a | TODO_IMG_L_GABUNGAN_6_4.png | Bangun gabungan L dari persegi 6 cm dan persegi 4 cm (tunjukkan sisi luar)
+21b | TODO_IMG_GABUNGAN_8x4_5x4.png | Dua persegi panjang 8x4 dan 5x4 menempel di sisi 4 cm
+24 | (No image) | Soal drag-drop tanpa gambar
+25 | (No image) | Soal trapesium tanpa gambar
+29a | TODO_IMG_PERSEGI_PANJANG_16_9.png | Persegi panjang p=16 cm l=9 cm
+29b | TODO_IMG_SEGITIGA_SAMAKAKI_10_12.png | Segitiga sama kaki sisi 10 cm dan alas 12 cm
+29c | TODO_IMG_TRAPESIUM_7_9_12_10.png | Trapesium dengan sisi 7 cm, 9 cm, 12 cm, 10 cm
+36 | (No image) | Drag-drop tanpa gambar
+37 | TODO_IMG_GABUNGAN_PERSEGI_8_6.png | Dua persegi sisi 8 m dan 6 m menempel pada satu sisi (tampilkan sisi luar)

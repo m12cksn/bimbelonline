@@ -1,0 +1,48 @@
+material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
+1,1,drag_drop,practice,Pasangkan pecahan dengan nilai desimal.,,,TODO_IMG_KARTU_DESIMAL.png,,,,,,,,,,,,1/5;2/5;4/5,"0.2,0.4,0.8",
+1,2,mcq,practice,Manakah yang lebih besar?,,,,7/10,,7/10 = 0.7 lebih besar dari 2/3,7/10,2/3,3/5,5/8,,,,,,,
+1,3,drag_drop,practice,Pasangkan operasi pecahan dengan hasilnya.,,,,,,,,,,,,,,,2/3+1/6;5/8-1/8;1/4+1/2,"5/6,1/2,3/4",
+1,4,essay,practice,Sisa kue: 5/6 dimakan 1/3. Berapa sisanya?,,,,1/2,,,,,,,,,,,,,
+1,5,essay,practice,Ubah 18/24 ke bentuk paling sederhana.,,,,3/4,,,,,,,,,,,,,
+1,6,essay,practice,Nadia memiliki 7/8 loyang brownies. Ia memberi 1/4 loyang ke temannya. Berapa sisa brownies Nadia?,,,TODO_IMG_BROWNIES_LOYANG.png,5/8,,,,,,,,,,,,,
+1,7,essay,practice,"Satu jam belajar = 60 menit. Jika Dina belajar 45 menit, berapa pecahan waktunya dari 1 jam?",,,,3/4,,,,,,,,,,,,,
+1,8,drag_drop,practice,Pasangkan pecahan dengan urutan yang tepat.,,,,,,,,,,,,,,,1/3;1/2;3/4,"terkecil,tengah,terbesar",
+1,9,mcq,practice,Hasil dari 1/4 + 2/8 adalah...,,,,1/2,,,3/8,1/2,5/8,3/4,,,,,,,
+1,10,essay,practice,"Di kebun, 9 dari 27 bibit tumbuh. Sederhanakan pecahan 9/27.",,,,1/3,,,,,,,,,,,,,
+1,11,essay,practice,"Sebuah pita sepanjang 20 bagian, 12 bagian terpakai. Tulis pecahan 12/20 dalam bentuk sederhana.",,,TODO_IMG_PITA_20_BAGIAN.png,3/5,,,,,,,,,,,,,
+1,12,essay,practice,Hitung 2/3 + 1/6.,,,,5/6,,,,,,,,,,,,,
+1,13,essay,practice,Ibu membeli 2/5 kg gula lalu membeli lagi 1/10 kg. Berapa totalnya?,,,,1/2,,,,,,,,,,,,,
+1,14,multipart,practice,Lengkapi jawaban pecahan.,,,,,,,,,,,,,,,,,a|3/7 + 2/7 = ?|5/7;b|Sederhanakan 6/9|2/3;c|1/5 + 2/10 = ?|2/5
+1,15,multipart,practice,Kerjakan tiap bagian berikut.,,,,,,,,,,,,,,,,,a|1/2 + 1/4 = ?|3/4;b|3/5 - 1/5 = ?|2/5;c|Sederhanakan 4/8|1/2
+1,16,essay,practice,Hitung 7/10 - 3/20.,,,,11/20,,,,,,,,,,,,,
+1,17,essay,practice,Jumlahkan 2/5 + 3/10.,,,,7/10,,,,,,,,,,,,,
+1,18,essay,practice,"Di kelas 5A, 3/5 siswa suka sepak bola. Jika 1/5 lagi menyukai basket, berapa pecahan siswa yang menyukai keduanya?",,,,4/5,,,,,,,,,,,,,
+1,19,multipart,practice,Isi jawaban berikut.,,,,,,,,,,,,,,,,,a|Sederhanakan 6/18|1/3;b|2/3 + 1/6 = ?|5/6;c|5/12 - 1/6 = ?|1/4 POST /api/adm/questions/import-csv 500 in 689ms (compile: 3ms, render: 686ms)
+import csv insert error: {
+  code: '23502',
+  details: null,
+  hint: null,
+  message: 'null value in column "correct_answer" of relation "questions" violates not-null constraint'
+}
+ POST /api/adm/questions/import-csv 500 in 894ms
+1,20,essay,practice,"Dalam lomba, tiga anak membawa pita: 1/2 m, 2/3 m, dan 3/4 m. Siapa yang membawa bagian pita terpanjang?",,,TODO_IMG_PITA_20_BAGIAN.png,3/4,,,,,,,,,,,,,
+1,21,essay,practice,"Di kantin, Rani minum 3/4 gelas jus lalu menambah 1/8 gelas lagi. Berapa bagian gelas jus Rani sekarang?",,,TODO_IMG_JUS_GELAS.png,7/8,,,,,,,,,,,,,
+1,22,essay,practice,"Pecahan terkecil dari 5/12, 1/3, 3/8 adalah...",,,,1/3,,,,,,,,,,,,,
+1,23,essay,practice,Dua botol minum terisi 4/5 dan 3/4. Botol mana yang lebih penuh?,,,TODO_IMG_BOTOL_45_DAN_34.png,4/5,,,,,,,,,,,,,
+1,24,essay,practice,Aldi menyelesaikan 5/6 buku latihan. Ia ternyata mengulang 1/3 buku dari awal. Berapa bagian buku yang tersisa untuk diselesaikan?,,,,1/2,,,,,,,,,,,,,
+1,25,multipart,practice,Jawab semua bagian.,,,,,,,,,,,,,,,,,a|4/9 - 1/9 = ?|1/3;b|2/3 + 1/3 = ?|1;c|Sederhanakan 12/16|3/4
+1,26,multipart,practice,Hitung setiap bagian.,,,,,,,,,,,,,,,,,a|9/12 - 1/3 = ?|5/12;b|2/5 + 1/10 = ?|1/2;c|Sederhanakan 10/25|2/5
+1,27,essay,practice,Sederhanakan 15/35.,,,,3/7,,,,,,,,,,,,,
+1,28,essay,practice,Hitung 3/2 + 1/4.,,,,7/4,,,,,,,,,,,,,
+1,29,mcq,practice,"Pecahan terkecil dari 5/8, 2/5, 3/4 adalah...",,,,2/5,,,5/8,2/5,3/4,7/8,,,,,,,
+1,30,mcq,practice,Manakah pecahan yang lebih besar?,,,,2/3,,2/3 lebih besar dari 3/5,3/5,2/3,4/7,5/9,,,,,,,
+1,31,essay,practice,Hitung 9/12 + 1/6.,,,,11/12,,,,,,,,,,,,,
+1,32,essay,practice,Sebuah tali 3/4 m dipakai 2/8 m. Berapa sisa panjang tali?,,,,1/2,,,,,,,,,,,,,
+1,33,mcq,practice,Hasil dari 5/6 - 1/2 adalah...,,,,1/3,,,1/6,1/3,1/2,2/3,,,,,,,
+1,34,drag_drop,practice,Pasangkan pecahan dengan bentuk desimal yang sesuai.,,,TODO_IMG_KARTU_DESIMAL.png,,,,,,,,,,,,1/2;3/4;1/4,"0.5,0.75,0.25",
+1,35,drag_drop,practice,Pasangkan pecahan dengan persen yang sesuai.,,,TODO_IMG_KARTU_PERSEN.png,,,,,,,,,,,,1/2;1/4;3/5,"50%,25%,60%",
+1,36,multipart,practice,Lengkapi perhitungan berikut.,,,,,,,,,,,,,,,,,a|7/10 + 1/5 = ?|9/10;b|3/4 - 1/8 = ?|5/8
+1,37,multipart,practice,Jawab sub-soal pecahan.,,,,,,,,,,,,,,,,,a|Pecahan senilai 3/4 dengan penyebut 20|15/20;b|Sederhanakan 8/12|2/3;c|1/3 + 1/2 = ?|5/6
+1,38,multipart,practice,Kerjakan soal berikut.,,,,,,,,,,,,,,,,,a|5/8 + 1/4 = ?|7/8;b|11/12 - 1/6 = ?|3/4
+1,39,mcq,practice,Pecahan yang senilai dengan 4/6 adalah...,,,,2/3,,4/6 disederhanakan menjadi 2/3,1/2,2/3,3/5,4/9,,,,,,,
+1,40,drag_drop,practice,Pasangkan pecahan dengan bentuk sederhana.,,,,,,,,,,,,,,,6/8;8/12;9/15,"3/4,2/3,3/5",

@@ -1,0 +1,51 @@
+material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
+7,1,mcq,practice,"Pada gambar, benda mana yang membentuk sudut siku-siku?",,,TODO_IMG_SUDUT_A01.png,A,,,Buku,Jam dinding,Kipas angin,Bola,,,,,,,
+7,2,essay,practice,"Pada gambar lapangan, sudut di tiap pojok lapangan adalah sudut apa?",,,TODO_IMG_SUDUT_A02.png,siku-siku,,,,,,,,,,,,,
+7,3,essay,practice,Sebuah meja berbentuk persegi panjang. Berapa banyak sudut siku-siku pada meja tersebut?,,,,4,,,,,,,,,,,,,
+7,4,drag_drop,practice,Pasangkan benda dengan jenis sudut yang tampak pada sudut yang ditandai.,,,TODO_IMG_SUDUT_A03.png,,,,,,,,,,,,"[""Bingkai foto"", ""Rambu segitiga"", ""Buku terbuka"", ""Gunting terbuka lebar""]","[""Siku-siku"", ""Lancip"", ""Tumpul"", ""Tumpul""]",
+7,5,mcq,practice,Bagian sudut yang menjadi titik pertemuan dua sisi disebut...,,,TODO_IMG_SUDUT_B02.png,C,,,Sisi sudut,Kaki sudut,Titik sudut,Busur,,,,,,,
+7,6,essay,practice,Sebutkan dua bagian utama pada sudut.,,,,titik sudut dan kaki/sisi sudut,,,,,,,,,,,,,
+7,7,drag_drop,practice,Kelompokkan sudut berdasarkan cirinya.,,,TODO_IMG_SUDUT_B03.png,,,,,,,,,,,,"[""45\u00b0"", ""90\u00b0"", ""120\u00b0"", ""180\u00b0"", ""200\u00b0""]","[""Lancip"", ""Siku-siku"", ""Tumpul"", ""Lurus"", ""Refleks""]",
+7,8,mcq,practice,"Pada gambar sudut AOB, titik sudutnya adalah...",,,TODO_IMG_SUDUT_B01.png,B,,,A,O,B,AB,,,,,,,
+7,9,essay,practice,"Pada gambar busur derajat, besar sudut yang ditunjukkan adalah...",,,TODO_IMG_SUDUT_C01.png,60,,,,,,,,,,,,,
+7,10,mcq,practice,"Pada gambar, sudut manakah yang lebih besar?",,,TODO_IMG_SUDUT_C02.png,B,,,Sudut P,Sudut Q,Sama besar,Tidak bisa dibandingkan,,,,,,,
+7,11,essay,practice,Sudut A = 48° dan sudut B = 72°. Tuliskan perbandingan A : B dalam bentuk sederhana.,,,TODO_IMG_SUDUT_C03.png,2:3,,,,,,,,,,,,,
+7,12,multipart,practice,Bandingkan sudut berikut.,,,,,,,,,,,,,,,,,a|Sudut X = 35° dan Y = 50°. Mana yang lebih besar?|Y;b|Sudut K = 120° dan L = 95°. Mana yang lebih kecil?|L
+7,13,essay,practice,Gambar menunjukkan langkah melukis sudut 75°. Sebutkan alat utama yang digunakan.,,,TODO_IMG_SUDUT_D01.png,busur derajat,,,,,,,,,,,,,
+7,14,mcq,practice,Rina diminta melukis sudut 120°. Sudut yang harus ia gambar adalah sudut...,,,,C,,,Lancip,Siku-siku,Tumpul,Lurus,,,,,,,
+7,15,essay,practice,"Andi membuat peta kota berbentuk persegi. Setiap sudut jalan membentuk sudut siku-siku. Jika ada 6 persimpangan berbentuk persegi, berapa banyak sudut siku-siku yang terbentuk?",,,TODO_IMG_SUDUT_D02.png,24,,,,,,,,,,,,,
+7,16,multipart,practice,Melukis sudut.,,,,,,,,,,,,,,,,,"a|Jika diminta melukis sudut 90°, sudut apa itu?|siku-siku;b|Jika diminta melukis sudut 180°, sudut apa itu?|lurus"
+7,17,essay,practice,"Dua sudut yang jumlahnya 90 derajat. Jika salah satunya 35 derajat, berapa sudut lainnya?",,,,55,,,,,,,,,,,,,
+7,18,essay,practice,"Dua sudut yang jumlahnya 180 derajat. Jika salah satunya 125 derajat, berapa sudut lainnya?",,,TODO_IMG_SUDUT_E01.png,55,,,,,,,,,,,,,
+7,19,essay,practice,"Dua garis berpotongan membentuk sudut berseberangan. Jika satu sudut 68°, berapa sudut berseberangannya?",,,TODO_IMG_SUDUT_E02.png,68,,,,,,,,,,,,,
+7,20,essay,practice,Sebuah segitiga memiliki sudut 40° dan 70°. Berapa sudut ketiganya?,,,TODO_IMG_SUDUT_E03.png,70,,,,,,,,,,,,,
+7,21,essay,practice,Sudut luar segitiga 130°. Berapa jumlah dua sudut dalam lainnya?,,,TODO_IMG_SUDUT_E04.png,130,,,,,,,,,,,,,
+7,22,essay,practice,Pada jam pukul 03.00 sudut kecilnya berapa derajat?,,,TODO_IMG_SUDUT_E05.png,90,,,,,,,,,,,,,
+7,23,essay,practice,"Sudut A = 3x dan sudut B = 5x, jumlahnya 180 derajat. Berapa nilai x?",,,,22.5,,,,,,,,,,,,,
+7,24,essay,practice,"Sebuah segiempat memiliki sudut 95°, 110°, dan 85°. Berapa sudut keempat?",,,,70,,,,,,,,,,,,,
+7,25,essay,practice,Sebuah sudut diperbesar 4 kali menjadi 140°. Berapa sudut semula?,,,,35,,,,,,,,,,,,,
+7,26,drag_drop,practice,Pasangkan jenis sudut dengan ukurannya.,,,,,,,,,,,,,,,"[""Lancip"", ""Siku-siku"", ""Tumpul"", ""Lurus"", ""Refleks""]","[""< 90\u00b0"", ""= 90\u00b0"", ""90\u00b0-180\u00b0"", ""= 180\u00b0"", ""> 180\u00b0""]",
+7,27,drag_drop,practice,Pasangkan sudut dengan kategorinya.,,,,,,,,,,,,,,,"[""15\u00b0"", ""95\u00b0"", ""180\u00b0"", ""200\u00b0""]","[""Lancip"", ""Tumpul"", ""Lurus"", ""Refleks""]",
+7,28,drag_drop,practice,Cocokkan sudut pada jam dengan besar sudut kecilnya.,,,,,,,,,,,,,,,"[""01.00"", ""02.00"", ""05.00"", ""06.00""]","[""30\u00b0"", ""60\u00b0"", ""150\u00b0"", ""180\u00b0""]",
+7,29,drag_drop,practice,Pasangkan hubungan sudut.,,,,,,,,,,,,,,,"[""Pasangan 90 derajat"", ""Pasangan 180 derajat"", ""Sehadap"", ""Berseberangan""]","[""Jumlah 90\u00b0"", ""Jumlah 180\u00b0"", ""Sama besar"", ""Sama besar""]",
+7,30,mcq,practice,Sudut 135° termasuk jenis sudut...,,,,C,,,Lancip,Siku-siku,Tumpul,Refleks,,,,,,,
+7,31,mcq,practice,Jumlah sudut dalam segitiga adalah...,,,,B,,,90°,180°,270°,360°,,,,,,,
+7,32,mcq,practice,Sudut yang besarnya lebih dari 180° disebut sudut...,,,,C,,,Lancip,Tumpul,Refleks,Lurus,,,,,,,
+7,33,mcq,practice,"Jika dua sudut jumlahnya 180 derajat, maka...",,,,D,,,90°,120°,150°,180°,,,,,,,
+7,34,mcq,practice,Sudut terkecil segi lima beraturan besarnya...,,,,B,,,90°,108°,120°,135°,,,,,,,
+7,35,mcq,practice,"Jika sudut pasangan 180 derajat dari suatu sudut adalah 110 derajat, maka sudut tersebut adalah...",,,,A,,,70°,80°,90°,100°,,,,,,,
+7,36,mcq,practice,Sudut pada jarum jam pukul 02.00 adalah...,,,,B,,,30°,60°,90°,120°,,,,,,,
+7,37,multipart,practice,Hitung sudut dengan jumlah 90 derajat dan 180 derajat.,,,,,,,,,,,,,,,,,a|Pasangan 90 derajat dari 37 derajat|53;b|Pasangan 180 derajat dari 124 derajat|56
+7,38,multipart,practice,Segitiga ABC memiliki sudut A=50° dan B=60°.,,,,,,,,,,,,,,,,,"a|Besar sudut C|70;b|Jika sudut luar di C, berapa besarnya|110"
+7,39,multipart,practice,Garis sejajar dipotong satu garis.,,,,,,,,,,,,,,,,,a|Sudut sehadap jika salah satu 73°|73;b|Sudut dalam berseberangan jika satu 73°|73
+7,40,multipart,practice,Melukis sudut.,,,,,,,,,,,,,,,,,a|Sudut 90° termasuk jenis sudut|siku-siku;b|Sudut 180° termasuk jenis sudut|lurus
+
+
+
+
+
+
+
+
+
+

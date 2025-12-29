@@ -1,0 +1,5 @@
+20. Dalam lomba, 24 kue dan 36 permen dibagi ke paket yang sama banyak tanpa sisa. Paket terbanyak berisi... -> TODO_IMG_KUE_DONAT.png
+22. Ada 18 kue dan 30 donat yang akan dibagi rata. Berapa paket terbanyak yang bisa dibuat? -> TODO_IMG_KUE_DONAT.png
+24. Dua lampu berkedip tiap 12 detik dan 18 detik. Setelah keduanya berkedip bersama, kapan berikutnya mereka berkedip bersama? -> TODO_IMG_LAMPU.png
+27. Tiga lonceng berdentang tiap 6, 8, dan 12 menit. Setelah berdentang bersama, berapa menit lagi mereka berdentang bersama? -> TODO_IMG_LONCENG.png
+39. Dua mesin produksi berjalan tiap 20 menit dan 30 menit. Kapan keduanya bekerja bersamaan lagi? -> TODO_IMG_MESIN.png

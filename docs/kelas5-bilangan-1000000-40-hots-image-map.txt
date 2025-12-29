@@ -1,0 +1,10 @@
+5. Pernyataan yang benar tentang bilangan 905.070 adalah... -> TODO_IMG_PLACE_VALUE_905070.png
+9. Urutkan dari terbesar: 705.120 705.210 705.021 -> TODO_IMG_URUT_705.png
+14. Kelompokkan bilangan yang dibulatkan ke puluhan ribu terdekat menjadi 320.000. -> TODO_IMG_BULAT_320000.png
+16. Pada peta skala 1 cm mewakili 25.000 cm. Jika jarak pada peta 18 cm berapa jarak sebenarnya dalam meter? -> TODO_IMG_SKALA_25K.png
+18. Harga turun dari 750.000 menjadi 685.000. Berapa besar penurunan harga? -> TODO_IMG_DISKON_750.png
+22. Pasangkan pernyataan nilai tempat dengan bilangan yang sesuai. -> TODO_IMG_PASANG_NILAI.png
+25. Hasil 1.000.000 - 275.640 adalah... -> TODO_IMG_PENGURANGAN_1JUTA.png
+29. Setiap rak berisi 12.500 barang dan ada 8 rak. Berapa total barang? -> TODO_IMG_RAK_8x12500.png
+34. Pasangkan operasi dengan hasilnya. -> TODO_IMG_OPERASI_4.png
+37. Pasangkan bilangan dengan urutan yang benar. -> TODO_IMG_URUT_402.png

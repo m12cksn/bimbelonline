@@ -3,16 +3,15 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 
 /**
  * Ambil jumlah sesi Zoom per bulan berdasarkan plan.
- * Asumsi: ada tabel `plans` dengan kolom `zoom_sessions_per_month`.
- * Kalau belum ada, sementara akan fallback ke 8.
+ * Sumber utama: `subscription_plans`.
  */
 export async function getMeetingsPerMonthForPlan(
   supabase: SupabaseClient,
   planId: string
 ): Promise<number> {
   const { data, error } = await supabase
-    .from("plans")
-    .select("zoom_sessions_per_month")
+    .from("subscription_plans")
+    .select("zoom_sessions_per_month, zoom_per_month")
     .eq("id", planId)
     .maybeSingle();
 
@@ -21,11 +20,13 @@ export async function getMeetingsPerMonthForPlan(
     return 8;
   }
 
-  if (!data || data.zoom_sessions_per_month == null) {
+  const raw =
+    data?.zoom_sessions_per_month ?? (data as { zoom_per_month?: number | null }).zoom_per_month;
+  if (raw == null) {
     return 8; // default paket 8 pertemuan
   }
 
-  return data.zoom_sessions_per_month as number;
+  return raw as number;
 }
 
 /**

@@ -1,8 +1,9 @@
 "use client";
 /* eslint-disable @next/next/no-img-element */
 
-import { useEffect, useMemo, useState } from "react";
+import { ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
+import { DndContext, useDraggable, useDroppable } from "@dnd-kit/core";
 
 type QuestionOption = {
   value: string;
@@ -11,28 +12,56 @@ type QuestionOption = {
   targetKey?: string;
 };
 
-type RawOption = string | QuestionOption;
-
-type Question = {
-  id: number;
-  question_number: number;
-  text: string;
-  options: RawOption[] | null;
+type QuestionOptionRow = {
+  label: string;
+  value: string;
+  image_url?: string | null;
+  is_correct?: boolean | null;
+  sort_order?: number | null;
 };
 
-type StructuredQuestion = {
-  prompt?: string;
-  imageUrl?: string;
-  helperText?: string;
-  type?: "multiple_choice" | "essay" | "drag_drop";
-  dropTargets?: { key: string; label: string; placeholder?: string }[];
+type DropTargetRow = {
+  id: string;
+  label: string;
+  placeholder?: string | null;
+  sort_order?: number | null;
+};
+
+type DropItemRow = {
+  id: string;
+  label: string;
+  image_url?: string | null;
+  correct_target_id: string;
+  sort_order?: number | null;
+};
+
+type QuestionItemRow = {
+  id: string;
+  label: string;
+  prompt: string;
+  image_url?: string | null;
+  sort_order?: number | null;
+};
+
+type Question = {
+  id: string;
+  question_number: number;
+  type: "mcq" | "essay" | "multipart" | "drag_drop";
+  prompt: string;
+  helper_text?: string | null;
+  question_image_url?: string | null;
+  question_mode?: "practice" | "tryout" | null;
+  options: QuestionOptionRow[];
+  drop_targets: DropTargetRow[];
+  drop_items: DropItemRow[];
+  items: QuestionItemRow[];
 };
 
 type NormalizedQuestion = {
   prompt: string;
   helperText?: string;
   imageUrl?: string;
-  type: "multiple_choice" | "essay" | "drag_drop";
+  type: "mcq" | "essay" | "multipart" | "drag_drop";
   options: QuestionOption[];
   dropTargets?: { key: string; label: string; placeholder?: string }[];
 };
@@ -43,9 +72,15 @@ interface Props {
   initialLastNumber: number;
   userId: string;
   isPremium: boolean;
+  questionLimit: number;
+  planLabel: string;
+  planPriceLabel: string;
+  upgradeOptions: Array<{ label: string; priceLabel: string }>;
+  isTryout?: boolean;
+  timerSeconds?: number;
 }
 
-const FREE_LIMIT = 8;
+const LEVEL_SIZE = 20;
 
 type AttemptStats = {
   totalAnswered: number;
@@ -60,12 +95,74 @@ type ApiAttemptRow = {
   score: number;
 };
 
+type DraggableOptionProps = {
+  id: string;
+  label: string;
+  isUsed?: boolean;
+};
+
+type DropZoneProps = {
+  id: string;
+  label: string;
+  children?: ReactNode;
+};
+
+function DraggableOption({ id, label, isUsed }: DraggableOptionProps) {
+  const { attributes, listeners, setNodeRef, transform, isDragging } =
+    useDraggable({ id });
+
+  const style = transform
+    ? { transform: `translate3d(${transform.x}px, ${transform.y}px, 0)` }
+    : undefined;
+
+  return (
+    <button
+      ref={setNodeRef}
+      type="button"
+      style={style}
+      className={`rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm transition ${
+        isDragging ? "scale-[1.02] shadow-md shadow-emerald-200/70" : ""
+      } ${isUsed ? "opacity-70" : ""}`}
+      {...listeners}
+      {...attributes}
+    >
+      {label}
+    </button>
+  );
+}
+
+function DropZone({ id, label, children }: DropZoneProps) {
+  const { setNodeRef, isOver } = useDroppable({ id });
+
+  return (
+    <div
+      ref={setNodeRef}
+      className={`rounded-xl border border-dashed px-4 py-4 text-base transition ${
+        isOver
+          ? "border-emerald-400 bg-emerald-50"
+          : "border-slate-200 bg-slate-50"
+      }`}
+    >
+      <div className="text-[11px] uppercase tracking-wide text-slate-500">
+        {label}
+      </div>
+      {children}
+    </div>
+  );
+}
+
 export default function MaterialQuiz({
   materialId,
   questions,
   initialLastNumber,
   userId,
   isPremium,
+  questionLimit,
+  planLabel,
+  planPriceLabel,
+  upgradeOptions,
+  isTryout = false,
+  timerSeconds,
 }: Props) {
   const [currentNumber, setCurrentNumber] = useState(
     initialLastNumber > 0 ? initialLastNumber + 1 : 1
@@ -78,15 +175,25 @@ export default function MaterialQuiz({
   const [feedback, setFeedback] = useState<{
     isCorrect: boolean | null;
     message: string | null;
-  }>({ isCorrect: null, message: null });
+    imageUrl?: string | null;
+    explanation?: string | null;
+  }>({ isCorrect: null, message: null, explanation: null });
+  const proceedRef = useRef<null | (() => void)>(null);
 
   const [lockedMessage, setLockedMessage] = useState<string | null>(null);
+  const [secondsLeft, setSecondsLeft] = useState<number | null>(
+    isTryout && typeof timerSeconds === "number" ? timerSeconds : null
+  );
+  const [timeUp, setTimeUp] = useState(false);
 
   const [essayAnswer, setEssayAnswer] = useState("");
-  const [draggingValue, setDraggingValue] = useState<string | null>(null);
   const [placements, setPlacements] = useState<Record<string, string>>({});
+  const [multipartAnswers, setMultipartAnswers] = useState<
+    Record<string, string>
+  >({});
 
   // status benar/salah tiap soal di percobaan aktif (buat warna bubble)
+  // simpan berdasarkan question_number agar konsisten di UI
   const [questionResults, setQuestionResults] = useState<
     Record<number, "correct" | "wrong">
   >({});
@@ -107,17 +214,104 @@ export default function MaterialQuiz({
   const [loadingAttempts, setLoadingAttempts] = useState<boolean>(true);
   const [hasSavedThisAttempt, setHasSavedThisAttempt] =
     useState<boolean>(false);
+  const [hasSavedTryout, setHasSavedTryout] = useState(false);
+  const [levelReview, setLevelReview] = useState<{
+    level: number;
+    correct: number;
+    wrong: number;
+    answered: number;
+    total: number;
+  } | null>(null);
+  const [copiedBank, setCopiedBank] = useState(false);
+  const [promoCountdown, setPromoCountdown] = useState<string | null>(null);
 
   const totalQuestions = questions.length;
+  const premiumPrice = "149.000";
+  const promoPrice = "99.000";
+  const bankName = "BCA";
+  const bankAccount = "0961097923";
+  const bankHolder = "Iwan Setiawan";
+  const progressKey = `material_progress_${materialId}_${userId}`;
 
   // -------------------------------
   // Sync posisi soal dengan progress server
   // -------------------------------
   useEffect(() => {
+    if (isTryout) {
+      const tryoutNumbers = questions.map((q) => q.question_number);
+      const startNumber =
+        tryoutNumbers.length > 0 ? Math.min(...tryoutNumbers) : 1;
+      setCurrentNumber(startNumber);
+      setMaxUnlockedNumber(1);
+      return;
+    }
+
     const startNumber = initialLastNumber > 0 ? initialLastNumber + 1 : 1;
-    setCurrentNumber(startNumber);
-    setMaxUnlockedNumber(startNumber);
-  }, [initialLastNumber, userId]);
+    let storedNumber = 0;
+    if (typeof window !== "undefined") {
+      const raw = window.sessionStorage.getItem(progressKey);
+      const parsed = Number(raw);
+      if (!Number.isNaN(parsed) && parsed > 0) {
+        storedNumber = parsed;
+      }
+    }
+    const nextNumber = Math.max(startNumber, storedNumber);
+    setCurrentNumber(nextNumber);
+    setMaxUnlockedNumber(nextNumber);
+  }, [initialLastNumber, isTryout, questions, progressKey]);
+
+  useEffect(() => {
+    if (isTryout) return;
+    if (typeof window === "undefined") return;
+    if (currentNumber < 1) return;
+    window.sessionStorage.setItem(progressKey, String(currentNumber));
+  }, [currentNumber, isTryout, progressKey]);
+
+  useEffect(() => {
+    if (!isTryout || typeof timerSeconds !== "number") return;
+    setSecondsLeft(timerSeconds);
+    setTimeUp(false);
+  }, [isTryout, timerSeconds]);
+
+  useEffect(() => {
+    if (!isTryout || secondsLeft === null || timeUp) return;
+    if (secondsLeft <= 0) {
+      setTimeUp(true);
+      setLockedMessage("Waktu habis. Tryout selesai.");
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      setSecondsLeft((prev) => (prev === null ? null : prev - 1));
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [isTryout, secondsLeft, timeUp]);
+
+  useEffect(() => {
+    const end = new Date();
+    end.setDate(end.getDate() + 7);
+
+    const update = () => {
+      const diff = end.getTime() - Date.now();
+      if (diff <= 0) {
+        setPromoCountdown("Promo berakhir");
+        return;
+      }
+      const days = Math.floor(diff / 86400000);
+      const hours = Math.floor((diff % 86400000) / 3600000);
+      const mins = Math.floor((diff % 3600000) / 60000);
+      const secs = Math.floor((diff % 60000) / 1000);
+      const pad = (val: number) => String(val).padStart(2, "0");
+      setPromoCountdown(
+        `${days} hari ${pad(hours)}:${pad(mins)}:${pad(secs)}`
+      );
+    };
+
+    update();
+    const timer = setInterval(update, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   // -------------------------------
   // Ambil riwayat percobaan dari DB
@@ -128,15 +322,22 @@ export default function MaterialQuiz({
     async function loadAttempts() {
       try {
         setLoadingAttempts(true);
-        const res = await fetch(
-          `/api/materials/${materialId}/attempt-summary`,
-          { method: "GET" }
-        );
+        const summaryUrl = isTryout
+          ? `/api/materials/${materialId}/tryout-summary`
+          : `/api/materials/${materialId}/attempt-summary`;
+        const res = await fetch(summaryUrl, { method: "GET" });
         if (!res.ok) {
           console.error("Failed to fetch attempt summary", await res.text());
           return;
         }
-        const data: { attempts: ApiAttemptRow[] } = await res.json();
+        const data: {
+          attempts: ApiAttemptRow[];
+          question_status?: Array<{
+            attempt_number: number;
+            question_id: string;
+            is_correct: boolean;
+          }>;
+        } = await res.json();
 
         if (!isMounted) return;
 
@@ -153,17 +354,45 @@ export default function MaterialQuiz({
         setAttemptHistory(map);
 
         const attemptNumbers = Object.keys(map).map((n) => Number(n));
-        if (attemptNumbers.includes(2)) {
-          setAttemptNumber(2);
-          setActiveAttemptView(2);
-          // kalau sudah habis soalnya, currentNumber sudah > totalQuestions
+        const attempt1Total = map[1]?.totalAnswered ?? 0;
+
+        let nextAttemptNumber: 1 | 2 = 1;
+        let nextActiveView: number | null = null;
+
+        if (!isPremium) {
+          nextAttemptNumber = 1;
+          nextActiveView = attemptNumbers.includes(1) ? 1 : null;
+        } else if (attemptNumbers.includes(2)) {
+          nextAttemptNumber = 2;
+          nextActiveView = 2;
+          // attempt 2 berjalan atau sudah selesai
         } else if (attemptNumbers.includes(1)) {
-          setAttemptNumber(2); // siap untuk percobaan 2 berikutnya
-          setActiveAttemptView(1);
+          if (attempt1Total < totalQuestions) {
+            nextAttemptNumber = 1;
+            nextActiveView = 1;
+          } else {
+            nextAttemptNumber = 2; // attempt 1 selesai, siap untuk attempt 2
+            nextActiveView = 1;
+          }
         } else {
-          setAttemptNumber(1);
-          setActiveAttemptView(null);
+          nextAttemptNumber = 1;
+          nextActiveView = null;
         }
+
+        setAttemptNumber(nextAttemptNumber);
+        setActiveAttemptView(nextActiveView);
+
+        const idToNumber = new Map(
+          questions.map((q) => [q.id, q.question_number])
+        );
+        const resultMap: Record<number, "correct" | "wrong"> = {};
+        for (const row of data.question_status || []) {
+          if (row.attempt_number !== nextAttemptNumber) continue;
+          const number = idToNumber.get(row.question_id);
+          if (!number) continue;
+          resultMap[number] = row.is_correct ? "correct" : "wrong";
+        }
+        setQuestionResults(resultMap);
       } catch (err) {
         console.error("loadAttempts error:", err);
       } finally {
@@ -176,7 +405,7 @@ export default function MaterialQuiz({
     return () => {
       isMounted = false;
     };
-  }, [materialId]);
+  }, [materialId, totalQuestions, isPremium]);
 
   // reset flag penyimpanan ketika ganti percobaan
   useEffect(() => {
@@ -193,63 +422,46 @@ export default function MaterialQuiz({
   const normalizedQuestion: NormalizedQuestion | null = useMemo(() => {
     if (!currentQuestion) return null;
 
-    let parsed: StructuredQuestion | null = null;
-    try {
-      const json = JSON.parse(currentQuestion.text);
-      if (json && typeof json === "object") {
-        parsed = json as StructuredQuestion;
-      }
-    } catch {
-      // text biasa
-    }
-
-    const basePrompt = parsed?.prompt ?? currentQuestion.text;
-
     const normalizedOptions: QuestionOption[] = (currentQuestion.options || [])
-      .map((opt) => {
-        if (typeof opt === "string") {
-          return { value: opt, label: opt } satisfies QuestionOption;
-        }
-        return {
-          value: opt.value,
-          label: opt.label ?? opt.value,
-          imageUrl: opt.imageUrl,
-          targetKey: opt.targetKey,
-        } satisfies QuestionOption;
-      })
+      .map((opt) => ({
+        value: opt.value,
+        label: opt.label ?? opt.value,
+        imageUrl: opt.image_url ?? undefined,
+      }))
       .filter(Boolean);
 
-    const hasDropTargets =
-      parsed?.type === "drag_drop" ||
-      normalizedOptions.some((o) => !!o.targetKey) ||
-      !!parsed?.dropTargets?.length;
+    const dropTargets = (currentQuestion.drop_targets || []).map((target) => ({
+      key: target.id,
+      label: target.label,
+      placeholder: target.placeholder ?? undefined,
+    }));
 
-    const dropTargets = hasDropTargets
-      ? parsed?.dropTargets ??
-        Array.from(
-          new Set(
-            normalizedOptions
-              .map((o) => o.targetKey)
-              .filter((v): v is string => !!v)
-          )
-        ).map((key) => ({ key, label: key }))
-      : undefined;
+    const dropItems = (currentQuestion.drop_items || []).map((item) => ({
+      value: item.id,
+      label: item.label,
+      imageUrl: item.image_url ?? undefined,
+      targetKey: item.correct_target_id,
+    }));
 
-    const questionType: NormalizedQuestion["type"] = parsed?.type
-      ? parsed.type
-      : hasDropTargets
-      ? "drag_drop"
-      : normalizedOptions.length > 0
-      ? "multiple_choice"
-      : "essay";
+    const questionType: NormalizedQuestion["type"] =
+      currentQuestion.type === "drag_drop"
+        ? "drag_drop"
+        : currentQuestion.type === "essay"
+        ? "essay"
+        : currentQuestion.type === "multipart"
+        ? "multipart"
+        : "mcq";
+
+    const finalOptions =
+      questionType === "drag_drop" ? dropItems : normalizedOptions;
 
     return {
-      prompt: basePrompt,
-      helperText: parsed?.helperText,
-      imageUrl: parsed?.imageUrl,
+      prompt: currentQuestion.prompt,
+      helperText: currentQuestion.helper_text ?? undefined,
+      imageUrl: currentQuestion.question_image_url ?? undefined,
       type: questionType,
-      options: normalizedOptions,
-      dropTargets,
+      options: finalOptions,
+      dropTargets: questionType === "drag_drop" ? dropTargets : undefined,
     };
   }, [currentQuestion]);
 
@@ -257,13 +469,10 @@ export default function MaterialQuiz({
   useEffect(() => {
     setEssayAnswer("");
     setPlacements({});
-    setDraggingValue(null);
-    setFeedback({ isCorrect: null, message: null });
+    setMultipartAnswers({});
+    setFeedback({ isCorrect: null, message: null, explanation: null });
     setLockedMessage(null);
   }, [currentQuestion?.id]);
-
-  const isLockedPremium =
-    !isPremium && (currentQuestion?.question_number ?? 0) > FREE_LIMIT;
 
   // -------------------------------
   // Jika sudah tidak ada currentQuestion → mode ringkasan
@@ -297,20 +506,42 @@ export default function MaterialQuiz({
     }
 
     saveAttemptSummary();
+
+    if (isTryout && !hasSavedTryout) {
+      fetch(`/api/materials/${materialId}/tryout-summary`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          attemptNumber,
+          correct: summary.correct,
+          totalAnswered: summary.totalAnswered,
+        }),
+      })
+        .then(() => setHasSavedTryout(true))
+        .catch((err) => {
+          console.error("Failed to save tryout summary:", err);
+        });
+    }
   }, [
     currentQuestion,
     attemptHistory,
     attemptNumber,
     materialId,
     hasSavedThisAttempt,
+    hasSavedTryout,
     loadingAttempts,
+    isTryout,
   ]);
+
+  const orderedQuestions = useMemo(() => {
+    return [...questions].sort((a, b) => a.question_number - b.question_number);
+  }, [questions]);
 
   if (!currentQuestion || !normalizedQuestion) {
     // MODE RINGKASAN
     if (loadingAttempts) {
       return (
-        <div className="mt-6 rounded-2xl border border-slate-700 bg-slate-900/90 p-4 text-sm text-slate-200">
+        <div className="mt-6 rounded-2xl border border-slate-200 bg-white p-4 text-sm text-slate-600">
           Memuat riwayat percobaan...
         </div>
       );
@@ -331,16 +562,16 @@ export default function MaterialQuiz({
         setCurrentNumber(1);
         setMaxUnlockedNumber(1);
         setActiveAttemptView(null);
-        setFeedback({ isCorrect: null, message: null });
+        setFeedback({ isCorrect: null, message: null, explanation: null });
         setLockedMessage(null);
       }
 
       return (
-        <div className="mt-6 rounded-2xl border border-slate-700 bg-slate-900/90 p-4 text-sm text-slate-50 shadow-xl shadow-black/40">
-          <h2 className="mb-2 text-lg font-bold text-emerald-300">
+        <div className="mt-6 rounded-2xl border border-slate-200 bg-white p-4 text-sm text-slate-900 shadow-xl shadow-slate-200/70">
+          <h2 className="mb-2 text-lg font-bold text-emerald-700">
             Belum ada data percobaan tersimpan
           </h2>
-          <p className="mb-4 text-xs text-slate-200">
+          <p className="mb-4 text-xs text-slate-600">
             Silakan mulai Percobaan 1 untuk materi ini. Setelah kamu
             menyelesaikan semua soal, hasilnya akan otomatis tersimpan di
             server.
@@ -348,14 +579,14 @@ export default function MaterialQuiz({
           <div className="flex flex-wrap gap-2 text-[11px]">
             <Link
               href="/dashboard/student"
-              className="rounded-xl border border-cyan-400/70 bg-cyan-500/20 px-3 py-2 font-semibold text-cyan-100 hover:bg-cyan-500/40"
+              className="rounded-xl border border-cyan-400/70 bg-emerald-500 px-3 py-2 font-semibold text-white hover:bg-emerald-600"
             >
               ⬅️ Kembali ke Dashboard
             </Link>
             <button
               type="button"
               onClick={handleStartAttempt1}
-              className="rounded-xl border border-emerald-400/70 bg-emerald-500/20 px-3 py-2 font-semibold text-emerald-100 hover:bg-emerald-500/40"
+              className="rounded-xl border border-emerald-400/70 bg-emerald-500 px-3 py-2 font-semibold text-white hover:bg-emerald-600"
             >
               ▶ Mulai percobaan 1
             </button>
@@ -409,16 +640,16 @@ export default function MaterialQuiz({
       setCurrentNumber(1);
       setMaxUnlockedNumber(1);
       setActiveAttemptView(null);
-      setFeedback({ isCorrect: null, message: null });
+      setFeedback({ isCorrect: null, message: null, explanation: null });
       setLockedMessage(null);
     }
 
     return (
-      <div className="mt-6 rounded-2xl border border-emerald-500/40 bg-slate-900/90 p-4 text-sm text-slate-50 shadow-xl shadow-black/40">
-        <h2 className="mb-1 text-lg font-bold text-emerald-300">
+      <div className="mt-6 rounded-2xl border border-emerald-500/40 bg-white p-4 text-sm text-slate-900 shadow-xl shadow-slate-200/70">
+        <h2 className="mb-1 text-lg font-bold text-emerald-700">
           {messageTitle}
         </h2>
-        <p className="mb-3 whitespace-pre-line text-xs text-slate-200">
+        <p className="mb-3 whitespace-pre-line text-xs text-slate-600">
           {messageBody}
         </p>
 
@@ -431,7 +662,7 @@ export default function MaterialQuiz({
               className={`rounded-full border px-3 py-1 font-semibold ${
                 viewAttempt === 1
                   ? "border-emerald-400 bg-emerald-500/30 text-emerald-50"
-                  : "border-slate-600 bg-slate-800 text-slate-100"
+                  : "border-slate-600 bg-slate-100 text-slate-700"
               }`}
             >
               🔍 Lihat percobaan 1
@@ -443,8 +674,8 @@ export default function MaterialQuiz({
               onClick={() => setActiveAttemptView(2)}
               className={`rounded-full border px-3 py-1 font-semibold ${
                 viewAttempt === 2
-                  ? "border-cyan-400 bg-cyan-500/30 text-cyan-50"
-                  : "border-slate-600 bg-slate-800 text-slate-100"
+                  ? "border-cyan-400 bg-cyan-500/30 text-cyan-900"
+                  : "border-slate-600 bg-slate-100 text-slate-700"
               }`}
             >
               🔍 Lihat percobaan 2
@@ -454,30 +685,67 @@ export default function MaterialQuiz({
 
         {/* ringkasan percobaan yang sedang dilihat */}
         <div className="mb-3 grid grid-cols-3 gap-2 text-[11px]">
-          <div className="rounded-xl bg-slate-800/80 p-2 text-center">
-            <div className="text-slate-400">Benar</div>
-            <div className="text-lg font-bold text-emerald-300">{correct}</div>
+          <div className="rounded-xl bg-slate-50 p-2 text-center">
+            <div className="text-slate-500">Benar</div>
+            <div className="text-lg font-bold text-emerald-700">{correct}</div>
           </div>
-          <div className="rounded-xl bg-slate-800/80 p-2 text-center">
-            <div className="text-slate-400">Salah</div>
+          <div className="rounded-xl bg-slate-50 p-2 text-center">
+            <div className="text-slate-500">Salah</div>
             <div className="text-lg font-bold text-rose-300">{wrong}</div>
           </div>
-          <div className="rounded-xl bg-slate-800/80 p-2 text-center">
-            <div className="text-slate-400">Total dijawab</div>
-            <div className="text-lg font-bold text-slate-100">{answered}</div>
+          <div className="rounded-xl bg-slate-50 p-2 text-center">
+            <div className="text-slate-500">Total dijawab</div>
+            <div className="text-lg font-bold text-slate-700">{answered}</div>
           </div>
         </div>
 
-        <div className="mb-4 text-[11px] text-slate-200">
+        <div className="mb-3 flex flex-wrap items-center gap-2 text-[11px] text-slate-600">
+          <span>Paket kamu: {planLabel}</span>
+          <span className="text-slate-500">-</span>
+          <span>Harga: {planPriceLabel}</span>
+        </div>
+        <div className="mb-4 text-[11px] text-slate-600">
           Nilai percobaan {viewAttempt}:{" "}
-          <span className="font-bold text-emerald-300">{score}%</span>
+          <span className="font-bold text-emerald-700">{score}%</span>
         </div>
 
+        {upgradeOptions.length > 0 && (
+          <div className="mb-4 rounded-xl border border-amber-200 bg-amber-50 px-3 py-3 text-xs text-amber-800">
+            <div className="font-semibold">Upgrade rekomendasi</div>
+            <div className="mt-1">
+              {planLabel === "Free"
+                ? "Upgrade ke paket berbayar untuk akses soal lebih banyak."
+                : planLabel === "Belajar"
+                ? "Naik paket untuk latihan dan laporan lebih lengkap."
+                : planLabel === "Premium"
+                ? "Upgrade agar intensitas belajar maksimal."
+                : ""}
+            </div>
+            <div className="mt-2 flex flex-wrap items-center gap-2 text-[11px]">
+              {upgradeOptions.map((opt) => (
+                <span
+                  key={opt.label}
+                  className="rounded-full border border-amber-400/50 bg-amber-500/15 px-2 py-1"
+                >
+                  {opt.label} ({opt.priceLabel})
+                </span>
+              ))}
+            </div>
+            <div className="mt-2">
+              <Link
+                href="/dashboard/student/upgrade"
+                className="inline-flex rounded-lg border border-amber-400/60 bg-amber-100 px-3 py-1.5 text-[11px] font-semibold text-amber-800 hover:bg-amber-500/30"
+              >
+                Lihat semua paket
+              </Link>
+            </div>
+          </div>
+        )}
         {/* ringkasan percobaan 1 & 2 berdampingan */}
         <div className="mb-4 grid gap-2 text-[11px] sm:grid-cols-2">
           {hasAttempt1 && (
-            <div className="rounded-xl border border-slate-700 bg-slate-800/80 p-3">
-              <div className="mb-1 font-semibold text-slate-100">
+            <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
+              <div className="mb-1 font-semibold text-slate-700">
                 Percobaan 1
               </div>
               <div>Benar: {attempt1.correct}</div>
@@ -495,8 +763,8 @@ export default function MaterialQuiz({
           )}
 
           {hasAttempt2 && (
-            <div className="rounded-xl border border-slate-700 bg-slate-800/80 p-3">
-              <div className="mb-1 font-semibold text-slate-100">
+            <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
+              <div className="mb-1 font-semibold text-slate-700">
                 Percobaan 2
               </div>
               <div>Benar: {attempt2.correct}</div>
@@ -517,7 +785,7 @@ export default function MaterialQuiz({
         <div className="flex flex-wrap gap-2 text-[11px]">
           <Link
             href="/dashboard/student"
-            className="rounded-xl border border-cyan-400/70 bg-cyan-500/20 px-3 py-2 font-semibold text-cyan-100 hover:bg-cyan-500/40"
+            className="rounded-xl border border-cyan-400/70 bg-emerald-500 px-3 py-2 font-semibold text-white hover:bg-emerald-600"
           >
             ⬅️ Kembali ke Dashboard
           </Link>
@@ -526,7 +794,7 @@ export default function MaterialQuiz({
             <button
               type="button"
               onClick={handleStartAttempt2}
-              className="rounded-xl border border-emerald-400/70 bg-emerald-500/20 px-3 py-2 font-semibold text-emerald-100 hover:bg-emerald-500/40"
+              className="rounded-xl border border-emerald-400/70 bg-emerald-500 px-3 py-2 font-semibold text-white hover:bg-emerald-600"
             >
               🔁 Mulai percobaan 2
             </button>
@@ -542,9 +810,10 @@ export default function MaterialQuiz({
 
   async function handleAnswer(selected: string) {
     if (!currentQuestion) return;
+    if (timeUp) return;
 
     setLoadingAnswer(true);
-    setFeedback({ isCorrect: null, message: null });
+    setFeedback({ isCorrect: null, message: null, explanation: null });
     setLockedMessage(null);
 
     try {
@@ -561,23 +830,25 @@ export default function MaterialQuiz({
 
       const data = await res.json();
 
-      if (data.locked && !isPremium) {
+      if (data.locked) {
         setLockedMessage(
           data.message ||
-            "Soal ini terkunci. Untuk lanjut, silakan hubungi guru / admin."
+            `Soal ini terkunci untuk paket ${planLabel}. Upgrade paket untuk membuka semua soal.`
         );
         return;
       }
 
       const isCorrect: boolean = !!data.isCorrect;
       const correctAnswer: string | undefined = data.correctAnswer;
+      const correctAnswerImage: string | undefined = data.correctAnswerImage;
       const explanation: string | undefined = data.explanation ?? undefined;
 
       // tandai soal ini benar / salah untuk bubble
-      setQuestionResults((prev) => ({
-        ...prev,
-        [currentQuestion.id]: isCorrect ? "correct" : "wrong",
-      }));
+      const nextResults: Record<number, "correct" | "wrong"> = {
+        ...questionResults,
+        [currentQuestion.question_number]: isCorrect ? "correct" : "wrong",
+      };
+      setQuestionResults(nextResults);
 
       // update statistik percobaan aktif (di memori)
       setAttemptHistory((prevHistory) => {
@@ -594,381 +865,858 @@ export default function MaterialQuiz({
 
       let message = "";
       if (isCorrect) {
-        message = "Mantap! Jawaban kamu benar 😄";
-        if (explanation) message += `\nPenjelasan: ${explanation}`;
+        message = "Mantap! Jawaban kamu benar.";
+      } else if (correctAnswer) {
+        message = `Belum tepat. Jawaban yang benar: ${correctAnswer}`;
       } else {
-        if (correctAnswer) {
-          message = `Belum tepat. Jawaban yang benar: ${correctAnswer}`;
-        } else {
-          message =
-            "Belum tepat. Jawabanmu tercatat, lanjut ke soal berikutnya ya.";
-        }
-        if (explanation) message += `\nPenjelasan: ${explanation}`;
+        message =
+          "Belum tepat. Jawabanmu tercatat, lanjut ke soal berikutnya ya.";
       }
 
-      setFeedback({ isCorrect, message });
+      setFeedback({
+        isCorrect,
+        message,
+        imageUrl: correctAnswerImage ?? null,
+        explanation: explanation ?? null,
+      });
 
-      // SELALU lanjut ke soal berikutnya
-      setTimeout(() => {
-        setFeedback({ isCorrect: null, message: null });
+      const isEndOfLevel = displayNumber === levelEnd;
+      const proceedToNext = () => {
+        setFeedback({
+          isCorrect: null,
+          message: null,
+          imageUrl: null,
+          explanation: null,
+        });
         setEssayAnswer("");
         setPlacements({});
-        setDraggingValue(null);
+
+        if (isEndOfLevel) {
+          const rangeQuestions = isTryout
+            ? orderedQuestions.slice(levelStart - 1, levelEnd)
+            : questions.filter(
+                (q) =>
+                  q.question_number >= levelStart &&
+                  q.question_number <= levelEnd
+              );
+          const levelTotal = rangeQuestions.length;
+          const answered = rangeQuestions.filter(
+            (q) => nextResults[q.question_number]
+          ).length;
+          const correct = rangeQuestions.filter(
+            (q) => nextResults[q.question_number] === "correct"
+          ).length;
+          const wrong = Math.max(0, answered - correct);
+
+          setLevelReview({
+            level: currentLevel,
+            correct,
+            wrong,
+            answered,
+            total: levelTotal,
+          });
+          return;
+        }
 
         setCurrentNumber((prev) => {
+          if (isTryout) {
+            const nextIndex = currentIndex + 1;
+            if (nextIndex < orderedQuestions.length) {
+              const nextNumber = orderedQuestions[nextIndex].question_number;
+              setMaxUnlockedNumber((prevMax) =>
+                Math.max(prevMax, nextIndex + 1)
+              );
+              return nextNumber;
+            }
+            const lastNumber =
+              orderedQuestions[orderedQuestions.length - 1]?.question_number ??
+              prev;
+            setMaxUnlockedNumber((prevMax) =>
+              Math.max(prevMax, orderedQuestions.length)
+            );
+            return lastNumber + 1;
+          }
+
           const next = prev + 1;
           setMaxUnlockedNumber((prevMax) => Math.max(prevMax, next));
           return next;
         });
-      }, 900);
+      };
+
+      proceedRef.current = proceedToNext;
+
+      if (isCorrect) {
+        setTimeout(() => {
+          proceedRef.current?.();
+          proceedRef.current = null;
+        }, 5000);
+      }
     } catch (err) {
       console.error(err);
       setFeedback({
         isCorrect: null,
         message: "Ups, terjadi error saat mengirim jawaban.",
+        imageUrl: null,
+        explanation: null,
       });
     } finally {
       setLoadingAnswer(false);
     }
   }
 
+  const multipartItems = currentQuestion?.items ?? [];
+  const multipartReady =
+    multipartItems.length > 0 &&
+    multipartItems.every(
+      (item) => (multipartAnswers[item.id] ?? "").trim().length > 0
+    );
+  const questionOrderNumbers = orderedQuestions.map((q) => q.question_number);
+  const currentIndex = Math.max(0, questionOrderNumbers.indexOf(currentNumber));
+  const displayTotal = isTryout ? orderedQuestions.length : totalQuestions;
+  const displayNumber = isTryout
+    ? currentIndex + 1
+    : currentQuestion.question_number;
+
+  const totalLevels = Math.max(1, Math.ceil(displayTotal / LEVEL_SIZE));
+  const currentLevel = Math.min(
+    totalLevels,
+    Math.max(1, Math.ceil((displayNumber || 1) / LEVEL_SIZE))
+  );
+  const levelStart = (currentLevel - 1) * LEVEL_SIZE + 1;
+  const levelEnd = Math.min(currentLevel * LEVEL_SIZE, displayTotal);
+  const levelProgress =
+    levelEnd - levelStart + 1 > 0
+      ? Math.min(
+          100,
+          Math.round(
+            ((displayNumber - levelStart + 1) / (levelEnd - levelStart + 1)) *
+              100
+          )
+        )
+      : 0;
+  const answeredCount = Object.keys(questionResults).length;
+  const correctCount = Object.values(questionResults).filter(
+    (value) => value === "correct"
+  ).length;
+  const isLockedPremium =
+    !isTryout && currentQuestion.question_number > questionLimit;
+  const progressPercent = Math.min(
+    100,
+    Math.round((displayNumber / Math.max(displayTotal, 1)) * 100)
+  );
+  const scorePercent = Math.min(
+    100,
+    Math.round((correctCount / Math.max(answeredCount, 1)) * 100)
+  );
+
   // UI saat mengerjakan soal
   return (
-    <div className="mt-6">
-      {/* header info soal */}
-      <div className="mb-3 flex flex-col gap-2 rounded-2xl border border-slate-800 bg-slate-900/70 p-3 text-xs text-slate-200 shadow-lg shadow-black/40 md:flex-row md:items-center md:justify-between">
-        <div className="flex items-center gap-2">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-br from-cyan-500/40 via-purple-500/30 to-emerald-400/30 text-base font-bold text-white shadow-md shadow-cyan-500/30">
-            {currentQuestion.question_number}
-          </div>
+    <div className="mt-6 rounded-[28px] border-4 border-cyan-500/60 bg-white/70 p-4 shadow-2xl shadow-slate-200/70 md:p-6">
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-[22px] bg-cyan-500/90 px-4 py-3 text-slate-950 shadow-lg shadow-cyan-500/30">
+        <div className="text-sm font-semibold tracking-wide">
+          Latihan Matematika
         </div>
+        <div className="text-xs font-semibold">
+          Level {currentLevel}/{totalLevels}
+        </div>
+      </div>
+
+      <div className="mt-4 grid gap-4 md:grid-cols-[1fr_220px]">
         <div>
-          <div className="text-[11px] uppercase tracking-wide text-slate-400">
-            Soal untukmu
-          </div>
-          <div className="font-semibold text-white">
-            {currentQuestion.question_number}/{totalQuestions} •{" "}
-            {normalizedQuestion.type === "essay"
-              ? "Jawab bebas"
-              : normalizedQuestion.type === "drag_drop"
-              ? "Seret & jatuhkan"
-              : "Pilih jawaban"}
-          </div>
-        </div>
-      </div>
-
-      {/* Progress bar + badge gratis / premium */}
-      <div className="mb-3 flex items-center gap-2">
-        <div className="h-2 w-28 overflow-hidden rounded-full bg-slate-800">
-          <div
-            className="h-full rounded-full bg-linear-to-r from-cyan-400 via-purple-400 to-pink-400"
-            style={{
-              width: `${Math.min(
-                100,
-                Math.round(
-                  (currentQuestion.question_number /
-                    Math.max(totalQuestions, 1)) *
-                    100
-                )
-              )}%`,
-            }}
-          />
-        </div>
-
-        <div className="rounded-full border border-slate-700 bg-slate-900 px-2 py-1 text-[10px]">
-          {currentQuestion.question_number <= FREE_LIMIT ? (
-            <span className="text-emerald-300">Gratis 🎁</span>
-          ) : isPremium ? (
-            <span className="text-amber-300">Premium (terbuka) ⭐</span>
-          ) : (
-            <span className="text-yellow-300">Premium 🔒</span>
-          )}
-        </div>
-      </div>
-
-      {/* bubble navigasi soal */}
-      <nav className="mb-3 flex flex-wrap justify-center gap-1.5 sm:gap-2">
-        {questions.map((qq) => {
-          const isCurrent = qq.question_number === currentNumber;
-          const unlocked = qq.question_number <= maxUnlockedNumber;
-          const status = questionResults[qq.id];
-
-          let cls =
-            "w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-[10px] sm:text-xs font-bold border transition-colors";
-
-          if (isCurrent) {
-            cls +=
-              " bg-pink-500 border-pink-300 text-white shadow-[0_0_14px_rgba(236,72,153,0.9)]";
-          } else if (status === "correct") {
-            cls +=
-              " bg-emerald-500/40 border-emerald-300 text-emerald-50 shadow-[0_0_14px_rgba(16,185,129,0.85)]";
-          } else if (status === "wrong") {
-            cls +=
-              " bg-rose-500/35 border-rose-300 text-rose-50 shadow-[0_0_14px_rgba(244,63,94,0.85)]";
-          } else if (unlocked) {
-            cls +=
-              " bg-slate-800 border-slate-600 text-slate-100 hover:border-cyan-400 hover:text-cyan-100";
-          } else {
-            cls += " bg-slate-900 border-slate-800 text-slate-600";
-          }
-
-          return (
-            <button
-              key={qq.id}
-              type="button"
-              disabled={!unlocked}
-              onClick={() => {
-                if (!unlocked) return;
-                setCurrentNumber(qq.question_number);
-              }}
-              className={cls}
-            >
-              {qq.question_number}
-            </button>
-          );
-        })}
-      </nav>
-
-      {/* kartu soal utama */}
-      <div className="relative overflow-hidden rounded-3xl border border-slate-800 bg-slate-900/90 p-5 shadow-xl shadow-black/40">
-        <div className="pointer-events-none absolute -top-10 -right-10 h-32 w-32 rounded-full bg-linear-to-tr from-cyan-500/25 via-purple-500/25 to-pink-500/25 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-10 -left-16 h-32 w-32 rounded-full bg-linear-to-br from-emerald-500/25 via-cyan-500/25 to-indigo-500/25 blur-3xl" />
-
-        <div className="relative z-10 space-y-3">
-          {/* Teks & gambar soal */}
-          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-            <div className="space-y-1">
-              <p className="text-sm font-semibold text-white">
-                {normalizedQuestion.prompt}
-              </p>
-              {normalizedQuestion.helperText && (
-                <p className="text-[11px] text-slate-300">
-                  {normalizedQuestion.helperText}
+          {levelReview && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-50 px-4">
+              <div className="w-full max-w-md rounded-3xl border border-slate-200 bg-white p-5 text-slate-700 shadow-2xl">
+                <p className="text-xs uppercase tracking-[0.2em] text-emerald-700/80">
+                  Review Level {levelReview.level}
                 </p>
-              )}
-            </div>
-
-            {normalizedQuestion.imageUrl && (
-              <div className="max-w-xs overflow-hidden rounded-2xl border border-slate-800 bg-slate-950/60 p-2 shadow-inner shadow-black/40">
-                <img
-                  src={normalizedQuestion.imageUrl}
-                  alt="Ilustrasi soal"
-                  className="h-full w-full rounded-xl object-contain"
-                />
-              </div>
-            )}
-          </div>
-
-          {/* jika premium lock */}
-          {isLockedPremium ? (
-            <div className="relative z-10 rounded-xl border border-yellow-400/50 bg-yellow-500/15 p-3 text-xs text-yellow-100">
-              <p className="mb-1 font-semibold">Soal premium 🔒</p>
-              <p className="text-[11px] text-yellow-100">
-                Kamu sudah menyelesaikan semua soal gratis. Untuk membuka soal
-                berikutnya, silakan hubungi guru / admin untuk upgrade paket ya.
-                🙂
-              </p>
-            </div>
-          ) : (
-            <>
-              {/* Multiple choice */}
-              {normalizedQuestion.type === "multiple_choice" && (
-                <div className="grid gap-2 md:grid-cols-2">
-                  {normalizedQuestion.options.map((opt) => (
-                    <button
-                      key={opt.value}
-                      disabled={loadingAnswer}
-                      onClick={() => handleAnswer(opt.value)}
-                      className="group relative w-full overflow-hidden rounded-2xl border border-slate-700 bg-slate-800/80 px-3 py-3 text-left text-sm text-slate-50 transition hover:-translate-y-0.5 hover:border-cyan-400 hover:bg-slate-800 hover:shadow-md hover:shadow-cyan-500/30 disabled:opacity-60"
-                    >
-                      {opt.imageUrl && (
-                        <div className="mb-2 overflow-hidden rounded-xl border border-slate-800 bg-slate-950/60">
-                          <img
-                            src={opt.imageUrl}
-                            alt={opt.label}
-                            className="h-32 w-full object-contain"
-                          />
-                        </div>
-                      )}
-                      <span className="font-semibold text-white">
-                        {opt.label}
-                      </span>
-                      <div className="pointer-events-none absolute -bottom-6 -right-8 h-16 w-16 rounded-full bg-linear-to-tr from-cyan-500/20 via-purple-500/20 to-pink-500/20 blur-xl" />
-                    </button>
-                  ))}
-                </div>
-              )}
-
-              {/* Essay */}
-              {normalizedQuestion.type === "essay" && (
-                <div className="space-y-2">
-                  <textarea
-                    value={essayAnswer}
-                    onChange={(e) => setEssayAnswer(e.target.value)}
-                    placeholder="Tulis jawabanmu di sini..."
-                    className="w-full rounded-2xl border border-slate-700 bg-slate-800/80 p-3 text-sm text-slate-50 shadow-inner shadow-black/40 focus:border-cyan-400 focus:outline-none"
-                    rows={5}
-                  />
-                  <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-300">
-                    <span>
-                      Ekspresikan jawaban dengan bahasamu sendiri. Kamu boleh
-                      menulis langkah-langkahnya.
-                    </span>
-                    <button
-                      type="button"
-                      disabled={loadingAnswer || !essayAnswer.trim()}
-                      onClick={() => handleAnswer(essayAnswer.trim())}
-                      className="rounded-xl border border-emerald-400/70 bg-emerald-500/30 px-3 py-2 font-semibold text-emerald-50 shadow-md shadow-emerald-500/30 transition hover:-translate-y-px hover:bg-emerald-500/40 disabled:opacity-60"
-                    >
-                      Kirim jawaban
-                    </button>
+                <h2 className="mt-2 text-lg font-semibold">
+                  Mantap, kamu sudah menyelesaikan level ini!
+                </h2>
+                <div className="mt-4 grid grid-cols-3 gap-2 text-xs">
+                  <div className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-center">
+                    <p className="text-slate-500">Benar</p>
+                    <p className="text-lg font-bold text-emerald-700">
+                      {levelReview.correct}
+                    </p>
+                  </div>
+                  <div className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-center">
+                    <p className="text-slate-500">Salah</p>
+                    <p className="text-lg font-bold text-rose-300">
+                      {levelReview.wrong}
+                    </p>
+                  </div>
+                  <div className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-center">
+                    <p className="text-slate-500">Dijawab</p>
+                    <p className="text-lg font-bold text-cyan-200">
+                      {levelReview.answered}/{levelReview.total}
+                    </p>
                   </div>
                 </div>
-              )}
+                <div className="mt-4 flex flex-wrap gap-2 text-xs">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const nextNumber = levelReview.level * LEVEL_SIZE + 1;
+                      const target =
+                        nextNumber > totalQuestions
+                          ? totalQuestions + 1
+                          : nextNumber;
+                      setCurrentNumber(target);
+                      setMaxUnlockedNumber((prev) => Math.max(prev, target));
+                      setFeedback({
+                        isCorrect: null,
+                        message: null,
+                        explanation: null,
+                      });
+                      setLevelReview(null);
+                    }}
+                    className="rounded-xl border border-cyan-400/70 bg-cyan-500/30 px-4 py-2 font-semibold text-cyan-900"
+                  >
+                    {levelReview.level >= totalLevels
+                      ? "Lihat ringkasan"
+                      : "Lanjut level berikutnya"}
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
 
-              {/* Drag & drop */}
-              {normalizedQuestion.type === "drag_drop" && (
-                <div className="grid gap-4 md:grid-cols-[1.4fr,1fr]">
-                  <div className="space-y-2">
+          {isTryout && secondsLeft !== null && (
+            <div className="mb-3 flex items-center justify-between rounded-2xl border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-800">
+              <span>Mode Tryout - Timer berjalan</span>
+              <span className="font-semibold">
+                {Math.floor(secondsLeft / 60)
+                  .toString()
+                  .padStart(2, "0")}
+                :{(secondsLeft % 60).toString().padStart(2, "0")}
+              </span>
+            </div>
+          )}
+
+          <div className="mb-4 flex flex-col gap-3 rounded-3xl border border-slate-200 bg-white p-4 text-xs text-slate-600 shadow-xl shadow-slate-200/70 md:flex-row md:items-center md:justify-between">
+            <div className="flex items-center gap-2">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-linear-to-br from-cyan-500/45 via-purple-500/35 to-emerald-400/35 text-lg font-bold text-white shadow-lg shadow-cyan-500/30">
+                {displayNumber}
+              </div>
+            </div>
+            <div>
+              <div className="text-[11px] uppercase tracking-wide text-slate-500">
+                Soal untukmu
+              </div>
+              <div className="text-base font-semibold text-slate-900 md:text-lg">
+                {displayNumber}/{displayTotal}{" "}
+                {normalizedQuestion.type === "essay"
+                  ? "Jawab bebas"
+                  : normalizedQuestion.type === "drag_drop"
+                  ? "Seret & jatuhkan"
+                  : "Pilih jawaban"}
+              </div>
+            </div>
+          </div>
+
+          <div className="mb-4 flex items-center gap-2">
+            <div className="h-3 w-36 overflow-hidden rounded-full bg-slate-100">
+              <div
+                className="h-full rounded-full bg-linear-to-r from-cyan-400 via-purple-400 to-pink-400"
+                style={{
+                  width: `${Math.min(
+                    100,
+                    Math.round(
+                      (displayNumber / Math.max(displayTotal, 1)) * 100
+                    )
+                  )}%`,
+                }}
+              />
+            </div>
+
+            <div className="rounded-full border border-slate-200 bg-white px-3 py-1 text-[11px]">
+              {isTryout ? (
+                <span className="text-emerald-700">Tryout</span>
+              ) : displayNumber <= questionLimit ? (
+                <span className="text-emerald-700">{planLabel}</span>
+              ) : (
+                <span className="text-yellow-300">Terkunci</span>
+              )}
+            </div>
+          </div>
+
+          <div className="relative mb-4 overflow-hidden rounded-3xl border border-slate-200 bg-white px-4 py-3 text-[11px] text-slate-600 shadow-lg shadow-slate-200/70">
+            <div className="pointer-events-none absolute -left-6 top-0 h-16 w-16 rounded-full bg-cyan-500/20 blur-2xl" />
+            <div className="pointer-events-none absolute -right-6 bottom-0 h-16 w-16 rounded-full bg-emerald-500/20 blur-2xl" />
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <span className="text-slate-500">
+                Level {currentLevel}/{totalLevels}
+              </span>
+              <span className="text-slate-600">
+                Soal {levelStart}-{levelEnd}
+              </span>
+            </div>
+            <div className="mt-2 h-3 overflow-hidden rounded-full bg-slate-100">
+              <div
+                className="h-full rounded-full bg-linear-to-r from-emerald-400 via-cyan-400 to-indigo-400"
+                style={{ width: `${levelProgress}%` }}
+              />
+            </div>
+          </div>
+
+          <nav className="mb-4 flex flex-wrap justify-center gap-2 sm:gap-2.5">
+            {(isTryout
+              ? orderedQuestions.slice(levelStart - 1, levelEnd)
+              : questions.filter(
+                  (qq) =>
+                    qq.question_number >= levelStart &&
+                    qq.question_number <= levelEnd
+                )
+            ).map((qq, idx) => {
+              const displayIndex = isTryout
+                ? levelStart + idx
+                : qq.question_number;
+              const isCurrent = qq.id === currentQuestion.id;
+              const unlocked = isTryout
+                ? displayIndex <= maxUnlockedNumber
+                : qq.question_number <= maxUnlockedNumber;
+              const status = questionResults[qq.question_number];
+              const answered = !!status;
+
+              let cls =
+                "w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold border transition-colors";
+
+              if (isCurrent) {
+                cls +=
+                  " bg-pink-500 border-pink-300 text-white shadow-[0_0_14px_rgba(236,72,153,0.9)]";
+              } else if (status === "correct") {
+                cls +=
+                  " bg-emerald-500/40 border-emerald-300 text-emerald-50 shadow-[0_0_14px_rgba(16,185,129,0.85)]";
+              } else if (status === "wrong") {
+                cls +=
+                  " bg-rose-500/35 border-rose-300 text-rose-50 shadow-[0_0_14px_rgba(244,63,94,0.85)]";
+              } else if (unlocked && !answered) {
+                cls +=
+                  " bg-slate-100 border-slate-200 text-slate-700 hover:border-cyan-400 hover:text-cyan-700";
+              } else {
+                cls += " bg-white border-slate-200 text-slate-600";
+              }
+
+              return (
+                <button
+                  key={qq.id}
+                  type="button"
+                  disabled={!unlocked || answered}
+                  onClick={() => {
+                    if (!unlocked || answered) return;
+                    setCurrentNumber(qq.question_number);
+                  }}
+                  className={cls}
+                >
+                  {displayIndex}
+                </button>
+              );
+            })}
+          </nav>
+
+          <div className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-6 md:p-8 shadow-2xl shadow-slate-200/70">
+            <div className="pointer-events-none absolute -top-10 -right-10 h-32 w-32 rounded-full bg-linear-to-tr from-cyan-500/25 via-purple-500/25 to-pink-500/25 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-10 -left-16 h-32 w-32 rounded-full bg-linear-to-br from-emerald-500/25 via-cyan-500/25 to-indigo-500/25 blur-3xl" />
+
+              <div className="relative z-10 space-y-3">
+              <div className="flex flex-col gap-3">
+                <div className="space-y-1">
+                  <p className="text-lg font-semibold text-slate-900 md:text-2xl leading-snug">
+                    {normalizedQuestion.prompt}
+                  </p>
+                  {normalizedQuestion.helperText && (
+                    <p className="text-xs text-slate-600 md:text-sm">
+                      {normalizedQuestion.helperText}
+                    </p>
+                  )}
+                </div>
+
+                {normalizedQuestion.imageUrl && (
+                  <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 p-2 shadow-inner shadow-slate-200/70">
+                    <img
+                      src={normalizedQuestion.imageUrl}
+                      alt="Ilustrasi soal"
+                      className="h-full w-full rounded-xl object-contain"
+                    />
+                  </div>
+                )}
+              </div>
+
+              {isLockedPremium ? (
+                <div className="relative z-10 overflow-hidden rounded-2xl border border-rose-200 bg-white p-6 text-slate-700 shadow-[0_20px_70px_-45px_rgba(244,63,94,0.45)]">
+                  <div className="pointer-events-none absolute -right-24 -top-20 h-48 w-48 rounded-full bg-rose-200/70 blur-3xl" />
+                  <div className="pointer-events-none absolute -left-16 bottom-0 h-40 w-40 rounded-full bg-amber-200/60 blur-3xl" />
+
+                  <div className="relative grid gap-5 md:grid-cols-[1.2fr_1fr]">
+                    <div className="space-y-3">
+                      <div className="inline-flex items-center gap-2 rounded-full border border-rose-200 bg-rose-50 px-3 py-1 text-[11px] font-semibold uppercase text-rose-600">Promo terbatas</div>
+                      <h3 className="text-xl font-extrabold text-slate-900">
+                        Diskon Paket Premium! Upgrade sekarang supaya semua soal terbuka.
+                      </h3>
+                      <p className="text-[13px] text-slate-600">
+                        Kamu sudah menyelesaikan soal gratis. Buka akses penuh, pembahasan lengkap,
+                        dan sesi Zoom tambahan untuk hasil terbaik.
+                      </p>
+                      <div className="flex flex-wrap items-center gap-3">
+                        <div className="rounded-2xl border border-rose-200 bg-rose-50 px-6 py-5 text-center">
+                          <div className="text-[11px] uppercase text-rose-500">
+                            Harga normal
+                          </div>
+                          <div className="mx-auto mt-1 w-fit text-4xl font-extrabold text-slate-400 line-through">
+                            Rp {premiumPrice}
+                          </div>
+                          <div className="mt-2 text-[11px] uppercase text-rose-500">
+                            Harga promo
+                          </div>
+                          <div className="mt-1 text-5xl font-extrabold text-rose-600">
+                            Rp {promoPrice}
+                          </div>
+                          <div className="mt-3 rounded-full bg-rose-100 px-3 py-1 text-[10px] font-semibold text-rose-700">
+                            Diskon 7 hari saja
+                          </div>
+                          <div className="mt-2 rounded-xl border border-rose-200 bg-white px-3 py-2 text-[10px] text-rose-700">
+                            Berakhir dalam:{" "}
+                            <span className="font-semibold" suppressHydrationWarning>
+                              {promoCountdown ?? "Menghitung..."}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="space-y-2 text-[11px] text-slate-600">
+                          <div className="flex items-center gap-2">
+                            <span className="rounded-full bg-emerald-100 px-2 py-1 text-emerald-700">Semua soal terbuka</span>
+                            <span className="rounded-full bg-sky-100 px-2 py-1 text-sky-700">Analisis & progres</span>
+                          </div>
+                          <span className="rounded-full bg-amber-100 px-2 py-1 text-amber-700">Bonus kelas Zoom</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="space-y-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-inner">
+                      <div className="flex items-center justify-between text-[11px] text-slate-500">
+                        <span>Transfer ke rekening</span>
+                        <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] text-slate-500">{bankName}</span>
+                      </div>
+                      <div className="text-lg font-semibold text-slate-900">{bankAccount}</div>
+                      <div className="text-[12px] text-slate-600">a.n {bankHolder}</div>
+                      <button
+                        type="button"
+                        onClick={async () => {
+                          try {
+                            await navigator.clipboard.writeText(bankAccount);
+                            setCopiedBank(true);
+                            setTimeout(() => setCopiedBank(false), 2000);
+                          } catch {
+                            // ignore clipboard failure
+                          }
+                        }}
+                        className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-slate-900 px-4 py-2 text-xs font-semibold text-white hover:bg-slate-800"
+                      >
+                        {copiedBank ? "Rekening tersalin" : "Salin nomor rekening"}
+                      </button>
+                      <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 px-3 py-2 text-[11px] text-slate-500">
+                        QRIS menyusul. Setelah transfer, kirim bukti ke admin.
+                      </div>
+                      <Link
+                        href="/dashboard/student/upgrade"
+                        className="inline-flex items-center justify-center rounded-xl border border-emerald-500 bg-emerald-600 px-4 py-2 text-xs font-semibold text-white shadow-lg shadow-emerald-500/40 transition hover:-translate-y-0.5 hover:bg-emerald-700"
+                      >
+                        Konfirmasi & lanjutkan
+                      </Link>
+                      <Link
+                        href="/dashboard/student/upgrade"
+                        className="inline-flex items-center justify-center rounded-xl border border-purple-200 bg-purple-600 px-4 py-2 text-xs font-semibold text-white shadow-lg shadow-purple-500/30 transition hover:-translate-y-0.5 hover:bg-purple-700"
+                      >
+                        Lihat paket lain
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <>
+                  {normalizedQuestion.type === "mcq" && (
                     <div className="grid gap-2 md:grid-cols-2">
-                      {normalizedQuestion.options.map((opt) => {
-                        const isUsed = Object.values(placements).includes(
-                          opt.value
-                        );
-                        return (
+                      {normalizedQuestion.options.map((opt) => (
+                        <button
+                          key={opt.value}
+                          disabled={loadingAnswer}
+                          onClick={() => handleAnswer(opt.value)}
+                          className="group relative w-full overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-left text-base text-slate-900 transition hover:-translate-y-0.5 hover:border-cyan-400 hover:bg-slate-100 hover:shadow-md hover:shadow-cyan-500/30 disabled:opacity-60"
+                        >
+                          {opt.imageUrl && (
+                            <div className="mb-2 overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
+                              <img
+                                src={opt.imageUrl}
+                                alt={opt.label}
+                                className="h-32 w-full object-contain"
+                              />
+                            </div>
+                          )}
+                          <span className="font-semibold text-slate-900">
+                            {opt.label}
+                          </span>
+                          <div className="pointer-events-none absolute -bottom-6 -right-8 h-16 w-16 rounded-full bg-linear-to-tr from-cyan-500/20 via-purple-500/20 to-pink-500/20 blur-xl" />
+                        </button>
+                      ))}
+                    </div>
+                  )}
+
+                  {normalizedQuestion.type === "essay" && (
+                    <div className="space-y-2">
+                      <textarea
+                        value={essayAnswer}
+                        onChange={(e) => setEssayAnswer(e.target.value)}
+                        placeholder="Tulis jawabanmu di sini..."
+                        className="w-full rounded-2xl border border-slate-200 bg-slate-50 p-4 text-base text-slate-900 shadow-inner shadow-slate-200/70 focus:border-cyan-400 focus:outline-none"
+                        rows={6}
+                      />
+                      <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-600">
+                        <span>
+                          Ekspresikan jawaban dengan bahasamu sendiri. Kamu
+                          boleh menulis langkah-langkahnya.
+                        </span>
+                        <button
+                          type="button"
+                          disabled={loadingAnswer || !essayAnswer.trim()}
+                          onClick={() => handleAnswer(essayAnswer.trim())}
+                          className="rounded-xl border border-emerald-500 bg-emerald-600 px-3 py-2 font-semibold text-white shadow-md shadow-emerald-500/40 transition hover:-translate-y-px hover:bg-emerald-700 disabled:opacity-60"
+                        >
+                          Kirim jawaban
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
+                  {normalizedQuestion.type === "multipart" && (
+                    <div className="space-y-3">
+                      <div className="text-[11px] font-semibold text-slate-600">
+                        Jawab tiap bagian berikut:
+                      </div>
+                      <div className="space-y-3">
+                        {multipartItems.map((item, idx) => (
                           <div
-                            key={opt.value}
-                            draggable={!isUsed}
-                            onDragStart={() => setDraggingValue(opt.value)}
-                            onDragEnd={() => setDraggingValue(null)}
-                            className={`relative rounded-2xl border p-3 text-sm shadow-inner transition ${
-                              isUsed
-                                ? "cursor-not-allowed border-slate-700 bg-slate-800/40 text-slate-500"
-                                : "cursor-grab border-slate-700 bg-slate-800/80 text-slate-50 hover:-translate-y-px hover:border-cyan-400"
-                            }`}
+                            key={item.id}
+                            className="rounded-2xl border border-slate-200 bg-slate-50 p-4 shadow-inner shadow-slate-200/70"
                           >
-                            {opt.imageUrl && (
-                              <div className="mb-2 overflow-hidden rounded-xl border border-slate-800 bg-slate-950/60">
+                            <p className="text-sm font-semibold text-slate-900">
+                              {item.label || String.fromCharCode(97 + idx)}.{" "}
+                              {item.prompt}
+                            </p>
+                            {item.image_url && (
+                              <div className="mt-2 overflow-hidden rounded-xl border border-slate-200 bg-white">
                                 <img
-                                  src={opt.imageUrl}
-                                  alt={opt.label}
-                                  className="h-24 w-full object-contain"
+                                  src={item.image_url}
+                                  alt={`Ilustrasi ${item.label}`}
+                                  className="h-32 w-full object-contain"
                                 />
                               </div>
                             )}
-                            <div className="font-semibold">{opt.label}</div>
-                            <div className="pointer-events-none absolute -bottom-6 -right-10 h-16 w-16 rounded-full bg-linear-to-tr from-cyan-500/15 via-purple-500/15 to-pink-500/15 blur-xl" />
+                            <input
+                              className="mt-3 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900"
+                              placeholder="Jawaban bagian ini..."
+                              value={multipartAnswers[item.id] ?? ""}
+                              onChange={(e) =>
+                                setMultipartAnswers((prev) => ({
+                                  ...prev,
+                                  [item.id]: e.target.value,
+                                }))
+                              }
+                            />
                           </div>
-                        );
-                      })}
-                    </div>
-                    <p className="text-[11px] text-slate-300">
-                      Seret kartu ke kotak jawaban yang tepat. Kamu dapat
-                      mengganti pilihan dengan menyeret ulang.
-                    </p>
-                  </div>
-
-                  <div className="space-y-2 rounded-2xl border border-slate-700 bg-slate-800/80 p-3 shadow-inner shadow-black/30">
-                    <div className="text-[11px] font-semibold text-cyan-200">
-                      Kotak jawaban
-                    </div>
-
-                    <div className="space-y-2">
-                      {(normalizedQuestion.dropTargets || []).map((target) => (
-                        <div
-                          key={target.key}
-                          onDragOver={(e) => e.preventDefault()}
-                          onDrop={(e) => {
-                            e.preventDefault();
-                            if (draggingValue) {
-                              setPlacements((prev) => ({
-                                ...prev,
-                                [target.key]: draggingValue!,
-                              }));
-                              setDraggingValue(null);
-                            }
-                          }}
-                          className="rounded-xl border border-dashed border-slate-600 bg-slate-900/60 p-3 text-sm text-slate-50"
+                        ))}
+                      </div>
+                      <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-600">
+                        <span>
+                          Pastikan semua bagian terisi sebelum mengirim.
+                        </span>
+                        <button
+                          type="button"
+                          disabled={loadingAnswer || !multipartReady}
+                          onClick={() =>
+                            handleAnswer(JSON.stringify(multipartAnswers))
+                          }
+                          className="rounded-xl border border-emerald-500 bg-emerald-600 px-3 py-2 font-semibold text-white shadow-md shadow-emerald-500/40 transition hover:-translate-y-px hover:bg-emerald-700 disabled:opacity-60"
                         >
-                          <div className="text-[11px] uppercase tracking-wide text-slate-400">
-                            {target.label}
+                          Kirim jawaban
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
+                  {normalizedQuestion.type === "drag_drop" && (
+                    <DndContext
+                      onDragEnd={(event) => {
+                        if (!event.over) return;
+                        const targetKey = String(event.over.id);
+                        const value = String(event.active.id);
+                        setPlacements((prev) => {
+                          const next = { ...prev };
+                          Object.keys(next).forEach((key) => {
+                            if (next[key] === value) delete next[key];
+                          });
+                          next[targetKey] = value;
+                          return next;
+                        });
+                      }}
+                    >
+                      <div className="grid gap-4 lg:grid-cols-[1.1fr_1fr]">
+                        <div className="space-y-2">
+                          <div className="text-[11px] font-semibold text-slate-600">
+                            Pilih kartu jawaban
+                          </div>
+                          <div className="flex flex-wrap gap-2">
+                            {normalizedQuestion.options.map((opt) => {
+                              const used = Object.values(placements).includes(
+                                opt.value
+                              );
+                              return (
+                                <DraggableOption
+                                  key={opt.value}
+                                  id={opt.value}
+                                  label={opt.label}
+                                  isUsed={used}
+                                />
+                              );
+                            })}
+                          </div>
+                        </div>
+
+                        <div className="space-y-2 rounded-2xl border border-slate-200 bg-slate-50 p-4 shadow-inner shadow-slate-200/70">
+                          <div className="text-[11px] font-semibold text-slate-600">
+                            Kotak jawaban
                           </div>
 
-                          {placements[target.key] ? (
-                            <div className="mt-1 rounded-lg border border-emerald-400/60 bg-emerald-500/15 px-2 py-1 text-emerald-100">
-                              {normalizedQuestion.options.find(
-                                (opt) => opt.value === placements[target.key]
-                              )?.label ?? placements[target.key]}
-                            </div>
-                          ) : (
-                            <div className="mt-1 rounded-lg border border-slate-700 bg-slate-800/60 px-2 py-1 text-[12px] text-slate-400">
-                              {target.placeholder ?? "Seret jawaban ke sini"}
-                            </div>
-                          )}
+                          <div className="space-y-2">
+                            {(normalizedQuestion.dropTargets || []).map(
+                              (target) => (
+                                <DropZone
+                                  key={target.key}
+                                  id={target.key}
+                                  label={target.label}
+                                >
+                                  {placements[target.key] ? (
+                                    <div className="mt-1 rounded-lg border border-emerald-200 bg-emerald-50 px-2 py-1 text-emerald-700">
+                                      {normalizedQuestion.options.find(
+                                        (opt) =>
+                                          opt.value === placements[target.key]
+                                      )?.label ?? placements[target.key]}
+                                    </div>
+                                  ) : (
+                                    <div className="mt-1 rounded-lg border border-slate-200 bg-white px-2 py-1 text-[12px] text-slate-500">
+                                      {target.placeholder ??
+                                        "Seret jawaban ke sini"}
+                                    </div>
+                                  )}
+                                </DropZone>
+                              )
+                            )}
+                          </div>
+
+                          <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-600">
+                            <span>
+                              {Object.values(placements).length}/
+                              {normalizedQuestion.dropTargets?.length ?? 0}{" "}
+                              kotak terisi.
+                            </span>
+                            <button
+                              type="button"
+                              disabled={
+                                loadingAnswer ||
+                                !normalizedQuestion.dropTargets?.every(
+                                  (target) => placements[target.key]
+                                )
+                              }
+                              onClick={() =>
+                                handleAnswer(
+                                  JSON.stringify(
+                                    normalizedQuestion.dropTargets?.reduce(
+                                      (acc, target) => ({
+                                        ...acc,
+                                        [target.key]:
+                                          placements[target.key] ?? "",
+                                      }),
+                                      {}
+                                    ) || {}
+                                  )
+                                )
+                              }
+                              className="rounded-xl border border-cyan-600 bg-cyan-600 px-3 py-2 font-semibold text-white shadow-md shadow-cyan-200/70 transition hover:-translate-y-px hover:bg-cyan-700 disabled:opacity-60"
+                            >
+                              Kirim jawaban
+                            </button>
+                          </div>
                         </div>
-                      ))}
+                      </div>
+                    </DndContext>
+                  )}
+                </>
+              )}
+
+              {feedback.isCorrect !== null && (
+                <div className="fixed inset-0 z-[60] flex items-center justify-center bg-slate-950/70 px-4 backdrop-blur-sm">
+                  <div
+                    className={`relative w-full max-w-md overflow-hidden rounded-3xl border px-6 py-7 text-center shadow-2xl ${
+                      feedback.isCorrect
+                        ? "border-emerald-200 bg-emerald-50 text-emerald-900"
+                        : "border-rose-200 bg-rose-50 text-rose-900"
+                    }`}
+                  >
+                    {feedback.isCorrect && (
+                      <>
+                        <span className="absolute -right-6 -top-6 h-16 w-16 rounded-full bg-emerald-300/40 blur-xl" />
+                        <span className="absolute -left-4 top-8 h-10 w-10 rounded-full bg-cyan-300/50 blur-lg animate-pulse" />
+                        <span className="absolute right-6 bottom-6 h-8 w-8 rounded-full bg-lime-300/50 blur-lg animate-pulse" />
+                      </>
+                    )}
+                    {!feedback.isCorrect && (
+                      <>
+                        <span className="absolute -right-6 -top-6 h-16 w-16 rounded-full bg-rose-300/40 blur-xl" />
+                        <span className="absolute -left-4 top-8 h-10 w-10 rounded-full bg-amber-300/40 blur-lg animate-pulse" />
+                      </>
+                    )}
+
+                    <div className="relative mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-white shadow">
+                      {feedback.isCorrect ? (
+                        <svg
+                          viewBox="0 0 24 24"
+                          className="h-8 w-8 text-emerald-500"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M20 6L9 17l-5-5" />
+                        </svg>
+                      ) : (
+                        <svg
+                          viewBox="0 0 24 24"
+                          className="h-8 w-8 text-rose-500"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M6 6l12 12M6 18L18 6" />
+                        </svg>
+                      )}
                     </div>
 
-                    <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-300">
-                      <span>
-                        {Object.values(placements).length}/
-                        {normalizedQuestion.dropTargets?.length ?? 0} kotak
-                        terisi.
-                      </span>
-
+                    <p className="text-lg font-bold">
+                      {feedback.isCorrect ? "Benar!" : "Belum tepat"}
+                    </p>
+                    {feedback.message && (
+                      <p className="mt-2 text-sm leading-relaxed text-slate-700">
+                        {feedback.message}
+                      </p>
+                    )}
+                    {!feedback.isCorrect && (
+                      <div className="mt-3 rounded-2xl bg-white/80 px-4 py-3 text-xs text-slate-700 shadow-inner">
+                        <span className="font-semibold">Penjelasan:</span>{" "}
+                        {feedback.explanation || "Pembahasan belum tersedia."}
+                      </div>
+                    )}
+                    {!feedback.isCorrect && feedback.imageUrl && (
+                      <div className="mt-3 overflow-hidden rounded-2xl border border-slate-200 bg-white p-2">
+                        <img
+                          src={feedback.imageUrl}
+                          alt="Jawaban benar"
+                          className="h-36 w-full object-contain"
+                        />
+                      </div>
+                    )}
+                    {!feedback.isCorrect && (
                       <button
                         type="button"
-                        disabled={
-                          loadingAnswer ||
-                          !normalizedQuestion.dropTargets?.every(
-                            (target) => placements[target.key]
-                          )
-                        }
-                        onClick={() =>
-                          handleAnswer(
-                            JSON.stringify(
-                              normalizedQuestion.dropTargets?.reduce(
-                                (acc, target) => ({
-                                  ...acc,
-                                  [target.key]: placements[target.key] ?? "",
-                                }),
-                                {}
-                              ) || {}
-                            )
-                          )
-                        }
-                        className="rounded-xl border border-cyan-400/70 bg-cyan-500/25 px-3 py-2 font-semibold text-cyan-50 shadow-md shadow-cyan-500/30 transition hover:-translate-y-px hover:bg-cyan-500/35 disabled:opacity-60"
+                        className="mt-4 w-full rounded-xl border border-slate-900 bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow transition hover:-translate-y-px hover:bg-slate-800"
+                        onClick={() => {
+                          proceedRef.current?.();
+                          proceedRef.current = null;
+                        }}
                       >
-                        Kirim jawaban
+                        Lanjut ke soal berikutnya
                       </button>
-                    </div>
+                    )}
                   </div>
                 </div>
               )}
-            </>
-          )}
 
-          {/* feedback jawaban */}
-          {feedback.message && (
-            <div
-              className={`relative z-10 mt-4 rounded-xl px-3 py-2 text-xs ${
-                feedback.isCorrect === null
-                  ? "border border-yellow-500/40 bg-yellow-500/15 text-yellow-100"
-                  : feedback.isCorrect
-                  ? "border border-emerald-500/40 bg-emerald-500/15 text-emerald-100"
-                  : "border border-rose-500/40 bg-rose-500/15 text-rose-100"
-              }`}
-            >
-              {feedback.message}
-            </div>
-          )}
+              {feedback.message && (
+                <div
+                  className={`relative z-10 mt-4 rounded-xl px-3 py-2 text-xs ${
+                    feedback.isCorrect === null
+                      ? "border border-yellow-500/40 bg-yellow-500/15 text-yellow-100"
+                      : feedback.isCorrect
+                      ? "border border-emerald-200 bg-emerald-50 text-emerald-700"
+                      : "border border-rose-500/40 bg-rose-500/15 text-rose-100"
+                  }`}
+                >
+                  <div>{feedback.message}</div>
+                  {feedback.imageUrl && !feedback.isCorrect && (
+                    <div className="mt-2 overflow-hidden rounded-xl border border-slate-200 bg-slate-50 p-2">
+                      <img
+                        src={feedback.imageUrl}
+                        alt="Jawaban benar"
+                        className="h-32 w-full object-contain"
+                      />
+                    </div>
+                  )}
+                </div>
+              )}
 
-          {lockedMessage && (
-            <div className="relative z-10 mt-3 rounded-xl border border-cyan-400/40 bg-cyan-500/10 px-3 py-2 text-xs text-cyan-100">
-              {lockedMessage}
+              {lockedMessage && (
+                <div className="relative z-10 mt-3 rounded-xl border border-cyan-400/40 bg-cyan-500/10 px-3 py-2 text-xs text-cyan-100">
+                  {lockedMessage}
+                </div>
+              )}
             </div>
-          )}
+          </div>
         </div>
+
+        <aside className="hidden flex-col gap-4 md:flex">
+          <div className="rounded-3xl border border-cyan-500/40 bg-white p-4 text-center text-slate-700 shadow-lg shadow-cyan-500/20">
+            <p className="text-xs uppercase tracking-[0.2em] text-emerald-700/80">
+              Progress
+            </p>
+            <div
+              className="mx-auto mt-3 flex h-28 w-28 items-center justify-center rounded-full"
+              style={{
+                background: `conic-gradient(#22d3ee ${
+                  progressPercent * 3.6
+                }deg, #1f2937 0deg)`,
+              }}
+            >
+              <div className="flex h-20 w-20 items-center justify-center rounded-full bg-white text-lg font-bold text-slate-900">
+                {progressPercent}%
+              </div>
+            </div>
+            <div className="mt-3 text-xs text-slate-600">
+              {displayNumber}/{displayTotal} soal
+            </div>
+          </div>
+
+          <div className="rounded-3xl border border-emerald-500/30 bg-white p-4 text-center text-slate-700 shadow-lg shadow-emerald-500/10">
+            <p className="text-xs uppercase tracking-[0.2em] text-emerald-700/80">
+              Skor
+            </p>
+            <div
+              className="mx-auto mt-3 flex h-28 w-28 items-center justify-center rounded-full"
+              style={{
+                background: `conic-gradient(#34d399 ${
+                  scorePercent * 3.6
+                }deg, #1f2937 0deg)`,
+              }}
+            >
+              <div className="flex h-20 w-20 flex-col items-center justify-center rounded-full bg-white text-slate-900">
+                <div className="text-xl font-bold">{correctCount}</div>
+                <div className="text-[10px] text-slate-500">benar</div>
+              </div>
+            </div>
+            <div className="mt-3 text-xs text-slate-600">
+              {answeredCount} dijawab
+            </div>
+          </div>
+        </aside>
       </div>
     </div>
   );

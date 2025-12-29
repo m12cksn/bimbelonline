@@ -1,0 +1,4 @@
+9. Ada 18 pensil dan 30 penghapus yang akan dibagi sama banyak. Berapa jumlah paket terbanyak yang bisa dibuat? -> TODO_IMG_PENSIL_PENGHAPUS.png
+11. Lampu merah berkedip tiap 9 detik dan 12 detik. Kapan berkedip bersamaan? -> TODO_IMG_LAMPU.png
+12. Ada 45 kue dan 60 permen yang dibagi rata. Berapa banyak paket terbanyak? -> TODO_IMG_KUE_PERMEN.png
+23. Dua bel berbunyi tiap 6 menit dan 15 menit. Setelah berapa menit keduanya berbunyi bersama lagi? -> TODO_IMG_BEL.png

@@ -2,6 +2,7 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { createServerClient } from "@supabase/ssr";
+import { createClient } from "@supabase/supabase-js";
 
 interface Params {
   params: Promise<{ id: string }>;
@@ -14,8 +15,8 @@ type PaymentWithPlan = {
   amount_idr: number;
   status: string;
   subscription_plans:
-    | { duration_days: number | null }
-    | { duration_days: number | null }[]
+    | { duration_days: number | null; zoom_sessions_per_month?: number | null }
+    | { duration_days: number | null; zoom_sessions_per_month?: number | null }[]
     | null;
 };
 
@@ -52,6 +53,14 @@ export async function POST(req: Request, props: Params) {
     }
   );
 
+  // Service client (bypass RLS) untuk update yang perlu hak penuh
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const serviceClient = serviceKey
+    ? createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, serviceKey, {
+        auth: { autoRefreshToken: false, persistSession: false },
+      })
+    : null;
+
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -82,7 +91,8 @@ export async function POST(req: Request, props: Params) {
       amount_idr,
       status,
       subscription_plans (
-        duration_days
+        duration_days,
+        zoom_sessions_per_month
       )
     `
     )
@@ -122,7 +132,8 @@ export async function POST(req: Request, props: Params) {
       .eq("status", "active");
 
     // 3) sinkron ke profiles.is_premium → pastikan balik ke false
-    const { error: profileUpdateError } = await supabase
+    const profileUpdater = serviceClient ?? supabase;
+    const { error: profileUpdateError } = await profileUpdater
       .from("profiles")
       .update({ is_premium: false })
       .eq("id", payment.user_id);
@@ -141,16 +152,23 @@ export async function POST(req: Request, props: Params) {
   }
 
   // ============= APPROVE =============
-  // Ambil duration_days dari relasi (bisa array atau object)
+  // Ambil duration_days + zoom_sessions_per_month dari relasi (bisa array atau object)
   const rel = payment.subscription_plans;
   let durationDays = 30;
+  let zoomPerMonth: number | null = null;
 
   if (Array.isArray(rel)) {
     if (rel.length > 0 && typeof rel[0]?.duration_days === "number") {
       durationDays = rel[0].duration_days ?? 30;
     }
+    if (rel.length > 0 && typeof rel[0]?.zoom_sessions_per_month === "number") {
+      zoomPerMonth = rel[0].zoom_sessions_per_month ?? null;
+    }
   } else if (rel && typeof rel.duration_days === "number") {
     durationDays = rel.duration_days ?? 30;
+    if (typeof rel.zoom_sessions_per_month === "number") {
+      zoomPerMonth = rel.zoom_sessions_per_month ?? null;
+    }
   }
 
   const startAt = new Date();
@@ -183,14 +201,18 @@ export async function POST(req: Request, props: Params) {
   }
 
   // 3) insert subscription active
-  const { error: subError } = await supabase.from("subscriptions").insert({
-    user_id: payment.user_id,
-    plan_id: payment.plan_id,
-    payment_id: payment.id,
-    status: "active",
-    start_at: startAt.toISOString(),
-    end_at: endAt.toISOString(),
-  });
+  const { data: subInsert, error: subError } = await supabase
+    .from("subscriptions")
+    .insert({
+      user_id: payment.user_id,
+      plan_id: payment.plan_id,
+      payment_id: payment.id,
+      status: "active",
+      start_at: startAt.toISOString(),
+      end_at: endAt.toISOString(),
+    })
+    .select("id")
+    .single<{ id: string }>();
 
   if (subError) {
     console.error("Subscription insert error:", subError);
@@ -201,7 +223,8 @@ export async function POST(req: Request, props: Params) {
   }
 
   // 4) ✅ sinkron ke profiles.is_premium → ini yang dipakai dashboard guru
-  const { error: profileUpdateError } = await supabase
+  const profileUpdater = serviceClient ?? supabase;
+  const { error: profileUpdateError } = await profileUpdater
     .from("profiles")
     .update({ is_premium: true })
     .eq("id", payment.user_id);
@@ -209,6 +232,40 @@ export async function POST(req: Request, props: Params) {
   if (profileUpdateError) {
     console.error("Profile is_premium update error:", profileUpdateError);
     // tidak usah di-return error, karena subscription sudah terbuat
+  }
+
+  // 5) Auto-generate kuota zoom (jika plan punya kuota)
+  const effectiveZoom = typeof zoomPerMonth === "number" ? zoomPerMonth : 0;
+  if (effectiveZoom > 0) {
+    const quotaClient = serviceClient ?? supabase;
+    const { data: classLinks, error: classErr } = await quotaClient
+      .from("class_students")
+      .select("class_id")
+      .eq("student_id", payment.user_id);
+
+    if (classErr) {
+      console.error("class_students fetch error:", classErr);
+    } else if (classLinks && classLinks.length > 0) {
+      const rows = classLinks.map((row) => ({
+        class_id: row.class_id,
+        student_id: payment.user_id,
+        subscription_id: subInsert?.id ?? payment.id,
+        period_start: startAt.toISOString(),
+        period_end: endAt.toISOString(),
+        allowed_sessions: effectiveZoom,
+        used_sessions: 0,
+      }));
+
+      const { error: quotaErr } = await quotaClient
+        .from("class_student_zoom_quota")
+        .upsert(rows, {
+          onConflict: "class_id,student_id",
+        });
+
+      if (quotaErr) {
+        console.error("auto quota upsert error:", quotaErr);
+      }
+    }
   }
 
   return NextResponse.redirect(

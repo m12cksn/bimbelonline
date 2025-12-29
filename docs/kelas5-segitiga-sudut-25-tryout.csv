@@ -1,0 +1,26 @@
+material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
+11,1,essay,tryout,"Tryout 30 menit. Sebuah segitiga memiliki sisi 7 cm, 7 cm, dan 12 cm. Klasifikasikan berdasarkan sisi dan sudutnya.",,,,sama kaki; tumpul,,,,,,,,,,,,,
+11,2,mcq,tryout,Sudut terbesar segitiga sama sisi adalah...,,,,B,,,45 derajat,60 derajat,90 derajat,120 derajat,,,,,,,
+11,3,drag_drop,tryout,Pasangkan sudut dengan jenisnya.,,,,,,,,,,,,,,,15;90;140;220,"lancip,siku-siku,tumpul,refleks",
+11,4,essay,tryout,"Segitiga dengan sudut 100 derajat, 50 derajat, 30 derajat termasuk segitiga...",,,,tumpul,,,,,,,,,,,,,
+11,5,mcq,tryout,"Jika sebuah segitiga memiliki dua sudut 50 derajat, sudut ketiganya adalah...",,,,C,,,70 derajat,80 derajat,80 derajat,90 derajat,,,,,,,
+11,6,essay,tryout,"Apakah segitiga dengan sisi 4, 9, 13 dapat terbentuk? Jelaskan singkat.",,,,tidak,,,,,,,,,,,,,
+11,7,multipart,tryout,Klasifikasikan segitiga.,,,,,,,,,,,,,,,,,"a|Sisi 5, 6, 7|sembarang;b|Sudut 90, 45, 45|siku-siku; sama kaki"
+11,8,drag_drop,tryout,Pasangkan pernyataan dengan jenis segitiga.,,,,,,,,,,,,,,,3 sisi sama;2 sisi sama;semua sisi berbeda;1 sudut 90,"sama sisi,sama kaki,sembarang,siku-siku",
+11,9,essay,tryout,Segitiga sama kaki memiliki dua sudut 70 derajat. Tentukan sudut ketiga dan jenis sudut segitiga.,,,,40 derajat; lancip,,,,,,,,,,,,,
+11,10,mcq,tryout,Sudut refleks berada pada rentang...,,,,C,,,0-90,90-180,180-360,360-450,,,,,,,
+11,11,essay,tryout,Berapa banyak garis simetri segitiga sama sisi? Jelaskan singkat.,,,,3,,,,,,,,,,,,,
+11,12,essay,tryout,"Segitiga dengan sisi 6, 8, 10 termasuk segitiga... (berdasarkan sudut)",,,,siku-siku,,,,,,,,,,,,,
+11,13,drag_drop,tryout,Pasangkan besar sudut dengan klasifikasinya.,,,,,,,,,,,,,,,89;90;91;179,"lancip,siku-siku,tumpul,tumpul",
+11,14,multipart,tryout,Lengkapi.,,,,,,,,,,,,,,,,,a|Segitiga memiliki sudut 40 dan 80 derajat. Sudut ketiga?|60 derajat;b|Jenis segitiga berdasarkan sudutnya|lancip
+11,15,essay,tryout,Sebuah segitiga sama kaki memiliki keliling 30 cm dan sisi alas 12 cm. Berapa panjang tiap sisi yang sama?,,,,9 cm,,,,,,,,,,,,,
+11,16,mcq,tryout,"Jika dua sudut segitiga 35 derajat dan 75 derajat, maka jenis segitiganya (berdasarkan sudut) adalah...",,,,A,,,Lancip,Tumpul,Siku-siku,Refleks,,,,,,,
+11,17,essay,tryout,Apakah segitiga bisa memiliki tiga sudut tumpul? Jelaskan singkat.,,,,tidak,,,,,,,,,,,,,
+11,18,multipart,tryout,Klasifikasi sudut.,,,,,,,,,,,,,,,,,a|Sudut 175 derajat|tumpul;b|Sudut 200 derajat|refleks
+11,19,essay,tryout,"Segitiga dengan sisi 5, 12, 13 termasuk segitiga... (berdasarkan sudut)",,,,siku-siku,,,,,,,,,,,,,
+11,20,mcq,tryout,"Jika segitiga memiliki sudut terbesar 95 derajat, maka segitiga itu adalah...",,,,B,,,Lancip,Tumpul,Siku-siku,Refleks,,,,,,,
+11,21,essay,tryout,Segitiga sama sisi memiliki sudut berapa derajat masing-masing?,,,,60 derajat,,,,,,,,,,,,,
+11,22,drag_drop,tryout,Pasangkan segitiga dengan jumlah garis simetrinya.,,,,,,,,,,,,,,,sama sisi;sama kaki;sembarang,"3,1,0",
+11,23,mcq,tryout,Sudut terkecil yang mungkin pada segitiga tumpul adalah...,,,,A,,,1 derajat,30 derajat,45 derajat,90 derajat,,,,,,,
+11,24,essay,tryout,"Pada segitiga, sudut-sudutnya 2x, 3x, dan 4x. Berapa besar sudut terbesar?",,,,80 derajat,,,,,,,,,,,,,
+11,25,multipart,tryout,Cek syarat segitiga.,,,,,,,,,,,,,,,,,"a|Sisi 4, 5, 9 dapat membentuk segitiga?|tidak;b|Sisi 4, 5, 8 dapat membentuk segitiga?|ya"

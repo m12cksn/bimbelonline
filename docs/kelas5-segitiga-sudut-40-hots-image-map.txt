@@ -1,0 +1,4 @@
+6. Perhatikan gambar segitiga. -> TODO_IMG_SEGITIGA_SAMA_SISI.png
+9. Pasangkan jenis segitiga dengan cirinya. -> TODO_IMG_CIRI_SEGITIGA.png
+20. Garis simetri pada segitiga. -> TODO_IMG_GARIS_SIMETRI.png
+39. Perhatikan gambar jam. -> TODO_IMG_JAM_SUDUT.png

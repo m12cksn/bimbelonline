@@ -10,11 +10,7 @@ type SubscriptionRow = {
   end_at: string | null;
 };
 
-type PlanRow = {
-  id: string;
-  name: string | null;
-  zoom_per_month: number | null;
-};
+type PlanRow = Record<string, unknown>;
 
 type ClassStudentRow = {
   class_id: number;
@@ -84,8 +80,8 @@ export async function POST(
 
     // 2) ambil plan
     const { data: planData, error: planErr } = await supabase
-      .from("plans")
-      .select("id, name, zoom_per_month")
+      .from("subscription_plans")
+      .select("*")
       .eq("id", sub.plan_id)
       .single();
 
@@ -94,7 +90,15 @@ export async function POST(
     }
 
     const plan = (planData ?? null) as PlanRow | null;
-    const zoomPerMonth = plan?.zoom_per_month ?? 8;
+    const rawZoom =
+      plan?.["zoom_sessions_per_month"] ?? plan?.["zoom_per_month"];
+    const zoomPerMonth =
+      typeof rawZoom === "number"
+        ? rawZoom
+        : typeof rawZoom === "string" && rawZoom.trim() !== ""
+        ? Number(rawZoom)
+        : null;
+    const allowedPerMonth = zoomPerMonth ?? 8;
 
     // 3) kelas student ini
     const { data: csData, error: csErr } = await supabase
@@ -124,7 +128,10 @@ export async function POST(
     const rows = rels.map((r) => ({
       class_id: r.class_id,
       student_id: r.student_id,
-      allowed_sessions: zoomPerMonth,
+      subscription_id: subscriptionId,
+      period_start: sub.start_at,
+      period_end: sub.end_at,
+      allowed_sessions: allowedPerMonth,
       // used_sessions sengaja tidak di-set supaya tidak di-reset
     }));
 

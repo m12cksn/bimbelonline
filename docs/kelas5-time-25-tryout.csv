@@ -1,0 +1,26 @@
+material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
+10,1,essay,tryout,"Tryout 30 menit. Pukul 07:20 Dina mulai belajar. Ia belajar 25 menit, istirahat 5 menit, lalu belajar lagi 20 menit. Pukul berapa Dina selesai?",,,,08:10,,,,,,,,,,,,,
+10,2,mcq,tryout,Pukul 18:45 ditambah 2 jam 35 menit menjadi...,,,,B,,,20:20,21:20,21:30,22:20,,,,,,,
+10,3,drag_drop,tryout,Pasangkan durasi ke urutan dari tercepat.,,,,,,,,,,,,,,,450 ms;0.9 detik;2.5 detik;2 menit,"tercepat,kedua,ketiga,terlambat",
+10,4,essay,tryout,"Sebuah film mulai 19:10. Iklan 12 menit, lalu film utama 1 jam 35 menit. Pukul berapa film selesai?",,,,20:57,,,,,,,,,,,,,
+10,5,mcq,tryout,0.2 jam + 35 menit = ...,,,,C,,,47 menit,55 menit,47 menit,59 menit,,,,,,,
+10,6,essay,tryout,Ubah 3 menit 45 detik menjadi detik.,,,,225,,,,,,,,,,,,,
+10,7,multipart,tryout,Konversi dan bandingkan.,,,,,,,,,,,,,,,,,a|1.8 jam = ... jam ... menit|1 jam 48 menit;b|Mana lebih lama: 110 menit atau 1.7 jam?|1.7 jam
+10,8,drag_drop,tryout,Pasangkan waktu 12 jam ke 24 jam.,,,,,,,,,,,,,,,pukul 7:30 malam;pukul 12:15 malam;pukul 6:05 pagi;pukul 3:40 sore,"19:30,00:15,06:05,15:40",
+10,9,essay,tryout,Kereta A berangkat 08:55 dan tiba 10:32. Kereta B berangkat 09:10 dan tiba 10:20. Kereta mana lebih lama perjalanannya dan selisihnya?,,,,Kereta A lebih lama 27 menit,,,,,,,,,,,,,
+10,10,multipart,tryout,Hitung waktu.,,,,,,,,,,,,,,,,,"a|Dari 14:20 ke 16:05|1 jam 45 menit;b|Jika mulai 07:50 dan durasi 95 menit, selesai pukul|09:25"
+10,11,essay,tryout,0.75 jam dikurangi 20 menit menjadi ... menit.,,,,25 menit,,,,,,,,,,,,,
+10,12,mcq,tryout,Selisih antara 23:50 dan 00:30 adalah...,,,,A,,,40 menit,50 menit,60 menit,80 menit,,,,,,,
+10,13,essay,tryout,"Waktu di Kota X 2 jam lebih cepat dari Jakarta. Jika Jakarta 21:15, hari yang sama, waktu di Kota X adalah...",,,,23:15,,,,,,,,,,,,,
+10,14,drag_drop,tryout,Pasangkan konversi waktu.,,,,,,,,,,,,,,,1500 ms;2.4 jam;135 menit;0.6 jam,"1.5 detik,2 jam 24 menit,2 jam 15 menit,36 menit",
+10,15,essay,tryout,"Sebuah lomba lari terdiri dari 5 putaran. Putaran pertama 42 detik, berikutnya masing-masing 40 detik. Total waktu dalam menit dan detik?",,,,3 menit 22 detik,,,,,,,,,,,,,
+10,16,multipart,tryout,Perbandingan zona waktu.,,,TODO_IMG_TIMEZONE_TRYOUT.png,,,,,,,,,,,,,,"a|Jika Jakarta 05:00 dan London 7 jam lebih lambat, waktu di London?|22:00;b|Jika Tokyo 2 jam lebih cepat dari Seoul, dan Seoul 08:30, waktu di Tokyo?|10:30"
+10,17,essay,tryout,"Rika membaca 3 sesi: 18 menit, 22 menit, dan 15 menit. Ada jeda 5 menit di antara sesi. Total waktu dari mulai sampai selesai?",,,,70 menit,,,,,,,,,,,,,
+10,18,mcq,tryout,2.25 jam sama dengan...,,,,B,,,2 jam 10 menit,2 jam 15 menit,2 jam 25 menit,2 jam 45 menit,,,,,,,
+10,19,essay,tryout,Sebuah alarm berbunyi tiap 0.8 detik. Berapa kali berbunyi dalam 1 menit?,,,,75,,,,,,,,,,,,,
+10,20,multipart,tryout,Hitung selisih waktu.,,,,,,,,,,,,,,,,,a|Dari 09:35 ke 10:10|35 menit;b|Dari 22:50 ke 00:05|1 jam 15 menit
+10,21,essay,tryout,Jam menunjukkan 10:40. Berapa menit lagi menuju pukul 12:05?,,,,85 menit,,,,,,,,,,,,,
+10,22,drag_drop,tryout,Pasangkan pernyataan dengan satuan yang tepat.,,,,,,,,,,,,,,,menunggu lampu hijau;mengetik 1 kata;lari 100 m;menunggu 1 lagu selesai,"detik,milidetik,detik,menit",
+10,23,mcq,tryout,"Jika 1 hari = 24 jam, maka 1.5 hari = ... jam.",,,,C,,,30,34,36,48,,,,,,,
+10,24,essay,tryout,"Pukul 06:15 sampai 08:00, tetapi ada istirahat 20 menit. Waktu efektif belajar?",,,,1 jam 25 menit,,,,,,,,,,,,,
+10,25,multipart,tryout,Konversi jam desimal.,,,,,,,,,,,,,,,,,a|3.4 jam = ... jam ... menit|3 jam 24 menit;b|0.08 jam = ... menit|4.8 menit

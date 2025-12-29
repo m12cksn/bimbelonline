@@ -1,0 +1,17 @@
+TODO_IMG_LUAS_A01.png -> Soal #1: Kebun persegi panjang dengan kolam persegi di tengah
+TODO_IMG_LUAS_A02.png -> Soal #3: Dua bangun berbeda dengan keliling sama
+TODO_IMG_LUAS_B01.png -> Soal #6: Persegi panjang dibagi menjadi 2 persegi sama sisi
+TODO_IMG_LUAS_B02.png -> Soal #9: Jajargenjang dengan alas 17 cm dan tinggi 9 cm
+TODO_IMG_LUAS_B03.png -> Soal #11: Layang-layang dengan diagonal 18 cm dan 10 cm
+TODO_IMG_LUAS_C01.png -> Soal #13: Bangun gabungan persegi panjang 18x8 dan persegi 6x6
+TODO_IMG_LUAS_C02.png -> Soal #14: Bangun L dari persegi sisi 10 cm dan 6 cm
+TODO_IMG_LUAS_D01.png -> Soal #15: Dua persegi panjang dengan keliling sama 24 cm
+TODO_IMG_LUAS_H01.png -> Soal #20: Lapangan 20x12 dengan area 1/5 diarsir
+TODO_IMG_LUAS_H02.png -> Soal #23: Jalan setapak selebar 1 m di dalam lapangan 24x15
+TODO_IMG_LUAS_H03.png -> Soal #26: Lantai 8x6 dengan karpet 2x3
+TODO_IMG_LUAS_H04.png -> Soal #29: Persegi panjang 16x10 dibagi diagonal
+TODO_IMG_LUAS_H05.png -> Soal #31: Persegi dengan keliling 48 cm
+TODO_IMG_LUAS_H06.png -> Soal #34: Trapesium berluas 150 cm2 dengan tinggi 10 cm
+TODO_IMG_LUAS_H07.png -> Soal #37: Papan 30x20 dengan lubang persegi 6x6
+TODO_IMG_LUAS_H08.png -> Soal #38: Trapesium dibagi menjadi persegi panjang dan segitiga
+TODO_IMG_LUAS_H09.png -> Soal #40: Trapesium dengan sisi sejajar 22 cm dan 12 cm, tinggi 9 cm

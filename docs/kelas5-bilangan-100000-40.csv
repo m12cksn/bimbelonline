@@ -1,0 +1,42 @@
+material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
+2,1,essay,practice,Hitung 50.000 - 19.999.,,,,30.001,,,,,,,,,,,,,
+2,2,drag_drop,practice,Pasangkan operasi dengan hasilnya.,,,,,,,,,,,,,,,25.600+14.300;60.000-17.500;8.000x6,"39.900,42.500,48.000",
+2,3,essay,practice,Tulis bentuk penjumlahan nilai tempat dari 70.040.,,,,70.000+40,,,,,,,,,,,,,
+2,4,essay,practice,Tulis bilangan dari 40.000 + 3.000 + 20 + 5.,,,,43.025,,,,,,,,,,,,,
+2,5,mcq,practice,Bilangan terbesar adalah...,,,,98.765,,Bandingkan digit dari tempat puluh ribuan.,98.756,98.765,89.765,97.865,,,,,,,
+2,6,mcq,practice,Hasil 36.500 + 12.300 adalah...,,,,48.800,,,48.700,48.800,49.800,47.800,,,,,,,
+2,7,essay,practice,"Bandingkan: 99.999 ... 100.000 (>,<,=)",,,,<,,,,,,,,,,,,,
+2,8,mcq,practice,Nilai tempat angka 6 pada bilangan 46.812 adalah...,,,,6000,,,60,600,6000,60.000,,,,,,,
+2,9,essay,practice,Tuliskan nilai tempat angka 8 pada 18.905.,,,,8000,,,,,,,,,,,,,
+2,10,essay,practice,Ibu membeli beras 23.450 gram dan gula 12.700 gram. Berapa total gram belanjaan?,,,,36.150,,,,,,,,,,,,,
+2,11,drag_drop,practice,Pasangkan bilangan dengan bentuk penjumlahan nilai tempatnya.,,,,,,,,,,,,,,,34.215;50.607;81.090,"30.000+4.000+200+10+5,50.000+600+7,80.000+1.000+90",
+2,12,essay,practice,Tuliskan bilangan dari 6x10.000 + 2x1.000 + 3x100 + 5x10 + 4.,,,,62.354,,,,,,,,,,,,,
+2,13,mcq,practice,Urutan bilangan dari terkecil ke terbesar adalah...,,,,12.450 < 12.504 < 12.540,,,12.504 < 12.450 < 12.540,12.450 < 12.540 < 12.504,12.540 < 12.504 < 12.450,12.450 < 12.504 < 12.540,,,,,,,
+2,14,drag_drop,practice,Pasangkan bilangan dengan urutan yang benar.,,,,,,,,,,,,,,,34.120;34.210;34.021,"terkecil,tengah,terbesar",
+2,15,essay,practice,"Di toko buku, total pengunjung hari ini tertulis 'tujuh puluh dua ribu seratus empat belas'. Tuliskan dalam angka.",,,TODO_IMG_TOKO.png,72.114,,,,,,,,,,,,,
+2,16,essay,practice,"Toko memiliki stok 75.000 unit, terjual 28.350 unit. Berapa sisa stok?",,,TODO_IMG_TOKO.png,46.650,,,,,,,,,,,,,
+2,17,essay,practice,"Dalam 1 hari, toko menjual 9.000 item. Berapa total item dalam 7 hari?",,,TODO_IMG_TOKO.png,63.000,,,,,,,,,,,,,
+2,18,essay,practice,Tuliskan bilangan terbesar dari 65.908 dan 65.980.,,,,65.980,,,,,,,,,,,,,
+2,19,multipart,practice,Tulis bilangan dari bentuk berikut.,,,,,,,,,,,,,,,,,"a|3 puluh ribu, 4 ribu, 5 ratus, 2 puluh, 1|34.521;b|9 puluh ribu, 6 ratus|90.600"
+2,20,essay,practice,"Satu paket berisi 12.500 poin. Jika membeli 3 paket, berapa total poin?",,,,37.500,,,,,,,,,,,,,
+2,21,multipart,practice,Lengkapi perbandingan berikut.,,,,,,,,,,,,,,,,,"a|45.230 ... 45.203 (>,<,=)|>;b|78.901 ... 78.910 (>,<,=)|<;c|9.999 ... 10.000 (>,<,=)|<"
+2,22,drag_drop,practice,Pasangkan bilangan dengan nilai tempat yang benar.,,,,,,,,,,,,,,,6 pada 46.812;2 pada 92.345;8 pada 58.901,"6000,2000,8000",
+2,23,essay,practice,"Urutkan dari terbesar: 80.250, 80.520, 80.205",,,,80.520>80.250>80.205,,,,,,,,,,,,,
+2,24,multipart,practice,Lengkapi.,,,,,,,,,,,,,,,,,a|Bilangan dari 8x10.000 + 5x1.000 + 2x10 + 9|85.029;b|Bilangan dari 7x10.000 + 3x100 + 4|70.304
+2,25,mcq,practice,Bilangan yang lebih kecil dari 50.305 adalah...,,,,50.299,,,50.399,50.305,50.350,50.299,,,,,,,
+2,26,multipart,practice,Kerjakan soal berikut.,,,,,,,,,,,,,,,,,a|36.000 ÷ 6|6.000;b|54.000 ÷ 9|6.000;c|12.000 ÷ 4|3.000
+2,27,essay,practice,Nilai tempat angka 5 pada 45.678 adalah...,,,,5000,,,,,,,,,,,,,
+2,28,essay,practice,Papan skor menunjukkan 'sembilan puluh lima ribu tujuh' poin. Tuliskan angkanya.,,,TODO_IMG_PAPAN_SKOR.png,95.007,,,,,,,,,,,,,
+2,29,essay,practice,Sebanyak 48.000 kelereng dibagi rata ke 6 kotak. Berapa isi tiap kotak?,,,TODO_IMG_KOTAK_KELERENG.png,8.000,,,,,,,,,,,,,
+2,30,essay,practice,Hitung 64.800 ÷ 8.,,,,8.100,,,,,,,,,,,,,
+2,31,essay,practice,"Bandingkan: 56.230 ... 56.203 (>,<,=)",,,,>,,,,,,,,,,,,,
+2,32,multipart,practice,Hitung setiap operasi.,,,,,,,,,,,,,,,,,a|12.500 + 7.250|19.750;b|40.000 - 12.500|27.500;c|3.000 x 8|24.000
+2,33,mcq,practice,Hasil 90.000 - 27.500 adalah...,,,,62.500,,,62.500,63.500,61.500,72.500,,,,,,,
+2,34,drag_drop,practice,Pasangkan bilangan dengan tulisan yang benar.,,,,,,,,,,,,,,,72.105;40.560;90.018,"tujuh puluh dua ribu seratus lima,empat puluh ribu lima ratus enam puluh,sembilan puluh ribu delapan belas",
+2,35,multipart,practice,Urutkan bilangan berikut dari terkecil ke terbesar.,,,,,,,,,,,,,,,,,"a|45.120,45.210,45.012|45.012<45.120<45.210;b|70.030,70.300,70.003|70.003<70.030<70.300"
+2,36,multipart,practice,Tulis bentuk penjumlahan nilai tempat.,,,,,,,,,,,,,,,,,a|64.307|60.000+4.000+300+7;b|90.500|90.000+500;c|12.040|10.000+2.000+40
+2,37,drag_drop,practice,Pasangkan bilangan dengan bentuk penjumlahan nilai tempatnya.,,,,,,,,,,,,,,,70.005;55.550;10.010,"7x10.000+5,5x10.000+5x1.000+5x100+5x10,1x10.000+1x10",
+2,38,multipart,practice,Kerjakan setiap bagian berikut.,,,,,,,,,,,,,,,,,a|Tulis nilai tempat angka 7 pada 57.482|7000;b|Tulis nilai tempat angka 3 pada 63.019|3000;c|Tulis nilai tempat angka 9 pada 90.145|90000
+2,39,essay,practice,"Urutkan dari terkecil: 32.410, 32.140, 32.401",,,,32.140<32.401<32.410,,,,,,,,,,,,,
+2,40,essay,practice,Tulis bentuk penjumlahan nilai tempat dari 58.209.,,,,50.000+8.000+200+9,,,,,,,,,,,,,
+

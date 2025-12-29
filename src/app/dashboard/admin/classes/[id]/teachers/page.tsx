@@ -2,6 +2,7 @@
 
 import { use, useCallback, useEffect, useState } from "react";
 import Link from "next/link";
+import { useToast } from "@/app/components/ToastProvider";
 
 type TeacherRow = {
   id: string;
@@ -29,6 +30,7 @@ export default function ClassTeachersPage({
 
   const [teachers, setTeachers] = useState<TeacherRow[]>([]);
   const [loading, setLoading] = useState(false);
+  const toast = useToast();
 
   const fetchTeachers = useCallback(async () => {
     setLoading(true);
@@ -70,19 +72,19 @@ export default function ClassTeachersPage({
       const text = await res.text();
       const ct = res.headers.get("content-type") ?? "";
       if (!ct.includes("application/json")) {
-        alert("Respons server tidak valid");
+        toast.error("Respons server tidak valid");
         return;
       }
       const json = JSON.parse(text) as { ok?: boolean; error?: string };
       if (!res.ok || !json.ok) {
-        alert("Gagal menghapus teacher: " + (json.error ?? "Unknown"));
+        toast.error("Gagal menghapus teacher: " + (json.error ?? "Unknown"));
         return;
       }
       // refresh list
       fetchTeachers();
     } catch (err) {
       console.error("remove teacher", err);
-      alert("Gagal menghapus teacher");
+      toast.error("Gagal menghapus teacher");
     }
   }
 

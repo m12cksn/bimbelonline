@@ -1,0 +1,5 @@
+15. Di toko buku, total pengunjung hari ini tertulis 'tujuh puluh dua ribu seratus empat belas'. Tuliskan dalam angka. -> TODO_IMG_TOKO.png
+16. Toko memiliki stok 75.000 unit, terjual 28.350 unit. Berapa sisa stok? -> TODO_IMG_TOKO.png
+17. Dalam 1 hari, toko menjual 9.000 item. Berapa total item dalam 7 hari? -> TODO_IMG_TOKO.png
+28. Papan skor menunjukkan 'sembilan puluh lima ribu tujuh' poin. Tuliskan angkanya. -> TODO_IMG_PAPAN_SKOR.png
+29. Sebanyak 48.000 kelereng dibagi rata ke 6 kotak. Berapa isi tiap kotak? -> TODO_IMG_KOTAK_KELERENG.png

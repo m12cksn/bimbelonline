@@ -1,0 +1,4 @@
+16. Perbedaan zona waktu. -> TODO_IMG_TIMEZONE_SIMPLE.png
+28. Perbedaan zona waktu. -> TODO_IMG_TIMEZONE_SIMPLE.png
+35. Gunakan jadwal bus berikut. -> TODO_IMG_BUS_TIMETABLE.png
+39. Zona waktu dan pergantian hari. -> TODO_IMG_TIMEZONE_DAY.png

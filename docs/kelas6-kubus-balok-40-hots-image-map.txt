@@ -1,0 +1,12 @@
+1. Hitung jumlah kubus pada Susunan A. -> TODO_IMG_STACK_A.png
+2. Pada Susunan A, berapa banyak kubus di lapisan dasar? -> TODO_IMG_STACK_A.png
+3. Jumlah kubus pada Susunan B adalah... -> TODO_IMG_STACK_B.png
+4. Susunan B. -> TODO_IMG_STACK_B.png
+9. Tampak Susunan A. -> TODO_IMG_VIEWS_ABC.png
+10. Gunakan gambar Tampak Depan & Atas. Berapa jumlah kubus minimal yang mungkin? -> TODO_IMG_VIEWS_FRONT_TOP.png
+17. Pasangkan tampak dengan susunan yang cocok. -> TODO_IMG_VIEWS_ABC.png
+18. Pada grid lokasi, titik X berada di petak mana? -> TODO_IMG_GRID_LOC.png
+19. Grid lokasi. -> TODO_IMG_GRID_LOC.png
+20. Pada grid, berapa jarak horizontal dari S ke T? -> TODO_IMG_GRID_PATH.png
+21. Grid rute. -> TODO_IMG_GRID_PATH.png
+35. Bandingkan tampak. -> TODO_IMG_VIEWS_ABC.png

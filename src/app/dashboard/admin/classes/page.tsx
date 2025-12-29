@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/app/components/ToastProvider";
 
 /* ================================
    TYPE DEFINITIONS
@@ -28,6 +29,7 @@ interface GetClassesResponse {
 
 export default function AdminClassesPage() {
   const router = useRouter();
+  const toast = useToast();
 
   const [classes, setClasses] = useState<ClassRow[]>([]);
   const [loading, setLoading] = useState(false);
@@ -74,7 +76,9 @@ export default function AdminClassesPage() {
           }
         }
         // tampilkan pesan singkat ke user dan simpan log lengkap di console
-        alert(`Gagal memuat kelas: ${serverMsg.toString().slice(0, 200)}`);
+        toast.error(
+          `Gagal memuat kelas: ${serverMsg.toString().slice(0, 200)}`
+        );
         setClasses([]);
         return;
       }
@@ -88,7 +92,7 @@ export default function AdminClassesPage() {
       // jika bukan JSON — log & tampilkan
       if (!contentType.includes("application/json")) {
         console.error("Response bukan JSON:", text.slice(0, 1000));
-        alert(
+        toast.error(
           "Respons dari server bukan format JSON. Cek console untuk detail."
         );
         setClasses([]);
@@ -100,7 +104,7 @@ export default function AdminClassesPage() {
       setClasses(json.classes ?? []);
     } catch (err) {
       console.error("fetchClasses unexpected error:", err);
-      alert(
+      toast.error(
         "Terjadi kesalahan saat mengambil data kelas. Cek console untuk detail."
       );
       setClasses([]);
@@ -142,7 +146,7 @@ export default function AdminClassesPage() {
         throw new Error(json.error ?? "Gagal membuat kelas");
       }
 
-      alert("Kelas berhasil dibuat!");
+      toast.success("Kelas berhasil dibuat!");
 
       // reset form
       setForm({ subject: "", grade: "", description: "" });
@@ -151,7 +155,7 @@ export default function AdminClassesPage() {
       fetchClasses();
     } catch (err) {
       console.error("handleCreate error:", err);
-      alert((err as Error).message);
+      toast.error((err as Error).message);
     }
   }
 
@@ -169,64 +173,77 @@ export default function AdminClassesPage() {
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold">Admin – Manage Classes</h1>
+      <div className="rounded-lg border border-emerald-200 bg-white p-5 shadow-[0_20px_60px_-35px_rgba(15,23,42,0.25)]">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p className="text-xs uppercase tracking-[0.25em] text-emerald-600">
+              Admin
+            </p>
+            <h1 className="text-2xl font-bold text-slate-900">Kelola Kelas</h1>
+          </div>
+        </div>
+      </div>
 
       {/* CREATE CLASS FORM */}
-      <section className="mt-6 p-4 border rounded">
-        <h2 className="font-semibold text-lg">Create New Class</h2>
+      <section className="mt-6 rounded-lg border border-slate-200 bg-white p-5 shadow-[0_18px_50px_-35px_rgba(15,23,42,0.2)]">
+        <h2 className="text-lg font-semibold text-slate-900">
+          Buat Kelas Baru
+        </h2>
 
         <input
-          className="border p-2 rounded block mt-2"
+          className="mt-3 w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900 focus:border-emerald-400 focus:outline-none"
           placeholder="Subject"
           value={form.subject}
           onChange={(e) => setForm({ ...form, subject: e.target.value })}
         />
 
         <input
-          className="border p-2 rounded block mt-2"
+          className="mt-3 w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900 focus:border-emerald-400 focus:outline-none"
           placeholder="Grade (Number)"
           value={form.grade}
           onChange={(e) => setForm({ ...form, grade: e.target.value })}
         />
 
         <textarea
-          className="border p-2 rounded block mt-2"
+          className="mt-3 min-h-[100px] w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900 focus:border-emerald-400 focus:outline-none"
           placeholder="Description"
           value={form.description}
           onChange={(e) => setForm({ ...form, description: e.target.value })}
         />
 
         <button
-          className="mt-4 bg-blue-600 text-white px-4 py-2 rounded"
+          className="mt-4 rounded-lg border border-emerald-600 bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow transition hover:bg-emerald-700"
           onClick={handleCreate}
         >
-          Create Class
+          Buat Kelas
         </button>
       </section>
 
       {/* CLASS LIST */}
-      <section className="mt-8">
-        <h2 className="font-semibold text-lg">Classes</h2>
+      <section className="mt-8 rounded-lg border border-slate-200 bg-white p-5 shadow-[0_18px_50px_-35px_rgba(15,23,42,0.2)]">
+        <h2 className="text-lg font-semibold text-slate-900">Daftar Kelas</h2>
 
-        {loading && <p>Loading...</p>}
+        {loading && <p className="mt-2 text-sm text-slate-500">Loading...</p>}
 
         {classes.length === 0 && !loading && (
-          <p className="text-gray-600 mt-2">Belum ada kelas.</p>
+          <p className="mt-2 text-sm text-slate-500">Belum ada kelas.</p>
         )}
 
         <ul className="mt-4 space-y-3">
           {classes.map((cls) => (
             <li
               key={cls.id}
-              className="p-4 border rounded bg-gray-50 dark:bg-gray-800"
+              className="rounded-lg border border-slate-200 bg-slate-50 p-4 text-slate-700"
             >
-              <p className="font-bold text-lg">{cls.name}</p>
-              <p>Subject: {cls.subject}</p>
-              <p>Grade: {cls.grade ?? "-"}</p>
+              <p className="text-lg font-semibold text-slate-900">{cls.name}</p>
+              <p className="text-sm text-slate-600">Subject: {cls.subject}</p>
+              <p className="text-sm text-slate-600">
+                Grade: {cls.grade ?? "-"}
+              </p>
 
               <div className="mt-3 flex flex-wrap gap-3">
                 <button
-                  className="px-3 py-1 bg-green-600 text-white rounded"
+                  className="rounded-lg border border-emerald-600 bg-emerald-600 px-3 py-1 text-xs font-semibold text-white shadow hover:bg-emerald-700"
                   onClick={() =>
                     router.push(`/dashboard/admin/classes/${cls.id}/teachers`)
                   }
@@ -235,7 +252,7 @@ export default function AdminClassesPage() {
                 </button>
 
                 <button
-                  className="px-3 py-1 bg-purple-600 text-white rounded"
+                  className="rounded-lg border border-cyan-600 bg-cyan-600 px-3 py-1 text-xs font-semibold text-white shadow hover:bg-cyan-700"
                   onClick={() =>
                     router.push(`/dashboard/admin/classes/${cls.id}/students`)
                   }
@@ -243,9 +260,9 @@ export default function AdminClassesPage() {
                   Students
                 </button>
 
-                {/* 🔥 TOMBOL BARU – KELOLA ZOOM */}
+                {/* ?? TOMBOL BARU - KELOLA ZOOM */}
                 <button
-                  className="px-3 py-1 bg-indigo-600 text-white rounded"
+                  className="rounded-lg border border-indigo-600 bg-indigo-600 px-3 py-1 text-xs font-semibold text-white shadow hover:bg-indigo-700"
                   onClick={() =>
                     router.push(`/dashboard/admin/classes/${cls.id}/zoom`)
                   }
@@ -254,7 +271,7 @@ export default function AdminClassesPage() {
                 </button>
 
                 <button
-                  className="px-3 py-1 bg-amber-600 text-white rounded"
+                  className="rounded-lg border border-amber-500 bg-amber-500 px-3 py-1 text-xs font-semibold text-white shadow hover:bg-amber-600"
                   onClick={() =>
                     router.push(`/dashboard/admin/classes/${cls.id}/quota`)
                   }
@@ -264,7 +281,7 @@ export default function AdminClassesPage() {
 
                 {/* (opsional, tetap ada) */}
                 <button
-                  className="px-3 py-1 bg-blue-600 text-white rounded"
+                  className="rounded-lg border border-slate-400 bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700 hover:border-emerald-300 hover:text-emerald-700"
                   onClick={() => router.push(`/dashboard/admin/subscriptions`)}
                 >
                   Generate Quota

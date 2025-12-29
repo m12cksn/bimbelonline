@@ -3,11 +3,14 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabaseServer";
+import Image from "next/image";
 
 type MaterialRow = {
   id: number;
   title: string;
   description: string | null;
+  image_url?: string | null;
+  subject_id?: number | null;
   // nanti bisa ditambah:
   // grade_level: number | null;
   // subject: string | null;
@@ -17,6 +20,14 @@ type MaterialAttemptRow = {
   material_id: number;
   score: number | null;
   attempt_number: number;
+};
+
+type QuestionAttemptRow = {
+  material_id: number;
+  question_id: string;
+  attempt_number: number | null;
+  is_correct: boolean;
+  created_at: string | null;
 };
 
 export default async function MaterialsPage() {
@@ -31,10 +42,24 @@ export default async function MaterialsPage() {
   }
 
   // --- 1. Ambil semua materi seperti sebelumnya ---
-  const { data, error } = await supabase
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("learning_track")
+    .eq("id", user.id)
+    .maybeSingle();
+
+  const learningTrack =
+    (profile as { learning_track?: string | null })?.learning_track ?? "math";
+
+  const materialsQuery = supabase
     .from("materials")
-    .select("id, title, description")
+    .select("id, title, description, image_url, subject_id")
     .order("id", { ascending: true });
+
+  const { data, error } =
+    learningTrack === "coding"
+      ? await materialsQuery.eq("subject_id", 4)
+      : await materialsQuery;
 
   if (error) {
     console.error("Failed to fetch materials:", error);
@@ -81,17 +106,81 @@ export default async function MaterialsPage() {
     }
   }
 
+  const missingMaterialIds = materials
+    .map((m) => m.id)
+    .filter((id) => !attemptMap[id]);
+
+  if (missingMaterialIds.length > 0) {
+    const { data: qaRows, error: qaError } = await supabase
+      .from("question_attempts")
+      .select(
+        "material_id, question_id, attempt_number, is_correct, created_at"
+      )
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: false });
+
+    if (qaError) {
+      console.error("Failed to fetch question attempts:", qaError);
+    }
+
+    const latestByKey = new Map<string, QuestionAttemptRow>();
+    (qaRows ?? []).forEach((row) => {
+      const attemptNum =
+        row.attempt_number === 2
+          ? 2
+          : row.attempt_number === 1 || row.attempt_number === 0
+          ? 1
+          : 1;
+      const key = `${row.material_id}-${row.question_id}-${attemptNum}`;
+      if (!latestByKey.has(key)) {
+        latestByKey.set(key, row as QuestionAttemptRow);
+      }
+    });
+
+    const statsByMaterial = new Map<
+      number,
+      { correct: number; total: number; attempts: Set<number> }
+    >();
+    latestByKey.forEach((row) => {
+      const attemptNum =
+        row.attempt_number === 2
+          ? 2
+          : row.attempt_number === 1 || row.attempt_number === 0
+          ? 1
+          : 1;
+      const stats = statsByMaterial.get(row.material_id) ?? {
+        correct: 0,
+        total: 0,
+        attempts: new Set<number>(),
+      };
+      stats.total += 1;
+      if (row.is_correct) stats.correct += 1;
+      stats.attempts.add(attemptNum);
+      statsByMaterial.set(row.material_id, stats);
+    });
+
+    missingMaterialIds.forEach((materialId) => {
+      const stats = statsByMaterial.get(materialId);
+      if (!stats || stats.total === 0) return;
+      const bestScore = Math.round((stats.correct / stats.total) * 100);
+      attemptMap[materialId] = {
+        bestScore,
+        attemptsCount: stats.attempts.size || 1,
+      };
+    });
+  }
+
   return (
-    <div className="min-h-[calc(100vh-80px)] px-4 py-6 md:px-6 lg:px-8">
+    <div className="min-h-[calc(100vh-80px)] px-4 py-6 md:px-6 lg:px-8 text-slate-900">
       <div className="mx-auto max-w-6xl space-y-8">
-        <div className="flex items-center justify-between rounded-2xl border border-slate-800 bg-slate-950/70 px-4 py-3">
+        <div className="flex items-center justify-between rounded-2xl border border-emerald-200 bg-white px-4 py-3">
           <Link
             href="/dashboard/student"
             className="
       inline-flex items-center gap-2 rounded-xl
-      bg-slate-900/60 hover:bg-slate-800
-      border border-slate-700/80
-      px-4 py-2 text-xs md:text-sm text-slate-200
+      bg-emerald-50 hover:bg-emerald-100
+      border border-emerald-200
+      px-4 py-2 text-xs md:text-sm text-emerald-800
       transition
     "
           >
@@ -108,25 +197,25 @@ export default async function MaterialsPage() {
         <section
           className="
             relative overflow-hidden rounded-3xl
-            bg-linear-to-br from-sky-900/50 via-slate-900/50 to-indigo-950/70
-            border border-slate-800/80
-            shadow-[0_20px_80px_-40px_rgba(0,0,0,1)]
+            bg-linear-to-br from-emerald-100 via-emerald-50 to-white
+            border border-emerald-200
+            shadow-[0_20px_80px_-60px_rgba(15,23,42,0.25)]
             px-5 py-6 md:px-8 md:py-8
           "
         >
           {/* Glow effect */}
-          <div className="pointer-events-none absolute -left-16 top-0 h-40 w-40 rounded-full bg-cyan-500/25 blur-3xl" />
-          <div className="pointer-events-none absolute -right-10 bottom-0 h-40 w-40 rounded-full bg-violet-500/25 blur-3xl" />
+          <div className="pointer-events-none absolute -left-16 top-0 h-40 w-40 rounded-full bg-emerald-300/40 blur-3xl" />
+          <div className="pointer-events-none absolute -right-10 bottom-0 h-40 w-40 rounded-full bg-cyan-300/35 blur-3xl" />
 
           <div className="relative z-10 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div className="space-y-3">
-              <p className="text-[11px] uppercase tracking-[0.25em] text-cyan-300/80">
+              <p className="text-[11px] uppercase tracking-[0.25em] text-emerald-600/80">
                 Learning Materials
               </p>
-              <h1 className="text-2xl md:text-3xl font-bold text-white">
+              <h1 className="text-2xl md:text-3xl font-bold text-emerald-900">
                 Pilih materi yang mau kamu kerjakan ✏️
               </h1>
-              <p className="max-w-xl text-sm md:text-[15px] text-slate-200/90 leading-relaxed">
+              <p className="max-w-xl text-sm md:text-[15px] text-slate-700/90 leading-relaxed">
                 Di halaman ini kamu bisa memilih materi untuk latihan. Kerjakan
                 pelan-pelan tapi rutin. Seperti main game, tiap materi yang
                 selesai bikin skill kamu naik level. 🎮🧠
@@ -137,18 +226,18 @@ export default async function MaterialsPage() {
             <div
               className="
                 mt-2 flex w-full max-w-xs flex-col gap-3
-                rounded-2xl border border-sky-500/40 bg-slate-950/60
-                px-4 py-4 text-slate-100 text-sm
+                rounded-2xl border border-emerald-200 bg-white
+                px-4 py-4 text-slate-900 text-sm
               "
             >
               <div className="flex items-center justify-between">
-                <span className="text-xs text-slate-400">Total materi</span>
-                <span className="font-semibold text-sky-200">
+                <span className="text-xs text-slate-500">Total materi</span>
+                <span className="font-semibold text-emerald-700">
                   {materials.length}
                 </span>
               </div>
-              <div className="h-px bg-slate-800/80" />
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <div className="h-px bg-emerald-50" />
+              <p className="text-xs text-slate-500 leading-relaxed">
                 Tips: mulai dari materi yang sudah kamu kenal dulu (misalnya
                 <span className="font-semibold"> time</span>,{" "}
                 <span className="font-semibold">sudut</span>, atau{" "}
@@ -165,29 +254,29 @@ export default async function MaterialsPage() {
         ====================================================== */}
         <section
           className="
-            flex flex-col gap-3 rounded-2xl border border-slate-800
-            bg-slate-950/70 px-4 py-4 md:px-5 md:py-4
+            flex flex-col gap-3 rounded-2xl border border-slate-200
+            bg-white px-4 py-4 md:px-5 md:py-4 shadow-sm
           "
         >
           <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-            <p className="text-sm font-medium text-slate-100">
+            <p className="text-sm font-medium text-slate-900">
               Jelajahi materi
             </p>
 
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
               {/* Search simple */}
               <div className="relative w-full sm:w-64">
-                <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-xs">
+                <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-xs text-slate-400">
                   🔍
                 </span>
                 <input
                   type="text"
                   placeholder="Cari materi (misal: sudut, pecahan)..."
                   className="
-                    w-full rounded-xl border border-slate-700/80 bg-slate-900/60
-                    pl-8 pr-3 py-2 text-xs md:text-sm text-slate-100
-                    placeholder:text-slate-500
-                    focus:outline-none focus:ring-1 focus:ring-cyan-500/60
+                    w-full rounded-xl border border-slate-200 bg-white
+                    pl-8 pr-3 py-2 text-xs md:text-sm text-slate-900
+                    placeholder:text-slate-400
+                    focus:outline-none focus:ring-1 focus:ring-emerald-300
                   "
                   // nanti bisa dibuat client component + onChange untuk filter
                   readOnly
@@ -199,9 +288,9 @@ export default async function MaterialsPage() {
                 <button
                   className="
                     inline-flex items-center justify-center rounded-xl
-                    border border-slate-700/80 bg-slate-900/60
-                    px-3 py-2 text-xs md:text-sm text-slate-200
-                    hover:border-cyan-500/70 hover:bg-slate-900
+                    border border-slate-200 bg-white
+                    px-3 py-2 text-xs md:text-sm text-slate-700
+                    hover:border-emerald-300 hover:bg-emerald-50
                     transition
                   "
                   type="button"
@@ -212,9 +301,9 @@ export default async function MaterialsPage() {
                 <button
                   className="
                     inline-flex items-center justify-center rounded-xl
-                    border border-slate-700/80 bg-slate-900/60
-                    px-3 py-2 text-xs md:text-sm text-slate-200
-                    hover:border-cyan-500/70 hover:bg-slate-900
+                    border border-slate-200 bg-white
+                    px-3 py-2 text-xs md:text-sm text-slate-700
+                    hover:border-emerald-300 hover:bg-emerald-50
                     transition
                   "
                   type="button"
@@ -240,22 +329,16 @@ export default async function MaterialsPage() {
           {materials.length === 0 ? (
             <div
               className="
-                rounded-2xl border border-dashed border-slate-700
-                bg-slate-950/60 p-6 md:p-8 text-center
-                text-slate-300 text-sm
+                rounded-2xl border border-dashed border-slate-200
+                bg-white p-6 md:p-8 text-center
+                text-slate-600 text-sm
               "
             >
-              <p className="font-medium text-slate-100 mb-2">
+              <p className="font-medium text-slate-900 mb-2">
                 Belum ada materi yang tersedia
               </p>
-              <p className="text-xs md:text-sm text-slate-400 max-w-md mx-auto">
-                Tambahkan data di tabel{" "}
-                <span className="font-mono">materials</span> di Supabase
-                (contoh: <span className="font-mono">title</span> = &quot;Sudut
-                Kelas 5&quot;,
-                <span className="font-mono">description</span> = &quot;Latihan
-                sudut dasar sampai lanjutan&quot;). Setelah itu refresh halaman
-                ini.
+              <p className="text-xs md:text-sm text-slate-500 max-w-md mx-auto">
+                Materi belajar akan segera tampil di sini.
               </p>
 
               <div className="mt-4 flex justify-center">
@@ -263,12 +346,12 @@ export default async function MaterialsPage() {
                   href="/dashboard/student"
                   className="
                     inline-flex items-center gap-2 rounded-2xl
-                    bg-slate-800/80 hover:bg-slate-700
-                    px-4 py-2 text-xs md:text-sm text-slate-100
+                    bg-emerald-50 hover:bg-emerald-100
+                    px-4 py-2 text-xs md:text-sm text-emerald-800
                     transition
                   "
                 >
-                  ⬅️ Kembali ke dashboard siswa
+                  Kembali ke dashboard siswa
                 </Link>
               </div>
             </div>
@@ -282,60 +365,77 @@ export default async function MaterialsPage() {
             >
               {materials.map((m) => {
                 const progress = attemptMap[m.id];
+                const hasProgress = !!progress;
 
                 return (
                   <Link
                     key={m.id}
                     href={`/materials/${m.id}`}
                     className="
-                      group flex flex-col justify-between
-                      rounded-2xl border border-slate-800
-                      bg-slate-950/70
-                      hover:border-cyan-500/60 hover:bg-slate-900/90
+                      group flex flex-col overflow-hidden
+                      rounded-2xl border border-slate-200
+                      bg-white
+                      hover:-translate-y-1
                       transition
-                      p-5 md:p-6
-                      shadow-[0_18px_60px_-45px_rgba(0,0,0,1)]
+                      shadow-[0_18px_60px_-45px_rgba(15,23,42,0.2)]
                     "
                   >
-                    <div className="space-y-2">
+                    {m.image_url ? (
+                      <div className="relative h-56 w-full overflow-hidden bg-slate-50">
+                        <Image
+                          src={m.image_url}
+                          alt={m.title}
+                          className="h-full w-full object-cover"
+                          width={800}
+                          height={600}
+                        />
+                      </div>
+                    ) : (
+                      <div className="h-56 w-full bg-linear-to-br from-emerald-200/50 via-slate-100 to-white" />
+                    )}
+
+                    <div className="flex flex-1 flex-col gap-3 px-4 py-4">
                       <div className="flex items-center justify-between gap-2">
-                        <p className="text-[11px] uppercase tracking-[0.2em] text-cyan-300/80">
+                        <p className="text-[11px] uppercase tracking-[0.2em] text-emerald-600/80">
                           Materi #{m.id}
                         </p>
-                        {/* Badge sebelumnya kita pertahankan: "Latihan" */}
                         <span
                           className="
-                            rounded-full bg-slate-800/80 px-2.5 py-1
-                            text-[10px] text-slate-300
+                            rounded-full bg-emerald-50 px-2.5 py-1
+                            text-[10px] text-emerald-700
                           "
                         >
                           Latihan
                         </span>
                       </div>
 
-                      <h2 className="text-base md:text-lg font-semibold text-white line-clamp-2">
+                      <h2 className="text-base md:text-lg font-semibold text-emerald-900 line-clamp-2">
                         {m.title}
                       </h2>
 
                       {m.description && (
-                        <p className="text-xs md:text-sm text-slate-400 line-clamp-3">
+                        <p className="text-xs md:text-sm text-slate-500 line-clamp-3">
                           {m.description}
                         </p>
                       )}
-                    </div>
 
-                    <div className="mt-4 flex flex-col gap-1 md:flex-row md:items-center md:justify-between">
-                      <span className="text-[11px] text-slate-500">
-                        Klik untuk mulai latihan
-                      </span>
+                      <div className="mt-auto flex flex-col gap-1 md:flex-row md:items-center md:justify-between">
+                        <span className="text-[11px] text-slate-500">
+                          {hasProgress ? "Lanjutkan latihan" : "Mulai latihan"}
+                        </span>
 
-                      <span className="text-[11px] text-slate-400">
-                        {progress
-                          ? `Skor terbaik: ${Math.round(
-                              progress.bestScore
-                            )}% • ${progress.attemptsCount}x coba`
-                          : "Belum pernah dicoba"}
-                      </span>
+                        <span
+                          className={`text-[11px] ${
+                            hasProgress ? "text-emerald-700" : "text-slate-500"
+                          }`}
+                        >
+                          {hasProgress
+                            ? `Sudah dikerjakan - Skor terbaik: ${Math.round(
+                                progress.bestScore
+                              )}% - ${progress.attemptsCount}x coba`
+                            : "Belum pernah dicoba"}
+                        </span>
+                      </div>
                     </div>
                   </Link>
                 );

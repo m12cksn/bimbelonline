@@ -1,0 +1,41 @@
+material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
+10,1,essay,practice,Ubah 3.750 ms menjadi detik.,,,,3.75 detik,,,,,,,,,,,,,
+10,2,drag_drop,practice,Pasangkan kegiatan dengan perkiraan waktu yang paling masuk akal.,,,,,,,,,,,,,,,tepuk tangan sekali;menekan tombol;mengikat tali sepatu;menyikat gigi,"300 ms,1 detik,1 menit,2 menit",
+10,3,essay,practice,Bandingkan 0.8 detik dan 750 ms. Mana yang lebih lama?,,,,0.8 detik lebih lama,,,,,,,,,,,,,
+10,4,essay,practice,Berapa milidetik dalam 2.5 detik?,,,,2500 ms,,,,,,,,,,,,,
+10,5,mcq,practice,2 menit 30 detik sama dengan ... detik.,,,,A,,,150,120,180,210,,,,,,,
+10,6,essay,practice,"Satu putaran lari 45 detik. Jika 4 putaran, total waktunya (dalam detik)?",,,,180,,,,,,,,,,,,,
+10,7,drag_drop,practice,Pasangkan waktu dengan urutan yang benar.,,,,,,,,,,,,,,,07:45;07:05;07:50,"tengah,terkecil,terbesar",
+10,8,mcq,practice,Pukul 14:30 dalam format 12 jam adalah...,,,,B,,,2:30 pagi,2:30 siang,4:30 sore,12:30 siang,,,,,,,
+10,9,multipart,practice,Konversi satuan waktu.,,,,,,,,,,,,,,,,,a|1 jam 20 menit = ... menit|80;b|90 menit = ... jam ... menit|1 jam 30 menit
+10,10,essay,practice,Rani mulai belajar pukul 07:15 dan selesai 08:05. Berapa lama ia belajar?,,,,50 menit,,,,,,,,,,,,,
+10,11,essay,practice,Kereta berangkat 09:40 dan tiba 11:05. Berapa lama perjalanan?,,,,1 jam 25 menit,,,,,,,,,,,,,
+10,12,mcq,practice,1.5 jam sama dengan...,,,,C,,,1 jam 15 menit,1 jam 20 menit,1 jam 30 menit,2 jam,,,,,,,
+10,13,essay,practice,Ubah 2.25 jam menjadi jam dan menit.,,,,2 jam 15 menit,,,,,,,,,,,,,
+10,14,drag_drop,practice,Pasangkan jam desimal dengan menitnya.,,,,,,,,,,,,,,,0.25 jam;0.5 jam;0.75 jam;1.2 jam,"15 menit,30 menit,45 menit,72 menit",
+10,15,essay,practice,"Belajar 2 sesi, masing-masing 35 menit, dengan jeda 10 menit. Total waktu dari mulai sampai selesai?",,,,80 menit,,,,,,,,,,,,,
+10,16,multipart,practice,Perbedaan zona waktu.,,,TODO_IMG_TIMEZONE_SIMPLE.png,,,,,,,,,,,,,,"a|Jika Jakarta 07:00 dan Seoul 2 jam lebih cepat, berapa waktu di Seoul?|09:00;b|Jika London 7 jam lebih lambat dari Jakarta, berapa waktu di London saat Jakarta 07:00?|00:00"
+10,17,essay,practice,Pesawat berangkat 21:40 dengan durasi 2 jam 35 menit. Pukul berapa tiba?,,,,00:15,,,,,,,,,,,,,
+10,18,mcq,practice,Selisih waktu antara 08:45 dan 12:10 adalah...,,,,D,,,3 jam 05 menit,3 jam 15 menit,3 jam 20 menit,3 jam 25 menit,,,,,,,
+10,19,essay,practice,Stopwatch menunjukkan 0.875 detik. Berapa milidetik?,,,,875 ms,,,,,,,,,,,,,
+10,20,essay,practice,Bandingkan 1.2 detik dan 1100 ms. Mana yang lebih lama?,,,,1.2 detik lebih lama,,,,,,,,,,,,,
+10,21,multipart,practice,Konversi waktu.,,,,,,,,,,,,,,,,,a|0.4 jam = ... menit|24;b|2 jam 15 menit = ... jam (desimal)|2.25
+10,22,drag_drop,practice,Pasangkan nilai waktu dengan satuan yang tepat.,,,,,,,,,,,,,,,0.2 detik;3 menit;1.5 jam;450 ms,"detik,menit,jam,milidetik",
+10,23,essay,practice,Film mulai 19:25 dan durasinya 95 menit. Pukul berapa selesai?,,,,21:00,,,,,,,,,,,,,
+10,24,multipart,practice,Ubah ke satuan yang diminta.,,,,,,,,,,,,,,,,,a|3600 detik = ... jam|1 jam;b|5400 detik = ... jam ... menit|1 jam 30 menit
+10,25,mcq,practice,20 menit sebelum pukul 06:00 adalah...,,,,A,,,05:40,05:50,06:20,05:20,,,,,,,
+10,26,essay,practice,Toko buka 08:30 dan tutup 17:15. Berapa lama toko buka?,,,,8 jam 45 menit,,,,,,,,,,,,,
+10,27,essay,practice,Lari 3 kali 12 menit dengan istirahat 5 menit di antara lari. Total waktu?,,,,46 menit,,,,,,,,,,,,,
+10,28,multipart,practice,Perbedaan zona waktu.,,,TODO_IMG_TIMEZONE_SIMPLE.png,,,,,,,,,,,,,,"a|Jakarta 09:15, Singapura 1 jam lebih cepat. Waktu di Singapura?|10:15;b|Tokyo 3 jam lebih cepat dari Jakarta. Jika Jakarta 09:15, waktu di Tokyo?|12:15"
+10,29,drag_drop,practice,Pasangkan pernyataan waktu dengan format 24 jam.,,,,,,,,,,,,,,,pukul 7 malam;pukul 12 siang;pukul 12 malam;pukul 3 sore,"19:00,12:00,00:00,15:00",
+10,30,essay,practice,Berapa selisih waktu antara 23:40 dan 00:10?,,,,30 menit,,,,,,,,,,,,,
+10,31,multipart,practice,Konversi waktu campuran.,,,,,,,,,,,,,,,,,a|1500 ms = ... detik|1.5;b|2 menit 5 detik = ... detik|125;c|0.5 jam = ... menit|30
+10,32,essay,practice,"Menyalakan lampu butuh 400 ms, berjalan 5 langkah butuh 3 detik. Mana yang lebih lama?",,,,3 detik lebih lama,,,,,,,,,,,,,
+10,33,mcq,practice,0.75 jam sama dengan...,,,,B,,,30 menit,45 menit,60 menit,75 menit,,,,,,,
+10,34,essay,practice,Tugas A 1 jam 20 menit dan tugas B 0.5 jam. Total waktu?,,,,1 jam 50 menit,,,,,,,,,,,,,
+10,35,multipart,practice,Gunakan jadwal bus berikut.,,,TODO_IMG_BUS_TIMETABLE.png,,,,,,,,,,,,,,a|Bus berangkat 07:20 dan tiba 08:05. Durasi?|45 menit;b|Berangkat 09:10 durasi 1 jam 15 menit. Tiba pukul?|10:25
+10,36,drag_drop,practice,Urutkan durasi dari tercepat ke terlambat.,,,,,,,,,,,,,,,250 ms;0.5 detik;2 detik;120 detik,"tercepat,kedua,ketiga,terlambat",
+10,37,essay,practice,Dalam 1 menit ada berapa milidetik?,,,,60000,,,,,,,,,,,,,
+10,38,essay,practice,"Rapat mulai 13:50, istirahat 20 menit, selesai 15:30. Lama rapat tanpa istirahat?",,,,1 jam 20 menit,,,,,,,,,,,,,
+10,39,multipart,practice,Zona waktu dan pergantian hari.,,,TODO_IMG_TIMEZONE_DAY.png,,,,,,,,,,,,,,"a|Jakarta 23:30, New York 12 jam lebih lambat. Waktu di New York?|11:30;b|Jakarta Senin 00:15, London 7 jam lebih lambat. Waktu di London?|Minggu 17:15"
+10,40,essay,practice,Ubah 125 menit menjadi jam dan menit.,,,,2 jam 5 menit,,,,,,,,,,,,,

@@ -1,38 +1,69 @@
 import { NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabaseServer";
 
-type RawSubscription = {
-  id: string;
-  user_id: string | null;
-  plan_id: string | null;
-  status: string | null;
-  start_at: string | null;
-  end_at: string | null;
-};
-
 type ProfileRow = {
   id: string;
   full_name: string | null;
   email: string | null;
 };
 
-type PlanRow = {
+type SubscriptionRow = {
   id: string;
-  name: string | null;
-  zoom_per_month: number | null;
+  user_id: string | null;
+  plan_id: string | null;
+  status: string | null;
+  start_at: string | null;
+  end_at: string | null;
+  created_at: string | null;
 };
+
+type RawPlanRow = Record<string, unknown>;
 
 type QuotaRow = {
   student_id: string;
+  subscription_id: string | null;
   allowed_sessions: number;
   used_sessions: number;
 };
+
+type StudentSummary = {
+  id: string;
+  full_name: string | null;
+  email: string | null;
+  subscription: {
+    id: string;
+    status: string | null;
+    start_at: string | null;
+    end_at: string | null;
+    plan_name: string | null;
+  } | null;
+  quota: {
+    allowed_sessions: number;
+    used_sessions: number;
+    remaining_sessions: number;
+  };
+  remaining_days: number | null;
+};
+
+function parseDate(value: string | null) {
+  if (!value) return null;
+  const d = new Date(value);
+  if (Number.isNaN(d.getTime())) return null;
+  return d;
+}
+
+function computeRemainingDays(endAt: string | null) {
+  const end = parseDate(endAt);
+  if (!end) return null;
+  const diffMs = end.getTime() - Date.now();
+  const days = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+  return Math.max(days, 0);
+}
 
 export async function GET() {
   try {
     const supabase = await createSupabaseServerClient();
 
-    // 🔐 cek login
     const {
       data: { user },
     } = await supabase.auth.getUser();
@@ -44,7 +75,6 @@ export async function GET() {
       );
     }
 
-    // 🔐 pastikan admin
     const { data: profile } = await supabase
       .from("profiles")
       .select("role")
@@ -58,10 +88,31 @@ export async function GET() {
       );
     }
 
-    // 1) ambil semua subscriptions
-    const { data: subsData, error: subsErr } = await supabase
+    const { data: profilesData, error: profilesErr } = await supabase
+      .from("profiles")
+      .select("id, full_name, email")
+      .eq("role", "student");
+
+    if (profilesErr) {
+      console.error("profiles fetch error:", profilesErr);
+      return NextResponse.json(
+        { ok: false, error: "Gagal mengambil daftar student" },
+        { status: 500 }
+      );
+    }
+
+    const profiles = (profilesData ?? []) as ProfileRow[];
+    if (profiles.length === 0) {
+      return NextResponse.json({ ok: true, students: [] });
+    }
+
+    const studentIds = profiles.map((p) => p.id);
+
+    const { data: subscriptionsData, error: subsErr } = await supabase
       .from("subscriptions")
-      .select("id, user_id, plan_id, status, start_at, end_at")
+      .select("id, user_id, plan_id, status, start_at, end_at, created_at")
+      .in("user_id", studentIds)
+      .order("start_at", { ascending: false })
       .order("created_at", { ascending: false });
 
     if (subsErr) {
@@ -72,107 +123,108 @@ export async function GET() {
       );
     }
 
-    const subs = (subsData ?? []) as RawSubscription[];
+    const subscriptions = (subscriptionsData ?? []) as SubscriptionRow[];
+    const latestByUser = new Map<string, SubscriptionRow>();
 
-    if (subs.length === 0) {
-      return NextResponse.json({ ok: true, subscriptions: [] });
-    }
-
-    // 2) kumpulkan user_id & plan_id unik
-    const userIds = Array.from(
-      new Set(subs.map((s) => s.user_id).filter(Boolean) as string[])
-    );
-    const planIds = Array.from(
-      new Set(subs.map((s) => s.plan_id).filter(Boolean) as string[])
-    );
-
-    // 3) ambil profiles
-    let profiles: ProfileRow[] = [];
-    if (userIds.length > 0) {
-      const { data: profData, error: profErr } = await supabase
-        .from("profiles")
-        .select("id, full_name, email")
-        .in("id", userIds);
-
-      if (profErr) {
-        console.error("profiles fetch error:", profErr);
-      } else {
-        profiles = (profData ?? []) as ProfileRow[];
+    for (const sub of subscriptions) {
+      if (!sub.user_id) continue;
+      if (!latestByUser.has(sub.user_id)) {
+        latestByUser.set(sub.user_id, sub);
       }
     }
 
-    // 4) ambil plans
-    let plans: PlanRow[] = [];
+    const planIds = Array.from(
+      new Set(
+        Array.from(latestByUser.values())
+          .map((s) => s.plan_id)
+          .filter(Boolean) as string[]
+      )
+    );
+
+    const planMap = new Map<string, { name: string | null }>();
     if (planIds.length > 0) {
       const { data: planData, error: planErr } = await supabase
-        .from("plans")
-        .select("id, name, zoom_per_month")
+        .from("subscription_plans")
+        .select("*")
         .in("id", planIds);
 
       if (planErr) {
-        console.error("plans fetch error:", planErr);
+        console.error("subscription_plans fetch error:", planErr);
       } else {
-        plans = (planData ?? []) as PlanRow[];
+        const rawPlans = (planData ?? []) as RawPlanRow[];
+        rawPlans.forEach((row) => {
+          const id = String(row["id"] ?? "");
+          const name =
+            typeof row["name"] === "string" ? (row["name"] as string) : null;
+          planMap.set(id, { name });
+        });
       }
     }
 
-    // 5) ambil quota per student (total semua kelas)
-    let quotas: QuotaRow[] = [];
-    if (userIds.length > 0) {
-      const { data: quotaData, error: quotaErr } = await supabase
-        .from("class_student_zoom_quota")
-        .select("student_id, allowed_sessions, used_sessions")
-        .in("student_id", userIds);
+    const { data: quotaData, error: quotaErr } = await supabase
+      .from("class_student_zoom_quota")
+      .select("student_id, subscription_id, allowed_sessions, used_sessions")
+      .in("student_id", studentIds);
 
-      if (quotaErr) {
-        console.error("quota fetch error:", quotaErr);
-      } else {
-        quotas = (quotaData ?? []) as QuotaRow[];
-      }
+    if (quotaErr) {
+      console.error("quota fetch error:", quotaErr);
     }
 
-    // map bantu
-    const profileMap = new Map<string, ProfileRow>();
-    profiles.forEach((p) => profileMap.set(p.id, p));
-
-    const planMap = new Map<string, PlanRow>();
-    plans.forEach((p) => planMap.set(p.id, p));
-
-    // agregasi quota per student
-    const quotaAgg = new Map<
+    const quotas = (quotaData ?? []) as QuotaRow[];
+    const quotaByStudent = new Map<
       string,
-      { allowed_sessions: number; used_sessions: number }
+      { allowed: number; used: number }
     >();
 
-    quotas.forEach((q) => {
-      const prev = quotaAgg.get(q.student_id) ?? {
-        allowed_sessions: 0,
-        used_sessions: 0,
-      };
-      prev.allowed_sessions += q.allowed_sessions;
-      prev.used_sessions += q.used_sessions;
-      quotaAgg.set(q.student_id, prev);
+    const latestSubIdByStudent = new Map<string, string | null>();
+    latestByUser.forEach((sub, studentId) => {
+      latestSubIdByStudent.set(studentId, sub.id);
     });
 
-    // 6) bentuk hasil akhir
-    const result = subs.map((s) => {
-      const prof = s.user_id ? profileMap.get(s.user_id) ?? null : null;
-      const plan = s.plan_id ? planMap.get(s.plan_id) ?? null : null;
-      const q = s.user_id ? quotaAgg.get(s.user_id) ?? null : null;
+    quotas.forEach((q) => {
+      const targetSub = latestSubIdByStudent.get(q.student_id) ?? null;
+      if (targetSub && q.subscription_id !== targetSub) return;
+      const prev = quotaByStudent.get(q.student_id) ?? {
+        allowed: 0,
+        used: 0,
+      };
+      prev.allowed += q.allowed_sessions ?? 0;
+      prev.used += q.used_sessions ?? 0;
+      quotaByStudent.set(q.student_id, prev);
+    });
+
+    const students: StudentSummary[] = profiles.map((p) => {
+      const latestSub = latestByUser.get(p.id) ?? null;
+      const planName =
+        latestSub?.plan_id && planMap.has(latestSub.plan_id)
+          ? planMap.get(latestSub.plan_id)?.name ?? null
+          : null;
+      const quota = quotaByStudent.get(p.id) ?? { allowed: 0, used: 0 };
+      const remainingSessions = Math.max(quota.allowed - quota.used, 0);
 
       return {
-        id: s.id,
-        status: s.status,
-        start_at: s.start_at,
-        end_at: s.end_at,
-        user_id: s.user_id,
-        profiles: prof,
-        plans: plan,
-        class_student_zoom_quota: q,
+        id: p.id,
+        full_name: p.full_name ?? null,
+        email: p.email ?? null,
+        subscription: latestSub
+          ? {
+              id: latestSub.id,
+              status: latestSub.status ?? null,
+              start_at: latestSub.start_at ?? null,
+              end_at: latestSub.end_at ?? null,
+              plan_name: planName,
+            }
+          : null,
+        quota: {
+          allowed_sessions: quota.allowed,
+          used_sessions: quota.used,
+          remaining_sessions: remainingSessions,
+        },
+        remaining_days: computeRemainingDays(latestSub?.end_at ?? null),
       };
     });
 
-    return NextResponse.json({ ok: true, subscriptions: result });
+    return NextResponse.json({ ok: true, students });
   } catch (err) {
     console.error("subscriptions GET fatal:", err);
     return NextResponse.json(

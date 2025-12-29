@@ -1,0 +1,8 @@
+3. Pasangkan bangun dengan kelilingnya. -> TODO_IMG_KELILING_SET_01.png
+10. Pasangkan bangun majemuk dengan cara membaginya. -> TODO_IMG_MAJEMUK_BAGI.png
+16. Pasangkan bangun dengan luasnya. -> TODO_IMG_LUAS_SET_01.png
+18. Keliling bangun L pada gambar adalah... -> TODO_IMG_KELILING_L.png
+22. Pasangkan bangun majemuk dengan luas totalnya. -> TODO_IMG_LUAS_MAJEMUK.png
+29. Keliling bangun majemuk. -> TODO_IMG_MAJEMUK_KELILING.png
+35. Pasangkan bangun dengan keliling dan luas yang benar. -> TODO_IMG_KELILING_LUAS_SET.png
+37. Luas bangun majemuk. -> TODO_IMG_MAJEMUK_LUAS.png

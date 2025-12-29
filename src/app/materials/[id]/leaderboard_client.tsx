@@ -50,7 +50,7 @@ export default function MaterialLeaderboard({
 
   if (loading) {
     return (
-      <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-4 text-xs text-slate-200">
+      <div className="rounded-2xl border border-slate-200 bg-white p-4 text-xs text-slate-600 shadow-sm">
         Memuat leaderboard...
       </div>
     );
@@ -58,7 +58,7 @@ export default function MaterialLeaderboard({
 
   if (error) {
     return (
-      <div className="rounded-2xl border border-red-500/40 bg-red-500/10 p-4 text-xs text-red-100">
+      <div className="rounded-2xl border border-rose-200 bg-rose-50 p-4 text-xs text-rose-700 shadow-sm">
         {error}
       </div>
     );
@@ -66,30 +66,30 @@ export default function MaterialLeaderboard({
 
   if (entries.length === 0) {
     return (
-      <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-4 text-xs text-slate-200">
+      <div className="rounded-2xl border border-slate-200 bg-white p-4 text-xs text-slate-600 shadow-sm">
         Leaderboard belum ada. Jadi yang pertama menyelesaikan materi ini! 🎉
       </div>
     );
   }
 
   return (
-    <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-4 text-xs text-slate-200">
+    <div className="rounded-2xl border border-slate-200 bg-white p-4 text-xs text-slate-600 shadow-sm">
       <div className="mb-3 flex items-center justify-between">
         <div>
-          <p className="text-[11px] uppercase tracking-widest text-cyan-300/80">
+          <p className="text-[11px] uppercase tracking-widest text-emerald-600/80">
             Leaderboard Materi
           </p>
-          <h3 className="text-base font-bold text-white">
+          <h3 className="text-base font-bold text-slate-900">
             Nilai terbaik siswa
           </h3>
         </div>
       </div>
 
-      <div className="divide-y divide-slate-800">
+      <div className="divide-y divide-slate-200">
         {entries.map((entry) => {
           const highlight =
             entry.isMe || entry.userId === currentUserId
-              ? "border-cyan-500/60 bg-cyan-500/10"
+              ? "border-emerald-300 bg-emerald-50"
               : "";
 
           return (
@@ -102,31 +102,31 @@ export default function MaterialLeaderboard({
               <div
                 className={`flex h-8 w-8 items-center justify-center rounded-full text-[11px] font-bold ${
                   entry.rank === 1
-                    ? "bg-amber-500/20 text-amber-200 border border-amber-400/60"
+                    ? "border border-amber-200 bg-amber-50 text-amber-700"
                     : entry.rank === 2
-                    ? "bg-slate-700/50 text-slate-200 border border-slate-500/60"
+                    ? "border border-slate-200 bg-slate-100 text-slate-600"
                     : entry.rank === 3
-                    ? "bg-orange-500/20 text-orange-200 border border-orange-400/60"
-                    : "bg-slate-800 text-slate-200 border border-slate-700"
+                    ? "border border-orange-200 bg-orange-50 text-orange-700"
+                    : "border border-slate-200 bg-slate-100 text-slate-600"
                 }`}
               >
                 #{entry.rank}
               </div>
               <div className="flex-1">
-                <div className="text-sm font-semibold text-slate-100">
+                <div className="text-sm font-semibold text-slate-900">
                   {entry.fullName}
                   {entry.userId === currentUserId && (
-                    <span className="ml-2 rounded-full bg-cyan-500/20 px-2 py-0.5 text-[10px] font-bold text-cyan-200">
+                    <span className="ml-2 rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-bold text-emerald-700">
                       Kamu
                     </span>
                   )}
                 </div>
-                <p className="text-[11px] text-slate-400">
+                <p className="text-[11px] text-slate-500">
                   Percobaan ke-{entry.attemptNumber}
                 </p>
               </div>
               <div className="text-right">
-                <p className="text-lg font-bold text-emerald-300">
+                <p className="text-lg font-bold text-emerald-700">
                   {entry.score}%
                 </p>
               </div>

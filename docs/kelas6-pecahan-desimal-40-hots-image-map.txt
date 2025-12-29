@@ -1,0 +1,5 @@
+5. Pasangkan pecahan dengan desimal yang setara. -> TODO_IMG_FRAC_DEC_01.png
+14. Pasangkan cerita dengan operasi yang tepat. -> TODO_IMG_WORD_OPS_01.png
+21. Pasangkan bilangan dengan bentuk pecahan yang setara. -> TODO_IMG_DEC_FRAC_01.png
+26. Pasangkan pecahan dengan posisi pada garis bilangan. -> TODO_IMG_NUMBERLINE_01.png
+36. Pasangkan soal dengan jenis operasi. -> TODO_IMG_WORD_OPS_02.png

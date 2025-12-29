@@ -14,18 +14,19 @@ export default function StudentClassesPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // palet warna untuk aksen halus di kartu
   const colors = useMemo(
     () => [
+      "from-emerald-400 to-teal-500",
+      "from-emerald-400 to-teal-500",
+      "from-lime-400 to-emerald-500",
       "from-amber-300 to-orange-400",
-      "from-sky-300 to-blue-400",
-      "from-pink-300 to-rose-400",
-      "from-emerald-300 to-teal-400",
-      "from-indigo-300 to-purple-400",
+      "from-teal-400 to-emerald-500",
     ],
     []
   );
 
-  const friendlyIcons = ["🎈", "📚", "🚀", "🧩", "🎵", "🌈", "🪐", "🧠"];
+  const friendlyIcons = ["📘", "📐", "📊", "🧮", "📚", "🧠", "🪐", "📎"];
 
   const pickPalette = (idx: number) => colors[idx % colors.length];
   const pickIcon = (idx: number) => friendlyIcons[idx % friendlyIcons.length];
@@ -56,11 +57,11 @@ export default function StudentClassesPage() {
   // ================= LOADING STATE =================
   if (loading) {
     return (
-      <div className="min-h-[60vh] flex items-center justify-center">
-        <div className="inline-flex items-center gap-3 rounded-2xl border border-slate-800 bg-slate-950/80 px-5 py-3 shadow-[0_18px_60px_-45px_rgba(0,0,0,1)]">
-          <span className="h-3 w-3 animate-ping rounded-full bg-cyan-400" />
-          <span className="text-sm font-medium text-cyan-100">
-            Membuka daftar kelas ceria untukmu...
+      <div className="min-h-[60vh] flex items-center justify-center bg-white/80">
+        <div className="inline-flex items-center gap-3 rounded-2xl border border-emerald-300/60 bg-white px-5 py-3 shadow-xl">
+          <span className="h-3 w-3 animate-ping rounded-full bg-emerald-400" />
+          <span className="text-sm font-medium text-emerald-900">
+            Memuat daftar kelas...
           </span>
         </div>
       </div>
@@ -73,62 +74,62 @@ export default function StudentClassesPage() {
       <section
         className="
           relative overflow-hidden rounded-3xl
-          bg-gradient-to-br from-sky-900/60 via-slate-900/70 to-indigo-950/80
-          border border-slate-800/80
+          bg-linear-to-br from-emerald-300 via-green-300 to-emerald-400
+          border border-emerald-300/60
           px-5 py-6 md:px-8 md:py-8
-          shadow-[0_20px_80px_-40px_rgba(0,0,0,1)]
+          shadow-[0_24px_80px_-45px_rgba(0,0,0,1)]
         "
       >
-        {/* Glows */}
+        {/* subtle glows */}
         <div
-          className="pointer-events-none absolute -left-10 top-0 h-40 w-40 rounded-full bg-cyan-500/30 blur-3xl"
+          className="pointer-events-none absolute -left-24 top-0 h-48 w-48 rounded-full bg-emerald-300/30 blur-3xl"
           aria-hidden
         />
         <div
-          className="pointer-events-none absolute -right-16 bottom-0 h-44 w-44 rounded-full bg-violet-500/25 blur-3xl"
+          className="pointer-events-none absolute -right-24 bottom-0 h-56 w-56 rounded-full bg-teal-300/30 blur-3xl"
           aria-hidden
         />
 
         <div className="relative z-10 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div className="space-y-3">
-            <p className="text-[11px] uppercase tracking-[0.25em] text-cyan-300/80">
-              Zoom Classes
+            <p className="text-[11px] uppercase tracking-[0.25em] text-emerald-700">
+              Student Classes
             </p>
-            <h1 className="text-2xl md:text-3xl font-bold text-white">
-              Kelas Zoom Ceria Kamu 🎥
+            <h1 className="text-2xl md:text-3xl font-bold text-slate-200">
+              Kelas Online yang Kamu Ikuti
             </h1>
-            <p className="max-w-xl text-sm md:text-[15px] text-slate-200/90 leading-relaxed">
-              Di sini kamu bisa masuk ke kelas Zoom sesuai jadwal. Tinggal klik
-              kelas yang aktif, siapkan buku, pensil, dan semangat belajar.
+            <p className="max-w-xl text-sm md:text-[15px] text-emerald-700 leading-relaxed">
+              Pilih kelas untuk melihat jadwal Zoom, materi, dan aktivitas
+              belajar. Semua kelas aktif yang terhubung ke akunmu tampil di
+              daftar di bawah.
             </p>
 
             <div className="flex flex-wrap gap-2 text-[11px] md:text-xs">
-              <span className="rounded-full border border-cyan-400/60 bg-cyan-500/15 px-3 py-1 text-cyan-100">
-                🎧 Belajar live dengan tutor
+              <span className="rounded border border-emerald-400/60 bg-emerald-200/60 px-3 py-1 text-emerald-800">
+                Live session terjadwal
               </span>
-              <span className="rounded-full border border-emerald-400/60 bg-emerald-500/15 px-3 py-1 text-emerald-100">
-                👋 Bisa tanya langsung
+              <span className="rounded border border-emerald-400/60 bg-emerald-200/60 px-3 py-1 text-emerald-800">
+                Progres belajar terpantau
               </span>
-              <span className="rounded-full border border-amber-400/60 bg-amber-500/15 px-3 py-1 text-amber-50">
-                🧠 Latihan bareng teman
+              <span className="rounded border border-amber-400/60 bg-amber-200/60 px-3 py-1 text-amber-900">
+                Materi terstruktur per kelas
               </span>
             </div>
           </div>
 
-          {/* Panel kecil di kanan */}
+          {/* Panel tips */}
           <div
             className="
               mt-2 flex w-full max-w-xs flex-col gap-3
-              rounded-2xl border border-slate-700/80 bg-slate-950/70
-              px-4 py-4 text-slate-100 text-xs md:text-sm
+              rounded-2xl border border-emerald-300/60 bg-white/80
+              px-4 py-4 text-emerald-900 text-xs md:text-sm
             "
           >
-            <p className="font-semibold text-cyan-100">Tips ikut kelas Zoom:</p>
-            <ul className="space-y-1 text-[11px] md:text-xs text-slate-300">
-              <li>• Masuk kelas 5–10 menit sebelum mulai.</li>
-              <li>• Siapkan buku, pensil, dan catatan.</li>
-              <li>• Matikan suara jika tidak berbicara (mute).</li>
-              <li>• Kalau bingung, boleh langsung tanya guru. 😊</li>
+            <p className="font-semibold text-emerald-900">Tips memilih kelas</p>
+            <ul className="space-y-1 text-[11px] md:text-xs text-emerald-700">
+              <li>• Cocokkan nama kelas dengan info dari admin/guru.</li>
+              <li>• Fokus di satu kelas terlebih dahulu sebelum pindah.</li>
+              <li>• Catat jadwal Zoom di kalender atau catatanmu.</li>
             </ul>
 
             <button
@@ -139,12 +140,12 @@ export default function StudentClassesPage() {
               }}
               className="
                 mt-1 inline-flex items-center justify-center gap-2
-                rounded-xl bg-cyan-600/70 px-3 py-1.5 text-[11px] md:text-xs
-                font-semibold text-white shadow-md shadow-cyan-500/20
-                hover:bg-cyan-500 transition
+                rounded bg-emerald-600/80 px-3 py-1.5 text-[11px] md:text-xs
+                font-semibold text-white shadow-md shadow-emerald-500/30
+                hover:bg-emerald-500 transition
               "
             >
-              <span>🔄 Segarkan daftar kelas</span>
+              <span>🔄 Refresh daftar kelas</span>
             </button>
           </div>
         </div>
@@ -155,12 +156,12 @@ export default function StudentClassesPage() {
         <div
           className="
             flex items-center gap-3 rounded-2xl border border-red-500/40
-            bg-red-950/40 px-4 py-3 text-sm text-red-100 shadow-[0_12px_40px_-30px_rgba(0,0,0,1)]
+            bg-linear-to-br from-emerald-300 via-green-300 to-emerald-400 px-4 py-3 text-sm text-red-100 shadow-[0_18px_60px_-45px_rgba(0,0,0,1)]
           "
         >
-          <span className="text-lg">😿</span>
+          <span className="text-lg">⚠️</span>
           <div className="flex flex-1 flex-col">
-            <p className="font-semibold">Ups, ada kendala memuat kelas</p>
+            <p className="font-semibold">Gagal memuat kelas</p>
             <p className="text-[13px] text-red-100/90">{error}</p>
           </div>
           <button
@@ -185,26 +186,26 @@ export default function StudentClassesPage() {
         <div
           className="
             flex flex-col items-center justify-center gap-3
-            rounded-3xl border border-slate-800
-            bg-slate-950/70 px-6 py-8 md:px-8 md:py-10
+            rounded-3xl border border-emerald-300/60
+            bg-white/80 px-6 py-8 md:px-8 md:py-10
             text-center shadow-[0_18px_60px_-45px_rgba(0,0,0,1)]
           "
         >
-          <span className="text-4xl md:text-5xl animate-bounce">🌈</span>
-          <p className="text-lg md:text-xl font-bold text-slate-50">
+          <span className="text-4xl md:text-5xl">📂</span>
+          <p className="text-lg md:text-xl font-bold text-emerald-900">
             Belum ada kelas aktif
           </p>
-          <p className="max-w-md text-xs md:text-sm text-slate-400">
-            Admin atau guru belum memasukkan kamu ke kelas Zoom. Kamu bisa tanya
-            ke guru atau admin bimbel untuk dijadwalkan kelas baru.
+          <p className="max-w-md text-xs md:text-sm text-emerald-700">
+            Saat ini kamu belum terdaftar di kelas mana pun. Silakan hubungi
+            admin atau tutor untuk dimasukkan ke kelas yang sesuai.
           </p>
           <Link
             href="/dashboard/student"
             className="
               mt-2 inline-flex items-center gap-2 rounded-2xl
-              border border-slate-700 bg-slate-900/80
-              px-4 py-2 text-xs md:text-sm text-slate-100
-              hover:bg-slate-800 transition
+              border border-emerald-300/60 bg-white/80
+              px-4 py-2 text-xs md:text-sm text-emerald-900
+              hover:bg-emerald-500/10 transition
             "
           >
             ⬅️ Kembali ke dashboard
@@ -212,15 +213,15 @@ export default function StudentClassesPage() {
         </div>
       )}
 
-      {/* ================= GRID KELAS ================= */}
+      {/* ================= GRID KELAS (KARTU PREMIUM) ================= */}
       {classes.length > 0 && (
-        <section className="space-y-3">
+        <section className="space-y-4">
           <div className="flex items-center justify-between gap-2">
-            <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-400">
-              KELAS YANG KAMU IKUTI
+            <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-emerald-700">
+              KELAS AKTIF
             </h2>
-            <p className="text-[11px] text-slate-500">
-              Klik salah satu kartu untuk masuk ke ruang Zoom kelas.
+            <p className="text-[11px] text-emerald-700">
+              Pilih kartu kelas untuk masuk ke halaman detail & jadwal Zoom.
             </p>
           </div>
 
@@ -236,84 +237,97 @@ export default function StudentClassesPage() {
                 key={c.id}
                 href={`/dashboard/student/classes/${c.id}/zoom`}
                 className="
-                  group relative overflow-hidden rounded-3xl
-                  border border-slate-800 bg-slate-950/80
-                  p-1 shadow-[0_18px_60px_-45px_rgba(0,0,0,1)]
-                  transition hover:-translate-y-1 hover:border-cyan-500/70 hover:shadow-xl
+                  group relative flex flex-col overflow-hidden
+                  rounded-3xl border border-emerald-300/60 bg-white/90
+                  shadow-[0_22px_70px_-40px_rgba(0,0,0,1)]
+                  transition-transform 
+                  hover:-translate-y-1.5 hover:border-emerald-400/70 hover:shadow-[0_26px_80px_-38px_rgba(16,185,129,0.55)]
                 "
               >
+                {/* top accent bar */}
                 <div
                   className={`
-                    relative h-full rounded-3xl
-                    bg-gradient-to-br ${pickPalette(index)}
-                    px-4 py-5 md:px-5 md:py-6
+                    h-1 w-full bg-gradient-to-r ${pickPalette(index)}
                   `}
-                >
-                  {/* bubble dekorasi */}
-                  <div
-                    className="pointer-events-none absolute -right-4 -top-6 h-20 w-20 rounded-full bg-white/30 blur-2xl opacity-60"
-                    aria-hidden
-                  />
-                  <div
-                    className="pointer-events-none absolute bottom-0 right-3 text-6xl opacity-25 transition duration-700 group-hover:rotate-6 group-hover:scale-110"
-                    aria-hidden
-                  >
-                    {pickIcon(index + 2)}
-                  </div>
+                />
 
-                  <div className="relative flex items-start gap-3">
-                    <div
-                      className="
-                        flex h-12 w-12 items-center justify-center
-                        rounded-2xl bg-white/80 text-2xl shadow-sm
-                        backdrop-blur-sm
-                      "
-                    >
-                      {pickIcon(index)}
-                    </div>
+                <article className="flex flex-1 flex-col px-4 py-4 md:px-5 md:py-5 gap-4">
+                  {/* Header */}
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex items-start gap-3">
+                      {/* Icon dalam ring gradient */}
+                      <div
+                        className={`
+                          rounded-2xl p-[1px] bg-gradient-to-tr ${pickPalette(
+                            index
+                          )}
+                        `}
+                      >
+                        <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white text-xl text-emerald-900">
+                          {pickIcon(index)}
+                        </div>
+                      </div>
 
-                    <div className="flex-1 space-y-1.5">
-                      <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-900/80">
-                        Zoom Class
-                      </p>
-                      <h3 className="text-base md:text-lg font-black text-slate-950 drop-shadow-sm line-clamp-2">
-                        {c.name}
-                      </h3>
-                      <p className="text-[11px] md:text-xs text-slate-900/80">
-                        Klik kartu ini kalau jadwal kelas kamu sudah mulai. 👇
-                      </p>
-
-                      <div className="mt-2 flex flex-wrap gap-2 text-[10px] md:text-[11px] font-semibold text-slate-900">
-                        <span className="rounded-full bg-white/80 px-3 py-1 shadow-sm">
-                          🎧 Live dengan tutor
-                        </span>
-                        <span className="rounded-full bg-white/80 px-3 py-1 shadow-sm">
-                          🧮 Latihan bareng
-                        </span>
-                        <span className="rounded-full bg-white/80 px-3 py-1 shadow-sm">
-                          😊 Bisa tanya-tanya
-                        </span>
+                      <div className="space-y-1">
+                        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-700">
+                          Zoom Class
+                        </p>
+                        <h3 className="text-base md:text-lg font-semibold text-emerald-900 leading-snug line-clamp-2">
+                          {c.name}
+                        </h3>
+                        <p className="text-[11px] md:text-xs text-emerald-700">
+                          Terhubung ke akunmu. Di dalamnya ada jadwal Zoom,
+                          materi, dan progres latihan.
+                        </p>
                       </div>
                     </div>
+
+                    {/* Badge kecil di kanan */}
+                    <span
+                      className="
+                        inline-flex items-center rounded-full border border-emerald-500/50
+                        bg-emerald-200/60 px-2.5 py-1 text-[10px] font-medium
+                        text-emerald-700
+                      "
+                    >
+                      Aktif
+                    </span>
                   </div>
 
-                  <div className="relative mt-4 flex items-center justify-between text-[11px] md:text-xs text-slate-900/80">
-                    <span className="inline-flex items-center gap-1">
-                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                      Siap masuk kelas
+                  {/* Info singkat */}
+                  <div className="flex flex-wrap items-center gap-2 text-[11px] md:text-xs text-emerald-700">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-white/80 px-2.5 py-1">
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                      Siap untuk sesi Zoom berikutnya
+                    </span>
+                    <span className="inline-flex items-center gap-1 rounded-full bg-white/80 px-2.5 py-1">
+                      🧮 Kelas matematika terstruktur
+                    </span>
+                  </div>
+
+                  {/* Footer CTA */}
+                  <div className="mt-1 flex items-center justify-between border-t border-emerald-200 pt-3 text-[11px] md:text-xs">
+                    <span className="text-emerald-700">
+                      Klik untuk membuka halaman kelas.
                     </span>
                     <span
                       className="
-                        inline-flex items-center gap-1 rounded-full
-                        bg-black/10 px-3 py-1 font-semibold
-                        group-hover:bg-black/20
+                        inline-flex items-center gap-1.5 rounded
+                        bg-emerald-600 px-3 py-1.5 font-semibold text-white
+                        group-hover:bg-emerald-500 group-hover:text-white
+                        transition-colors
                       "
                     >
-                      Masuk kelas
-                      <span aria-hidden>➜</span>
+                      Buka kelas
+                      <span
+                        aria-hidden
+                        className="transition-transform group-hover:translate-x-0.5"
+                      >
+                        ➜
+                      </span>
                     </span>
                   </div>
-                </div>
+                </article>
               </Link>
             ))}
           </div>

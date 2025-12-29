@@ -1,6 +1,7 @@
 "use client";
 
 import { useTransition, useState } from "react";
+import { useToast } from "@/app/components/ToastProvider";
 
 interface ResetMaterialButtonProps {
   studentId: string;
@@ -22,6 +23,7 @@ export default function ResetMaterialButton({
 }: ResetMaterialButtonProps) {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
+  const toast = useToast();
 
   function handleClick() {
     setError(null);
@@ -53,7 +55,7 @@ export default function ResetMaterialButton({
           return;
         }
 
-        alert("Progres berhasil direset. Halaman akan direfresh.");
+        toast.success("Progres berhasil direset. Halaman akan direfresh.");
         window.location.reload();
       } catch (e: unknown) {
         console.error(e);

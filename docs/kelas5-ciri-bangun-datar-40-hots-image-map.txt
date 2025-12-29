@@ -1,0 +1,19 @@
+1. Pada gambar ada tiga ruas garis 3 cm, 5 cm, dan 8 cm. Dapatkah disusun menjadi segitiga? Jelaskan singkat. -> TODO_IMG_SEGITIGA_3_5_8.png
+2. Tiga ruas garis 4 cm, 6 cm, dan 7 cm disusun seperti gambar. Apakah bisa membentuk segitiga? Jika bisa, jenis segitiga berdasarkan sisinya? -> TODO_IMG_SEGITIGA_4_6_7.png
+3. Segitiga pada gambar memiliki satu sudut 90 derajat. Termasuk segitiga... -> TODO_IMG_SEGITIGA_SIKU_01.png
+4. Dua sudut segitiga masing-masing 45 derajat dan 55 derajat. Tentukan sudut ketiga dan jenis segitiga berdasarkan besar sudutnya. -> TODO_IMG_SUDUT_45_55.png
+5. Kelompokkan tiga ruas garis berikut apakah dapat membentuk segitiga. -> TODO_IMG_SEGITIGA_GARIS_SET.png
+7. Manakah pasangan tiga sisi yang dapat membentuk segitiga? -> TODO_IMG_PILIH_SISI_SEGITIGA.png
+8. Segitiga A memiliki sudut terbesar 92 derajat, segitiga B memiliki sudut terbesar 88 derajat. Bandingkan jenis segitiga A dan B. -> TODO_IMG_SEGITIGA_A_B_SUDUT.png
+10. Bandingkan segitiga C dengan sisi 5, 5, 5 dan segitiga D dengan sisi 5, 5, 8. Sebutkan jenisnya berdasarkan sisi. -> TODO_IMG_SEGITIGA_C_D_SISI.png
+11. Pasangkan ciri sudut dengan jenis segitiga. -> TODO_IMG_CIRI_SUDUT_SEGITIGA.png
+12. Dua sudut segitiga 40 derajat dan 65 derajat. Sudut ketiga adalah... -> TODO_IMG_SUDUT_40_65.png
+15. Bandingkan jajar genjang dan trapesium. Tulis dua perbedaan utama. -> TODO_IMG_JAJAR_GENJANG_VS_TRAPESIUM.png
+16. Pernyataan yang benar tentang persegi panjang adalah... -> TODO_IMG_PERSEGI_PANJANG.png
+18. Pasangkan bangun dengan ciri utamanya. -> TODO_IMG_QUAD_CIRI_01.png
+19. Pada gambar ada belah ketupat dan persegi. Bandingkan sudut-sudutnya. -> TODO_IMG_PERSEGI_BELAHKETUPAT.png
+20. Segiempat yang memiliki tepat satu pasang sisi sejajar adalah... -> TODO_IMG_TRAPESIUM_TUNGGAL.png
+23. Cocokkan pernyataan dengan nama bangun. -> TODO_IMG_COCOK_CIRI_02.png
+24. Sebutkan dua persamaan dan satu perbedaan antara persegi dan persegi panjang. -> TODO_IMG_PERSEGI_VS_PANJANG.png
+29. Pasangkan panjang sisi dengan jenis segitiga. -> TODO_IMG_SISI_SEGITIGA_SET.png
+37. Cocokkan gambar dengan nama bangunnya. -> TODO_IMG_BANGUN_SET_02.png

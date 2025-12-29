@@ -64,13 +64,13 @@ export default async function AdminPaymentsPage() {
     <>
       <PaymentsToastClient />
 
-      <div className="space-y-4 text-slate-50">
-        <h1 className="text-2xl font-extrabold text-white">
+      <div className="space-y-4 text-slate-700">
+        <h1 className="text-2xl font-extrabold text-slate-900">
           Permintaan Upgrade (Pending)
         </h1>
 
         {list.length === 0 && (
-          <div className="rounded-xl border border-slate-700 bg-slate-900/80 p-4 text-xs text-slate-300">
+          <div className="rounded-xl border border-slate-200 bg-white p-4 text-xs text-slate-600">
             Belum ada permintaan upgrade.
           </div>
         )}
@@ -79,27 +79,27 @@ export default async function AdminPaymentsPage() {
           {list.map((p) => (
             <div
               key={p.id}
-              className="grid gap-2 rounded-2xl border border-slate-700 bg-slate-900/80 p-4 md:grid-cols-5 text-xs"
+              className="grid gap-2 rounded-2xl border border-slate-200 bg-white p-4 md:grid-cols-5 text-xs"
             >
               <div>
-                <div className="text-slate-400">User ID</div>
+                <div className="text-slate-7000">User ID</div>
                 <div className="break-all">{p.user_id}</div>
               </div>
 
               <div>
-                <div className="text-slate-400">Paket</div>
+                <div className="text-slate-7000">Paket</div>
                 <div>{p.subscription_plans?.name ?? "-"}</div>
               </div>
 
               <div>
-                <div className="text-slate-400">Nominal</div>
+                <div className="text-slate-7000">Nominal</div>
                 <div className="font-semibold">
                   Rp {p.amount_idr.toLocaleString("id-ID")}
                 </div>
               </div>
 
               <div>
-                <div className="text-slate-400">Tanggal</div>
+                <div className="text-slate-7000">Tanggal</div>
                 <div>{new Date(p.created_at).toLocaleString("id-ID")}</div>
               </div>
 
@@ -108,7 +108,7 @@ export default async function AdminPaymentsPage() {
                   <input type="hidden" name="action" value="approve" />
                   <button
                     type="submit"
-                    className="rounded-xl border border-emerald-400/70 bg-emerald-500/20 px-3 py-1 text-[11px] font-semibold text-emerald-100 hover:bg-emerald-500/40"
+                    className="rounded-xl border border-emerald-600 bg-emerald-600 px-3 py-1 text-[11px] font-semibold text-white hover:bg-emerald-700"
                   >
                     ✅ Approve
                   </button>
@@ -118,7 +118,7 @@ export default async function AdminPaymentsPage() {
                   <input type="hidden" name="action" value="reject" />
                   <button
                     type="submit"
-                    className="rounded-xl border border-red-400/70 bg-red-500/20 px-3 py-1 text-[11px] font-semibold text-red-100 hover:bg-red-500/40"
+                    className="rounded-xl border border-rose-600 bg-rose-600 px-3 py-1 text-[11px] font-semibold text-white hover:bg-rose-700"
                   >
                     ❌ Reject
                   </button>

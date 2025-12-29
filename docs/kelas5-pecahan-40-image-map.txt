@@ -1,0 +1,8 @@
+1. Pasangkan pecahan dengan nilai desimal. -> TODO_IMG_KARTU_DESIMAL.png
+6. Nadia memiliki 7/8 loyang brownies. Ia memberi 1/4 loyang ke temannya. Berapa sisa brownies Nadia? -> TODO_IMG_BROWNIES_LOYANG.png
+11. Sebuah pita sepanjang 20 bagian, 12 bagian terpakai. Tulis pecahan 12/20 dalam bentuk sederhana. -> TODO_IMG_PITA_20_BAGIAN.png
+20. Dalam lomba, tiga anak membawa pita: 1/2 m, 2/3 m, dan 3/4 m. Siapa yang membawa bagian pita terpanjang? -> TODO_IMG_PITA_20_BAGIAN.png
+21. Di kantin, Rani minum 3/4 gelas jus lalu menambah 1/8 gelas lagi. Berapa bagian gelas jus Rani sekarang? -> TODO_IMG_JUS_GELAS.png
+23. Dua botol minum terisi 4/5 dan 3/4. Botol mana yang lebih penuh? -> TODO_IMG_BOTOL_45_DAN_34.png
+34. Pasangkan pecahan dengan bentuk desimal yang sesuai. -> TODO_IMG_KARTU_DESIMAL.png
+35. Pasangkan pecahan dengan persen yang sesuai. -> TODO_IMG_KARTU_PERSEN.png

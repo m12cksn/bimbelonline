@@ -1,0 +1,41 @@
+material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
+3,1,multipart,practice,Tentukan bilangan prima di bawah 20.,,,,,,,,,,,,,,,,,"a|Sebutkan bilangan prima di bawah 10|2,3,5,7;b|Sebutkan bilangan prima antara 10 dan 20|11,13,17,19"
+3,2,essay,practice,Tentukan FPB dari 21 dan 35.,,,,7,,,,,,,,,,,,,
+3,3,essay,practice,Kelipatan persekutuan terkecil dari 8 dan 10 adalah...,,,,40,,,,,,,,,,,,,
+3,4,essay,practice,Tentukan faktor prima dari 60.,,,,2^2x3x5,,,,,,,,,,,,,
+3,5,multipart,practice,Soal cerita KPK.,,,,,,,,,,,,,,,,,"a|Lampu A menyala tiap 4 menit, lampu B tiap 6 menit. Kapan menyala bersama? (menit)|12;b|Kereta X tiap 10 menit, kereta Y tiap 15 menit. Kapan bersamaan? (menit)|30"
+3,6,drag_drop,practice,Pasangkan bilangan dengan faktor primanya.,,,,,,,,,,,,,,,18;45;28,"2x3^2,3^2x5,2^2x7",
+3,7,drag_drop,practice,Pasangkan bilangan dengan KPK-nya.,,,,,,,,,,,,,,,4 & 5;6 & 8;9 & 12,"20,24,36",
+3,8,multipart,practice,Tentukan faktor prima.,,,,,,,,,,,,,,,,,a|30|2x3x5;b|42|2x3x7;c|50|2x5^2
+3,9,essay,practice,Ada 18 pensil dan 30 penghapus yang akan dibagi sama banyak. Berapa jumlah paket terbanyak yang bisa dibuat?,,,TODO_IMG_PENSIL_PENGHAPUS.png,6,,,,,,,,,,,,,
+3,10,multipart,practice,Tentukan FPB berikut.,,,,,,,,,,,,,,,,,a|FPB 15 dan 25|5;b|FPB 24 dan 36|12;c|FPB 20 dan 28|4
+3,11,essay,practice,Lampu merah berkedip tiap 9 detik dan 12 detik. Kapan berkedip bersamaan?,,,TODO_IMG_LAMPU.png,36,,,,,,,,,,,,,
+3,12,essay,practice,Ada 45 kue dan 60 permen yang dibagi rata. Berapa banyak paket terbanyak?,,,TODO_IMG_KUE_PERMEN.png,15,,,,,,,,,,,,,
+3,13,drag_drop,practice,Pasangkan bilangan dengan KPK/FPB yang benar.,,,,,,,,,,,,,,,KPK 3 & 7;FPB 21 & 28;KPK 5 & 9,"21,7,45",
+3,14,essay,practice,Tuliskan kelipatan pertama sampai ke-5 dari 8.,,,,"8,16,24,32,40",,,,,,,,,,,,,
+3,15,multipart,practice,Hitung KPK dan FPB.,,,,,,,,,,,,,,,,,a|KPK 12 dan 15|60;b|FPB 12 dan 15|3;c|KPK 8 dan 18|72
+3,16,essay,practice,Sebutkan bilangan prima di bawah 30.,,,,"2,3,5,7,11,13,17,19,23,29",,,,,,,,,,,,,
+3,17,multipart,practice,Kerjakan tiap bagian berikut.,,,,,,,,,,,,,,,,,a|Tentukan kelipatan ke-3 dari 7|21;b|Tentukan kelipatan ke-4 dari 5|20;c|Tentukan kelipatan ke-5 dari 3|15
+3,18,essay,practice,Tentukan KPK dari 5 dan 6.,,,,30,,,,,,,,,,,,,
+3,19,multipart,practice,Isi jawaban berikut.,,,,,,,,,,,,,,,,,a|KPK dari 6 dan 10|30;b|KPK dari 8 dan 12|24;c|KPK dari 9 dan 12|36
+3,20,mcq,practice,Kelipatan 6 yang juga kelipatan 9 adalah...,,,,18,,,12,18,24,30,,,,,,,
+3,21,essay,practice,Tentukan faktor prima dari 36.,,,,2^2x3^2,,,,,,,,,,,,,
+3,22,drag_drop,practice,Pasangkan bilangan dengan FPB-nya.,,,,,,,,,,,,,,,12 & 18;16 & 24;20 & 30,"6,8,10",
+3,23,essay,practice,Dua bel berbunyi tiap 6 menit dan 15 menit. Setelah berapa menit keduanya berbunyi bersama lagi?,,,TODO_IMG_BEL.png,30,,,,,,,,,,,,,
+3,24,essay,practice,Bilangan prima terkecil adalah...,,,,2,,,,,,,,,,,,,
+3,25,essay,practice,Faktor dari 30 adalah...,,,,"1,2,3,5,6,10,15,30",,,,,,,,,,,,,
+3,26,essay,practice,KPK dari 7 dan 8 adalah...,,,,56,,,,,,,,,,,,,
+3,27,mcq,practice,Faktor dari 36 adalah...,,,,"1,2,3,4,6,9,12,18,36",,,"1,2,3,6,12,18,36","1,2,3,4,6,9,12,18,36","2,3,4,6,8","1,2,5,10,20",,,,,,,
+3,28,essay,practice,FPB dari 54 dan 72 adalah...,,,,18,,,,,,,,,,,,,
+3,29,mcq,practice,KPK dari 4 dan 6 adalah...,,,,12,,,8,10,12,14,,,,,,,
+3,30,essay,practice,FPB dari 32 dan 48 adalah...,,,,16,,,,,,,,,,,,,
+3,31,drag_drop,practice,Pasangkan bilangan dengan jenisnya.,,,,,,,,,,,,,,,2;15;17,"prima,komposit,prima",
+3,32,essay,practice,Tentukan kelipatan persekutuan dari 4 dan 6 yang kurang dari 30.,,,,"12,24",,,,,,,,,,,,,
+3,33,essay,practice,Sebutkan faktor dari 24.,,,,"1,2,3,4,6,8,12,24",,,,,,,,,,,,,
+3,34,mcq,practice,FPB dari 18 dan 24 adalah...,,,,6,,,3,6,9,12,,,,,,,
+3,35,drag_drop,practice,Pasangkan bilangan dengan kelipatan persekutuannya.,,,,,,,,,,,,,,,4 & 6;3 & 5;6 & 9,"12,15,18",
+3,36,essay,practice,KPK dari 14 dan 21 adalah...,,,,42,,,,,,,,,,,,,
+3,37,essay,practice,Tentukan faktor persekutuan dari 12 dan 18.,,,,"1,2,3,6",,,,,,,,,,,,,
+3,38,mcq,practice,KPK dari 8 dan 12 adalah...,,,,24,,,16,20,24,36,,,,,,,
+3,39,multipart,practice,Soal cerita FPB.,,,,,,,,,,,,,,,,,a|24 apel dan 36 jeruk dibagi sama banyak. Banyak paket terbanyak? (FPB)|12;b|30 buku dan 45 pensil dibagi sama banyak. Banyak paket terbanyak?|15
+3,40,mcq,practice,Bilangan prima di bawah 20 adalah...,,,,"2,3,5,7,11,13,17,19",,,"1,2,3,5","2,3,5,7,11,13,17,19","2,4,6,8","3,6,9,12",,,,,,,

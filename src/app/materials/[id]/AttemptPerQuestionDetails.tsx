@@ -10,6 +10,8 @@ export type AttemptQuestionDetail = {
   questionText: string;
   selectedAnswer: string | null;
   correctAnswer: string;
+  correctAnswerImage?: string | null;
+  explanation?: string | null;
 };
 
 interface AttemptPerQuestionDetailsProps {
@@ -37,13 +39,13 @@ export default function AttemptPerQuestionDetails({
       <div className="grid grid-cols-6 gap-2 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12">
         {details.map((q) => {
           let base =
-            "bg-slate-700/60 text-slate-100 border-slate-600 hover:bg-slate-600";
+            "bg-slate-100 text-slate-600 border-slate-200 hover:bg-slate-200";
           if (q.status === "correct") {
             base =
-              "bg-emerald-500/25 text-emerald-100 border-emerald-400/70 hover:bg-emerald-500/40";
+              "bg-emerald-100 text-emerald-700 border-emerald-300 hover:bg-emerald-200";
           } else if (q.status === "wrong") {
             base =
-              "bg-rose-500/25 text-rose-100 border-rose-400/70 hover:bg-rose-500/40";
+              "bg-rose-100 text-rose-700 border-rose-300 hover:bg-rose-200";
           }
 
           const isActive = activeNumber === q.questionNumber;
@@ -75,8 +77,8 @@ export default function AttemptPerQuestionDetails({
       {active && (
         <div
           className="
-            mt-2 rounded-2xl border border-slate-700 bg-slate-900/90
-            px-4 py-3 text-xs md:text-sm text-slate-100 shadow-lg
+            mt-2 rounded-2xl border border-slate-200 bg-white
+            px-4 py-3 text-xs md:text-sm text-slate-700 shadow-lg
           "
         >
           <div className="flex items-center justify-between gap-2 mb-1">
@@ -84,27 +86,27 @@ export default function AttemptPerQuestionDetails({
               Detail soal nomor{" "}
               <span className="text-cyan-300">{active.questionNumber}</span>
             </p>
-            <span className="text-[11px] text-slate-400">
-              Percobaan {attemptNumber}
-            </span>
-          </div>
+              <span className="text-[11px] text-slate-500">
+                Percobaan {attemptNumber}
+              </span>
+            </div>
 
-          <p className="text-slate-200 mb-2 line-clamp-3">
+          <p className="text-slate-600 mb-2 line-clamp-3">
             {active.questionText || "Teks soal belum tersedia."}
           </p>
 
           <div className="space-y-1">
             <p>
-              <span className="font-semibold text-slate-300">
+              <span className="font-semibold text-slate-500">
                 Jawaban kamu:{" "}
               </span>
               <span
                 className={
                   active.status === "correct"
-                    ? "text-emerald-300 font-semibold"
+                    ? "text-emerald-700 font-semibold"
                     : active.status === "wrong"
-                    ? "text-rose-300 font-semibold"
-                    : "text-slate-300"
+                    ? "text-rose-700 font-semibold"
+                    : "text-slate-500"
                 }
               >
                 {active.selectedAnswer ?? "Belum dijawab"}
@@ -112,15 +114,31 @@ export default function AttemptPerQuestionDetails({
             </p>
 
             <p>
-              <span className="font-semibold text-slate-300">
+              <span className="font-semibold text-slate-500">
                 Jawaban benar:{" "}
               </span>
-              <span className="text-cyan-200 font-semibold">
+              <span className="text-emerald-700 font-semibold">
                 {active.correctAnswer}
               </span>
             </p>
+            {active.correctAnswerImage && (
+              <img
+                src={active.correctAnswerImage}
+                alt="Jawaban benar"
+                className="mt-2 max-h-40 w-full rounded-xl border border-slate-200 bg-white object-contain"
+              />
+            )}
 
-            <p className="mt-1 text-[11px] text-slate-400">
+            {active.explanation ? (
+              <p className="text-slate-600">
+                <span className="font-semibold text-slate-500">
+                  Pembahasan:{" "}
+                </span>
+                <span className="text-slate-600">{active.explanation}</span>
+              </p>
+            ) : null}
+
+            <p className="mt-1 text-[11px] text-slate-500">
               Klik bubble lain untuk melihat detail soal yang berbeda.
             </p>
           </div>

@@ -58,7 +58,7 @@ export async function GET() {
         end_at,
         created_at,
         profiles:profiles!user_id (*),
-        plan:subscription_plans!plan_id (*)
+        plan:subscription_plans!subscriptions_plan_id_fkey (*)
       `
       )
       .order("created_at", { ascending: false });

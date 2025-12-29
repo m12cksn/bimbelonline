@@ -55,7 +55,7 @@ export async function GET() {
         `
       )
       .in("class_id", classIds)
-      .gte("start_time", nowIso)
+      .or(`start_time.gte.${nowIso},end_time.gte.${nowIso}`)
       .order("start_time", { ascending: true })
       .limit(3);
 

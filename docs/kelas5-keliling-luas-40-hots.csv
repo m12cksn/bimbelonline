@@ -1,0 +1,42 @@
+material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
+12,1,essay,practice,"Keliling persegi panjang 48 cm. Jika panjang 14 cm, berapa lebarnya?",,,,10 cm,,,,,,,,,,,,,
+12,2,mcq,practice,"Luas persegi panjang 72 cm², panjang 9 cm. Lebarnya...",,,,B,,,6 cm,7 cm,8 cm,9 cm,,,,,,,
+12,3,drag_drop,practice,Pasangkan bangun dengan kelilingnya.,,,TODO_IMG_KELILING_SET_01.png,,,,,,,,,,,,"persegi sisi 6;persegi panjang 5x9;segitiga sama sisi sisi 7;trapesium sisi 4-6-5-5","24,28,21,20",
+12,4,essay,practice,Sebuah taman berbentuk persegi memiliki luas 81 m². Berapa kelilingnya?,,,,36 m,,,,,,,,,,,,,
+12,5,essay,practice,Dua persegi panjang memiliki keliling sama 40 cm. Persegi panjang A berukuran 6x14. Tentukan ukuran persegi panjang B yang berbeda tetapi tetap berkeliling 40 cm.,,,,8x12 (contoh),,,,,,,,,,,,,
+12,6,mcq,practice,"Jika keliling persegi 64 cm, luasnya adalah...",,,,C,,,128 cm²,144 cm²,256 cm²,196 cm²,,,,,,,
+12,7,essay,practice,"Sebuah kebun berbentuk persegi panjang 15 m x 8 m. Jika dibuat pagar di sekelilingnya, berapa meter pagar dibutuhkan?",,,,46 m,,,,,,,,,,,,,
+12,8,multipart,practice,Hitung keliling.,,,,,,,,,,,,,,,,,a|Persegi sisi 9 cm|36 cm;b|Persegi panjang 7 cm x 11 cm|36 cm
+12,9,essay,practice,Sebuah persegi panjang memiliki luas 96 cm² dan lebar 8 cm. Berapa kelilingnya?,,,,32 cm,,,,,,,,,,,,,
+12,10,drag_drop,practice,Pasangkan bangun majemuk dengan cara membaginya.,,,TODO_IMG_MAJEMUK_BAGI.png,,,,,,,,,,,,bentuk A;bentuk B;bentuk C,"bagi jadi 2 persegi panjang,bagi jadi 3 persegi panjang,bagi jadi 2 persegi panjang + 1 persegi",
+12,11,essay,practice,"Sebuah persegi panjang dan persegi memiliki keliling sama 36 cm. Jika sisi persegi 9 cm, berapa ukuran persegi panjang yang mungkin?",,,,8x10 (contoh),,,,,,,,,,,,,
+12,12,mcq,practice,Panjang dan lebar persegi panjang berturut-turut 12 cm dan 5 cm. Kelilingnya...,,,,A,,,34 cm,30 cm,28 cm,24 cm,,,,,,,
+12,13,essay,practice,Gambar bangun majemuk terdiri dari 2 persegi panjang: 10x4 dan 6x4 yang menempel. Berapa kelilingnya?,,,,32 cm,,,,,,,,,,,,,
+12,14,multipart,practice,Hitung luas.,,,,,,,,,,,,,,,,,a|Persegi sisi 12 cm|144 cm²;b|Persegi panjang 9x7 cm|63 cm²
+12,15,essay,practice,Sebuah lahan berbentuk L terdiri dari 2 persegi panjang 8x4 dan 6x3. Berapa luas total?,,,,50 m²,,,,,,,,,,,,,
+12,16,drag_drop,practice,Pasangkan bangun dengan luasnya.,,,TODO_IMG_LUAS_SET_01.png,,,,,,,,,,,,persegi sisi 5;persegi panjang 6x9;persegi panjang 4x7;persegi sisi 8,"25,54,28,64",
+12,17,essay,practice,"Persegi panjang luasnya 150 cm². Jika panjang 15 cm, lebar?",,,,10 cm,,,,,,,,,,,,,
+12,18,mcq,practice,Keliling bangun L pada gambar adalah...,,,TODO_IMG_KELILING_L.png,B,,,32 cm,34 cm,36 cm,38 cm,,,,,,,
+12,19,essay,practice,Sebuah persegi memiliki luas 196 cm². Berapa kelilingnya?,,,,56 cm,,,,,,,,,,,,,
+12,20,multipart,practice,Keliling dan luas.,,,,,,,,,,,,,,,,,a|Persegi panjang 5x13: keliling|36;b|Persegi panjang 5x13: luas|65
+12,21,essay,practice,Dua persegi panjang berluas 48 cm². Salah satunya 6x8. Berikan ukuran lain yang berbeda.,,,,4x12 (contoh),,,,,,,,,,,,,
+12,22,drag_drop,practice,Pasangkan bangun majemuk dengan luas totalnya.,,,TODO_IMG_LUAS_MAJEMUK.png,,,,,,,,,,,,bentuk A;bentuk B;bentuk C;bentuk D,"36,40,42,48",
+12,23,mcq,practice,"Jika luas persegi 121 cm², sisi persegi adalah...",,,,C,,,9 cm,10 cm,11 cm,12 cm,,,,,,,
+12,24,essay,practice,"Keliling persegi panjang 54 cm. Jika panjang 16 cm, lebar?",,,,11 cm,,,,,,,,,,,,,
+12,25,multipart,practice,Bandingkan dua bangun.,,,,,,,,,,,,,,,,,a|Keliling persegi sisi 7|28;b|Keliling persegi panjang 4x10|28;c|Luas mana lebih besar?|persegi panjang
+12,26,essay,practice,Sebuah pita sepanjang 60 cm digunakan untuk membuat keliling segitiga sama sisi. Berapa panjang sisi segitiga?,,,,20 cm,,,,,,,,,,,,,
+12,27,mcq,practice,Persegi panjang 12x9 dan 15x6 memiliki...,,,,A,,,Keliling sama,Luas sama,Keliling dan luas sama,Tidak ada yang sama,,,,,,,
+12,28,essay,practice,Sebuah bangun majemuk terdiri dari persegi 6x6 dan persegi panjang 6x4 yang menempel pada salah satu sisi. Berapa keliling total?,,,,32 cm,,,,,,,,,,,,,
+12,29,multipart,practice,Keliling bangun majemuk.,,,TODO_IMG_MAJEMUK_KELILING.png,,,,,,,,,,,,,,a|Keliling bangun|46 cm;b|Bagian mana yang tidak dihitung dua kali?|sisi yang menempel
+12,30,essay,practice,Sebuah persegi panjang memiliki luas 84 cm² dan keliling 38 cm. Tentukan panjang dan lebarnya.,,,,7 cm dan 12 cm,,,,,,,,,,,,,
+12,31,drag_drop,practice,Pasangkan pernyataan dengan benar.,,,,,,,,,,,,,,,Keliling mengukur sisi;Luas mengukur bidang;Keliling satuannya cm;Luas satuannya cm²,"benar,benar,benar,benar",
+12,32,essay,practice,"Dua persegi panjang memiliki keliling sama 28 cm. Jika salah satunya 5x9, benarkah? Jelaskan singkat.",,,,tidak; keliling 28 berarti 2(p+l)=28,,,,,,,,,,,,,
+12,33,mcq,practice,Bangun majemuk dapat dibagi menjadi beberapa...,,,,B,,,garis,bangun sederhana,sudut,titik,,,,,,,
+12,34,essay,practice,"Jika luas persegi panjang 90 cm² dan panjang 15 cm, lebar?",,,,6 cm,,,,,,,,,,,,,
+12,35,drag_drop,practice,Pasangkan bangun dengan keliling dan luas yang benar.,,,TODO_IMG_KELILING_LUAS_SET.png,,,,,,,,,,,,persegi sisi 4;persegi panjang 3x8;persegi panjang 5x5;persegi panjang 2x9,"keliling 16 luas 16,keliling 22 luas 24,keliling 20 luas 25,keliling 22 luas 18",
+12,36,essay,practice,"Sebuah kolam berbentuk persegi panjang 18 m x 12 m. Jika akan diberi pagar di sekelilingnya, berapa panjang pagar?",,,,60 m,,,,,,,,,,,,,
+12,37,multipart,practice,Luas bangun majemuk.,,,TODO_IMG_MAJEMUK_LUAS.png,,,,,,,,,,,,,,a|Luas total|72 cm²;b|Langkah pertama|bagi menjadi dua persegi panjang
+12,38,essay,practice,Persegi panjang 20x6 dan 12x10 memiliki luas sama. Benar atau salah?,,,,benar,,,,,,,,,,,,,
+12,39,essay,practice,Sebuah persegi panjang memiliki keliling 50 cm dan panjang 14 cm. Lebarnya?,,,,11 cm,,,,,,,,,,,,,
+12,40,essay,practice,Sebuah taman berbentuk persegi dengan keliling 100 m. Berapa luasnya?,,,,625 m²,,,,,,,,,,,,,
+

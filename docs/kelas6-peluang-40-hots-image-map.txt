@@ -1,0 +1,5 @@
+# Image placeholders for docs/kelas6-peluang-40-hots.csv
+# Format: question_number | placeholder | description
+6 | TODO_IMG_SPINNER_12.png | Spinner 12 bagian sama besar: 5 kuning, 4 hijau, 3 biru
+16 | TODO_IMG_SPINNER_10_RGB.png | Spinner 10 bagian sama besar: 2 merah, 5 kuning, 3 hijau
+32 | TODO_IMG_SPINNER_ABC.png | Spinner 12 bagian: 6 nama A, 4 nama B, 2 nama C

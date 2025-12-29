@@ -3,6 +3,8 @@
 
 import Link from "next/link";
 import { use, useEffect, useState } from "react";
+import Image from "next/image";
+import { useToast } from "@/app/components/ToastProvider";
 
 type ZoomSession = {
   id: number;
@@ -12,7 +14,7 @@ type ZoomSession = {
   already_present?: boolean;
 };
 
-async function handleJoin(zoomId: number) {
+async function handleJoin(zoomId: number, toast: ReturnType<typeof useToast>) {
   try {
     const res = await fetch(`/api/student/zoom/${zoomId}/join`, {
       method: "GET",
@@ -22,14 +24,14 @@ async function handleJoin(zoomId: number) {
     const json = await res.json();
 
     if (!res.ok || !json.ok) {
-      alert(json.error ?? "Gagal join zoom");
+      toast.error(json.error ?? "Gagal join zoom");
       return;
     }
 
     window.open(json.zoom_link, "_blank", "noopener,noreferrer");
   } catch (e) {
     console.error("join error", e);
-    alert("Terjadi kesalahan");
+    toast.error("Terjadi kesalahan");
   }
 }
 
@@ -48,6 +50,7 @@ function formatDateTime(iso: string): string {
     minute: "2-digit",
   });
 }
+
 function isOngoing(start: string, end: string): boolean {
   const now = Date.now();
   return now >= new Date(start).getTime() && now <= new Date(end).getTime();
@@ -63,6 +66,14 @@ function getStatus(start: string, end: string): string {
   return "Selesai";
 }
 
+function getStatusBadgeClass(status: string): string {
+  if (status === "Sedang Berlangsung")
+    return "bg-emerald-500/20 text-emerald-200 border-emerald-400/70";
+  if (status === "Akan Datang")
+    return "bg-sky-500/20 text-sky-200 border-sky-400/70";
+  return "bg-slate-500/20 text-slate-200 border-slate-500/70";
+}
+
 export default function StudentZoomPage({
   params,
 }: {
@@ -73,11 +84,15 @@ export default function StudentZoomPage({
   const [sessions, setSessions] = useState<ZoomSession[]>([]);
   const [loading, setLoading] = useState(true);
   const [quota, setQuota] = useState<ZoomQuota | null>(null);
-  const [attendedIds, setAttendedIds] = useState<number[]>([]);
   const [attended, setAttended] = useState<number[]>([]);
+  const [attendedIds, setAttendedIds] = useState<number[]>([]); // tetap disimpan supaya struktur mirip aslinya
+  const [attendingIds, setAttendingIds] = useState<number[]>([]);
+  const toast = useToast();
 
   async function handleAttend(zoomId: number) {
-    if (attended.includes(zoomId)) return;
+    if (attended.includes(zoomId) || attendingIds.includes(zoomId)) return;
+
+    setAttendingIds((prev) => [...prev, zoomId]);
 
     const res = await fetch(`/api/student/zoom/${zoomId}/attendance`, {
       method: "POST",
@@ -87,11 +102,13 @@ export default function StudentZoomPage({
     const json = await res.json();
 
     if (!res.ok) {
-      alert(json.error ?? "Gagal absensi");
+      toast.error(json.error ?? "Gagal absensi");
+      setAttendingIds((prev) => prev.filter((id) => id !== zoomId));
       return;
     }
 
     setAttended((prev) => [...prev, zoomId]);
+    setAttendingIds((prev) => prev.filter((id) => id !== zoomId));
 
     // refresh quota
     const quotaRes = await fetch(`/api/student/classes/${classId}/zoom-quota`, {
@@ -108,7 +125,6 @@ export default function StudentZoomPage({
 
     async function loadAll() {
       try {
-        // fetch zoom sessions
         const zoomRes = await fetch(`/api/student/classes/${classId}/zoom`, {
           credentials: "same-origin",
         });
@@ -118,7 +134,6 @@ export default function StudentZoomPage({
           setSessions(zoomJson.sessions ?? []);
         }
 
-        // fetch quota
         const quotaRes = await fetch(
           `/api/student/classes/${classId}/zoom-quota`,
           { credentials: "same-origin" }
@@ -142,64 +157,250 @@ export default function StudentZoomPage({
     };
   }, [classId]);
 
-  if (loading) return <div className="p-6">Loading...</div>;
+  if (loading) {
+    return (
+      <div className="min-h-[60vh] bg-slate-900 px-4 py-6 sm:px-6">
+        <div className="max-w-5xl mx-auto">
+          <div className="animate-pulse space-y-4">
+            <div className="h-7 w-40 rounded-md bg-slate-700" />
+            <div className="h-24 w-full rounded-3xl bg-slate-800" />
+            <div className="grid gap-4 md:grid-cols-2">
+              <div className="h-40 rounded-3xl bg-slate-800" />
+              <div className="h-40 rounded-3xl bg-slate-800" />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const quotaUsedPercent =
+    quota && quota.allowed > 0
+      ? Math.min(100, Math.round((quota.used / quota.allowed) * 100))
+      : 0;
 
   return (
-    <div className="p-6 space-y-4">
-      <h1 className="text-2xl font-bold">Jadwal Zoom</h1>
-
-      {quota && (
-        <div className="p-3 rounded bg-yellow-100 text-yellow-800">
-          Sisa kuota Zoom: <strong>{quota.remaining}</strong> / {quota.allowed}
-        </div>
-      )}
-
-      {sessions.length === 0 && (
-        <p className="text-gray-500">Belum ada jadwal zoom</p>
-      )}
-
-      {sessions.map((z) => (
-        <div key={z.id} className="border rounded p-4">
-          <div className="font-semibold">{z.title ?? "Sesi Zoom"}</div>
-          <div className="text-sm text-gray-600">
-            {formatDateTime(z.start_time)} – {formatDateTime(z.end_time)}
+    <div className="min-h-[100vh] bg-slate-900 px-4 py-6 sm:px-6">
+      <div className="max-w-6xl mx-auto space-y-6">
+        {/* Header */}
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-3">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-500/20 border border-indigo-400/60 shadow-md">
+              <span className="text-2xl">🧑‍🎓</span>
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold tracking-tight text-white">
+                Jadwal Zoom Kelas
+              </h1>
+              <p className="mt-1 text-xs sm:text-sm text-slate-400">
+                Pilih sesi Zoom, absen, dan langsung bergabung. Layout kartu
+                dibuat mirip kartu layanan, tapi versi bimbel dan tema gelap.
+              </p>
+            </div>
           </div>
-          <div className="text-sm mt-1">
-            Status: <strong>{getStatus(z.start_time, z.end_time)}</strong>
-          </div>
-          {isOngoing(z.start_time, z.end_time) && (
-            <button
-              disabled={z.already_present || quota?.remaining === 0}
-              onClick={() => handleAttend(z.id)}
-              className={`mt-2 px-4 py-2 rounded text-white ${
-                z.already_present || quota?.remaining === 0
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-green-600"
-              }`}
-            >
-              {z.already_present
-                ? "Sudah Hadir"
-                : quota?.remaining === 0
-                ? "Kuota Habis"
-                : "Hadir"}
-            </button>
-          )}
 
-          <button
-            onClick={() => handleJoin(z.id)}
-            disabled={!quota || quota.remaining <= 0}
-            className={`inline-block mt-2 px-4 py-2 rounded text-white ${
-              !quota || quota.remaining <= 0
-                ? "bg-gray-500 cursor-not-allowed"
-                : "bg-blue-600"
-            }`}
+          <Link
+            href="/dashboard/student"
+            className="inline-flex items-center justify-center rounded-full border border-slate-700 bg-slate-800 px-4 py-2 text-xs sm:text-sm font-medium text-slate-100 shadow-sm hover:bg-slate-700 transition"
           >
-            {!quota || quota.remaining <= 0
-              ? "Zoom Terkunci (Kuota Habis)"
-              : "Join Zoom"}
-          </button>
+            ← Kembali ke Dashboard
+          </Link>
         </div>
-      ))}
+
+        {/* Kuota Card */}
+        {quota && (
+          <div className="rounded-3xl border border-slate-700 bg-linear-to-r from-slate-900 to-slate-800 px-5 py-4 shadow-lg">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-amber-500/15 border border-amber-400/50">
+                  <span className="text-xl">⏱️</span>
+                </div>
+                <div>
+                  <div className="text-[11px] font-semibold uppercase tracking-wide text-amber-300">
+                    Kuota Zoom Bulan Ini
+                  </div>
+                  <div className="mt-1 text-sm text-amber-100">
+                    Sisa kuota:{" "}
+                    <span className="font-semibold">
+                      {quota.remaining} / {quota.allowed}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="w-full sm:w-72">
+                <div className="flex items-center justify-between text-[11px] text-amber-200 mb-1">
+                  <span>Terpakai</span>
+                  <span>{quotaUsedPercent}%</span>
+                </div>
+                <div className="h-2.5 overflow-hidden rounded-full bg-slate-800">
+                  <div
+                    className="h-full rounded-full bg-amber-400 transition-all"
+                    style={{ width: `${quotaUsedPercent}%` }}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Empty state */}
+        {sessions.length === 0 && (
+          <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-slate-700 bg-slate-900/70 px-6 py-10 text-center shadow-inner">
+            <div className="mb-3 text-4xl">📅</div>
+            <h2 className="text-base font-semibold text-slate-100">
+              Belum ada jadwal Zoom
+            </h2>
+            <p className="mt-1 max-w-md text-sm text-slate-400">
+              Jika guru sudah menjadwalkan kelas, kartu-kartu Zoom akan muncul
+              di sini.
+            </p>
+          </div>
+        )}
+
+        {/* Sessions list – card layout seperti contoh */}
+        {sessions.length > 0 && (
+          <div className="space-y-4">
+            {sessions.map((z) => {
+              const status = getStatus(z.start_time, z.end_time);
+              const statusClass = getStatusBadgeClass(status);
+              const ongoing = isOngoing(z.start_time, z.end_time);
+              const hasQuota = !!quota && quota.remaining > 0;
+              const hasAttendance =
+                z.already_present || attended.includes(z.id);
+
+              return (
+                <div
+                  key={z.id}
+                  className="relative flex flex-col md:flex-row overflow-hidden rounded-3xl bg-slate-900 border border-slate-700 shadow-xl"
+                >
+                  {/* Image side (seperti thumbnail pekerjaan di contoh) */}
+                  <div className="relative w-full md:w-72 h-40 md:h-auto">
+                    {/* Ganti src dengan gambar math/zoom milikmu */}
+                    <Image
+                      src="/images/cover.png"
+                      width={750}
+                      height={750}
+                      className="h-full w-full object-cover"
+                      alt="Zoom Math Class"
+                    />
+
+                    <div className="absolute inset-0 bg-linear-to-t from-slate-900/70 via-slate-900/10 to-transparent" />
+                    <div className="absolute top-3 left-3 flex items-center gap-2 rounded-full bg-slate-900/75 px-3 py-1 text-xs font-medium text-slate-100">
+                      <span>📚</span>
+                      <span>Math & Zoom Class</span>
+                    </div>
+                    <div className="absolute bottom-3 left-3 flex items-center gap-2 rounded-full bg-indigo-500/80 px-3 py-1 text-xs font-semibold text-white shadow-md">
+                      <span>🧑‍🎓</span>
+                      <span>Live bersama tutor</span>
+                    </div>
+                  </div>
+
+                  {/* Content side */}
+                  <div className="flex-1 p-4 md:p-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    {/* Info */}
+                    <div className="space-y-2">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <h2 className="text-base sm:text-lg font-semibold text-white">
+                          {z.title ?? "Sesi Zoom"}
+                        </h2>
+                        <span
+                          className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-[11px] font-medium ${statusClass}`}
+                        >
+                          {status}
+                        </span>
+                      </div>
+
+                      <div className="flex flex-wrap items-center gap-3 text-xs sm:text-sm text-slate-300">
+                        <div className="flex items-center gap-1.5">
+                          <span>📅</span>
+                          <span>{formatDateTime(z.start_time)}</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <span>⏰</span>
+                          <span>
+                            Sampai {formatDateTime(z.end_time).split(", ")[1]}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <span>🌐</span>
+                          <span>Online via Zoom</span>
+                        </div>
+                      </div>
+
+                      {z.already_present && (
+                        <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-3 py-1 text-[11px] font-medium text-emerald-200 border border-emerald-500/40">
+                          <span>✅</span>
+                          <span>Kamu sudah absen di sesi ini</span>
+                        </div>
+                      )}
+
+                      <p className="text-[11px] sm:text-xs text-slate-400 max-w-md">
+                        Siapkan buku dan pensil, ya. Kita akan belajar
+                        matematika sambil diskusi langsung dengan tutor di Zoom.
+                      </p>
+                    </div>
+
+                    {/* Actions */}
+                    <div className="flex flex-col items-stretch md:items-end gap-2 w-full md:w-auto">
+                      {ongoing && (
+                        <button
+                          disabled={
+                            z.already_present ||
+                            attended.includes(z.id) ||
+                            attendingIds.includes(z.id) ||
+                            (quota?.remaining ?? 0) === 0
+                          }
+                          onClick={() => handleAttend(z.id)}
+                          className={`inline-flex items-center justify-center rounded-full px-5 py-2 text-xs sm:text-sm font-semibold text-white transition ${
+                            z.already_present ||
+                            attended.includes(z.id) ||
+                            attendingIds.includes(z.id) ||
+                            (quota?.remaining ?? 0) === 0
+                              ? "bg-emerald-900/60 cursor-not-allowed"
+                              : "bg-emerald-500 hover:bg-emerald-400"
+                          }`}
+                        >
+                          {z.already_present || attended.includes(z.id)
+                            ? "Sudah Hadir"
+                            : attendingIds.includes(z.id)
+                            ? "Memproses..."
+                            : quota?.remaining === 0
+                            ? "Kuota Habis"
+                            : "Absen Hadir"}
+                        </button>
+                      )}
+
+                      <button
+                        onClick={() => handleJoin(z.id, toast)}
+                        disabled={!hasQuota || !hasAttendance}
+                        className={`inline-flex items-center justify-center rounded-full px-5 py-2 text-xs sm:text-sm font-semibold shadow-md ${
+                          !hasQuota || !hasAttendance
+                            ? "bg-slate-700 text-slate-300 cursor-not-allowed"
+                            : "bg-orange-500 text-white hover:bg-orange-400"
+                        }`}
+                      >
+                        {!hasQuota
+                          ? "Zoom Terkunci"
+                          : !hasAttendance
+                          ? "Absen dulu"
+                          : "Join Zoom Sekarang"}
+                      </button>
+
+                      <p className="text-[10px] sm:text-[11px] text-slate-400 md:text-right">
+                        Tips: klik{" "}
+                        <span className="font-semibold">Absen Hadir</span> dulu,
+                        lalu <span className="font-semibold">Join Zoom</span>,
+                        supaya kuota kamu tercatat rapi.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

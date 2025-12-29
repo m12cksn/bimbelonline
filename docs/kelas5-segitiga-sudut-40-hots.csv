@@ -1,0 +1,41 @@
+material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
+11,1,essay,practice,Sudut 35 derajat termasuk jenis sudut apa?,,,,lancip,,,,,,,,,,,,,
+11,2,mcq,practice,Sudut 120 derajat termasuk sudut...,,,,B,,,Lancip,Tumpul,Siku-siku,Refleks,,,,,,,
+11,3,drag_drop,practice,Pasangkan besar sudut dengan jenisnya.,,,,,,,,,,,,,,,30;90;135;210,"lancip,siku-siku,tumpul,refleks",
+11,4,essay,practice,"Segitiga dengan sisi 5 cm, 5 cm, dan 8 cm adalah segitiga...",,,,sama kaki,,,,,,,,,,,,,
+11,5,essay,practice,"Segitiga dengan sisi 4 cm, 6 cm, dan 7 cm adalah segitiga...",,,,sembarang,,,,,,,,,,,,,
+11,6,multipart,practice,Perhatikan gambar segitiga.,,,TODO_IMG_SEGITIGA_SAMA_SISI.png,,,,,,,,,,,,,,a|Jenis segitiga berdasarkan sisi?|sama sisi;b|Jumlah garis simetri?|3
+11,7,essay,practice,Segitiga yang memiliki satu sudut 90 derajat disebut segitiga...,,,,siku-siku,,,,,,,,,,,,,
+11,8,mcq,practice,Ciri segitiga sembarang adalah...,,,,A,,,Tidak ada sisi yang sama panjang,Semua sisi sama panjang,Dua sisi sama panjang,Memiliki satu sudut 90 derajat,,,,,,,
+11,9,drag_drop,practice,Pasangkan jenis segitiga dengan cirinya.,,,TODO_IMG_CIRI_SEGITIGA.png,,,,,,,,,,,,sama sisi;sama kaki;sembarang;siku-siku,"3 sisi sama,2 sisi sama,semua sisi berbeda,1 sudut 90",
+11,10,essay,practice,"Segitiga dengan sudut 70 derajat, 60 derajat, dan 50 derajat termasuk segitiga...",,,,lancip,,,,,,,,,,,,,
+11,11,multipart,practice,Lengkapi.,,,,,,,,,,,,,,,,,a|Sudut A 40 derajat dan sudut B 70 derajat. Sudut C?|70 derajat;b|Jenis segitiga berdasarkan sudut?|lancip
+11,12,essay,practice,"Jika dua sudut pada segitiga sama besar, segitiga itu disebut...",,,,sama kaki,,,,,,,,,,,,,
+11,13,mcq,practice,Segitiga sama sisi memiliki ... garis simetri.,,,,C,,,1,2,3,0,,,,,,,
+11,14,drag_drop,practice,Pasangkan deskripsi sudut dengan jenisnya.,,,,,,,,,,,,,,,kurang dari 90 derajat;tepat 90 derajat;antara 90 dan 180 derajat;lebih dari 180 derajat,"lancip,siku-siku,tumpul,refleks",
+11,15,essay,practice,Sudut 190 derajat termasuk sudut...,,,,refleks,,,,,,,,,,,,,
+11,16,multipart,practice,Tentukan jenis sudut.,,,,,,,,,,,,,,,,,a|85 derajat|lancip;b|90 derajat|siku-siku;c|135 derajat|tumpul
+11,17,essay,practice,Apakah segitiga bisa memiliki dua sudut siku-siku?,,,,tidak,,,,,,,,,,,,,
+11,18,mcq,practice,Besar setiap sudut pada segitiga sama sisi adalah...,,,,B,,,30 derajat,60 derajat,90 derajat,120 derajat,,,,,,,
+11,19,essay,practice,Segitiga sembarang memiliki berapa garis simetri?,,,,0,,,,,,,,,,,,,
+11,20,multipart,practice,Garis simetri pada segitiga.,,,TODO_IMG_GARIS_SIMETRI.png,,,,,,,,,,,,,,a|Segitiga sama kaki memiliki ... garis simetri|1;b|Segitiga sama sisi memiliki ... garis simetri|3
+11,21,essay,practice,"Segitiga dengan sisi 7 cm, 7 cm, dan 10 cm adalah segitiga...",,,,sama kaki,,,,,,,,,,,,,
+11,22,drag_drop,practice,Pasangkan kumpulan sisi dengan jenis segitiga.,,,,,,,,,,,,,,,3-3-3;4-4-6;5-6-7;3-4-5,"sama sisi,sama kaki,sembarang,siku-siku",
+11,23,essay,practice,Sudut 95 derajat termasuk sudut...,,,,tumpul,,,,,,,,,,,,,
+11,24,multipart,practice,Klasifikasikan segitiga berikut.,,,,,,,,,,,,,,,,,a|Segitiga memiliki satu sudut 90 derajat. Jenis berdasarkan sudut?|siku-siku;b|Dua sudutnya sama besar. Jenis berdasarkan sisi?|sama kaki
+11,25,mcq,practice,Segitiga yang semua sudutnya kurang dari 90 derajat disebut segitiga...,,,,A,,,Lancip,Tumpul,Siku-siku,Refleks,,,,,,,
+11,26,essay,practice,Segitiga dengan satu sudut 100 derajat termasuk segitiga...,,,,tumpul,,,,,,,,,,,,,
+11,27,essay,practice,"Segitiga dengan sudut 45 derajat, 45 derajat, dan 90 derajat adalah segitiga...",,,,sama kaki,,,,,,,,,,,,,
+11,28,multipart,practice,Lengkapi.,,,,,,,,,,,,,,,,,a|Dua sudut segitiga 30 dan 60 derajat. Sudut ketiga?|90 derajat;b|Jenis segitiga berdasarkan sudut?|siku-siku
+11,29,drag_drop,practice,Pasangkan pernyataan dengan jenis segitiga.,,,,,,,,,,,,,,,3 sisi sama panjang;2 sisi sama panjang;semua sisi berbeda;1 sudut 90 derajat,"sama sisi,sama kaki,sembarang,siku-siku",
+11,30,essay,practice,Sudut 45 derajat termasuk sudut...,,,,lancip,,,,,,,,,,,,,
+11,31,essay,practice,Segitiga sama kaki memiliki berapa sudut yang sama besar?,,,,2,,,,,,,,,,,,,
+11,32,multipart,practice,Tentukan jenis segitiga berdasarkan sudut.,,,,,,,,,,,,,,,,,"a|Sudut 30, 60, 90 derajat|siku-siku;b|Sudut 100, 40, 40 derajat|tumpul;c|Sudut 60, 60, 60 derajat|lancip"
+11,33,essay,practice,Segitiga sama sisi memiliki berapa garis simetri?,,,,3,,,,,,,,,,,,,
+11,34,essay,practice,"Segitiga dengan sudut 90 derajat, 30 derajat, dan 60 derajat termasuk segitiga...",,,,siku-siku,,,,,,,,,,,,,
+11,35,mcq,practice,Sudut refleks berada di antara ... derajat.,,,,C,,,0 dan 90,90 dan 180,180 dan 360,360 dan 450,,,,,,,
+11,36,drag_drop,practice,Pasangkan besar sudut dengan jenisnya.,,,,,,,,,,,,,,,75;120;90;225,"lancip,tumpul,siku-siku,refleks",
+11,37,essay,practice,Segitiga dengan dua sisi sama panjang disebut segitiga...,,,,sama kaki,,,,,,,,,,,,,
+11,38,essay,practice,Segitiga sama kaki memiliki berapa garis simetri?,,,,1,,,,,,,,,,,,,
+11,39,multipart,practice,Perhatikan gambar jam.,,,TODO_IMG_JAM_SUDUT.png,,,,,,,,,,,,,,"a|Pukul 03:00, jenis sudut kecilnya|siku-siku;b|Pukul 01:00, jenis sudut kecilnya|lancip;c|Pukul 05:00, jenis sudut kecilnya|tumpul"
+11,40,essay,practice,Apakah segitiga sama sisi memiliki semua sudut sama besar?,,,,ya,,,,,,,,,,,,,

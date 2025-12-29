@@ -2,6 +2,7 @@
 "use client";
 
 import { use, useCallback, useEffect, useState } from "react";
+import { useToast } from "@/app/components/ToastProvider";
 
 type ZoomSession = {
   id: number;
@@ -32,6 +33,7 @@ export default function AdminClassZoomPage({
   const [sessions, setSessions] = useState<ZoomSession[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const toast = useToast();
 
   // form state
   const [title, setTitle] = useState<string>("Sesi Zoom");
@@ -69,7 +71,7 @@ export default function AdminClassZoomPage({
 
   async function handleCreate() {
     if (!startTime || !endTime || !zoomLink) {
-      alert("Tanggal & link zoom wajib diisi");
+      toast.error("Tanggal & link zoom wajib diisi");
       return;
     }
 
@@ -88,7 +90,7 @@ export default function AdminClassZoomPage({
 
       const json = await res.json();
       if (!res.ok || !json.ok) {
-        alert(json.error ?? "Gagal membuat jadwal zoom");
+        toast.error(json.error ?? "Gagal membuat jadwal zoom");
         return;
       }
 
@@ -101,7 +103,7 @@ export default function AdminClassZoomPage({
       fetchZoom();
     } catch (err) {
       console.error("create zoom", err);
-      alert("Terjadi kesalahan");
+      toast.error("Terjadi kesalahan");
     }
   }
 
@@ -116,14 +118,14 @@ export default function AdminClassZoomPage({
 
       const json = await res.json();
       if (!res.ok || !json.ok) {
-        alert(json.error ?? "Gagal menghapus jadwal");
+        toast.error(json.error ?? "Gagal menghapus jadwal");
         return;
       }
 
       fetchZoom();
     } catch (err) {
       console.error("delete zoom", err);
-      alert("Terjadi kesalahan");
+      toast.error("Terjadi kesalahan");
     }
   }
 

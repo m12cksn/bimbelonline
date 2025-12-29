@@ -10,15 +10,15 @@ export async function GET(
     params,
   }: {
     params:
-      | { classId: string; zoomId: string }
-      | Promise<{ classId: string; zoomId: string }>;
+      | { id: string; zoomId: string }
+      | Promise<{ id: string; zoomId: string }>;
   }
 ) {
   try {
     const resolved =
       typeof params === "object" && "then" in params ? await params : params;
 
-    const classId = Number(resolved.classId);
+    const classId = Number(resolved.id);
     const zoomId = Number(resolved.zoomId);
 
     if (Number.isNaN(classId) || Number.isNaN(zoomId)) {

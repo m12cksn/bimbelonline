@@ -5,8 +5,9 @@ import { createSupabaseServerClient } from "@/lib/supabaseServer";
 import type { UserRole } from "@/lib/type";
 import MaterialWithResources from "./material_client";
 import { getUserSubscriptionStatus } from "@/lib/subcription";
+import { resolvePlanAccess } from "@/lib/planAccess";
 
-// Perhatikan: params sekarang bertipe Promise
+// params: Promise<{ id: string }> -> sesuai file kamu
 interface MaterialPageProps {
   params: Promise<{ id: string }>;
 }
@@ -27,29 +28,59 @@ export default async function MaterialPage(props: MaterialPageProps) {
   } = await supabase.auth.getUser();
   if (!user) redirect("/login");
 
-  // 2. cek role
+  // 2. cek role + is_premium dari profiles
   const { data: profile, error: profileError } = await supabase
     .from("profiles")
-    .select("role")
+    .select("role, is_premium, learning_track") // 👈 tambahkan is_premium
     .eq("id", user.id)
     .single();
 
-  if (profileError || !profile) redirect("/login");
+  if (profileError) {
+    console.warn("profiles fetch error", profileError);
+  }
 
-  const role = profile.role as UserRole;
+  const role: UserRole =
+    (profile?.role as UserRole | undefined) ||
+    (user.user_metadata?.role as UserRole | undefined) ||
+    ((user as any)?.app_metadata?.role as UserRole | undefined) ||
+    "student";
+
   if (role !== "student") {
     if (role === "teacher") redirect("/dashboard/teacher");
     if (role === "admin") redirect("/dashboard/admin");
     redirect("/login");
   }
 
-  // ✅ Ambil status premium dari sistem subscription Milestone 3
-  const { isPremium } = await getUserSubscriptionStatus();
+  // ✅ Sumber utama: profiles.is_premium
+  let isPremium = profile?.is_premium === true;
+  let planName: string | null = null;
+  let planCode: string | null = null;
+
+  // (Opsional) Tambahan dari sistem subscription; kalau helper bilang premium, paksa true
+  try {
+    const subStatus = await getUserSubscriptionStatus();
+    if (subStatus?.isPremium) {
+      isPremium = true;
+    }
+    planName = subStatus?.planName ?? null;
+    planCode = subStatus?.planCode ?? null;
+  } catch (e) {
+    console.warn("getUserSubscriptionStatus failed", e);
+  }
+
+  const planAccess = resolvePlanAccess(planCode, planName, isPremium);
+  const questionLimit = planAccess.questionLimit;
+  const planLabel = planAccess.label;
+  const isPremiumPlan = planAccess.isPremium;
+  const planPriceLabel = planAccess.priceLabel;
+  const upgradeOptions = planAccess.upgradeOptions;
 
   // 3. ambil info materi (+ video + pdf)
   const { data: material, error: materialError } = await supabase
     .from("materials")
-    .select("id, title, description, video_url, pdf_url")
+    .select(
+      "id, title, description, video_url, pdf_url, tryout_duration_minutes, subject_id"
+    )
     .eq("id", materialId)
     .single();
 
@@ -57,10 +88,17 @@ export default async function MaterialPage(props: MaterialPageProps) {
     redirect("/dashboard/student");
   }
 
+  const learningTrack =
+    (profile as { learning_track?: string | null })?.learning_track ?? "math";
+
+  if (learningTrack === "coding" && material.subject_id !== 4) {
+    redirect("/materials");
+  }
+
   // 4. ambil daftar soal
   const { data: questions, error: questionError } = await supabase
     .from("questions")
-    .select("id, question_number, text, options")
+    .select("id, material_id, question_number, type, prompt, helper_text, question_image_url, question_mode")
     .eq("material_id", materialId)
     .order("question_number", { ascending: true });
 
@@ -69,6 +107,86 @@ export default async function MaterialPage(props: MaterialPageProps) {
   }
 
   const questionList = questions || [];
+  const questionIds = questionList.map((q) => q.id);
+
+  let optionsByQuestion = new Map();
+  let targetsByQuestion = new Map();
+  let itemsByQuestion = new Map();
+  let partsByQuestion = new Map();
+
+  if (questionIds.length > 0) {
+    const { data: optionRows, error: optionsError } = await supabase
+      .from("question_options")
+      .select("question_id, label, value, image_url, sort_order, is_correct")
+      .in("question_id", questionIds)
+      .order("sort_order", { ascending: true });
+
+    if (optionsError) {
+      console.error("question_options error", optionsError);
+    }
+
+    const { data: targetRows, error: targetsError } = await supabase
+      .from("question_drop_targets")
+      .select("id, question_id, label, placeholder, sort_order")
+      .in("question_id", questionIds)
+      .order("sort_order", { ascending: true });
+
+    if (targetsError) {
+      console.error("question_drop_targets error", targetsError);
+    }
+
+    const { data: itemRows, error: itemsError } = await supabase
+      .from("question_drop_items")
+      .select("id, question_id, label, image_url, correct_target_id, sort_order")
+      .in("question_id", questionIds)
+      .order("sort_order", { ascending: true });
+
+    if (itemsError) {
+      console.error("question_drop_items error", itemsError);
+    }
+
+    const { data: partRows, error: partsError } = await supabase
+      .from("question_items")
+      .select("id, question_id, label, prompt, image_url, sort_order")
+      .in("question_id", questionIds)
+      .order("sort_order", { ascending: true });
+
+    if (partsError) {
+      console.error("question_items error", partsError);
+    }
+
+    for (const row of optionRows || []) {
+      const list = optionsByQuestion.get(row.question_id) || [];
+      list.push(row);
+      optionsByQuestion.set(row.question_id, list);
+    }
+
+    for (const row of targetRows || []) {
+      const list = targetsByQuestion.get(row.question_id) || [];
+      list.push(row);
+      targetsByQuestion.set(row.question_id, list);
+    }
+
+    for (const row of itemRows || []) {
+      const list = itemsByQuestion.get(row.question_id) || [];
+      list.push(row);
+      itemsByQuestion.set(row.question_id, list);
+    }
+
+    for (const row of partRows || []) {
+      const list = partsByQuestion.get(row.question_id) || [];
+      list.push(row);
+      partsByQuestion.set(row.question_id, list);
+    }
+  }
+
+  const normalizedQuestions = questionList.map((q) => ({
+    ...q,
+    options: optionsByQuestion.get(q.id) || [],
+    drop_targets: targetsByQuestion.get(q.id) || [],
+    drop_items: itemsByQuestion.get(q.id) || [],
+    items: partsByQuestion.get(q.id) || [],
+  }));
   const questionCount = questionList.length;
 
   // 5. ambil progress
@@ -84,141 +202,138 @@ export default async function MaterialPage(props: MaterialPageProps) {
   return (
     <div className="min-h-[calc(100vh-80px)] px-4 py-6 md:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl space-y-6">
-        {/* =====================================================
-            HEADER / HERO MATERI
-        ====================================================== */}
+        {/* ====== HEADER MATERI (UI sama persis) ====== */}
         <section
           className="
             relative overflow-hidden rounded-3xl
-            bg-linear-to-br from-sky-900/60 via-slate-900/60 to-indigo-950/80
-            border border-slate-800/80
-            shadow-[0_20px_80px_-40px_rgba(0,0,0,1)]
+            border border-slate-200 bg-white/95
+            shadow-[0_16px_50px_-30px_rgba(15,23,42,0.25)]
             px-5 py-6 md:px-8 md:py-7
           "
         >
-          {/* Glow efek */}
-          <div className="pointer-events-none absolute -left-16 top-0 h-40 w-40 rounded-full bg-cyan-500/25 blur-3xl" />
-          <div className="pointer-events-none absolute -right-10 bottom-0 h-40 w-40 rounded-full bg-violet-500/25 blur-3xl" />
+          <div className="pointer-events-none absolute -left-16 top-0 h-40 w-40 rounded-full bg-emerald-200/60 blur-3xl" />
+          <div className="pointer-events-none absolute -right-10 bottom-0 h-40 w-40 rounded-full bg-sky-200/60 blur-3xl" />
 
           <div className="relative z-10 space-y-4">
-            {/* Breadcrumb */}
-            <div className="flex flex-wrap items-center gap-2 text-[11px] text-cyan-200/80">
+            <div className="flex flex-wrap items-center gap-2 text-[11px] text-emerald-700">
               <Link
                 href="/materials"
-                className="inline-flex items-center gap-1 rounded-full bg-slate-900/60 px-3 py-1 hover:bg-slate-800/80 transition"
+                className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-3 py-1 text-emerald-700 hover:bg-emerald-100 transition"
               >
-                ⬅️
-                <span>Kembali ke daftar materi</span>
+                <span>Back</span>
+                <span>Daftar materi</span>
               </Link>
-              <span className="hidden text-slate-500 md:inline">/</span>
-              <span className="hidden text-slate-400 md:inline">
+              <span className="hidden text-slate-400 md:inline">/</span>
+              <span className="hidden text-slate-500 md:inline">
                 Latihan materi
               </span>
             </div>
-            {/* Judul + Info singkat */}
+
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <div className="space-y-2">
-                <p className="text-[11px] uppercase tracking-[0.25em] text-cyan-300/80">
+                <p className="text-[11px] uppercase tracking-[0.25em] text-emerald-600">
                   Material #{material.id}
                 </p>
-                <h1 className="text-2xl md:text-3xl font-bold text-white">
+                <h1 className="text-2xl md:text-3xl font-bold text-slate-900">
                   {material.title}
                 </h1>
                 {material.description && (
-                  <p className="max-w-xl text-sm md:text-[15px] text-slate-200/90 leading-relaxed">
+                  <p className="max-w-xl text-sm md:text-[15px] text-slate-600 leading-relaxed">
                     {material.description}
                   </p>
                 )}
               </div>
 
-              {/* Badge status & info resource */}
-              <div className="mt-2 flex w-full max-w-xs flex-col gap-3 rounded-2xl border border-sky-500/40 bg-slate-950/60 px-4 py-4 text-xs text-slate-100">
+              <div className="mt-2 flex w-full max-w-xs flex-col gap-3 rounded-2xl border border-emerald-200 bg-emerald-50/70 px-4 py-4 text-xs text-slate-700">
                 <div className="flex items-center justify-between">
-                  <span className="text-[11px] text-slate-400">
+                  <span className="text-[11px] text-slate-500">
                     Status akun
                   </span>
                   <span
                     className={`rounded-full px-3 py-1 text-[11px] font-semibold border ${
-                      isPremium
-                        ? "border-amber-400/60 bg-amber-400/15 text-amber-200"
-                        : "border-cyan-400/60 bg-cyan-500/10 text-cyan-200"
+                      isPremiumPlan
+                        ? "border-amber-300 bg-amber-100 text-amber-700"
+                        : "border-emerald-300 bg-emerald-100 text-emerald-700"
                     }`}
                   >
-                    {isPremium ? "Premium Student 🌟" : "Free Student"}
+                    {isPremiumPlan ? `${planLabel} Student` : "Free Student"}
                   </span>
                 </div>
 
-                <div className="h-px bg-slate-800/80" />
+                <div className="h-px bg-emerald-100" />
 
                 <div className="flex items-center justify-between">
-                  <span className="text-[11px] text-slate-400">
+                  <span className="text-[11px] text-slate-500">
                     Jumlah soal
                   </span>
-                  <span className="font-semibold text-sky-200">
+                  <span className="font-semibold text-emerald-700">
                     {questionCount} soal
                   </span>
                 </div>
 
                 <div className="flex flex-wrap gap-2 pt-1">
                   {material.video_url && (
-                    <span className="rounded-full bg-slate-900/80 px-3 py-1 text-[11px] text-cyan-200">
-                      🎥 Ada video penjelasan
+                    <span className="rounded-full bg-white px-3 py-1 text-[11px] text-emerald-700 border border-emerald-200">
+                      Ada video penjelasan
                     </span>
                   )}
                   {material.pdf_url && (
-                    <span className="rounded-full bg-slate-900/80 px-3 py-1 text-[11px] text-emerald-200">
-                      📄 Ada worksheet / PDF
+                    <span className="rounded-full bg-white px-3 py-1 text-[11px] text-emerald-700 border border-emerald-200">
+                      Ada worksheet / PDF
                     </span>
                   )}
                   {!material.video_url && !material.pdf_url && (
-                    <span className="rounded-full bg-slate-900/80 px-3 py-1 text-[11px] text-slate-300">
-                      ✏️ Fokus latihan soal
+                    <span className="rounded-full bg-white px-3 py-1 text-[11px] text-slate-600 border border-slate-200">
+                      Fokus latihan soal
                     </span>
                   )}
                 </div>
+
                 <Link
                   href={`/dashboard/student/materials/${material.id}/analysis`}
                   className="
-    mt-3 inline-flex items-center gap-2 rounded-xl
-    bg-emerald-500/20 hover:bg-emerald-500/30
-    border border-emerald-500/20
-    px-4 py-2 text-xs md:text-sm font-medium
-    text-emerald-200 transition
-  "
+                    mt-3 inline-flex items-center gap-2 rounded-xl
+                    bg-emerald-600 hover:bg-emerald-700
+                    border border-emerald-600
+                    px-4 py-2 text-xs md:text-sm font-medium
+                    text-white transition
+                  "
                 >
-                  📊 Lihat laporan hasil materi ini
+                  Lihat laporan hasil materi ini
                 </Link>
               </div>
             </div>
 
-            <p className="text-[11px] text-slate-400">
-              Tips: kerjakan soal satu per satu. Kalau salah, tidak apa-apa —
-              itu tanda otakmu sedang belajar. 💡
+            <p className="text-[11px] text-slate-500">
+              Tips: kerjakan soal satu per satu. Kalau salah, tidak apa-apa -
+              itu tanda otakmu sedang belajar.
             </p>
           </div>
         </section>
 
-        {/* =====================================================
-            AREA LATIHAN (QUIZ + RESOURCE)
-        ====================================================== */}
+        {/* ====== AREA LATIHAN ====== */}
         <section
           className="
             relative overflow-hidden rounded-3xl
-            border border-slate-800 bg-slate-950/80
+            border border-slate-200 bg-white
             p-4 md:p-6 lg:p-8
-            shadow-[0_18px_60px_-45px_rgba(0,0,0,1)]
+            shadow-[0_18px_50px_-40px_rgba(15,23,42,0.2)]
           "
         >
-          <div className="pointer-events-none absolute -left-10 top-10 h-32 w-32 rounded-full bg-cyan-500/10 blur-3xl" />
-          <div className="pointer-events-none absolute -right-16 bottom-0 h-40 w-40 rounded-full bg-indigo-500/15 blur-3xl" />
+          <div className="pointer-events-none absolute -left-10 top-10 h-32 w-32 rounded-full bg-emerald-200/50 blur-3xl" />
+          <div className="pointer-events-none absolute -right-16 bottom-0 h-40 w-40 rounded-full bg-sky-200/50 blur-3xl" />
 
           <div className="relative z-10">
             <MaterialWithResources
               material={material}
-              questions={questionList}
+              questions={normalizedQuestions}
               initialLastNumber={lastQuestionNumber}
               userId={user.id}
-              isPremium={isPremium}
+              isPremium={isPremiumPlan}
+              questionLimit={questionLimit}
+              planLabel={planLabel}
+              planPriceLabel={planPriceLabel}
+              upgradeOptions={upgradeOptions}
             />
           </div>
         </section>

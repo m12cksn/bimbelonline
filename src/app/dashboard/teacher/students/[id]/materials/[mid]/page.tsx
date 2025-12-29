@@ -10,9 +10,9 @@ interface Props {
 
 type AttemptRow = {
   id: string;
-  question_id: number;
+  question_id: string;
   question_number: number | null;
-  question_text: string | null;
+  question_prompt: string | null;
   selected_answer: string | null;
   is_correct: boolean | null;
   correct_answer: string | null;
@@ -76,13 +76,14 @@ export default async function TeacherStudentMaterialAttemptsPage(props: Props) {
   // 3) ambil attempts + join questions (type-safe)
   type AttemptFromDB = {
     id: string;
-    question_id: number;
+    question_id: string;
     is_correct: boolean | null;
     selected_answer: string | null;
     created_at: string | null;
     questions: {
       question_number: number | null;
-      text: string | null;
+      prompt: string | null;
+      type: string | null;
       correct_answer: string | null;
       explanation: string | null;
     } | null;
@@ -99,7 +100,8 @@ export default async function TeacherStudentMaterialAttemptsPage(props: Props) {
       created_at,
       questions (
         question_number,
-        text,
+        prompt,
+        type,
         correct_answer,
         explanation
       )
@@ -114,15 +116,73 @@ export default async function TeacherStudentMaterialAttemptsPage(props: Props) {
     console.error("Error fetching attempts:", attemptsError);
   }
 
+  const questionIds = Array.from(
+    new Set((attemptsData || []).map((row) => row.question_id))
+  );
+
+  const { data: optionRows } = questionIds.length
+    ? await supabase
+        .from("question_options")
+        .select("question_id, label, value, is_correct")
+        .in("question_id", questionIds)
+    : { data: [] };
+
+  const { data: partRows } = questionIds.length
+    ? await supabase
+        .from("question_items")
+        .select("id, question_id, label, prompt")
+        .in("question_id", questionIds)
+    : { data: [] };
+
+  const partItemIds = (partRows || []).map((row) => row.id);
+  const { data: partAnswerRows } = partItemIds.length
+    ? await supabase
+        .from("question_item_answers")
+        .select("item_id, answer_text")
+        .in("item_id", partItemIds)
+    : { data: [] };
+
+  const correctOptionByQuestion = new Map<string, string>();
+  for (const row of optionRows || []) {
+    if (row.is_correct) {
+      correctOptionByQuestion.set(row.question_id, row.label ?? row.value);
+    }
+  }
+
+  const partAnswerByItem = new Map<string, string>();
+  for (const row of partAnswerRows || []) {
+    if (row?.item_id && typeof row.answer_text === "string") {
+      partAnswerByItem.set(row.item_id, row.answer_text);
+    }
+  }
+
+  const multipartAnswerByQuestion = new Map<string, string>();
+  for (const row of partRows || []) {
+    const list = multipartAnswerByQuestion.get(row.question_id) ?? "";
+    const answer = partAnswerByItem.get(row.id) ?? "";
+    if (!answer) continue;
+    const label = row.label || "-";
+    const segment = `${label}. ${answer}`;
+    multipartAnswerByQuestion.set(
+      row.question_id,
+      list ? `${list} | ${segment}` : segment
+    );
+  }
+
   // map ke AttemptRow[] yang nyaman dipakai di UI tanpa `any`
   const attempts: AttemptRow[] = (attemptsData || []).map((r) => ({
     id: r.id,
     question_id: r.question_id,
     question_number: r.questions?.question_number ?? null,
-    question_text: r.questions?.text ?? null,
+    question_prompt: r.questions?.prompt ?? null,
     selected_answer: r.selected_answer ?? null,
     is_correct: typeof r.is_correct === "boolean" ? r.is_correct : null,
-    correct_answer: r.questions?.correct_answer ?? null,
+    correct_answer:
+      r.questions?.type === "mcq"
+        ? correctOptionByQuestion.get(r.question_id) ?? null
+        : r.questions?.type === "multipart"
+        ? multipartAnswerByQuestion.get(r.question_id) ?? null
+        : r.questions?.correct_answer ?? null,
     explanation: r.questions?.explanation ?? null,
     created_at: r.created_at ?? null,
   }));
@@ -215,7 +275,7 @@ export default async function TeacherStudentMaterialAttemptsPage(props: Props) {
                     </td>
                     <td className="px-2 py-2 align-top max-w-xl">
                       <div className="text-slate-50">
-                        {a.question_text ?? "-"}
+                        {a.question_prompt ?? "-"}
                       </div>
                     </td>
                     <td className="px-2 py-2 align-top">

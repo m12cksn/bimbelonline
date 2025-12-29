@@ -81,7 +81,44 @@ export async function GET(_: Request, props: Params) {
     profiles: { full_name: string | null } | null;
   };
 
-  let rows: Row[] = (data as Row[]) || [];
+  const toNumberOrNull = (value: unknown) =>
+    typeof value === "number" ? value : value === null ? null : null;
+
+  const toProfile = (value: unknown): { full_name: string | null } | null => {
+    if (Array.isArray(value)) {
+      const first = value[0] as Record<string, unknown> | undefined;
+      if (!first) return null;
+      if (typeof first.full_name === "string") {
+        return { full_name: first.full_name };
+      }
+      if (first.full_name === null) {
+        return { full_name: null };
+      }
+      return null;
+    }
+    if (value && typeof value === "object") {
+      const obj = value as Record<string, unknown>;
+      if (typeof obj.full_name === "string") {
+        return { full_name: obj.full_name };
+      }
+      if (obj.full_name === null) {
+        return { full_name: null };
+      }
+    }
+    return null;
+  };
+
+  let rows: Row[] = Array.isArray(data)
+    ? data.map((row) => {
+        const raw = row as Record<string, unknown>;
+        return {
+          user_id: typeof raw.user_id === "string" ? raw.user_id : "",
+          score: toNumberOrNull(raw.score),
+          attempt_number: toNumberOrNull(raw.attempt_number),
+          profiles: toProfile(raw.profiles),
+        };
+      })
+    : [];
 
   // Fallback jika tabel material_attempts belum ada: gunakan akurasi dari question_attempts
   if (error && isMissingMaterialAttemptsTable(error)) {

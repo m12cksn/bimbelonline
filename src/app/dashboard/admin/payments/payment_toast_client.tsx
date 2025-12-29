@@ -2,21 +2,23 @@
 
 import { useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
+import { useToast } from "@/app/components/ToastProvider";
 
 export default function PaymentsToastClient() {
   const params = useSearchParams();
   const router = useRouter();
+  const toast = useToast();
 
   useEffect(() => {
     const approved = params.get("approved");
     const rejected = params.get("rejected");
 
     if (approved === "1") {
-      alert("✅ Pembayaran berhasil di-approve!");
+      toast.success("Pembayaran berhasil di-approve.");
     }
 
     if (rejected === "1") {
-      alert("❌ Pembayaran berhasil di-reject.");
+      toast.info("Pembayaran berhasil di-reject.");
     }
 
     if (approved === "1" || rejected === "1") {

@@ -18,25 +18,21 @@ type MaterialRow = {
 };
 
 type QuestionRow = {
-  id: number;
+  id: string;
   question_number: number;
-  text: string;
-  correct_answer: string;
-};
-
-type MaterialAttemptRow = {
-  attempt_number: number;
-  correct: number;
-  wrong: number;
-  total_answered: number;
-  score: number;
+  prompt: string;
+  type: string;
+  correct_answer: string | null;
+  correct_answer_image_url: string | null;
+  explanation: string | null;
 };
 
 type QuestionAttemptRow = {
-  question_id: number;
+  question_id: string;
   is_correct: boolean;
   selected_answer: string | null;
-  attempt_number: number;
+  attempt_number: number | null;
+  created_at: string | null;
 };
 
 type QuestionStatus = "unanswered" | "correct" | "wrong";
@@ -98,7 +94,9 @@ export default async function MaterialAnalysisPage(props: AnalysisPageProps) {
   // 4. Ambil semua soal untuk materi ini (sekarang termasuk text & correct_answer)
   const { data: questions, error: questionsError } = await supabase
     .from("questions")
-    .select("id, question_number, text, correct_answer")
+    .select(
+      "id, question_number, prompt, type, correct_answer, correct_answer_image_url, explanation"
+    )
     .eq("material_id", materialId)
     .order("question_number", { ascending: true });
 
@@ -107,32 +105,131 @@ export default async function MaterialAnalysisPage(props: AnalysisPageProps) {
   }
 
   const questionList: QuestionRow[] = questions ?? [];
-  const totalQuestions = questionList.length;
-  const questionById = new Map<number, QuestionRow>();
-  questionList.forEach((q) => questionById.set(q.id, q));
+  const questionIds = questionList.map((q) => q.id);
 
-  // 5. Ambil summary attempt per materi (attempt 1 & 2)
-  const { data: attemptRows, error: attemptsError } = await supabase
-    .from("material_attempts")
-    .select("attempt_number, correct, wrong, total_answered, score")
-    .eq("user_id", user.id)
-    .eq("material_id", materialId)
-    .order("attempt_number", { ascending: true });
+  const optionRows = questionIds.length
+    ? await supabase
+        .from("question_options")
+        .select("question_id, label, value, is_correct")
+        .in("question_id", questionIds)
+    : { data: [] };
 
-  if (attemptsError) {
-    console.error("material_attempts error:", attemptsError);
+  const targetRows = questionIds.length
+    ? await supabase
+        .from("question_drop_targets")
+        .select("id, question_id, label")
+        .in("question_id", questionIds)
+    : { data: [] };
+
+  const itemRows = questionIds.length
+    ? await supabase
+        .from("question_drop_items")
+        .select("question_id, label, correct_target_id")
+        .in("question_id", questionIds)
+    : { data: [] };
+
+  const partRows = questionIds.length
+    ? await supabase
+        .from("question_items")
+        .select("id, question_id, label, prompt")
+        .in("question_id", questionIds)
+    : { data: [] };
+
+  const partItemIds = (partRows.data || []).map((row) => row.id);
+  const partAnswerRows = partItemIds.length
+    ? await supabase
+        .from("question_item_answers")
+        .select("item_id, answer_text")
+        .in("item_id", partItemIds)
+    : { data: [] };
+
+  const optionsByQuestion = new Map<string, any[]>();
+  for (const row of optionRows.data || []) {
+    const list = optionsByQuestion.get(row.question_id) || [];
+    list.push(row);
+    optionsByQuestion.set(row.question_id, list);
   }
 
-  const attempts: MaterialAttemptRow[] = attemptRows ?? [];
-  const attempt1 = attempts.find((a) => a.attempt_number === 1) ?? null;
-  const attempt2 = attempts.find((a) => a.attempt_number === 2) ?? null;
+  const targetsByQuestion = new Map<string, any[]>();
+  for (const row of targetRows.data || []) {
+    const list = targetsByQuestion.get(row.question_id) || [];
+    list.push(row);
+    targetsByQuestion.set(row.question_id, list);
+  }
 
-  // 6. Ambil semua attempt per soal untuk user ini
+  const itemsByQuestion = new Map<string, any[]>();
+  for (const row of itemRows.data || []) {
+    const list = itemsByQuestion.get(row.question_id) || [];
+    list.push(row);
+    itemsByQuestion.set(row.question_id, list);
+  }
+
+  const partAnswerByItem = new Map<string, string>();
+  for (const row of partAnswerRows.data || []) {
+    if (row?.item_id && typeof row.answer_text === "string") {
+      partAnswerByItem.set(row.item_id, row.answer_text);
+    }
+  }
+
+  const partsByQuestion = new Map<string, any[]>();
+  for (const row of partRows.data || []) {
+    const list = partsByQuestion.get(row.question_id) || [];
+    list.push({
+      id: row.id,
+      label: row.label,
+      prompt: row.prompt,
+      answer: partAnswerByItem.get(row.id) ?? "",
+    });
+    partsByQuestion.set(row.question_id, list);
+  }
+
+  const correctAnswerByQuestion = new Map<string, string>();
+  const correctAnswerImageByQuestion = new Map<string, string | null>();
+  for (const q of questionList) {
+    let answer = q.correct_answer ?? "";
+    if (q.type === "mcq") {
+      const options = optionsByQuestion.get(q.id) || [];
+      const correctOption = options.find((opt) => opt.is_correct);
+      answer = correctOption?.label ?? correctOption?.value ?? "";
+    } else if (q.type === "multipart") {
+      const parts = partsByQuestion.get(q.id) || [];
+      answer = parts
+        .map((item) => {
+          const label = item.label || "-";
+          const value = item.answer || "";
+          if (!value) return null;
+          return `${label}. ${value}`;
+        })
+        .filter(Boolean)
+        .join(" | ");
+    } else if (q.type === "drag_drop") {
+      const targets = targetsByQuestion.get(q.id) || [];
+      const items = itemsByQuestion.get(q.id) || [];
+      const targetMap = new Map<string, string>();
+      targets.forEach((target) => targetMap.set(target.id, target.label));
+      answer = items
+        .map((item) => {
+          const targetLabel = targetMap.get(item.correct_target_id) ?? "";
+          if (!targetLabel) return null;
+          return `${targetLabel}: ${item.label}`;
+        })
+        .filter(Boolean)
+        .join(", ");
+    }
+    correctAnswerByQuestion.set(q.id, answer || "-");
+    correctAnswerImageByQuestion.set(q.id, q.correct_answer_image_url ?? null);
+  }
+  const totalQuestions = questionList.length;
+  const questionById = new Map<string, QuestionRow>();
+  questionList.forEach((q) => questionById.set(q.id, q));
+
+  // 5. Ambil semua attempt per soal untuk user ini
   const { data: perQuestionAttempts, error: perQuestionError } = await supabase
     .from("question_attempts")
-    .select("question_id, is_correct, selected_answer, attempt_number")
+    .select("question_id, is_correct, selected_answer, attempt_number, created_at")
     .eq("user_id", user.id)
-    .eq("material_id", materialId);
+    .eq("material_id", materialId)
+    .order("created_at", { ascending: false });
 
   if (perQuestionError) {
     console.error("question_attempts error:", perQuestionError);
@@ -140,8 +237,43 @@ export default async function MaterialAnalysisPage(props: AnalysisPageProps) {
 
   const questionAttempts: QuestionAttemptRow[] = perQuestionAttempts ?? [];
 
+  const normalizeAttemptNumber = (value: number | null) => {
+    if (value === 2) return 2;
+    if (value === 1 || value === 0 || value === null) return 1;
+    return null;
+  };
+
+  const buildAttemptSummary = (attemptNo: 1 | 2) => {
+    const uniqueByQuestion = new Map<string, QuestionAttemptRow>();
+    for (const row of questionAttempts) {
+      const normalized = normalizeAttemptNumber(row.attempt_number);
+      if (normalized !== attemptNo) continue;
+      if (uniqueByQuestion.has(row.question_id)) continue;
+      uniqueByQuestion.set(row.question_id, row);
+    }
+    if (uniqueByQuestion.size === 0) return null;
+
+    const rows = Array.from(uniqueByQuestion.values());
+    const correct = rows.filter((row) => row.is_correct).length;
+    const totalAnswered = rows.length;
+    const wrong = Math.max(0, totalAnswered - correct);
+    const score =
+      totalQuestions > 0 ? Math.round((correct / totalQuestions) * 100) : 0;
+
+    return {
+      attempt_number: attemptNo,
+      correct,
+      wrong,
+      total_answered: totalAnswered,
+      score,
+    };
+  };
+
+  const attempt1 = buildAttemptSummary(1);
+  const attempt2 = buildAttemptSummary(2);
+
   // 7a. Status akhir per soal (untuk ringkasan besar di tengah)
-  const statusByQuestionId = new Map<number, QuestionStatus>();
+  const statusByQuestionId = new Map<string, QuestionStatus>();
   questionAttempts.forEach((row) => {
     const current = statusByQuestionId.get(row.question_id);
     if (row.is_correct) {
@@ -189,7 +321,9 @@ export default async function MaterialAnalysisPage(props: AnalysisPageProps) {
   // 7b. Detail per attempt (untuk bubble + popover percobaan 1 & 2)
   const attemptsByQAndAttempt = new Map<string, QuestionAttemptRow>();
   questionAttempts.forEach((row) => {
-    const key = `${row.question_id}-${row.attempt_number}`;
+    const normalized = normalizeAttemptNumber(row.attempt_number);
+    if (!normalized) return;
+    const key = `${row.question_id}-${normalized}`;
     if (!attemptsByQAndAttempt.has(key)) {
       attemptsByQAndAttempt.set(key, row);
     }
@@ -207,9 +341,11 @@ export default async function MaterialAnalysisPage(props: AnalysisPageProps) {
       return {
         questionNumber: q.question_number,
         status,
-        questionText: q.text,
+        questionText: q.prompt,
         selectedAnswer: attemptRow?.selected_answer ?? null,
-        correctAnswer: q.correct_answer,
+        correctAnswer: correctAnswerByQuestion.get(q.id) ?? "-",
+        correctAnswerImage: correctAnswerImageByQuestion.get(q.id) ?? null,
+        explanation: q.explanation,
       };
     });
   };
