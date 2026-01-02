@@ -1,0 +1,41 @@
+material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
+44,1,essay,practice,,🔺 ini bentuk apa?,,,segitiga,,Segitiga memiliki 3 sisi.,,,,,,,,,,,
+44,2,essay,practice,,⬛ ini bentuk apa?,,,segi empat,,Segi empat memiliki 4 sisi.,,,,,,,,,,,
+44,3,essay,practice,,⚪ ini bentuk apa?,,,bentuk lengkung,,Lingkaran termasuk bentuk lengkung.,,,,,,,,,,,
+44,4,mcq,practice,,Pilih yang segitiga.,,,,A,,Rambu segitiga,Bola,Buku,Meja,,,,,,,,
+44,5,mcq,practice,,Pilih yang segi empat.,,,,A,,HP,Donat,Bola,Rambu segitiga,,,,,,,,
+44,6,mcq,practice,,Pilih yang lengkung.,,,,C,,Rambu segitiga,Buku,Donat,Meja,,,,,,,,
+44,7,essay,practice,,Kelompokkan warna: 🔴🔴🟢🟢🔵 (berapa merah?),,,2,,Ada 2 warna merah.,,,,,,,,,,,
+44,8,essay,practice,,Kelompokkan warna: 🔴🔴🟢🟢🔵 (berapa hijau?),,,2,,Ada 2 warna hijau.,,,,,,,,,,,
+44,9,essay,practice,,Kelompokkan ukuran: 🔵 besar dan 🔵 kecil (berapa besar?),,,1,,Satu yang besar.,,,,,,,,,,,
+44,10,essay,practice,,Lingkari semua segitiga: 🔺 ⬛ 🔺 ⚪ (berapa segitiga?),,,2,,Ada 2 segitiga.,,,,,,,,,,,
+44,11,essay,practice,,Lingkari semua segi empat: ⬛ ⚪ ⬛ 🔺 (berapa segi empat?),,,2,,Ada 2 segi empat.,,,,,,,,,,,
+44,12,essay,practice,,Lingkari semua bentuk lengkung: ⚪ 🔺 ⚪ ⬛ (berapa lengkung?),,,2,,Ada 2 bentuk lengkung.,,,,,,,,,,,
+44,13,essay,practice,,Benda berbentuk segitiga di kelas? (tulis contoh),,,contoh segitiga,,Contoh: penggaris segitiga.,,,,,,,,,,,
+44,14,essay,practice,,Benda berbentuk segi empat di kelas? (tulis contoh),,,contoh segi empat,,Contoh: buku atau papan.,,,,,,,,,,,
+44,15,essay,practice,,Benda berbentuk lengkung di kelas? (tulis contoh),,,contoh lengkung,,Contoh: jam dinding.,,,,,,,,,,,
+44,16,essay,practice,,Susun bentuk rumah sederhana terdiri dari? (tulis),,,segitiga + segi empat,,Atap segitiga dan badan segi empat.,,,,,,,,,,,
+44,17,mcq,practice,,Bentuk segitiga adalah...,,,A,,Segitiga punya 3 sisi.,🔺,⬛,⚪,⭐,,,,,,,
+44,18,mcq,practice,,Bentuk segi empat adalah...,,,B,,Segi empat punya 4 sisi.,🔺,⬛,⚪,⭐,,,,,,,
+44,19,mcq,practice,,Bentuk lengkung adalah...,,,C,,Lingkaran bentuk lengkung.,🔺,⬛,⚪,🔷,,,,,,,
+44,20,mcq,practice,,Benda berbentuk segitiga,,,D,,Rambu segitiga.,⚽,📘,🍩,⚠️,,,,,,,
+44,21,mcq,practice,,Benda berbentuk segi empat,,,A,,HP berbentuk segi empat.,📱,⚽,🍩,⚪,,,,,,,
+44,22,mcq,practice,,Benda berbentuk lengkung,,,B,,Bola berbentuk lengkung.,📘,⚽,🔺,⬛,,,,,,,
+44,23,mcq,practice,,Mana pasangan bentuk yang sama?,,,C,,Dua segitiga sama.,🔺 dan ⬛,⚪ dan ⬛,🔺 dan 🔺,⚪ dan 🔺,,,,,,,
+44,24,mcq,practice,,Kelompokkan berdasarkan warna: merah adalah...,,,B,,Ikon merah.,🟢,🔴,🔵,⚪,,,,,,,
+44,25,mcq,practice,,Kelompokkan berdasarkan ukuran: besar adalah...,,,A,,Ikon besar.,🔵 besar,🔵 kecil,🔺 kecil,⬛ kecil,,,,,,,
+44,26,mcq,practice,,Bentuk rumah biasanya tersusun dari...,,,D,,Segitiga + segi empat.,2 segitiga,2 lingkaran,1 lingkaran,segitiga + segi empat,,,,,,,
+44,27,mcq,practice,,Bentuk dengan 4 sisi disebut...,,,B,,Segi empat.,segitiga,segi empat,lingkaran,bentuk lengkung,,,,,,,
+44,28,mcq,practice,,Bentuk dengan 3 sisi disebut...,,,A,,Segitiga.,segitiga,segi empat,lingkaran,bentuk lengkung,,,,,,,
+44,29,drag_drop,practice,,Pasangkan bentuk dengan namanya.,,,,,Cocokkan bentuk dan nama.,,,,,,,,,🔺;⬛;⚪,segitiga;segi empat;bentuk lengkung,
+44,30,drag_drop,practice,,Pasangkan benda dengan bentuk.,,,,,Cocokkan benda dan bentuk.,,,,,,,,,⚽;📘;⚠️,bentuk lengkung;segi empat;segitiga,
+44,31,drag_drop,practice,,Pasangkan warna yang sama.,,,,,Kelompokkan berdasarkan warna.,,,,,,,,,🔴;🟢;🔵,merah;hijau;biru,
+44,32,drag_drop,practice,,Pasangkan ukuran.,,,,,Kelompokkan berdasarkan ukuran.,,,,,,,,,🔵 besar;🔵 kecil;🔺 besar;🔺 kecil,besar;kecil;besar;kecil,
+44,33,drag_drop,practice,,Pasangkan gambar dengan bentuk.,,TODO_IMG_SHAPE_SET.png,,,Cocokkan gambar dan bentuk.,,,,,,,,,TODO_IMG_TRIANGLE;TODO_IMG_RECTANGLE;TODO_IMG_CIRCLE,segitiga;segi empat;bentuk lengkung,
+44,34,drag_drop,practice,,Pasangkan bentuk dengan kelompoknya.,,,,,Kelompokkan berdasarkan bentuk.,,,,,,,,,🔺;🔺;⬛;⚪,segitiga;segitiga;segi empat;bentuk lengkung,
+44,35,multipart,practice,,Kenali bentuk.,,,,,Kerjakan tiap bagian.,,,,,,,,,,,a|🔺 disebut?|segitiga;b|⬛ disebut?|segi empat;c|⚪ disebut?|bentuk lengkung
+44,36,multipart,practice,,Kelompokkan warna.,,,,,Hitung jumlah warna.,,,,,,,,,,,a|🔴🔴🟢 (berapa merah?)|2;b|🔵🔵🔵 (berapa biru?)|3;c|🟢🟢 (berapa hijau?)|2
+44,37,multipart,practice,,Kelompokkan bentuk.,,,,,Hitung bentuk sesuai jenisnya.,,,,,,,,,,,a|🔺🔺⚪ (berapa segitiga?)|2;b|⬛⬛🔺 (berapa segi empat?)|2;c|⚪⚪🔺 (berapa lengkung?)|2
+44,38,multipart,practice,,Benda dan bentuk.,,,,,Cocokkan benda dengan bentuk.,,,,,,,,,,,a|⚽ bentuknya?|bentuk lengkung;b|📘 bentuknya?|segi empat;c|⚠️ bentuknya?|segitiga
+44,39,multipart,practice,,Susun bentuk.,,,,,Bagian-bagian benda punya bentuk dasar.,,,,,,,,,,,a|Atap rumah bentuknya?|segitiga;b|Dinding rumah bentuknya?|segi empat;c|Roda bentuknya?|bentuk lengkung
+44,40,multipart,practice,,Berdasarkan ukuran.,,,,,Hitung berdasarkan ukuran.,,,,,,,,,,,a|🔵 besar + 🔵 kecil (berapa besar?)|1;b|🔺 besar + 🔺 kecil (berapa kecil?)|1;c|⬛ besar + ⬛ kecil (berapa kecil?)|1

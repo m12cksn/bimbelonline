@@ -1,0 +1,40 @@
+62-1: Sinar garis satu arah tanpa batas, ruas garis punya dua titik ujung.
+62-2: Garis dapat diperpanjang ke dua arah.
+62-3: Ruas garis ditulis dengan dua titik ujung, misal PQ.
+62-4: Segitiga memiliki 3 sisi dan 3 sudut.
+62-5: Meja, buku, pintu biasanya memiliki sudut siku-siku.
+62-6: Sudut 90° adalah sudut siku-siku.
+62-7: Ukuran sudut ditulis dalam derajat.
+62-8: Rel kereta, garis-garis buku tulis, pagar sejajar.
+62-9: Tepi meja dengan kaki meja, garis pada kertas kotak.
+62-10: Sudut A ukurannya lebih besar daripada sudut B.
+62-11: Persegi memiliki 4 sisi dan 4 sudut siku-siku.
+62-12: Garis tidak memiliki ujung (tak berhingga).
+62-13: Ruas garis diperpanjang satu arah menjadi sinar garis.
+62-14: Sudut dinamai dengan tiga huruf, titik sudut di tengah.
+62-15: Segiempat punya 4 sisi.
+62-16: Sudut < 90° adalah sudut lancip.
+62-17: Ruas garis memiliki dua titik ujung.
+62-18: Sudut siku-siku adalah 90°.
+62-19: Garis sejajar tidak berpotongan.
+62-20: Tegak lurus membentuk 90°.
+62-21: 120° paling besar.
+62-22: Sinar garis memiliki satu titik ujung.
+62-23: 3 sisi = segitiga.
+62-24: 180° adalah sudut lurus.
+62-25: Tentukan pasangan garis sejajar pada gambar.
+62-26: Sudut < 90° adalah sudut lancip.
+62-27: 90° < sudut < 180° adalah sudut tumpul.
+62-28: 90° menunjukkan garis tegak lurus.
+62-29: Cocokkan istilah garis dengan cirinya.
+62-30: Cocokkan jenis sudut dengan ukurannya.
+62-31: Cocokkan bangun datar dengan jumlah sisinya.
+62-32: Rel kereta sejajar, buku/kertas kotak tegak lurus, pelangi kurva.
+62-33: Cocokkan nama sudut dengan besar sudut pada gambar.
+62-34: Tentukan pernyataan benar atau salah.
+62-35: Klasifikasi sudut berdasarkan besar derajat.
+62-36: Tentukan jenis garis dari cirinya.
+62-37: Gunakan besar sudut untuk menentukan jenisnya.
+62-38: Setiap bangun memiliki jumlah sisi dan sudut yang sama.
+62-39: Bandingkan besar sudut pada gambar.
+62-40: Sudut sehadap pada garis sejajar besarnya sama.

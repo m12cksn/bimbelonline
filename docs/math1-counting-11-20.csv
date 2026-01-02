@@ -1,0 +1,41 @@
+material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
+45,1,essay,practice,,"Hitung: 11, 12, __, 14",,,13,,Urutan maju bertambah 1.,,,,,,,,,,,
+45,2,essay,practice,,"Lengkapi: 15, 16, 17, __, 19",,,18,,Urutan maju bertambah 1.,,,,,,,,,,,
+45,3,essay,practice,,"Hitung mundur: 20, 19, __, 17",,,18,,Urutan mundur berkurang 1.,,,,,,,,,,,
+45,4,essay,practice,,Tuliskan angka: 'seventeen' (Indonesia)?,,,17,,Seventeen = 17.,,,,,,,,,,,
+45,5,essay,practice,,Nilai tempat 14 = __ puluhan + __ satuan,,,1 puluhan 4 satuan,,14 terdiri dari 1 puluhan dan 4 satuan.,,,,,,,,,,,
+45,6,essay,practice,,Nilai tempat 19 = __ puluhan + __ satuan,,,1 puluhan 9 satuan,,19 terdiri dari 1 puluhan dan 9 satuan.,,,,,,,,,,,
+45,7,essay,practice,,Mana lebih besar: 12 atau 18?,,,18,,18 lebih besar dari 12.,,,,,,,,,,,
+45,8,essay,practice,,"Urutkan dari kecil ke besar: 13, 18, 11",,,"11,13,18",,Urutan naik dari kecil ke besar.,,,,,,,,,,,
+45,9,essay,practice,,"Urutkan dari besar ke kecil: 20, 14, 16",,,"20,16,14",,Urutan turun dari besar ke kecil.,,,,,,,,,,,
+45,10,essay,practice,,Ada 10 ⚽ dan 3 ⚽ lagi. Jumlah?,,,13,,10 + 3 = 13.,,,,,,,,,,,
+45,11,essay,practice,,Ada 1 puluhan dan 7 satuan = ?,,,17,,1 puluhan 7 satuan = 17.,,,,,,,,,,,
+45,12,essay,practice,,Ada 2 puluhan dan 0 satuan = ?,,,20,,2 puluhan 0 satuan = 20.,,,,,,,,,,,
+45,13,essay,practice,,"Lengkapi: 10, 12, 14, __, 18",,,16,,Urutan genap.,,,,,,,,,,,
+45,14,essay,practice,,"Lengkapi: 11, 13, 15, __, 19",,,17,,Urutan ganjil.,,,,,,,,,,,
+45,15,essay,practice,,"Tebakanku 16, hasil hitunganku 15. Selisih?",,,1,,Selisih 16 dan 15 adalah 1.,,,,,,,,,,,
+45,16,essay,practice,,Bandingkan: 17 ___ 19 (isi dengan < atau >),,,<,,17 lebih kecil dari 19.,,,,,,,,,,,
+45,17,mcq,practice,,Bilangan setelah 14 adalah...,,,C,,Setelah 14 adalah 15.,13,14,15,16,,,,,,,
+45,18,mcq,practice,,Bilangan sebelum 20 adalah...,,,B,,Sebelum 20 adalah 19.,18,19,20,17,,,,,,,
+45,19,mcq,practice,,Mana lebih kecil?,,,A,,12 lebih kecil dari 16.,12,16,18,20,,,,,,,
+45,20,mcq,practice,,Nilai tempat 12 adalah...,,,D,,12 = 1 puluhan + 2 satuan.,2 puluhan 1 satuan,1 puluhan 3 satuan,0 puluhan 12 satuan,1 puluhan 2 satuan,,,,,,,
+45,21,mcq,practice,,15 - 10 = ?,,,B,,15 - 10 = 5.,4,5,6,7,,,,,,,
+45,22,mcq,practice,,17 - 10 = ?,,,A,,17 - 10 = 7.,7,8,9,10,,,,,,,
+45,23,mcq,practice,,Bilangan 18 terdiri dari...,,,C,,18 = 1 puluhan + 8 satuan.,8 puluhan 1 satuan,1 puluhan 7 satuan,1 puluhan 8 satuan,0 puluhan 18 satuan,,,,,,,
+45,24,mcq,practice,,Urutan naik yang benar?,,,D,,Urutan naik kecil ke besar.,"18,17,16","20,18,16","19,18,17","11,12,13",,,,,,,
+45,25,mcq,practice,,Urutan turun yang benar?,,,B,,Urutan turun besar ke kecil.,"12,13,14","20,19,18","15,16,17","11,12,13",,,,,,,
+45,26,mcq,practice,,10 + 6 = ?,,,C,,10 + 6 = 16.,14,15,16,17,,,,,,,
+45,27,mcq,practice,,10 + 9 = ?,,,D,,10 + 9 = 19.,17,18,20,19,,,,,,,
+45,28,mcq,practice,,Mana yang paling besar?,,,A,,20 paling besar.,20,18,17,16,,,,,,,
+45,29,drag_drop,practice,,Pasangkan angka dengan nama.,,,,,Cocokkan angka dan nama.,,,,,,,,,11;12;13;14,sebelas;dua belas;tiga belas;empat belas,
+45,30,drag_drop,practice,,Pasangkan bilangan dengan nilai tempat.,,,,,Cocokkan bilangan dan nilai tempat.,,,,,,,,,15;18;20,1 puluhan 5 satuan;1 puluhan 8 satuan;2 puluhan 0 satuan,
+45,31,drag_drop,practice,,Pasangkan urutan dengan jenisnya.,,,,,Cocokkan pola bilangan.,,,,,,,,,11-12-13;20-19-18;12-14-16,naik;turun;genap,
+45,32,drag_drop,practice,,Pasangkan gambar dengan jumlah.,,,,,Jumlahkan 10 + n.,,,,,,,,,bola12;permen15;apel13,12;15;13,
+45,33,drag_drop,practice,,Pasangkan bilangan dengan tanda.,,,,,Bandingkan bilangan.,,,,,,,,,12 ? 18;19 ? 17;14 ? 14,<;>;=,
+45,34,drag_drop,practice,,Pasangkan angka dengan posisi.,,,,,Tentukan angka sebelum/sesudah.,,,,,,,,,sebelum 15;sesudah 16;sesudah 19,14;17;20,
+45,35,multipart,practice,,Hitung tiap bagian.,,,,,Kerjakan tiap bagian.,,,,,,,,,,,"a|11,12,__,14|13;b|20,19,__,17|18;c|10 + 8 =|18"
+45,36,multipart,practice,,Nilai tempat.,,,,,Tentukan puluhan dan satuan.,,,,,,,,,,,a|12 =|1 puluhan 2 satuan;b|17 =|1 puluhan 7 satuan;c|20 =|2 puluhan 0 satuan
+45,37,multipart,practice,,Bandingkan bilangan.,,,,,"Isi dengan <, >, atau =.",,,,,,,,,,,a|13 __ 18|<;b|19 __ 16|>;c|15 __ 15|=
+45,38,multipart,practice,,Urutkan bilangan.,,,,,Urutkan sesuai perintah.,,,,,,,,,,,"a|Urut kecil: 14,12,19|12,14,19;b|Urut besar: 11,20,16|20,16,11;c|Urut kecil: 17,13,15|13,15,17"
+45,39,multipart,practice,,Hitung 10 + n.,,,,,Jumlahkan 10 dengan satuan.,,,,,,,,,,,a|10 + 5 =|15;b|10 + 7 =|17;c|10 + 9 =|19
+45,40,multipart,practice,,Tentukan sebelum/sesudah.,,,,,Cari angka sebelum/sesudah.,,,,,,,,,,,a|Sebelum 13|12;b|Sesudah 18|19;c|Sebelum 20|19

@@ -1,0 +1,3 @@
+35-12: TODO_IMG_KAMAR_POSISI.png (gambar kamar: meja, kursi, rak, bola, buku, tas)
+35-27: TODO_IMG_POT_POSISI.png (4 pot berderet, label A B C D dari kiri)
+35-40: TODO_IMG_TAMAN_POSISI.png (taman dengan rumah di tengah, pohon kiri, sepeda kanan)

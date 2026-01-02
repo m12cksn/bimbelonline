@@ -1,0 +1,40 @@
+21-1: 2 apel ditambah 1 apel = 3.
+21-2: Urutan naik bertambah 1.
+21-3: 4 ditambah 3 = 7.
+21-4: 9 dikurangi 5 = 4.
+21-5: 3 + 2 = 5.
+21-6: Pasangan 10 untuk 6 adalah 4.
+21-7: 5 + 3 = 8.
+21-8: 4 + 1 = 5.
+21-9: 7 ditambah 1 = 8.
+21-10: 8 + 2 = 10.
+21-11: 10 dikurangi 1 = 9.
+21-12: Menambah 0 tidak mengubah bilangan.
+21-13: 1+2+3 = 6.
+21-14: 4 + 2 = 6.
+21-15: 6 + 3 = 9.
+21-16: 5 + 5 = 10 (penjumlahan berulang).
+21-17: 5 + 5 = 10.
+21-18: 3 + 4 = 7.
+21-19: Setelah 8 adalah 9.
+21-20: 4 bintang lebih banyak.
+21-21: 9 - 4 = 5.
+21-22: 7 + 3 = 10.
+21-23: 2 + 2 = 4.
+21-24: Naik dari kecil ke besar.
+21-25: 4 + 4 = 8.
+21-26: 10 - 7 = 3.
+21-27: 2 + 8 = 10.
+21-28: 5 + 3 = 8.
+21-29: Cocokkan banyak gambar dengan angka.
+21-30: Cocokkan angka dan nama bilangan.
+21-31: Hitung hasil tiap operasi.
+21-32: Hitung jumlah bola.
+21-33: Semua pasangan berjumlah 10.
+21-34: Hitung lalu cocokkan hasil.
+21-35: Kerjakan tiap bagian.
+21-36: Kerjakan tiap bagian.
+21-37: Kerjakan tiap bagian.
+21-38: Kerjakan tiap bagian.
+21-39: Kerjakan tiap bagian.
+21-40: Kerjakan tiap bagian.

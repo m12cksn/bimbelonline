@@ -1,0 +1,40 @@
+44-1: Segitiga memiliki 3 sisi.
+44-2: Segi empat memiliki 4 sisi.
+44-3: Lingkaran termasuk bentuk lengkung.
+44-4: Rambu ⚠️ berbentuk segitiga.
+44-5: HP berbentuk segi empat.
+44-6: ⚪ berbentuk lengkung.
+44-7: Ada 2 warna merah.
+44-8: Ada 2 warna hijau.
+44-9: Satu yang besar.
+44-10: Ada 2 segitiga.
+44-11: Ada 2 segi empat.
+44-12: Ada 2 bentuk lengkung.
+44-13: Contoh: penggaris segitiga.
+44-14: Contoh: buku atau papan.
+44-15: Contoh: jam dinding.
+44-16: Atap segitiga dan badan segi empat.
+44-17: Segitiga punya 3 sisi.
+44-18: Segi empat punya 4 sisi.
+44-19: Lingkaran bentuk lengkung.
+44-20: Rambu segitiga.
+44-21: HP berbentuk segi empat.
+44-22: Bola berbentuk lengkung.
+44-23: Dua segitiga sama.
+44-24: Ikon merah.
+44-25: Ikon besar.
+44-26: Segitiga + segi empat.
+44-27: Segi empat.
+44-28: Segitiga.
+44-29: Cocokkan bentuk dan nama.
+44-30: Cocokkan benda dan bentuk.
+44-31: Kelompokkan berdasarkan warna.
+44-32: Kelompokkan berdasarkan ukuran.
+44-33: Cocokkan gambar dan bentuk.
+44-34: Kelompokkan berdasarkan bentuk.
+44-35: Kerjakan tiap bagian.
+44-36: Hitung jumlah warna.
+44-37: Hitung bentuk sesuai jenisnya.
+44-38: Cocokkan benda dengan bentuk.
+44-39: Bagian-bagian benda punya bentuk dasar.
+44-40: Hitung berdasarkan ukuran.

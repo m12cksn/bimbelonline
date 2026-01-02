@@ -1,6 +1,5 @@
 "use client";
-
-import { PricingComparisonSection } from "./components/PricingComparisonSection";
+import Link from "next/link";
 
 export default function Page() {
   return (
@@ -19,7 +18,8 @@ export default function Page() {
             </h1>
             <p className="text-sm text-slate-600 md:text-base">
               Materi rapi per kelas, latihan adaptif, dan insight progres yang
-              jelas. Cocok untuk siswa SD-SMP yang butuh hasil nyata tanpa stres.
+              jelas. Cocok untuk siswa SD-SMP yang butuh hasil nyata tanpa
+              stres.
             </p>
             <div className="flex flex-wrap gap-3">
               <a
@@ -87,7 +87,9 @@ export default function Page() {
                   </div>
                   <div className="flex items-center justify-between">
                     <span>Target berikutnya</span>
-                    <span className="font-semibold text-slate-900">Level 3</span>
+                    <span className="font-semibold text-slate-900">
+                      Level 3
+                    </span>
                   </div>
                 </div>
               </div>
@@ -98,7 +100,7 @@ export default function Page() {
 
       <section className="mx-auto max-w-6xl px-6 pb-6">
         <div className="grid gap-4 md:grid-cols-2">
-          <a
+          <Link
             href="/"
             className="rounded-3xl border border-emerald-200 bg-white px-5 py-4 text-left shadow-[0_16px_40px_-30px_rgba(16,185,129,0.35)] transition hover:-translate-y-0.5"
           >
@@ -111,8 +113,8 @@ export default function Page() {
             <p className="mt-2 text-sm text-slate-600">
               Materi rapi per kelas, latihan adaptif, dan analisis progres.
             </p>
-          </a>
-          <a
+          </Link>
+          <Link
             href="/coding"
             className="rounded-3xl border border-sky-200 bg-white px-5 py-4 text-left shadow-[0_16px_40px_-30px_rgba(59,130,246,0.35)] transition hover:-translate-y-0.5"
           >
@@ -125,7 +127,7 @@ export default function Page() {
             <p className="mt-2 text-sm text-slate-600">
               Belajar logika, bikin game kecil, dan proyek web sederhana.
             </p>
-          </a>
+          </Link>
         </div>
       </section>
 
@@ -163,14 +165,15 @@ export default function Page() {
           <div className="grid gap-6 md:grid-cols-2">
             <div className="rounded-3xl border border-slate-200 bg-white p-6">
               <p className="text-xs font-semibold uppercase text-emerald-600">
-                Kenapa MathKids?
+                Kenapa Be Smart kids?
               </p>
               <h2 className="mt-3 text-2xl font-bold text-slate-900">
                 Dari konsep ke hasil nyata
               </h2>
               <p className="mt-3 text-sm text-slate-600">
                 Siswa tidak hanya mengerjakan soal, tapi memahami langkahnya.
-                Orang tua dan guru melihat progres yang jelas dan mudah dipantau.
+                Orang tua dan guru melihat progres yang jelas dan mudah
+                dipantau.
               </p>
               <ul className="mt-4 space-y-2 text-sm text-slate-600">
                 <li>- Kurikulum terstruktur per kelas</li>
@@ -209,7 +212,10 @@ export default function Page() {
             {[
               { label: "Kurikulum SD-SMP", value: "Materi bertahap dan rapi" },
               { label: "Latihan adaptif", value: "Naik level dengan stabil" },
-              { label: "Insight jelas", value: "Pantau progres dalam hitungan menit" },
+              {
+                label: "Insight jelas",
+                value: "Pantau progres dalam hitungan menit",
+              },
             ].map((item) => (
               <div
                 key={item.label}
@@ -233,7 +239,8 @@ export default function Page() {
                 Siap bantu anak naik kelas?
               </h2>
               <p className="mt-2 text-sm text-slate-600">
-                Mulai dari materi yang paling dibutuhkan. Kami bantu sampai paham.
+                Mulai dari materi yang paling dibutuhkan. Kami bantu sampai
+                paham.
               </p>
             </div>
             <a
@@ -246,9 +253,138 @@ export default function Page() {
         </div>
       </section>
 
-      <div id="pricing">
-        <PricingComparisonSection />
-      </div>
+      <section
+        id="pricing"
+        className="bg-linear-to-br from-amber-50 via-white to-emerald-50 py-14"
+      >
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">
+                Pricing
+              </p>
+              <h2 className="mt-3 text-3xl font-extrabold text-slate-900 md:text-4xl">
+                Pilih paket yang paling cocok
+              </h2>
+              <p className="mt-2 max-w-2xl text-sm text-slate-600 md:text-base">
+                Benefit paket disamakan dengan halaman upgrade: full video, soal
+                lebih banyak, progres tersimpan, dan opsi Zoom.
+              </p>
+            </div>
+            <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1 text-[11px] text-slate-500 shadow-sm">
+              <span className="font-semibold text-slate-700">Promo</span>
+              <span>Paket Premium Rp 145rb → Rp 99rb</span>
+            </div>
+          </div>
+
+          <div className="mt-10 grid gap-6 lg:grid-cols-3">
+            <div className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-[0_20px_60px_-45px_rgba(15,23,42,0.25)]">
+              <div className="flex items-center justify-between">
+                <p className="text-xs font-semibold uppercase text-slate-500">
+                  Paket Premium
+                </p>
+                <span className="rounded-full bg-emerald-50 px-2 py-1 text-[10px] font-semibold text-emerald-700">
+                  Populer
+                </span>
+              </div>
+              <div className="mt-4">
+                <p className="text-sm font-semibold text-slate-400 line-through">
+                  Rp 145.000
+                </p>
+                <p className="text-4xl font-extrabold text-slate-900">
+                  Rp 99.000
+                </p>
+                <p className="text-xs text-slate-500">per bulan</p>
+              </div>
+              <ul className="mt-5 space-y-2 text-sm text-slate-700">
+                <li>✓ Baca ringkasan materi</li>
+                <li>✓ Tonton full video</li>
+                <li>✓ Kerjakan soal 1–30</li>
+                <li>✓ Progress tersimpan</li>
+                <li>✓ Try-out 1×/bulan</li>
+                <li>✓ Report skor</li>
+                <li>✓ Badge Premium</li>
+                <li>✓ Support chat prioritas</li>
+              </ul>
+              <a
+                href="https://wa.me/6285726321786?text=Halo%20BeSmartKids,%20saya%20ingin%20daftar%20Paket%20Premium%2099rb%20per%20bulan."
+                className="mt-6 inline-flex w-full items-center justify-center rounded-2xl bg-emerald-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-300/60 transition hover:-translate-y-0.5 hover:bg-emerald-700"
+              >
+                Pilih Paket Premium
+              </a>
+            </div>
+
+            <div className="rounded-[28px] border border-slate-200 bg-white/90 p-6 shadow-[0_20px_60px_-45px_rgba(15,23,42,0.18)]">
+              <div className="flex items-center justify-between">
+                <p className="text-xs font-semibold uppercase text-slate-500">
+                  Bundling 3 Bulan
+                </p>
+                <span className="rounded-full bg-amber-50 px-2 py-1 text-[10px] font-semibold text-amber-700">
+                  Hemat
+                </span>
+              </div>
+              <div className="mt-4">
+                <p className="text-4xl font-extrabold text-slate-900">
+                  Rp 419.000
+                </p>
+                <p className="text-xs text-slate-500">sekali bayar</p>
+              </div>
+              <ul className="mt-5 space-y-2 text-sm text-slate-700">
+                <li>✓ Baca ringkasan materi</li>
+                <li>✓ Tonton full video</li>
+                <li>✓ Kerjakan soal 1–40</li>
+                <li>✓ Progress tersimpan</li>
+                <li>✓ Try-out 2×/bulan</li>
+                <li>✓ Report skor</li>
+                <li>✓ Badge 3-Bulan</li>
+                <li>✓ Support chat prioritas</li>
+              </ul>
+              <a
+                href="https://wa.me/6285726321786?text=Halo%20BeSmartKids,%20saya%20ingin%20ambil%20Bundling%203%20Bulan%20419rb."
+                className="mt-6 inline-flex w-full items-center justify-center rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 transition hover:-translate-y-0.5 hover:border-emerald-200"
+              >
+                Pilih Bundling 3 Bulan
+              </a>
+            </div>
+
+            <div className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-[0_20px_60px_-45px_rgba(15,23,42,0.25)]">
+              <div className="flex items-center justify-between">
+                <p className="text-xs font-semibold uppercase text-slate-500">
+                  Zoom Premium 15 Kelas
+                </p>
+                <span className="rounded-full bg-purple-50 px-2 py-1 text-[10px] font-semibold text-purple-700">
+                  Zoom
+                </span>
+              </div>
+              <div className="mt-4">
+                <p className="text-sm font-semibold text-slate-400 line-through">
+                  Rp 1.500.000
+                </p>
+                <p className="text-4xl font-extrabold text-slate-900">
+                  Rp 1.350.000
+                </p>
+                <p className="text-xs text-slate-500">paket 15 kelas</p>
+              </div>
+              <ul className="mt-5 space-y-2 text-sm text-slate-700">
+                <li>✓ Baca ringkasan materi</li>
+                <li>✓ Tonton full video</li>
+                <li>✓ Kerjakan soal 1–40</li>
+                <li>✓ Progress tersimpan</li>
+                <li>✓ Try-out 2×/bulan + Zoom</li>
+                <li>✓ Report skor</li>
+                <li>✓ Badge Zoom Premium</li>
+                <li>✓ Support chat prioritas</li>
+              </ul>
+              <a
+                href="https://wa.me/6285726321786?text=Halo%20BeSmartKids,%20saya%20ingin%20daftar%20Zoom%20Premium%2015%20Kelas%201350rb."
+                className="mt-6 inline-flex w-full items-center justify-center rounded-2xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-slate-300/50 transition hover:-translate-y-0.5 hover:bg-slate-800"
+              >
+                Pilih Zoom Premium
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }

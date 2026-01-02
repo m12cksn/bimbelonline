@@ -1,0 +1,40 @@
+20-1: Hitung semua ikon apel: ada 5.
+20-2: Urutan naik 1,2,3,4,5.
+20-3: Bintang tiga lebih banyak dari bintang dua.
+20-4: Cocokkan banyak bintang dengan angka yang tepat.
+20-5: Tiga bola ditambah satu bola menjadi empat.
+20-6: Setelah 6 adalah 7.
+20-7: Jumlahkan atau kurangi sesuai perintah.
+20-8: Urutan mundur 5,4,3,2,1.
+20-9: 6 lebih kecil dari 9.
+20-10: 4 ikan dikurangi 1 ikan tersisa 3.
+20-11: Setiap pasangan harus berjumlah 5.
+20-12: 3 ditambah 4 sama dengan 7.
+20-13: Urutan naik mulai dari 1.
+20-14: Jumlahkan atau kurangi sesuai perintah.
+20-15: 10 dikurangi 1 sama dengan 9.
+20-16: 2 ditambah 5 sama dengan 7.
+20-17: Hitung jumlah kue pada tiap gambar.
+20-18: Urutan genap: 2,4,6,8,10.
+20-19: Jumlahnya sama, masing-masing 2 balon.
+20-20: 9 dikurangi 4 sama dengan 5.
+20-21: Kerjakan tiap bagian.
+20-22: Sebelum 5 adalah 4.
+20-23: 6 ditambah 3 sama dengan 9.
+20-24: Bandingkan kedua sisi.
+20-25: 2 ditambah 2 sama dengan 4.
+20-26: 5 kucing ditambah 2 kucing menjadi 7.
+20-27: Kerjakan tiap bagian.
+20-28: Urutan mundur dari 10: 10,9,8,7,6.
+20-29: 4 stroberi lebih banyak daripada 3.
+20-30: Cocokkan angka dengan nama bilangan.
+20-31: Menambah 0 tidak mengubah bilangan.
+20-32: Delapan ditulis 8.
+20-33: Kerjakan tiap bagian.
+20-34: 8 dikurangi 2 sama dengan 6.
+20-35: Urutan naik dari kecil ke besar.
+20-36: Hitung jumlah ikan pada tiap kelompok.
+20-37: Kerjakan tiap bagian.
+20-38: Bilangan dikurangi dirinya sendiri hasilnya 0.
+20-39: 4 ditambah 1 sama dengan 5.
+20-40: 10 dikurangi 3 sama dengan 7.

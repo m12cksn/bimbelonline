@@ -1,0 +1,7 @@
+4. Perhatikan piktogram buah pada gambar. -> TODO_IMG_PICTO_FRUIT.png
+9. Perhatikan piktogram peminjaman buku. -> TODO_IMG_PICTO_BOOKS.png
+15. Perhatikan diagram batang pada gambar. -> TODO_IMG_BAR_CHART_A.png
+21. Perhatikan diagram batang mendatar pada gambar. -> TODO_IMG_BAR_CHART_B.png
+27. Perhatikan piktogram transportasi pada gambar. -> TODO_IMG_PICTO_TRANSPORT.png
+31. Perhatikan diagram batang pada gambar. -> TODO_IMG_BAR_CHART_C.png
+36. Perhatikan piktogram bunga pada gambar. -> TODO_IMG_PICTO_FLOWER.png

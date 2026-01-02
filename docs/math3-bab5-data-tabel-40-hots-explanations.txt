@@ -1,0 +1,40 @@
+63-1: Data terkecil pada daftar adalah 5.
+63-2: Data terbesar pada daftar adalah 10.
+63-3: Jangkauan = 10 - 5 = 5.
+63-4: Nilai 9 muncul 5 kali.
+63-5: Urutkan menurun dari 9 sampai 3.
+63-6: Nilai 4 muncul paling banyak.
+63-7: Jangkauan = 5 - 2 = 3.
+63-8: Data terbesar adalah 15.
+63-9: Angka 6 muncul 2 kali.
+63-10: Data sudah urut dari kecil ke besar.
+63-11: Urutan naik adalah 17, 18, 19, 20.
+63-12: Terkecil 4, terbesar 6.
+63-13: 7 muncul paling banyak.
+63-14: Jangkauan = 16 - 12 = 4.
+63-15: Jumlah data = 7.
+63-16: Nilai 10 muncul 2 kali.
+63-17: Jangkauan = data terbesar - data terkecil.
+63-18: Data terbesar 16.
+63-19: Data terkecil 5.
+63-20: Nilai 8 muncul 3 kali.
+63-21: Modus adalah nilai yang paling sering muncul, yaitu 4.
+63-22: 16 - 10 = 6.
+63-23: Urutan menurun dari besar ke kecil.
+63-24: Angka 3 muncul 2 kali.
+63-25: Data adalah angka hasil pengamatan/pencacahan.
+63-26: Tabel terdiri dari baris dan kolom.
+63-27: Turus membantu mencacah jumlah data.
+63-28: Nilai 7 muncul paling sedikit (1 kali).
+63-29: Cocokkan frekuensi sesuai data contoh.
+63-30: Cocokkan istilah dengan definisinya.
+63-31: Tentukan urutan yang benar.
+63-32: Cocokkan konsep data dengan contohnya.
+63-33: Cocokkan istilah perbandingan data.
+63-34: Cocokkan kategori dengan frekuensi.
+63-35: Dari tabel: Apel 4, Jeruk 5, Mangga 3, Anggur 2. Terbanyak Jeruk, tersedikit Anggur, total 14.
+63-36: III B terbanyak 15, total 12+15+9=36 (koreksi: 36), selisih 15-9=6.
+63-37: Nilai tertinggi 10, terendah 6, jangkauan 10-6=4.
+63-38: Biru terbanyak 7, Hijau tersedikit 2, selisih biru-merah 7-4=3.
+63-39: IPA paling sedikit 4, Matematika dan IPS paling banyak 8, total 26.
+63-40: Pisang paling laris 7, Jeruk paling sedikit 3, total 6+3+7+4=20.

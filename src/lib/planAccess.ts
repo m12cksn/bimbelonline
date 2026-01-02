@@ -9,10 +9,9 @@ export type PlanAccess = {
 const FALLBACK_FREE_LIMIT = 4;
 const PREMIUM_FALLBACK_LIMIT = 30;
 const PRICE_FREE = "Gratis";
-const PRICE_BELAJAR = "Rp 119rb";
-const PRICE_PREMIUM = "Rp 149rb";
-const PRICE_INTENSIVE = "Rp 199rb";
-const PRICE_3_BULAN = "Rp 399rb";
+const PRICE_PREMIUM = "Rp 145rb";
+const PRICE_3_BULAN = "Rp 419rb";
+const PRICE_ZOOM_PREMIUM = "Rp 1,35jt";
 
 function normalize(value?: string | null) {
   return (value ?? "").toLowerCase();
@@ -33,39 +32,10 @@ export function resolvePlanAccess(
       isPremium: false,
       priceLabel: PRICE_FREE,
       upgradeOptions: [
-        { label: "Belajar", priceLabel: PRICE_BELAJAR },
         { label: "Premium", priceLabel: PRICE_PREMIUM },
-        { label: "Intensive", priceLabel: PRICE_INTENSIVE },
         { label: "3 Bulan", priceLabel: PRICE_3_BULAN },
+        { label: "Zoom Premium", priceLabel: PRICE_ZOOM_PREMIUM },
       ],
-    };
-  }
-
-  if (code.includes("belajar") || name.includes("belajar")) {
-    return {
-      label: "Belajar",
-      questionLimit: 20,
-      isPremium: true,
-      priceLabel: PRICE_BELAJAR,
-      upgradeOptions: [
-        { label: "Premium", priceLabel: PRICE_PREMIUM },
-        { label: "Intensive", priceLabel: PRICE_INTENSIVE },
-      ],
-    };
-  }
-
-  if (
-    code.includes("intensive") ||
-    name.includes("intensive") ||
-    code.includes("intensif") ||
-    name.includes("intensif")
-  ) {
-    return {
-      label: "Intensive",
-      questionLimit: 40,
-      isPremium: true,
-      priceLabel: PRICE_INTENSIVE,
-      upgradeOptions: [],
     };
   }
 
@@ -80,7 +50,7 @@ export function resolvePlanAccess(
       questionLimit: 40,
       isPremium: true,
       priceLabel: PRICE_3_BULAN,
-      upgradeOptions: [],
+      upgradeOptions: [{ label: "Zoom Premium", priceLabel: PRICE_ZOOM_PREMIUM }],
     };
   }
 
@@ -91,20 +61,8 @@ export function resolvePlanAccess(
       isPremium: true,
       priceLabel: PRICE_PREMIUM,
       upgradeOptions: [
-        { label: "Intensive", priceLabel: PRICE_INTENSIVE },
-      ],
-    };
-  }
-
-  if (code === "web_monthly") {
-    return {
-      label: "Belajar",
-      questionLimit: 20,
-      isPremium: true,
-      priceLabel: PRICE_BELAJAR,
-      upgradeOptions: [
-        { label: "Premium", priceLabel: PRICE_PREMIUM },
-        { label: "Intensive", priceLabel: PRICE_INTENSIVE },
+        { label: "3 Bulan", priceLabel: PRICE_3_BULAN },
+        { label: "Zoom Premium", priceLabel: PRICE_ZOOM_PREMIUM },
       ],
     };
   }
@@ -116,27 +74,18 @@ export function resolvePlanAccess(
       isPremium: true,
       priceLabel: PRICE_PREMIUM,
       upgradeOptions: [
-        { label: "Intensive", priceLabel: PRICE_INTENSIVE },
+        { label: "3 Bulan", priceLabel: PRICE_3_BULAN },
+        { label: "Zoom Premium", priceLabel: PRICE_ZOOM_PREMIUM },
       ],
     };
   }
 
-  if (code === "weekly_zoom") {
+  if (code.includes("zoom")) {
     return {
-      label: "Intensive",
+      label: "Zoom Premium",
       questionLimit: 40,
       isPremium: true,
-      priceLabel: PRICE_INTENSIVE,
-      upgradeOptions: [],
-    };
-  }
-
-  if (code === "monthly_zoom") {
-    return {
-      label: "Intensive",
-      questionLimit: 40,
-      isPremium: true,
-      priceLabel: PRICE_INTENSIVE,
+      priceLabel: PRICE_ZOOM_PREMIUM,
       upgradeOptions: [],
     };
   }
@@ -147,7 +96,7 @@ export function resolvePlanAccess(
       questionLimit: 40,
       isPremium: true,
       priceLabel: PRICE_3_BULAN,
-      upgradeOptions: [],
+      upgradeOptions: [{ label: "Zoom Premium", priceLabel: PRICE_ZOOM_PREMIUM }],
     };
   }
 
@@ -158,7 +107,8 @@ export function resolvePlanAccess(
       isPremium: true,
       priceLabel: PRICE_PREMIUM,
       upgradeOptions: [
-        { label: "Intensive", priceLabel: PRICE_INTENSIVE },
+        { label: "3 Bulan", priceLabel: PRICE_3_BULAN },
+        { label: "Zoom Premium", priceLabel: PRICE_ZOOM_PREMIUM },
       ],
     };
   }
@@ -169,10 +119,9 @@ export function resolvePlanAccess(
     isPremium: false,
     priceLabel: PRICE_FREE,
     upgradeOptions: [
-      { label: "Belajar", priceLabel: PRICE_BELAJAR },
       { label: "Premium", priceLabel: PRICE_PREMIUM },
-      { label: "Intensive", priceLabel: PRICE_INTENSIVE },
       { label: "3 Bulan", priceLabel: PRICE_3_BULAN },
+      { label: "Zoom Premium", priceLabel: PRICE_ZOOM_PREMIUM },
     ],
   };
 }

@@ -1,0 +1,40 @@
+53-1: Hitung 6 apel + 3 pisang = 9.
+53-2: Ada 10 bintang, 6 jatuh, sisa 4.
+53-3: Selisih berarti operasi pengurangan.
+53-4: Hitung setiap operasi lalu cocokkan hasilnya.
+53-5: 14 + 3 = 17.
+53-6: 18 - 6 = 12.
+53-7: Kerjakan tiap operasi sesuai urutan.
+53-8: 15 paling besar dibanding pilihan lain.
+53-9: 5 boneka + 4 bola = 9.
+53-10: Jumlah/lebihnya itu penjumlahan, selisih/kurangnya itu pengurangan.
+53-11: 16 + 2 = 18.
+53-12: 19 - 12 = 7.
+53-13: 9 + 11 = 20.
+53-14: 19 - 8 = 11.
+53-15: Tambahkan ke 10 agar mencapai bilangan tujuan.
+53-16: Hitung maju 4 langkah dari 13.
+53-17: 12 ikan dikurangi 5 = 7.
+53-18: Tambah berarti +, berkurang berarti -.
+53-19: 12 + 7 = 19.
+53-20: Penjumlahan bersifat pertukaran.
+53-21: 6 permen + 7 lolipop = 13.
+53-22: Setiap operasi menghasilkan 9.
+53-23: 17 - 5 = 12.
+53-24: 15 - 7 = 8.
+53-25: 19 - 12 = 7.
+53-26: Cocokkan hasil tiap operasi.
+53-27: 13 + 6 = 19.
+53-28: 10 + 8 = 18.
+53-29: Hitung tambah dan kurang pada cerita.
+53-30: 5 bunga + 5 bunga = 10.
+53-31: Selisih adalah hasil pengurangan.
+53-32: Bandingkan bilangan untuk <, >, atau =.
+53-33: 20 - 9 = 11.
+53-34: 9 + 6 = 15 bukan 14, jadi pilih yang benar 14.
+53-35: Selesaikan tiap operasi.
+53-36: 10 mobil + 7 mobil - 5 = 12.
+53-37: 11 + 9 = 20.
+53-38: Cocokkan hasil operasi dengan jawaban.
+53-39: 19 - 11 = 8.
+53-40: 7 kelinci + 8 kelinci - 4 = 11.

@@ -1,0 +1,41 @@
+material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
+46,1,essay,practice,,Ada 7 🍩 dan 6 🍩. Jumlah?,,,13,,7 + 6 = 13.,,,,,,,,,,,
+46,2,essay,practice,,"Ada 15 🍎, dimakan 3. Sisa?",,,12,,15 - 3 = 12.,,,,,,,,,,,
+46,3,essay,practice,,Bandingkan: 9 dan 12. Mana lebih banyak?,,,12,,12 lebih banyak dari 9.,,,,,,,,,,,
+46,4,essay,practice,,Selisih 14 dan 9 adalah...,,,5,,14 - 9 = 5.,,,,,,,,,,,
+46,5,essay,practice,,Lengkapi: 10 + 4 = ?,,,14,,10 ditambah 4 = 14.,,,,,,,,,,,
+46,6,essay,practice,,Lengkapi: 16 - 6 = ?,,,10,,16 - 6 = 10.,,,,,,,,,,,
+46,7,essay,practice,,Ada 8 🌸 dan 5 🦋. Berapa selisihnya?,,,3,,8 - 5 = 3.,,,,,,,,,,,
+46,8,essay,practice,,Lebih dari/kuran g dari: 11 __ 15 (isi < atau >),,,<,,11 lebih kecil dari 15.,,,,,,,,,,,
+46,9,essay,practice,,"Urutkan dari kecil ke besar: 18, 12, 16",,,"12,16,18",,Urutan naik.,,,,,,,,,,,
+46,10,essay,practice,,"Ada 10 pensil, ditambah 7. Jumlah?",,,17,,10 + 7 = 17.,,,,,,,,,,,
+46,11,essay,practice,,"Ada 19 kelereng, hilang 4. Sisa?",,,15,,19 - 4 = 15.,,,,,,,,,,,
+46,12,essay,practice,,Beda banyak 13 dan 10 adalah...,,,3,,13 - 10 = 3.,,,,,,,,,,,
+46,13,essay,practice,,12 lebih ... dari 9 (isi lebih/kurang),,,lebih,,12 lebih dari 9.,,,,,,,,,,,
+46,14,essay,practice,,Jumlah 6 + 8 = ?,,,14,,6 + 8 = 14.,,,,,,,,,,,
+46,15,essay,practice,,Hitung: 17 - 9 = ?,,,8,,17 - 9 = 8.,,,,,,,,,,,
+46,16,essay,practice,,Ada 5 anak. Datang 9 anak. Jumlah?,,,14,,5 + 9 = 14.,,,,,,,,,,,
+46,17,mcq,practice,,Mana hasilnya 18?,,,B,,9 + 9 = 18.,10+7,9+9,12+5,8+6,,,,,,,
+46,18,mcq,practice,,15 - 7 = ?,,,C,,15 - 7 = 8.,6,7,8,9,,,,,,,
+46,19,mcq,practice,,Selisih 16 dan 12 adalah...,,,A,,16 - 12 = 4.,4,3,5,6,,,,,,,
+46,20,mcq,practice,,Mana lebih sedikit?,,,D,,8 lebih sedikit.,12,14,10,8,,,,,,,
+46,21,mcq,practice,,10 + 6 = ?,,,B,,10 + 6 = 16.,15,16,17,18,,,,,,,
+46,22,mcq,practice,,17 - 5 = ?,,,A,,17 - 5 = 12.,12,13,11,10,,,,,,,
+46,23,mcq,practice,,Beda 9 dan 13 adalah...,,,C,,13 - 9 = 4.,2,3,4,5,,,,,,,
+46,24,mcq,practice,,Mana yang lebih besar?,,,B,,19 lebih besar.,16,19,18,15,,,,,,,
+46,25,mcq,practice,,12 + 3 = ?,,,D,,12 + 3 = 15.,14,13,16,15,,,,,,,
+46,26,mcq,practice,,18 - 9 = ?,,,A,,18 - 9 = 9.,9,8,7,10,,,,,,,
+46,27,mcq,practice,,Selisih 20 dan 11 adalah...,,,B,,20 - 11 = 9.,8,9,7,6,,,,,,,
+46,28,mcq,practice,,14 + 4 = ?,,,C,,14 + 4 = 18.,17,16,18,15,,,,,,,
+46,29,drag_drop,practice,,Pasangkan operasi dengan hasil.,,,,,Hitung hasilnya.,,,,,,,,,12+4;15-3;10+7;18-5,16;12;17;13,
+46,30,drag_drop,practice,,Pasangkan perbandingan.,,,,,Isi tanda perbandingan.,,,,,,,,,9__14;17__12;15__15,<;>;=,
+46,31,drag_drop,practice,,Pasangkan cerita dengan operasi.,,,,,Cocokkan cerita dan operasi.,,,,,,,,,Ada 14 kue dimakan 5;Ada 9 bola tambah 7;Ada 18 permen hilang 6,14-5;9+7;18-6,
+46,32,drag_drop,practice,,Pasangkan selisihnya.,,,,,Kurangi bilangan besar dengan kecil.,,,,,,,,,13 dan 8;16 dan 10;19 dan 15,5;6;4,
+46,33,drag_drop,practice,,Pasangkan 10 + n.,,,,,Jumlahkan 10 dengan satuan.,,,,,,,,,10+3;10+5;10+8,13;15;18,
+46,34,drag_drop,practice,,Pasangkan hasil pengurangan.,,,,,Hitung hasil pengurangan.,,,,,,,,,17-7;20-9;14-6,10;11;8,
+46,35,multipart,practice,,Hitung tiap bagian.,,,,,Kerjakan tiap bagian.,,,,,,,,,,,a|11 + 7 =|18;b|15 - 6 =|9;c|Selisih 14 dan 10|4
+46,36,multipart,practice,,Bandingkan bilangan.,,,,,"Isi dengan <, >, atau =.",,,,,,,,,,,a|12 __ 19|<;b|18 __ 16|>;c|13 __ 13|=
+46,37,multipart,practice,,Hitung maju/mundur.,,,,,Gunakan langkah 1.,,,,,,,,,,,a|Mulai 14 maju 3|17;b|Mulai 18 mundur 4|14;c|Mulai 10 maju 6|16
+46,38,multipart,practice,,Penjumlahan & pengurangan.,,,,,Hitung hasilnya.,,,,,,,,,,,a|16 + 2 =|18;b|19 - 7 =|12;c|10 + 9 =|19
+46,39,multipart,practice,,Selisih.,,,,,Kurangi bilangan besar dengan kecil.,,,,,,,,,,,a|Selisih 20 dan 12|8;b|Selisih 17 dan 11|6;c|Selisih 15 dan 9|6
+46,40,multipart,practice,,Soal cerita.,,,,,Tentukan jumlah atau sisa.,,,,,,,,,,,"a|Ada 8 ayam datang 5, jumlah|13;b|Ada 16 buku hilang 6, sisa|10;c|Ada 9 balon dapat 7, jumlah|16"

@@ -1,0 +1,40 @@
+35-1: Kucing berada di atas bola karena bola di bawah meja.
+35-2: Jika burung di atas pohon, pohon berada di bawah burung.
+35-3: Cocokkan kata posisi dengan kalimat yang sesuai.
+35-4: Ikuti urutan perpindahan, posisi akhir di kanan kursi.
+35-5: Pilih kata posisi sesuai kalimat.
+35-6: Urutan dari kiri ke kanan adalah Tika - Bimo - Rina.
+35-7: Pola bergantian merah biru, jadi ke-6 biru.
+35-8: Pola selang-seling, berikutnya segitiga.
+35-9: Pola berulang adalah merah biru merah biru.
+35-10: Pola dua langkah, ke-6 adalah diam.
+35-11: Bola di kanan meja, jadi juga di kanan kursi.
+35-12: Lihat gambar kamar untuk menentukan benda di atas meja.
+35-13: Sesuaikan kata posisi dengan kalimatnya.
+35-14: Pilih kata posisi yang tepat.
+35-15: Pola 3 langkah, posisi ke-7 kembali segitiga.
+35-16: Pola harus berulang, segitiga segi empat segi lima tidak berulang.
+35-17: Pot paling kanan adalah E.
+35-18: Pola bergantian 2 dan 4, jadi berikutnya 4.
+35-19: Cocokkan kata posisi dengan cerita.
+35-20: Pola 3 warna berulang, ke-7 kembali merah.
+35-21: Kanan pembaca sama dengan kanan gambar.
+35-22: Isi sesuai pola dan posisi.
+35-23: Ikuti langkah, posisi akhir di bawah buku.
+35-24: Pola berarti hal yang berulang dan teratur.
+35-25: Cocokkan jenis pola dengan contoh yang tepat.
+35-26: Jika bola di depan bendera dan bendera di depan gawang, bola juga di depan gawang.
+35-27: Pilih pot paling kanan sesuai gambar.
+35-28: Pola 3 langkah, ke-7 kembali lompat.
+35-29: Isi elemen berikutnya sesuai pola.
+35-30: Pola bergantian, ke-6 segi empat.
+35-31: Lampu di kanan meja, kursi di kiri meja, jadi lampu di kanan kursi.
+35-32: Pilih kata posisi sesuai kalimat.
+35-33: Jika rak di atas meja dan buku di atas rak, buku berada di atas meja.
+35-34: Ikuti pengulangan warna pada pola.
+35-35: Pola suara berulang adalah tepuk diam tepuk diam.
+35-36: Ikuti urutan, posisi akhir di atas kursi.
+35-37: Pasangkan posisi dengan lawan katanya.
+35-38: Pola bergantian 1 dan 3, ke-8 adalah 3.
+35-39: Pilih kata posisi yang tepat.
+35-40: Jika pohon kiri rumah dan sepeda kanan rumah, pohon berada di kiri sepeda.

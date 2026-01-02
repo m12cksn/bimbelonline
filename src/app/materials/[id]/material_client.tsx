@@ -50,6 +50,13 @@ type Question = {
   items: QuestionItemRow[];
 };
 
+type QuestionMeta = {
+  id: string;
+  question_number: number;
+  type: "mcq" | "essay" | "multipart" | "drag_drop";
+  question_mode?: "practice" | "tryout" | null;
+};
+
 type MaterialData = {
   id: number;
   title: string;
@@ -61,7 +68,8 @@ type MaterialData = {
 
 interface Props {
   material: MaterialData;
-  questions: Question[];
+  questionMeta: QuestionMeta[];
+  exampleQuestions: Array<{ id: string; prompt: string; imageUrl: string | null }>;
   initialLastNumber: number;
   userId: string;
   isPremium: boolean;
@@ -69,11 +77,13 @@ interface Props {
   planLabel: string;
   planPriceLabel: string;
   upgradeOptions: Array<{ label: string; priceLabel: string }>;
+  isGuest?: boolean;
 }
 
 export default function MaterialWithResources({
   material,
-  questions,
+  questionMeta,
+  exampleQuestions,
   initialLastNumber,
   userId,
   isPremium,
@@ -81,29 +91,43 @@ export default function MaterialWithResources({
   planLabel,
   planPriceLabel,
   upgradeOptions,
+  isGuest = false,
 }: Props) {
   const [mode, setMode] = useState<"practice" | "tryout" | null>(null);
   const quizRef = useRef<HTMLDivElement | null>(null);
+  const startRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (!mode || !quizRef.current) return;
     quizRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [mode]);
 
+  useEffect(() => {
+    if (!startRef.current) return;
+    const handle = window.setTimeout(() => {
+      startRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 100);
+    return () => window.clearTimeout(handle);
+  }, []);
+
+  const handleStart = (nextMode: "practice" | "tryout") => {
+    setMode(nextMode);
+  };
+
   const isYouTube =
     material.video_url &&
     (material.video_url.includes("youtube.com") ||
       material.video_url.includes("youtu.be"));
 
-  const practiceQuestions = questions.filter(
+  const practiceQuestions = questionMeta.filter(
     (q) => q.question_mode !== "tryout"
   );
-  const tryoutQuestions = questions.filter((q) => q.question_mode === "tryout");
-  const exampleQuestions = practiceQuestions.slice(0, 2).map((q) => ({
-    id: q.id,
-    prompt: q.prompt,
-    imageUrl: q.question_image_url ?? null,
-  }));
+  const tryoutQuestions = isGuest
+    ? []
+    : questionMeta.filter((q) => q.question_mode === "tryout");
+  const visiblePracticeQuestions = isGuest
+    ? practiceQuestions.filter((q) => q.question_number <= questionLimit)
+    : practiceQuestions;
 
   return (
     <div className="text-slate-900">
@@ -118,15 +142,70 @@ export default function MaterialWithResources({
           <span className="font-semibold text-amber-700">
             {planLabel} Akses soal 1-{questionLimit}
           </span>
+        ) : isGuest ? (
+          <span className="font-semibold text-emerald-700">
+            Gratis (tanpa login) - {questionLimit} soal
+          </span>
         ) : (
           <span className="font-semibold text-emerald-700">
             Gratis (soal 1-{questionLimit} saja)
           </span>
         )}
         <span className="text-slate-400">-</span>
-        <span className="text-slate-600">Latihan: {practiceQuestions.length} soal</span>
-        <span className="text-slate-400">-</span>
-        <span className="text-slate-600">Tryout: {tryoutQuestions.length} soal</span>
+        <span className="text-slate-600">
+          Latihan: {practiceQuestions.length} soal
+          {isGuest ? ` (${questionLimit} gratis)` : ""}
+        </span>
+        {!isGuest && (
+          <>
+            <span className="text-slate-400">-</span>
+            <span className="text-slate-600">
+              Tryout: {tryoutQuestions.length} soal
+            </span>
+          </>
+        )}
+      </div>
+
+      {/* Tombol mulai kerjakan soal */}
+      <div
+        ref={startRef}
+        className="mt-5 rounded-3xl border border-emerald-200/70 bg-white px-5 py-4 shadow-[0_24px_70px_-40px_rgba(16,185,129,0.45)]"
+      >
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <div className="text-sm font-semibold text-slate-700">
+              Siap latihan soal?
+            </div>
+            <div className="mt-1 text-xs text-slate-500">
+              Tonton video dan baca PDF dulu, lalu tekan tombol besar di kanan
+              untuk mulai mengerjakan.
+            </div>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <button
+              type="button"
+              onClick={() => handleStart("practice")}
+              className="relative overflow-hidden rounded-2xl border border-emerald-300 bg-emerald-500 px-6 py-3 text-sm font-semibold text-white shadow-[0_16px_40px_-18px_rgba(16,185,129,0.8)] transition hover:-translate-y-0.5 hover:bg-emerald-600"
+            >
+              <span className="relative z-10">
+                {mode === "practice" ? "Lanjut latihan" : "Mulai latihan"}
+              </span>
+              <span className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.35),transparent_55%)]" />
+            </button>
+            {!isGuest && tryoutQuestions.length > 0 && (
+              <button
+                type="button"
+                onClick={() => handleStart("tryout")}
+                className="relative overflow-hidden rounded-2xl border border-amber-300 bg-amber-500 px-6 py-3 text-sm font-semibold text-white shadow-[0_16px_40px_-18px_rgba(245,158,11,0.7)] transition hover:-translate-y-0.5 hover:bg-amber-600"
+              >
+                <span className="relative z-10">
+                  {mode === "tryout" ? "Lanjut tryout" : "Mulai tryout"}
+                </span>
+                <span className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.35),transparent_55%)]" />
+              </button>
+            )}
+          </div>
+        </div>
       </div>
 
       {/* Bagian video & PDF */}
@@ -248,51 +327,14 @@ export default function MaterialWithResources({
         </div>
       </div>
 
-      {/* Tombol mulai kerjakan soal */}
-      <div className="mt-5 rounded-3xl border border-emerald-200/70 bg-white px-5 py-4 shadow-[0_24px_70px_-40px_rgba(16,185,129,0.45)]">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-          <div>
-            <div className="text-sm font-semibold text-slate-700">
-              Siap latihan soal?
-            </div>
-            <div className="mt-1 text-xs text-slate-500">
-              Tonton video dan baca PDF dulu, lalu tekan tombol besar di kanan
-              untuk mulai mengerjakan.
-            </div>
-          </div>
-          <div className="flex flex-wrap gap-3">
-            <button
-              type="button"
-              onClick={() => setMode("practice")}
-              className="relative overflow-hidden rounded-2xl border border-emerald-300 bg-emerald-500 px-6 py-3 text-sm font-semibold text-white shadow-[0_16px_40px_-18px_rgba(16,185,129,0.8)] transition hover:-translate-y-0.5 hover:bg-emerald-600"
-            >
-              <span className="relative z-10">
-                {mode === "practice" ? "Lanjut latihan" : "Mulai latihan"}
-              </span>
-              <span className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.35),transparent_55%)]" />
-            </button>
-            {tryoutQuestions.length > 0 && (
-              <button
-                type="button"
-                onClick={() => setMode("tryout")}
-                className="relative overflow-hidden rounded-2xl border border-amber-300 bg-amber-500 px-6 py-3 text-sm font-semibold text-white shadow-[0_16px_40px_-18px_rgba(245,158,11,0.7)] transition hover:-translate-y-0.5 hover:bg-amber-600"
-              >
-                <span className="relative z-10">
-                  {mode === "tryout" ? "Lanjut tryout" : "Mulai tryout"}
-                </span>
-                <span className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.35),transparent_55%)]" />
-              </button>
-            )}
-          </div>
-        </div>
-      </div>
-
       {/* Quiz hanya muncul setelah tombol diklik */}
       {mode && (
         <div ref={quizRef} className="mt-4 space-y-4">
           <MaterialQuiz
             materialId={material.id}
-            questions={mode === "tryout" ? tryoutQuestions : practiceQuestions}
+            questionMeta={
+              mode === "tryout" ? tryoutQuestions : visiblePracticeQuestions
+            }
             initialLastNumber={initialLastNumber}
             userId={userId}
             isPremium={isPremium}
@@ -300,7 +342,14 @@ export default function MaterialWithResources({
             planLabel={planLabel}
             planPriceLabel={planPriceLabel}
             upgradeOptions={upgradeOptions}
+            isGuest={isGuest}
             isTryout={mode === "tryout"}
+            onReady={() => {
+              quizRef.current?.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+              });
+            }}
             timerSeconds={
               mode === "tryout"
                 ? (material.tryout_duration_minutes ?? tryoutQuestions.length) *
@@ -308,10 +357,12 @@ export default function MaterialWithResources({
                 : undefined
             }
           />
-          <MaterialLeaderboard
-            materialId={material.id}
-            currentUserId={userId}
-          />
+          {!isGuest && (
+            <MaterialLeaderboard
+              materialId={material.id}
+              currentUserId={userId}
+            />
+          )}
         </div>
       )}
     </div>

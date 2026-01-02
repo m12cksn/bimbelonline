@@ -1,0 +1,3 @@
+4. Hitung luas bangun pada gambar. -> TODO_IMG_AREA_GRID_A.png
+23. Hitung volume bangun dari kubus satuan. -> TODO_IMG_VOLUME_CUBES_A.png
+30. Hitung volume dua bangun pada gambar. -> TODO_IMG_VOLUME_CUBES_B.png

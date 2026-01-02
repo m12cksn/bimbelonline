@@ -1,6 +1,7 @@
 // app/materials/[id]/page.tsx
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { createClient } from "@supabase/supabase-js";
 import { createSupabaseServerClient } from "@/lib/supabaseServer";
 import type { UserRole } from "@/lib/type";
 import MaterialWithResources from "./material_client";
@@ -20,35 +21,50 @@ export default async function MaterialPage(props: MaterialPageProps) {
     redirect("/dashboard/student");
   }
 
+  const guestMaterialIds = new Set([1, 3, 4]);
   const supabase = await createSupabaseServerClient();
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
   // 1. cek user login
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
-
-  // 2. cek role + is_premium dari profiles
-  const { data: profile, error: profileError } = await supabase
-    .from("profiles")
-    .select("role, is_premium, learning_track") // 👈 tambahkan is_premium
-    .eq("id", user.id)
-    .single();
-
-  if (profileError) {
-    console.warn("profiles fetch error", profileError);
+  const isGuest = !user;
+  if (!user && !guestMaterialIds.has(materialId)) {
+    redirect("/login");
   }
 
-  const role: UserRole =
-    (profile?.role as UserRole | undefined) ||
-    (user.user_metadata?.role as UserRole | undefined) ||
-    ((user as any)?.app_metadata?.role as UserRole | undefined) ||
-    "student";
+  let profile: {
+    role?: UserRole | null;
+    is_premium?: boolean | null;
+    learning_track?: string | null;
+  } | null = null;
 
-  if (role !== "student") {
-    if (role === "teacher") redirect("/dashboard/teacher");
-    if (role === "admin") redirect("/dashboard/admin");
-    redirect("/login");
+  if (!isGuest && user) {
+    // 2. cek role + is_premium dari profiles
+    const { data: profileData, error: profileError } = await supabase
+      .from("profiles")
+      .select("role, is_premium, learning_track") // 👈 tambahkan is_premium
+      .eq("id", user.id)
+      .single();
+
+    profile = profileData ?? null;
+
+    if (profileError) {
+      console.warn("profiles fetch error", profileError);
+    }
+
+    const role: UserRole =
+      (profile?.role as UserRole | undefined) ||
+      (user.user_metadata?.role as UserRole | undefined) ||
+      ((user as any)?.app_metadata?.role as UserRole | undefined) ||
+      "student";
+
+    if (role !== "student") {
+      if (role === "teacher") redirect("/dashboard/teacher");
+      if (role === "admin") redirect("/dashboard/admin");
+      redirect("/login");
+    }
   }
 
   // ✅ Sumber utama: profiles.is_premium
@@ -56,16 +72,18 @@ export default async function MaterialPage(props: MaterialPageProps) {
   let planName: string | null = null;
   let planCode: string | null = null;
 
-  // (Opsional) Tambahan dari sistem subscription; kalau helper bilang premium, paksa true
-  try {
-    const subStatus = await getUserSubscriptionStatus();
-    if (subStatus?.isPremium) {
-      isPremium = true;
+  if (!isGuest) {
+    // (Opsional) Tambahan dari sistem subscription; kalau helper bilang premium, paksa true
+    try {
+      const subStatus = await getUserSubscriptionStatus();
+      if (subStatus?.isPremium) {
+        isPremium = true;
+      }
+      planName = subStatus?.planName ?? null;
+      planCode = subStatus?.planCode ?? null;
+    } catch (e) {
+      console.warn("getUserSubscriptionStatus failed", e);
     }
-    planName = subStatus?.planName ?? null;
-    planCode = subStatus?.planCode ?? null;
-  } catch (e) {
-    console.warn("getUserSubscriptionStatus failed", e);
   }
 
   const planAccess = resolvePlanAccess(planCode, planName, isPremium);
@@ -75,8 +93,15 @@ export default async function MaterialPage(props: MaterialPageProps) {
   const planPriceLabel = planAccess.priceLabel;
   const upgradeOptions = planAccess.upgradeOptions;
 
+  const dbClient =
+    isGuest && serviceKey
+      ? createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, serviceKey, {
+          auth: { autoRefreshToken: false, persistSession: false },
+        })
+      : supabase;
+
   // 3. ambil info materi (+ video + pdf)
-  const { data: material, error: materialError } = await supabase
+  const { data: material, error: materialError } = await dbClient
     .from("materials")
     .select(
       "id, title, description, video_url, pdf_url, tryout_duration_minutes, subject_id"
@@ -85,20 +110,49 @@ export default async function MaterialPage(props: MaterialPageProps) {
     .single();
 
   if (materialError || !material) {
+    if (isGuest) {
+      return (
+        <div className="min-h-[calc(100vh-80px)] px-4 py-6 md:px-6 lg:px-8">
+          <div className="mx-auto max-w-3xl rounded-3xl border border-rose-200 bg-white p-6 text-slate-700 shadow-xl">
+            <h1 className="text-xl font-bold text-rose-600">
+              Materi belum bisa dimuat
+            </h1>
+            <p className="mt-2 text-sm text-slate-600">
+              Coba refresh halaman. Jika masih gagal, pastikan akses database
+              untuk guest aktif (SUPABASE_SERVICE_ROLE_KEY).
+            </p>
+            <div className="mt-4 flex flex-wrap gap-2 text-xs">
+              <Link
+                href="/login"
+                className="rounded-xl border border-emerald-400/70 bg-emerald-500 px-3 py-2 font-semibold text-white hover:bg-emerald-600"
+              >
+                Login dulu
+              </Link>
+              <Link
+                href="/"
+                className="rounded-xl border border-slate-200 bg-white px-3 py-2 font-semibold text-slate-600 hover:bg-slate-50"
+              >
+                Kembali ke beranda
+              </Link>
+            </div>
+          </div>
+        </div>
+      );
+    }
     redirect("/dashboard/student");
   }
 
   const learningTrack =
     (profile as { learning_track?: string | null })?.learning_track ?? "math";
 
-  if (learningTrack === "coding" && material.subject_id !== 4) {
+  if (!isGuest && learningTrack === "coding" && material.subject_id !== 4) {
     redirect("/materials");
   }
 
-  // 4. ambil daftar soal
-  const { data: questions, error: questionError } = await supabase
+  // 4. ambil daftar soal (metadata saja untuk mempercepat render)
+  const { data: questionMeta, error: questionError } = await dbClient
     .from("questions")
-    .select("id, material_id, question_number, type, prompt, helper_text, question_image_url, question_mode")
+    .select("id, question_number, type, question_mode")
     .eq("material_id", materialId)
     .order("question_number", { ascending: true });
 
@@ -106,98 +160,40 @@ export default async function MaterialPage(props: MaterialPageProps) {
     console.error(questionError);
   }
 
-  const questionList = questions || [];
-  const questionIds = questionList.map((q) => q.id);
+  const questionMetaList = questionMeta || [];
+  const questionCount = questionMetaList.length;
 
-  let optionsByQuestion = new Map();
-  let targetsByQuestion = new Map();
-  let itemsByQuestion = new Map();
-  let partsByQuestion = new Map();
+  const { data: exampleRows } = await dbClient
+    .from("questions")
+    .select("id, prompt, question_image_url, question_mode")
+    .eq("material_id", materialId)
+    .or("question_mode.is.null,question_mode.neq.tryout")
+    .order("question_number", { ascending: true })
+    .limit(2);
 
-  if (questionIds.length > 0) {
-    const { data: optionRows, error: optionsError } = await supabase
-      .from("question_options")
-      .select("question_id, label, value, image_url, sort_order, is_correct")
-      .in("question_id", questionIds)
-      .order("sort_order", { ascending: true });
-
-    if (optionsError) {
-      console.error("question_options error", optionsError);
-    }
-
-    const { data: targetRows, error: targetsError } = await supabase
-      .from("question_drop_targets")
-      .select("id, question_id, label, placeholder, sort_order")
-      .in("question_id", questionIds)
-      .order("sort_order", { ascending: true });
-
-    if (targetsError) {
-      console.error("question_drop_targets error", targetsError);
-    }
-
-    const { data: itemRows, error: itemsError } = await supabase
-      .from("question_drop_items")
-      .select("id, question_id, label, image_url, correct_target_id, sort_order")
-      .in("question_id", questionIds)
-      .order("sort_order", { ascending: true });
-
-    if (itemsError) {
-      console.error("question_drop_items error", itemsError);
-    }
-
-    const { data: partRows, error: partsError } = await supabase
-      .from("question_items")
-      .select("id, question_id, label, prompt, image_url, sort_order")
-      .in("question_id", questionIds)
-      .order("sort_order", { ascending: true });
-
-    if (partsError) {
-      console.error("question_items error", partsError);
-    }
-
-    for (const row of optionRows || []) {
-      const list = optionsByQuestion.get(row.question_id) || [];
-      list.push(row);
-      optionsByQuestion.set(row.question_id, list);
-    }
-
-    for (const row of targetRows || []) {
-      const list = targetsByQuestion.get(row.question_id) || [];
-      list.push(row);
-      targetsByQuestion.set(row.question_id, list);
-    }
-
-    for (const row of itemRows || []) {
-      const list = itemsByQuestion.get(row.question_id) || [];
-      list.push(row);
-      itemsByQuestion.set(row.question_id, list);
-    }
-
-    for (const row of partRows || []) {
-      const list = partsByQuestion.get(row.question_id) || [];
-      list.push(row);
-      partsByQuestion.set(row.question_id, list);
-    }
-  }
-
-  const normalizedQuestions = questionList.map((q) => ({
-    ...q,
-    options: optionsByQuestion.get(q.id) || [],
-    drop_targets: targetsByQuestion.get(q.id) || [],
-    drop_items: itemsByQuestion.get(q.id) || [],
-    items: partsByQuestion.get(q.id) || [],
+  const exampleQuestions = (exampleRows || []).map((row) => ({
+    id: row.id,
+    prompt: row.prompt,
+    imageUrl: row.question_image_url ?? null,
   }));
-  const questionCount = questionList.length;
 
   // 5. ambil progress
-  const { data: progress } = await supabase
-    .from("student_material_progress")
-    .select("last_question_number")
-    .eq("user_id", user.id)
-    .eq("material_id", materialId)
-    .single();
+  let lastQuestionNumber = 0;
+  if (!isGuest && user) {
+    const { data: progress } = await supabase
+      .from("student_material_progress")
+      .select("last_question_number")
+      .eq("user_id", user.id)
+      .eq("material_id", materialId)
+      .single();
 
-  const lastQuestionNumber = progress?.last_question_number ?? 0;
+    lastQuestionNumber = progress?.last_question_number ?? 0;
+  }
+
+  const userId = user?.id ?? "guest";
+  const displayedQuestionCount = isGuest
+    ? Math.min(questionCount, questionLimit)
+    : questionCount;
 
   return (
     <div className="min-h-[calc(100vh-80px)] px-4 py-6 md:px-6 lg:px-8">
@@ -251,12 +247,18 @@ export default async function MaterialPage(props: MaterialPageProps) {
                   </span>
                   <span
                     className={`rounded-full px-3 py-1 text-[11px] font-semibold border ${
-                      isPremiumPlan
+                      isGuest
+                        ? "border-emerald-300 bg-emerald-100 text-emerald-700"
+                        : isPremiumPlan
                         ? "border-amber-300 bg-amber-100 text-amber-700"
                         : "border-emerald-300 bg-emerald-100 text-emerald-700"
                     }`}
                   >
-                    {isPremiumPlan ? `${planLabel} Student` : "Free Student"}
+                    {isGuest
+                      ? "Gratis (tanpa login)"
+                      : isPremiumPlan
+                      ? `${planLabel} Student`
+                      : "Free Student"}
                   </span>
                 </div>
 
@@ -264,10 +266,10 @@ export default async function MaterialPage(props: MaterialPageProps) {
 
                 <div className="flex items-center justify-between">
                   <span className="text-[11px] text-slate-500">
-                    Jumlah soal
+                    {isGuest ? "Soal gratis" : "Jumlah soal"}
                   </span>
                   <span className="font-semibold text-emerald-700">
-                    {questionCount} soal
+                    {displayedQuestionCount} soal
                   </span>
                 </div>
 
@@ -289,18 +291,20 @@ export default async function MaterialPage(props: MaterialPageProps) {
                   )}
                 </div>
 
-                <Link
-                  href={`/dashboard/student/materials/${material.id}/analysis`}
-                  className="
-                    mt-3 inline-flex items-center gap-2 rounded-xl
-                    bg-emerald-600 hover:bg-emerald-700
-                    border border-emerald-600
-                    px-4 py-2 text-xs md:text-sm font-medium
-                    text-white transition
-                  "
-                >
-                  Lihat laporan hasil materi ini
-                </Link>
+                {!isGuest && (
+                  <Link
+                    href={`/dashboard/student/materials/${material.id}/analysis`}
+                    className="
+                      mt-3 inline-flex items-center gap-2 rounded-xl
+                      bg-emerald-600 hover:bg-emerald-700
+                      border border-emerald-600
+                      px-4 py-2 text-xs md:text-sm font-medium
+                      text-white transition
+                    "
+                  >
+                    Lihat laporan hasil materi ini
+                  </Link>
+                )}
               </div>
             </div>
 
@@ -326,14 +330,16 @@ export default async function MaterialPage(props: MaterialPageProps) {
           <div className="relative z-10">
             <MaterialWithResources
               material={material}
-              questions={normalizedQuestions}
+              questionMeta={questionMetaList}
+              exampleQuestions={exampleQuestions}
               initialLastNumber={lastQuestionNumber}
-              userId={user.id}
+              userId={userId}
               isPremium={isPremiumPlan}
               questionLimit={questionLimit}
               planLabel={planLabel}
               planPriceLabel={planPriceLabel}
               upgradeOptions={upgradeOptions}
+              isGuest={isGuest}
             />
           </div>
         </section>

@@ -1,0 +1,41 @@
+material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
+61,1,essay,practice,,Satuan baku panjang yang biasa dipakai pada penggaris adalah ...,,,cm,,,,,,,,,,,,,
+61,2,essay,practice,,Ubah 250 cm ke meter.,,,2.5 m,,,,,,,,,,,,,
+61,3,essay,practice,,Tinggi pintu 210 cm. Tinggi pintu dalam meter adalah ...,,,2.1 m,,,,,,,,,,,,,
+61,4,essay,practice,,Pita 4 m 37 cm disambung dengan pita 7 m 43 cm. Panjang total pita adalah ...,,,11 m 80 cm,,,,,,,,,,,,,
+61,5,essay,practice,,Kain 75 m 80 cm dijual 38 m 45 cm. Sisa kain adalah ...,,,37 m 35 cm,,,,,,,,,,,,,
+61,6,essay,practice,,Kebun panjangnya 5.000 cm. Panjang kebun dalam meter adalah ...,,,50 m,,,,,,,,,,,,,
+61,7,essay,practice,,Satuan baku berat untuk benda ringan seperti pensil adalah ...,,,gram,,,,,,,,,,,,,
+61,8,essay,practice,,Satuan baku berat untuk karung beras adalah ...,,,kg,,,,,,,,,,,,,
+61,9,essay,practice,,Ubah 1.753 gram ke kilogram dan gram.,,,1 kg 753 gram,,,,,,,,,,,,,
+61,10,essay,practice,,1 kilogram sama dengan ... gram.,,,1000,,,,,,,,,,,,,
+61,11,essay,practice,,Meutia punya 8.000 gram mangga dan menjual 4 kg. Sisa mangga adalah ... gram.,,,4000 gram,,,,,,,,,,,,,
+61,12,essay,practice,,Sebuah buku beratnya 500 gram. Dua buku beratnya ... gram.,,,1000,,,,,,,,,,,,,
+61,13,essay,practice,,Ubah 3 kg 200 gram ke gram.,,,3200,,,,,,,,,,,,,
+61,14,essay,practice,,Ubah 4.500 gram ke kilogram.,,,4.5 kg,,,,,,,,,,,,,
+61,15,essay,practice,,Alat ukur paling tepat untuk panjang meja kelas adalah ...,,,meteran,,,,,,,,,,,,,
+61,16,essay,practice,,1 ons sama dengan ... gram.,,,100,,,,,,,,,,,,,
+61,17,mcq,practice,,Alat ukur yang tepat untuk mengukur tinggi badan adalah ...,,,B,,,penggaris,meteran,pensil,jengkal,,,,,,,
+61,18,mcq,practice,,Satuan baku panjang yang lebih besar dari cm adalah ...,,,A,,,meter,milimeter,inci,jengkal,,,,,,,
+61,19,mcq,practice,,200 cm sama dengan ...,,,C,,,2 cm,20 cm,2 m,20 m,,,,,,,
+61,20,mcq,practice,,Berat 1 kg sama dengan ...,,,D,,,10 g,100 g,500 g,1.000 g,,,,,,,
+61,21,mcq,practice,,Benda paling tepat diukur dengan gram adalah ...,,,A,,,pensil,sepeda,lemari,karung beras,,,,,,,
+61,22,mcq,practice,,Benda paling tepat diukur dengan kilogram adalah ...,,,C,,,penghapus,koin,buah semangka,kertas,,,,,,,
+61,23,mcq,practice,,3 m 45 cm sama dengan ... cm.,,,B,,,3450,345,3045,450,,,,,,,
+61,24,mcq,practice,,Satuan baku untuk panjang pensil adalah ...,,,A,,,cm,m,kg,g,,,,,,,
+61,25,mcq,practice,,Alat ukur yang tepat untuk panjang buku tulis adalah ...,,,D,,,meteran,timbangan,jam,penggaris,,,,,,,
+61,26,mcq,practice,,5.000 gram sama dengan ...,,,B,,,0.5 kg,5 kg,50 kg,500 kg,,,,,,,
+61,27,mcq,practice,,Panjang 1 meter sama dengan ... cm.,,,C,,,10,50,100,1000,,,,,,,
+61,28,mcq,practice,,Berat 2 kg 300 g sama dengan ... g.,,,A,,,2300,2030,2003,230,,,,,,,
+61,29,drag_drop,practice,,Pasangkan benda dengan alat ukurnya.,,,,,,,,,,,,,,pintu;pulpen;tinggi badan;meja;lemari;sendok,meteran;penggaris;meteran;meteran;meteran;penggaris,
+61,30,drag_drop,practice,,Pasangkan satuan dengan kegunaan.,,,,,,,,,,,,,,cm;meter;gram;kilogram,benda kecil panjang;benda panjang besar;benda ringan;benda berat,
+61,31,drag_drop,practice,,Pasangkan nilai dengan satuan.,,,,,,,,,,,,,,1 m;100 cm;1 kg;1000 g,setara;setara;setara;setara,
+61,32,drag_drop,practice,,Pasangkan hasil konversi.,,,,,,,,,,,,,,250 cm;3 m 20 cm;4 kg 150 g;1.200 g,2.5 m;320 cm;4150 g;1.2 kg,
+61,33,drag_drop,practice,,Pasangkan berat dengan jumlah.,,,,,,,,,,,,,,2 kg;500 g;3.000 g;1 ons,2.000 g;0.5 kg;3 kg;100 g,
+61,34,drag_drop,practice,,Pasangkan pernyataan dengan benar/salah.,,,,,,,,,,,,,,1 m = 10 cm;1 kg = 1000 g;1 ons = 100 g;200 cm = 2 m,salah;benar;benar;benar,
+61,35,multipart,practice,,Ubah satuan panjang.,,,,,,,,,,,,,,,,a|450 cm|4.5 m;b|2 m 30 cm|230 cm;c|1.250 cm|12.5 m
+61,36,multipart,practice,,Ubah satuan berat.,,,,,,,,,,,,,,,,a|3 kg 40 g|3040 g;b|950 g|0.95 kg;c|6.500 g|6.5 kg
+61,37,multipart,practice,,Pilih alat ukur yang tepat.,,,,,,,,,,,,,,,,a|ukur panjang buku|penggaris;b|ukur tinggi badan|meteran;c|ukur berat mangga|timbangan
+61,38,multipart,practice,,Hitung panjang total.,,,,,,,,,,,,,,,,a|1 m 20 cm + 80 cm|2 m;b|2 m 50 cm - 70 cm|1 m 80 cm;c|5 m 10 cm + 3 m 90 cm|9 m
+61,39,multipart,practice,,Hitung berat total.,,,,,,,,,,,,,,,,a|1 kg 200 g + 800 g|2 kg;b|3 kg 500 g - 750 g|2 kg 750 g;c|2 kg + 450 g|2 kg 450 g
+61,40,multipart,practice,,Soal cerita singkat.,,,,,,,,,,,,,,,,a|Panjang pita 4 m 37 cm + 7 m 43 cm|11 m 80 cm;b|Kain 75 m 80 cm - 38 m 45 cm|37 m 35 cm;c|8.000 g - 4 kg|4.000 g

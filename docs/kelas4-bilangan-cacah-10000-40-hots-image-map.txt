@@ -1,0 +1,3 @@
+6. Lihat tabel nilai tempat pada gambar. Tentukan nilai tempat dari 9.507. -> /images/kelas4-bilangan-10000/placevalue_9507.png
+14. Perhatikan susunan kursi pada gambar. Berapa jumlah kursi? -> /images/kelas4-bilangan-10000/array_6x7.png
+34. Perhatikan tabel nilai tempat pada gambar. -> /images/kelas4-bilangan-10000/placevalue_7209.png

@@ -95,7 +95,7 @@ export default function StudentsTable({ rows }: Props) {
                     type="button"
                     onClick={() => handleReset(row)}
                     disabled={loadingId === row.subscriptionId}
-                    className="rounded-lg border border-rose-400/60 bg-rose-500/20 px-3 py-1.5 text-[11px] font-semibold text-rose-100 hover:bg-rose-500/30 disabled:opacity-60"
+                    className="rounded-lg border border-rose-500/60 bg-rose-50 px-3 py-1.5 text-[11px] font-semibold text-rose-700 hover:bg-rose-100 disabled:opacity-60"
                   >
                     {loadingId === row.subscriptionId ? "Memproses..." : "Reset ke Free"}
                   </button>

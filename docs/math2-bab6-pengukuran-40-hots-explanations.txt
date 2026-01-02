@@ -1,0 +1,40 @@
+57-1: Sisi yang turun berarti lebih berat.
+57-4: Jika tas > buku > pensil, maka pensil paling ringan.
+57-6: 6 bola tenis lebih berat daripada 4, jadi kotak lebih berat.
+57-9: 5 kelereng lebih berat daripada 3 kelereng.
+57-11: Jarum panjang di 12 berarti tepat, jarum pendek di 7 berarti pukul 7.
+57-14: 1 jam lebih lama daripada 20 menit.
+57-16: Buku lebih berat daripada penggaris dan penghapus.
+57-19: 10 menit lebih sebentar daripada 25 menit.
+57-21: Pukul 05:00 adalah pagi hari.
+57-24: 5 gelas lebih berat daripada 2 gelas.
+57-26: Urutan berat naik: kelereng lalu buku lalu tas.
+57-29: 07:00 - 06:00 = 1 jam.
+57-31: Durasi sama berarti sama lama.
+57-34: 5 koin paling berat, jadi Edo paling kuat.
+57-36: 8 kelereng lebih berat daripada 7 kelereng.
+57-39: Pukul 20:00 adalah malam hari.
+57-2: Seimbang berarti sama berat.
+57-5: Benda lebih berat membuat sisi timbangan turun.
+57-8: Jarum pendek di 5 dan jarum panjang di 12 menunjukkan pukul 5 tepat.
+57-10: Pukul 16:00 adalah sore.
+57-13: 9 kelereng lebih berat daripada 4 kelereng.
+57-17: Tidur malam biasanya paling lama.
+57-20: Pukul 05:00 masih termasuk pagi.
+57-23: 10 menit paling sebentar.
+57-27: 25 menit lebih lama daripada 15 menit.
+57-30: Urutan benar adalah pagi, siang, sore, malam.
+57-33: Keduanya setara 2 kelereng, berarti sama berat.
+57-38: Pukul 07:00 biasanya waktu sarapan.
+57-3: Sarapan pagi, sekolah siang, bermain sore, tidur malam.
+57-12: Semangka paling berat, kapas paling ringan.
+57-18: Sesuaikan jam dengan pagi/siang/sore/malam.
+57-25: Cocokkan pernyataan perbandingan berat.
+57-32: Pasangkan alat ukur dengan benda yang masuk akal.
+57-40: Istilah berat dan durasi dipasangkan dengan artinya.
+57-7: Batu lebih berat dari kapas, pensil lebih ringan dari buku, jeruk sama dengan jeruk.
+57-15: 06:00 pagi, 13:00 siang, 18:00 sore.
+57-22: Bandingkan jumlah satuan tidak baku untuk menentukan berat.
+57-28: Bandingkan durasi untuk menentukan lebih lama/sebentar.
+57-35: Urutan umum: penghapus, buku, tas.
+57-37: Jam tepat selalu jarum panjang di 12, jarum pendek sesuai jam.

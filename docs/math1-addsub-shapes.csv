@@ -1,0 +1,41 @@
+material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
+44,1,essay,practice,,"Jika 4 + 3 = 7, maka 7 - 4 = ?",,,3,,Pengurangan adalah kebalikan penjumlahan.,,,,,,,,,,,
+44,2,essay,practice,,8 - 2 = ?,,,6,,8 dikurangi 2 = 6.,,,,,,,,,,,
+44,3,essay,practice,,7 - 3 = ?,,,4,,7 dikurangi 3 = 4.,,,,,,,,,,,
+44,4,essay,practice,,10 - 6 = ?,,,4,,10 dikurangi 6 = 4.,,,,,,,,,,,
+44,5,essay,practice,,Lengkapi: __ + 4 = 10,,,6,,"Agar jumlah 10, diperlukan 6.",,,,,,,,,,,
+44,6,essay,practice,,Lengkapi: 7 + __ = 9,,,2,,7 ditambah 2 = 9.,,,,,,,,,,,
+44,7,essay,practice,,Lengkapi: 10 - __ = 7,,,3,,10 dikurangi 3 = 7.,,,,,,,,,,,
+44,8,essay,practice,,"Ada 9 🍬, dimakan 4. Sisa?",,,5,,9 - 4 = 5.,,,,,,,,,,,
+44,9,essay,practice,,Pilih nama bentuk: 🔺 = ?,,,segitiga,,🔺 adalah segitiga.,,,,,,,,,,,
+44,10,essay,practice,,Pilih nama bentuk: ⬛ = ?,,,segi empat,,⬛ adalah segi empat.,,,,,,,,,,,
+44,11,essay,practice,,Pilih nama bentuk: ⚪ = ?,,,bentuk lengkung,,⚪ adalah bentuk lengkung.,,,,,,,,,,,
+44,12,essay,practice,,Kelompokkan: 🔴🔴🟢🟢 (berapa merah?),,,2,,Ada 2 merah.,,,,,,,,,,,
+44,13,essay,practice,,Kelompokkan ukuran: 🔵 besar vs 🔵 kecil (berapa besar?),,,1,,Satu ikon besar.,,,,,,,,,,,
+44,14,essay,practice,,"Jika 5 + 2 = 7, maka 7 - 2 = ?",,,5,,7 dikurangi 2 = 5.,,,,,,,,,,,
+44,15,essay,practice,,6 - 5 = ?,,,1,,6 dikurangi 5 = 1.,,,,,,,,,,,
+44,16,essay,practice,,10 - 10 = ?,,,0,,Bilangan dikurangi dirinya = 0.,,,,,,,,,,,
+44,17,mcq,practice,,Mana hasilnya 5?,,,A,,2 + 3 = 5.,2+3,3+4,1+4,4+4,,,,,,,
+44,18,mcq,practice,,"Jika 3 + 4 = 7, maka 7 - 3 = ?",,,B,,7 - 3 = 4.,3,4,5,2,,,,,,,
+44,19,mcq,practice,,Bentuk segi empat adalah...,,,C,,Segi empat punya 4 sisi.,🔺,⚪,⬛,⭐,,,,,,,
+44,20,mcq,practice,,Bentuk lengkung adalah...,,,A,,Lingkaran bentuk lengkung.,⚪,🔺,⬛,🔷,,,,,,,
+44,21,mcq,practice,,9 - 6 = ?,,,D,,9 - 6 = 3.,1,2,4,3,,,,,,,
+44,22,mcq,practice,,10 - 7 = ?,,,B,,10 - 7 = 3.,2,3,4,5,,,,,,,
+44,23,mcq,practice,,Urutan mundur yang benar?,,,A,,Turun satu-satu.,"5,4,3","3,4,5","5,3,4","4,5,3",,,,,,,
+44,24,mcq,practice,,Pilih benda berbentuk segitiga,,,C,,Rambu segitiga.,📱,⚽,⚠️,📘,,,,,,,
+44,25,mcq,practice,,Pilih benda berbentuk segi empat,,,D,,Buku bentuk segi empat.,⚽,🍩,🔺,📘,,,,,,,
+44,26,mcq,practice,,6 - 2 = ?,,,C,,6 - 2 = 4.,2,3,4,5,,,,,,,
+44,27,mcq,practice,,8 - 1 = ?,,,B,,8 - 1 = 7.,6,7,8,9,,,,,,,
+44,28,mcq,practice,,Pasangan 10 untuk 3 adalah...,,,A,,3 + 7 = 10.,7,6,5,8,,,,,,,
+44,29,drag_drop,practice,,Pasangkan bentuk dengan namanya.,,,,,Cocokkan bentuk dan nama.,,,,,,,,,🔺;⬛;⚪,segitiga;segi empat;bentuk lengkung,
+44,30,drag_drop,practice,,Pasangkan operasi dengan hasil.,,,,,Hitung hasilnya.,,,,,,,,,10-4;8-3;7-2;6-6,6;5;5;0,
+44,31,drag_drop,practice,,Pasangkan gambar dengan bentuk.,,TODO_IMG_SHAPE_SET.png,,,Cocokkan gambar dan bentuk.,,,,,,,,,TODO_IMG_SHAPE_TRI;TODO_IMG_SHAPE_RECT;TODO_IMG_SHAPE_CIRCLE,segitiga;segi empat;bentuk lengkung,
+44,32,drag_drop,practice,,Pasangkan benda dengan bentuk.,,,,,Cocokkan benda dan bentuk.,,,,,,,,,⚽;📘;⚠️,bentuk lengkung;segi empat;segitiga,
+44,33,drag_drop,practice,,Pasangkan warna yang sama.,,,,,Kelompokkan berdasarkan warna.,,,,,,,,,🔴;🟢;🔵,merah;hijau;biru,
+44,34,drag_drop,practice,,Pasangkan operasi dengan hasil.,,,,,Hitung hasilnya.,,,,,,,,,9-4;5-1;8-8;10-9,5;4;0;1,
+44,35,multipart,practice,,Hitung tiap bagian.,,,,,Kerjakan tiap bagian.,,,,,,,,,,,a|9 - 3 =|6;b|10 - 5 =|5;c|Pasangan 10 untuk 1|9
+44,36,multipart,practice,,Hitung tiap bagian.,,,,,Kerjakan tiap bagian.,,,,,,,,,,,"a|6 - 4 =|2;b|8 - 2 =|6;c|Lengkapi: 7,6,__,4|5"
+44,37,multipart,practice,,Hitung tiap bagian.,,,,,Kerjakan tiap bagian.,,,,,,,,,,,a|4 + 3 =|7;b|7 - 4 =|3;c|Jika 2 + 5 = 7 maka 7 - 2 =|5
+44,38,multipart,practice,,Hitung tiap bagian.,,,,,Kerjakan tiap bagian.,,,,,,,,,,,a|10 - 7 =|3;b|5 - 5 =|0;c|Pasangan 10 untuk 4|6
+44,39,multipart,practice,,Hitung tiap bagian.,,,,,Kerjakan tiap bagian.,,,,,,,,,,,a|🔺 bentuk apa?|segitiga;b|⬛ bentuk apa?|segi empat;c|⚪ bentuk apa?|bentuk lengkung
+44,40,multipart,practice,,Hitung tiap bagian.,,,,,Kerjakan tiap bagian.,,,,,,,,,,,"a|8 - 1 =|7;b|9 - 9 =|0;c|Lengkapi: 3,2,__,0|1"

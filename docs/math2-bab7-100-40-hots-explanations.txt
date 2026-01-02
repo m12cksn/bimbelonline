@@ -1,0 +1,41 @@
+58-1: 7 puluhan dan 3 satuan = 73.
+58-2: 56 = 5 puluhan + 6 satuan.
+58-4: Urutan naik: 56, 60, 65, 71, 79.
+58-6: 76 + 2 = 78.
+58-8: 9 puluhan 2 satuan = 92.
+58-11: 8 puluhan 1 satuan = 81.
+58-13: Tujuh puluh delapan = 78.
+58-16: 12 ditambah puluhan 4 menjadi 52, tambah 3 satuan menjadi 55.
+58-19: 92 - 3 = 89.
+58-22: Puluhan lebih besar di depan, jadi 85.
+58-24: Bilangan di antara 67 dan 69 adalah 68.
+58-27: 6 puluhan 9 satuan = 69.
+58-29: 100 = 10 puluhan + 0 satuan.
+58-31: Urutan turun: 92, 73, 66.
+58-34: 58 + 5 = 63.
+58-37: 67 - 1 = 66.
+58-3: 65 lebih besar dari 56, 59, 60.
+58-5: 67 paling kecil.
+58-7: 8 puluhan 7 satuan = 87.
+58-9: Urutan naik: 60, 65, 71.
+58-10: 73 = 7 puluhan + 3 satuan.
+58-12: 70 - 4 = 66.
+58-14: Sembilan puluh dua = 92.
+58-17: 92 paling besar.
+58-20: Satu-satunya bilangan di antara 68 dan 70 adalah 69.
+58-23: 10 puluhan = 100.
+58-26: 7 puluhan 8 satuan = 78.
+58-30: Yang memenuhi adalah 75.
+58-15: Cocokkan puluhan-satuan ke bilangan.
+58-18: Pasangkan nama bilangan ke lambangnya.
+58-21: Tentukan >, <, atau =.
+58-25: Cocokkan puluhan-satuan ke bilangan.
+58-28: Identifikasi urutan naik atau turun.
+58-33: Hubungkan bilangan ke puluhan dan satuan.
+58-35: Tambah atau kurang sesuai instruksi.
+58-36: Bandingkan tiap pasangan bilangan.
+58-38: Uraikan bilangan ke puluhan dan satuan.
+58-39: Setiap ikat = 10, gabungkan puluhan dan satuan.
+58-40: Urutkan sesuai perintah pada soal.
+58-39: Hitung 1 kurang, 2 lebih, dan bilangan di antara.
+58-40: Ubah puluhan-satuan ke bilangan.

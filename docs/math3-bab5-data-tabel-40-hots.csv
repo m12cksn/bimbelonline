@@ -1,0 +1,65 @@
+material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
+63,1,essay,practice,,Data nilai ulangan: 5 6 6 6 6 7 7 7 7 7 8 8 8 9 9 9 9 9 10 10. Data terkecil adalah ...,,,5,,,,,,,,,,,,,
+63,2,essay,practice,,Data nilai ulangan: 5 6 6 6 6 7 7 7 7 7 8 8 8 9 9 9 9 9 10 10. Data terbesar adalah ...,,,10,,,,,,,,,,,,,
+63,3,essay,practice,,Jangkauan data nilai ulangan di atas adalah ...,,,5,,,,,,,,,,,,,
+63,4,essay,practice,,Berapa banyak siswa yang mendapat nilai 9 pada data di atas?,,,5,,,,,,,,,,,,,
+63,5,essay,practice,,Data: 3 5 7 7 8 9 9 9. Urutkan data dari terbesar ke terkecil.,,,9 9 9 8 7 7 5 3,,,,,,,,,,,,,
+63,6,essay,practice,,Data jumlah anggota keluarga: 4 5 3 6 4 4 5. Data yang paling sering muncul adalah ...,,,4,,,,,,,,,,,,,
+63,7,essay,practice,,Data jumlah buku: 2 3 3 4 4 4 5. Jangkauan data adalah ...,,,3,,,,,,,,,,,,,
+63,8,essay,practice,,Data: 12 15 11 15 14. Berapa data terbesar?,,,15,,,,,,,,,,,,,
+63,9,essay,practice,,Data: 8 6 7 9 6 8. Berapa banyak data 6?,,,2,,,,,,,,,,,,,
+63,10,essay,practice,,Data: 10 11 12 13. Apakah data sudah terurut naik?,,,ya,,,,,,,,,,,,,
+63,11,essay,practice,,Data: 20 18 17 19. Urutkan dari kecil ke besar.,,,17 18 19 20,,,,,,,,,,,,,
+63,12,essay,practice,,Data: 4 4 5 5 5 6. Data terkecil dan terbesar adalah ...,,,4 dan 6,,,,,,,,,,,,,
+63,13,essay,practice,,Data: 7 7 7 8 9. Data yang paling banyak adalah ...,,,7,,,,,,,,,,,,,
+63,14,essay,practice,,Tuliskan jangkauan data: 13 16 14 12.,,,4,,,,,,,,,,,,,
+63,15,essay,practice,,Data: 5 6 6 7 8 8 8. Berapa jumlah data?,,,7,,,,,,,,,,,,,
+63,16,essay,practice,,Data: 9 9 9 10 10. Berapa banyak nilai 10?,,,2,,,,,,,,,,,,,
+63,17,mcq,practice,,Yang dimaksud jangkauan data adalah ...,,,B,,,jumlah semua data,data terbesar dikurangi data terkecil,data terkecil,data terbesar,,,,,,,
+63,18,mcq,practice,,"Data terbesar dari 14, 11, 16, 12 adalah ...",,,C,,,11,12,16,14,,,,,,,
+63,19,mcq,practice,,"Data terkecil dari 7, 5, 9, 6 adalah ...",,,A,,,5,6,7,9,,,,,,,
+63,20,mcq,practice,,Banyak data 8 pada daftar 8 7 8 6 8 5 adalah ...,,,D,,,1,2,3,3,,,,,,,
+63,21,mcq,practice,,Data: 2 4 4 4 5 6. Modus data adalah ...,,,B,,,2,4,5,6,,,,,,,
+63,22,mcq,practice,,Data: 10 12 14 16. Jangkauan data adalah ...,,,C,,,2,4,6,8,,,,,,,
+63,23,mcq,practice,,Data: 9 8 7 6. Data sudah terurut dari ...,,,A,,,besar ke kecil,kecil ke besar,acak,tidak bisa ditentukan,,,,,,,
+63,24,mcq,practice,,Data: 3 3 4 5 6. Banyak data 3 adalah ...,,,B,,,1,2,3,4,,,,,,,
+63,25,mcq,practice,,Yang termasuk data adalah ...,,,D,,,cerita,rumus,gambar,angka hasil pengamatan,,,,,,,
+63,26,mcq,practice,,Tabel data biasanya memiliki ...,,,C,,,hanya baris,hanya kolom,baris dan kolom,hanya judul,,,,,,,
+63,27,mcq,practice,,Tally/turus digunakan untuk ...,,,A,,,mencacah jumlah data,menggambar peta,mengukur panjang,menghitung luas,,,,,,,
+63,28,mcq,practice,,Data: 5 5 5 6 7. Nilai yang paling sedikit muncul adalah ...,,,C,,,5,6,7,8,,,,,,,
+63,29,drag_drop,practice,,Pasangkan data dengan jumlah kemunculannya.,,,,,,,,,,,,,,nilai 5;nilai 6;nilai 7;nilai 8,1;4;5;3,
+63,30,drag_drop,practice,,Pasangkan pernyataan dengan istilahnya.,,,,,,,,,,,,,,data terbesar;data terkecil;jangkauan;turus,nilai paling besar;nilai paling kecil;selisih terbesar-terkecil;cacah jumlah data,
+63,31,drag_drop,practice,,Pasangkan data ke urutan.,,,,,,,,,,,,,,3 1 2;9 8 7;5 6 4;2 2 3,urut naik 1 2 3;urut turun 9 8 7;urut naik 4 5 6;urut naik 2 2 3,
+63,32,drag_drop,practice,,Pasangkan kata dengan contoh.,,,,,,,,,,,,,,data;turus;tabel;jangkauan,nilai ulangan;|||||;baris-kolom;terbesar-terkecil,
+63,33,drag_drop,practice,,Pasangkan nilai dengan posisi.,,,,,,,,,,,,,,nilai terkecil;nilai terbesar;nilai sama;nilai lebih besar,paling kecil;paling besar;sama banyak;lebih banyak,
+63,34,drag_drop,practice,,Pasangkan kategori dengan jumlah.,,,,,,,,,,,,,,apel;jeruk;anggur;pisang,3;5;2;4,
+63,35,multipart,practice,,Perhatikan tabel data berikut. Jawab pertanyaan.,"Tabel: Jenis | Turus | Jumlah
+Apel | |||| | 4
+Jeruk | ||||| | 5
+Mangga | ||| | 3
+Anggur | || | 2",,,,,,,,,,,,,,,a|Data terbanyak|Apel;b|Data tersedikit|Anggur;c|Jumlah seluruh data|14
+63,36,multipart,practice,,Perhatikan tabel jumlah siswa. Jawab pertanyaan.,"Tabel: Kelas | Jumlah Siswa
+III A | 12
+III B | 15
+III C | 9",,,,,,,,,,,,,,,a|Kelas terbanyak|III B;b|Jumlah total siswa|36;c|Selisih terbesar-terkecil|6
+63,37,multipart,practice,,Perhatikan tabel nilai berikut. Jawab pertanyaan.,"Tabel: Nilai | Banyak Siswa
+6 | 3
+7 | 5
+8 | 4
+9 | 6
+10 | 2",,,,,,,,,,,,,,,a|Nilai tertinggi|10;b|Nilai terendah|6;c|Jangkauan|4
+63,38,multipart,practice,,Perhatikan tabel warna favorit. Jawab pertanyaan.,"Tabel: Warna | Banyak Anak
+Merah | 4
+Biru | 7
+Kuning | 5
+Hijau | 2",,,,,,,,,,,,,,,a|Warna paling banyak|Biru;b|Warna paling sedikit|Hijau;c|Selisih biru dan merah|3
+63,39,multipart,practice,,Perhatikan tabel jumlah buku. Jawab pertanyaan.,"Tabel: Mata Pelajaran | Jumlah Buku
+Matematika | 8
+Bahasa Indonesia | 6
+IPA | 4
+IPS | 8",,,,,,,,,,,,,,,a|Buku paling sedikit|IPA;b|Buku paling banyak|Matematika;c|Jumlah buku semua|26
+63,40,multipart,practice,,Perhatikan tabel buah terjual. Jawab pertanyaan.,"Tabel: Buah | Banyak Terjual
+Apel | 6
+Jeruk | 3
+Pisang | 7
+Mangga | 4",,,,,,,,,,,,,,,a|Buah paling laris|Pisang;b|Buah paling sedikit|Jeruk;c|Jumlah semua buah|20

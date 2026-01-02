@@ -713,7 +713,7 @@ export default function AdminQuestionsPage() {
   }
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="mx-auto max-w-full space-y-6 px-4 py-6">
       <div>
         <h1 className="text-2xl font-bold text-slate-900">CMS Soal (Admin)</h1>
         <p className="text-sm text-slate-500">
@@ -940,7 +940,8 @@ export default function AdminQuestionsPage() {
           />
           {importFile ? (
             <p className="text-[11px] text-slate-600">
-              File dipilih: <span className="font-semibold">{importFile.name}</span>
+              File dipilih:{" "}
+              <span className="font-semibold">{importFile.name}</span>
             </p>
           ) : null}
           <p className="text-[11px] text-slate-500">
@@ -974,7 +975,7 @@ export default function AdminQuestionsPage() {
       </div>
 
       {importReport && (
-        <div className="space-y-2 max-w-5xl rounded-lg border border-slate-200 bg-white p-4">
+        <div className="max-w-2xl space-y-2 rounded-lg border border-slate-200 bg-white p-4">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <h3 className="text-sm font-semibold text-slate-700">
               Laporan Import
@@ -1023,8 +1024,8 @@ export default function AdminQuestionsPage() {
         </div>
       )}
 
-      <div className="grid gap-4 lg:grid-cols-[1.1fr_1.4fr]">
-        <div className="space-y-3 rounded-lg border border-slate-200 bg-white p-4">
+      <div className="grid gap-4 lg:grid-cols-[360px_minmax(0,1fr)]">
+        <div className="w-full max-w-[360px] space-y-3 rounded-lg border border-slate-200 bg-white p-4">
           <div className="flex items-center justify-between">
             <h2 className="text-sm font-semibold text-slate-700">
               Daftar Soal
@@ -1241,99 +1242,106 @@ export default function AdminQuestionsPage() {
 
           {(questionType === "mcq" || questionType === "drag_drop") && (
             <div className="space-y-3">
-            <label className="text-xs text-slate-500">Opsi Jawaban</label>
-            <div className="space-y-2">
-              {options.map((opt, idx) => (
-                <div
-                  key={`${idx}-${opt.value}`}
-                  className="grid gap-2 rounded-lg border border-slate-200 bg-white p-3 md:grid-cols-[1fr_1fr_1fr_auto]"
-                >
-                  <input
-                    className="rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs text-slate-900"
-                    placeholder="Label"
-                    value={opt.label}
-                    onChange={(e) => {
-                      const next = [...options];
-                      next[idx] = { ...next[idx], label: e.target.value };
-                      if (!next[idx].value) next[idx].value = e.target.value;
-                      setOptions(next);
-                    }}
-                  />
-                  <input
-                    className="rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs text-slate-900"
-                    placeholder="Value"
-                    value={opt.value}
-                    onChange={(e) => {
-                      const next = [...options];
-                      next[idx] = { ...next[idx], value: e.target.value };
-                      setOptions(next);
-                    }}
-                  />
-                  <input
-                    className="rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs text-slate-900"
-                    placeholder="Image URL"
-                    value={opt.imageUrl ?? ""}
-                    onChange={(e) => {
-                      const next = [...options];
-                      next[idx] = { ...next[idx], imageUrl: e.target.value };
-                      setOptions(next);
-                    }}
-                  />
-                  <div className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      className="rounded-lg border border-slate-200 bg-white px-2 py-1 text-[11px] text-slate-900"
-                      onClick={() => optionInputRefs.current[idx]?.click()}
-                      disabled={uploading !== null}
-                    >
-                      {uploadingOptionIndex === idx
-                        ? "Mengunggah..."
-                        : "Upload"}
-                    </button>
-                    <input
-                      ref={(el) => {
-                        optionInputRefs.current[idx] = el;
-                      }}
-                      className="hidden"
-                      type="file"
-                      accept="image/*"
-                      onChange={(e) =>
-                        handleUpload("option", e.target.files?.[0] ?? null, idx)
-                      }
-                    />
-                  </div>
-                  <button
-                    type="button"
-                    className="rounded-lg border border-rose-600 bg-rose-600 px-2 text-[11px] text-white"
-                    onClick={() => {
-                      const next = options.filter((_, i) => i !== idx);
-                      setOptions(next.length ? next : [defaultOption()]);
-                    }}
+              <label className="text-xs text-slate-500">Opsi Jawaban</label>
+              <div className="space-y-2">
+                {options.map((opt, idx) => (
+                  <div
+                    key={`${idx}-${opt.value}`}
+                    className="grid min-w-0 gap-2 rounded-lg border border-slate-200 bg-white p-3 md:grid-cols-[1fr_1fr_1fr_auto]"
                   >
-                    Hapus
-                  </button>
-                  {questionType === "drag_drop" && (
                     <input
-                      className="rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs text-slate-900 md:col-span-4"
-                      placeholder="Target key (mis: A, B)"
-                      value={opt.targetKey ?? ""}
+                      className="min-w-0 rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs text-slate-900"
+                      placeholder="Label"
+                      value={opt.label}
                       onChange={(e) => {
                         const next = [...options];
-                        next[idx] = { ...next[idx], targetKey: e.target.value };
+                        next[idx] = { ...next[idx], label: e.target.value };
+                        if (!next[idx].value) next[idx].value = e.target.value;
                         setOptions(next);
                       }}
                     />
-                  )}
-                </div>
-              ))}
-            </div>
-            <button
-              type="button"
-              className="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs text-slate-900"
-              onClick={() => setOptions((prev) => [...prev, defaultOption()])}
-            >
-              + Tambah opsi
-            </button>
+                    <input
+                      className="min-w-0 rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs text-slate-900"
+                      placeholder="Value"
+                      value={opt.value}
+                      onChange={(e) => {
+                        const next = [...options];
+                        next[idx] = { ...next[idx], value: e.target.value };
+                        setOptions(next);
+                      }}
+                    />
+                    <input
+                      className="min-w-0 rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs text-slate-900"
+                      placeholder="Image URL"
+                      value={opt.imageUrl ?? ""}
+                      onChange={(e) => {
+                        const next = [...options];
+                        next[idx] = { ...next[idx], imageUrl: e.target.value };
+                        setOptions(next);
+                      }}
+                    />
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        className="rounded-lg border border-slate-200 bg-white px-2 py-1 text-[11px] text-slate-900"
+                        onClick={() => optionInputRefs.current[idx]?.click()}
+                        disabled={uploading !== null}
+                      >
+                        {uploadingOptionIndex === idx
+                          ? "Mengunggah..."
+                          : "Upload"}
+                      </button>
+                      <input
+                        ref={(el) => {
+                          optionInputRefs.current[idx] = el;
+                        }}
+                        className="hidden"
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) =>
+                          handleUpload(
+                            "option",
+                            e.target.files?.[0] ?? null,
+                            idx
+                          )
+                        }
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      className="rounded-lg border border-rose-600 bg-rose-600 px-2 text-[11px] text-white"
+                      onClick={() => {
+                        const next = options.filter((_, i) => i !== idx);
+                        setOptions(next.length ? next : [defaultOption()]);
+                      }}
+                    >
+                      Hapus
+                    </button>
+                    {questionType === "drag_drop" && (
+                      <input
+                        className="rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs text-slate-900 md:col-span-4"
+                        placeholder="Target key (mis: A, B)"
+                        value={opt.targetKey ?? ""}
+                        onChange={(e) => {
+                          const next = [...options];
+                          next[idx] = {
+                            ...next[idx],
+                            targetKey: e.target.value,
+                          };
+                          setOptions(next);
+                        }}
+                      />
+                    )}
+                  </div>
+                ))}
+              </div>
+              <button
+                type="button"
+                className="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs text-slate-900"
+                onClick={() => setOptions((prev) => [...prev, defaultOption()])}
+              >
+                + Tambah opsi
+              </button>
             </div>
           )}
 

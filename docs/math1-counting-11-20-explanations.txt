@@ -1,0 +1,40 @@
+45-1: Urutan maju bertambah 1.
+45-2: Urutan maju bertambah 1.
+45-3: Urutan mundur berkurang 1.
+45-4: Seventeen = 17.
+45-5: 14 terdiri dari 1 puluhan dan 4 satuan.
+45-6: 19 terdiri dari 1 puluhan dan 9 satuan.
+45-7: 18 lebih besar dari 12.
+45-8: Urutan naik dari kecil ke besar.
+45-9: Urutan turun dari besar ke kecil.
+45-10: 10 + 3 = 13.
+45-11: 1 puluhan 7 satuan = 17.
+45-12: 2 puluhan 0 satuan = 20.
+45-13: Urutan genap.
+45-14: Urutan ganjil.
+45-15: Selisih 16 dan 15 adalah 1.
+45-16: 17 lebih kecil dari 19.
+45-17: Setelah 14 adalah 15.
+45-18: Sebelum 20 adalah 19.
+45-19: 12 lebih kecil dari 16.
+45-20: 12 = 1 puluhan + 2 satuan.
+45-21: 15 - 10 = 5.
+45-22: 17 - 10 = 7.
+45-23: 18 = 1 puluhan + 8 satuan.
+45-24: Urutan naik kecil ke besar.
+45-25: Urutan turun besar ke kecil.
+45-26: 10 + 6 = 16.
+45-27: 10 + 9 = 19.
+45-28: 20 paling besar.
+45-29: Cocokkan angka dan nama.
+45-30: Cocokkan bilangan dan nilai tempat.
+45-31: Cocokkan pola bilangan.
+45-32: Jumlahkan 10 + n.
+45-33: Bandingkan bilangan.
+45-34: Tentukan angka sebelum/sesudah.
+45-35: Kerjakan tiap bagian.
+45-36: Tentukan puluhan dan satuan.
+45-37: Isi dengan <, >, atau =.
+45-38: Urutkan sesuai perintah.
+45-39: Jumlahkan 10 dengan satuan.
+45-40: Cari angka sebelum/sesudah.

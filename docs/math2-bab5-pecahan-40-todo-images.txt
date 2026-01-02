@@ -1,0 +1,3 @@
+56-3: TODO_IMG_SETENGAH_A_B.png (2 gambar: A potongan tidak sama, B potongan sama)
+56-18: TODO_IMG_SEPEREMPAT.png (4 bagian sama, 1 diwarnai)
+56-36: TODO_IMG_SETENGAH_2DARI4.png (4 bagian sama, 2 diwarnai)

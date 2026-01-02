@@ -1,0 +1,40 @@
+54-1: Jumlahkan 3 segitiga dan 2 persegi menjadi 5.
+54-2: Segitiga memiliki sisi lurus sehingga termasuk segi banyak.
+54-3: Bangun datar bersisi 3 disebut segitiga.
+54-4: Segitiga 3 sisi, persegi/persegi panjang 4 sisi, segi lima 5 sisi.
+54-5: Lingkaran tidak punya sisi lurus, jadi bukan segi banyak.
+54-6: 2 + 3 = 5.
+54-7: Segitiga 3 sisi, persegi 4 sisi sama, lingkaran tanpa sisi.
+54-8: Kubus memiliki 8 titik sudut.
+54-9: Rambu segitiga adalah bangun segitiga.
+54-10: Kubus 6 sisi sama, balok 6 sisi persegi panjang, kerucut 1 alas 1 puncak, bola tanpa sisi.
+54-11: Persegi memiliki 4 sisi.
+54-12: Segi banyak tersusun dari sisi lurus.
+54-13: Segi enam memiliki 6 sisi.
+54-14: Bola sepak berbentuk bola.
+54-15: Lingkaran bukan segi banyak; segitiga dan segi lima adalah segi banyak.
+54-16: Total persegi kecil tetap 4.
+54-17: Koin-lingkaran, buku-persegi panjang, roti segitiga-segitiga, bola-bola.
+54-18: Persegi memiliki 4 sisi sama panjang.
+54-19: Segitiga memiliki 3 sudut.
+54-20: Bola tidak memiliki rusuk dan titik sudut.
+54-21: 3 + 2 = 5.
+54-22: Kerucut punya alas lingkaran, kubus sisi sama, balok sisi persegi panjang.
+54-23: Ikon mewakili segitiga, persegi, persegi panjang, dan lingkaran.
+54-24: Persegi panjang punya 4 sisi.
+54-25: Segi lima memiliki 5 sisi.
+54-26: Kubus adalah bangun ruang.
+54-27: 2 + 1 = 3.
+54-28: Segitiga 3 sisi, persegi panjang 4, segi enam 6.
+54-29: Segi tiga dan segi empat segi banyak; lingkaran dan bola bukan.
+54-30: Lingkaran bukan segi banyak karena sisinya lengkung.
+54-31: Kerucut punya 1 puncak.
+54-32: Bola dapat menggelinding.
+54-33: Segi banyaknya hanya segitiga, jadi 5.
+54-34: Lingkaran tidak bersisi lurus; kubus 8 titik sudut; balok 6 sisi.
+54-35: Cocokkan jumlah sisi ke nama bangun.
+54-36: Bangun datar 4 sisi disebut segi empat.
+54-37: 2 + 1 = 3.
+54-38: Buku berbentuk balok.
+54-39: Kubus, kerucut, bola sesuai cirinya.
+54-40: 1 + 1 = 2.

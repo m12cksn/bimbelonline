@@ -1,0 +1,41 @@
+material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
+53,1,essay,practice,,Hitung jumlah ikon: 🍎🍎🍎🍎🍎🍎 + 🍌🍌🍌. Berapa semuanya?,,,9,,,,,,,,,,,,,
+53,2,essay,practice,,Ada ⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐. 6 bintang jatuh. Sisa berapa?,,,4,,,,,,,,,,,,,
+53,3,mcq,practice,,Kata yang tepat untuk operasi 18 - 5 adalah...,,,B,,,jumlah,selisih,lebihnya,gabungan,,,,,,,
+53,4,drag_drop,practice,,Pasangkan operasi dengan hasilnya.,,,,,,,,,,,,,,12+5;19-7;14-6;9+8,17;12;8;17,
+53,5,essay,practice,,Hitung penjumlahan bersusun: 14 + 3 = ...,,,17,,,,,,,,,,,,,
+53,6,essay,practice,,Hitung pengurangan bersusun: 18 - 6 = ...,,,12,,,,,,,,,,,,,
+53,7,multipart,practice,,Lengkapi hasil penjumlahan dan pengurangan.,,,,,,,,,,,,,,,,a|12+4|16;b|15-7|8;c|11+8|19
+53,8,mcq,practice,,Manakah bilangan yang lebih besar?,,,C,,,13,12,15,11,,,,,,,
+53,9,essay,practice,,Di meja ada 🧸🧸🧸🧸🧸 dan ⚽⚽⚽⚽. Berapa benda semuanya?,,,9,,,,,,,,,,,,,
+53,10,drag_drop,practice,,Pasangkan kata dengan operasinya.,,,,,,,,,,,,,,jumlah;selisih;lebihnya;kurangnya,penjumlahan;pengurangan;penjumlahan;pengurangan,
+53,11,essay,practice,,Hitung penjumlahan bersusun: 16 + 2 = ...,,,18,,,,,,,,,,,,,
+53,12,mcq,practice,,Bilangan yang tepat untuk 12 + ? = 19 adalah...,,,B,,,5,7,9,6,,,,,,,
+53,13,mcq,practice,,Pasangan bilangan yang jumlahnya 20 adalah...,,,A,,,9 dan 11,7 dan 8,6 dan 12,5 dan 13,,,,,,,
+53,14,essay,practice,,Hitung pengurangan bersusun: 19 - 8 = ...,,,11,,,,,,,,,,,,,
+53,15,multipart,practice,,Lengkapi pasangan bilangan.,,,,,,,,,,,,,,,,a|10+?=14|4;b|10+?=17|7;c|10+?=19|9
+53,16,mcq,practice,,Hitung 13 + 4 dengan menghitung maju. Hasilnya...,,,C,,,15,16,17,18,,,,,,,
+53,17,essay,practice,,Ada 🐟🐟🐟🐟🐟🐟🐟🐟🐟🐟🐟🐟. 5 ikan berenang pergi. Sisa berapa?,,,7,,,,,,,,,,,,,
+53,18,drag_drop,practice,,Pasangkan cerita dengan operasi yang sesuai.,,,,,,,,,,,,,,Iwan punya 8 kelereng lalu diberi 6 lagi;Tika punya 17 permen lalu memberi 4;Ada 9 ikan lalu bertambah 5,8+6;17-4;9+5,
+53,19,essay,practice,,Hitung penjumlahan bersusun: 12 + 7 = ...,,,19,,,,,,,,,,,,,
+53,20,mcq,practice,,Pernyataan yang benar tentang penjumlahan adalah...,,,A,,,12+5 sama dengan 5+12,12+5 sama dengan 12-5,12+5 selalu kurang dari 12,12+5 sama dengan 12+6,,,,,,,
+53,21,essay,practice,,Hitung ikon: 🍬🍬🍬🍬🍬🍬 + 🍭🍭🍭🍭🍭🍭🍭. Jumlahnya?,,,13,,,,,,,,,,,,,
+53,22,multipart,practice,,Hitung selisih berikut.,,,,,,,,,,,,,,,,a|18-9|9;b|16-7|9;c|15-6|9
+53,23,essay,practice,,Hitung pengurangan bersusun: 17 - 5 = ...,,,12,,,,,,,,,,,,,
+53,24,mcq,practice,,Hasil 15 - 7 adalah...,,,B,,,6,8,9,7,,,,,,,
+53,25,mcq,practice,,Selisih 19 dan 12 adalah...,,,D,,,9,8,6,7,,,,,,,
+53,26,drag_drop,practice,,Pasangkan operasi dengan hasilnya.,,,,,,,,,,,,,,14+3;18-5;20-9;11+6,17;13;11;17,
+53,27,essay,practice,,Hitung penjumlahan bersusun: 13 + 6 = ...,,,19,,,,,,,,,,,,,
+53,28,mcq,practice,,Bilangan yang tepat untuk 10 + ? = 18 adalah...,,,A,,,8,6,9,7,,,,,,,
+53,29,multipart,practice,,Selesaikan soal cerita singkat.,,,,,,,,,,,,,,,,a|Rani punya 9 pensil lalu diberi 4|13;b|Seno punya 16 kelereng lalu hilang 7|9;c|Ada 8 burung lalu datang 6|14
+53,30,essay,practice,,Jumlahkan ikon: 🌼🌼🌼🌼🌼 + 🌻🌻🌻🌻🌻. Berapa semuanya?,,,10,,,,,,,,,,,,,a|11+5|16;b|18-6|12;c|14+4|18
+53,31,mcq,practice,,Kata yang tepat untuk 20 - 8 adalah...,,,D,,,jumlah,gabungan,lebihnya,selisih,,,,,,,
+53,32,drag_drop,practice,,Pasangkan operasi dengan tanda yang benar.,,,,,,,,,,,,,,12 ? 18;17 ? 15;14 ? 14,<;>;=,
+53,33,essay,practice,,Hitung pengurangan bersusun: 20 - 9 = ...,,,11,,,,,,,,,,,,,
+53,34,mcq,practice,,Manakah yang nilainya sama dengan 14?,,,C,,,10+3,18-5,9+6,20-8,,,,,,,
+53,35,multipart,practice,,Hitung hasil berikut.,,,,,,,,,,,,,,,,a|13-4|9;b|12+5|17;c|19-10|9
+53,36,essay,practice,,Ada 🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗. Datang 🚙🚙🚙🚙🚙🚙🚙. Setelah itu 5 pergi. Berapa tersisa?,,,12,,,,,,,,,,,,,
+53,37,mcq,practice,,Pasangan yang jumlahnya 20 adalah...,,,C,,,8 dan 9,7 dan 12,11 dan 9,10 dan 7,,,,,,,
+53,38,drag_drop,practice,,Pasangkan operasi dengan hasilnya.,,,,,,,,,,,,,,15-4;12+6;19-11;13+5,11;18;8;18,
+53,39,essay,practice,,Hitung 19 - 11 = ...,,,8,,,,,,,,,,,,,
+53,40,essay,practice,,Di kandang ada 🐇🐇🐇🐇🐇🐇🐇. Datang 🐇🐇🐇🐇🐇🐇🐇🐇. Lalu 4 keluar. Berapa kelinci sekarang?,,,11,,,,,,,,,,,,,

@@ -1,0 +1,5 @@
+6. Lihat gambar pecahan berikut. -> TODO_IMG_FRACTION_BAR_A.png
+15. Perhatikan garis bilangan pecahan. -> TODO_IMG_NUMBERLINE_FRACTION.png
+24. Lihat gambar kisi 10x10. -> TODO_IMG_GRID_10x10.png
+30. Lihat gambar diskon. -> TODO_IMG_DISCOUNT_25.png
+34. Lihat gambar pecahan berikut. -> TODO_IMG_FRACTION_BAR_B.png

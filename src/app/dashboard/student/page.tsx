@@ -331,7 +331,44 @@ export default async function StudentDashboardPage() {
           </p>
 
           {/* ✅ Tombol jadwal Zoom terdekat */}
-          <UpcomingZoomWidget />
+
+          {!isPremium && (
+            <div className="mt-4 overflow-hidden rounded-2xl border border-emerald-200 bg-emerald-600 shadow-sm">
+              <div className="flex flex-col gap-4 p-4 text-white md:flex-row md:items-center md:justify-between">
+                <div className="space-y-1">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-100">
+                    Kerjakan Materi Gratis
+                  </p>
+                  <p className="text-sm font-semibold text-white">
+                    Mulai latihan singkat agar anak langsung fokus
+                  </p>
+                  <p className="text-[11px] text-emerald-50">
+                    4 soal gratis dari materi Pecahan, cocok untuk pemanasan.
+                  </p>
+                </div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <Link
+                    href="/materials/1"
+                    className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/90 px-4 py-2 text-xs font-semibold text-emerald-900 transition hover:bg-white"
+                  >
+                    <span className="text-base">🚀</span>
+                    Mulai latihan
+                  </Link>
+                  <Link
+                    href="/materials"
+                    className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-emerald-500/30 px-4 py-2 text-xs font-semibold text-white transition hover:bg-emerald-500/50"
+                  >
+                    <span className="text-base">📚</span>
+                    Pilih materi lain
+                  </Link>
+                </div>
+              </div>
+              <div className="flex items-center justify-between bg-emerald-700/80 px-4 py-2 text-[11px] text-emerald-50">
+                <span>Soal gratis tersedia</span>
+                <span className="font-semibold">4 soal</span>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 

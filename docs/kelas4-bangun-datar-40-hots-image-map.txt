@@ -1,0 +1,4 @@
+5. Amati gambar bangun A dan B. Tentukan cirinya. -> TODO_IMG_QUAD_AB.png
+11. Tentukan jenis segitiga pada gambar. -> TODO_IMG_TRIANGLE_SET.png
+26. Komposisi bangun datar pada gambar. -> TODO_IMG_COMPOSE_A.png
+32. Dekomposisi bangun pada gambar. -> TODO_IMG_DECOMPOSE_B.png

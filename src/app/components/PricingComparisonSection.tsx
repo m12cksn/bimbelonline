@@ -49,6 +49,7 @@ function PriceCard({
   badge,
   title,
   price,
+  strikePrice,
   sub,
   bullets,
   ctaText,
@@ -60,6 +61,7 @@ function PriceCard({
   badge?: string;
   title: string;
   price: string;
+  strikePrice?: string;
   sub: string;
   bullets: string[];
   ctaText: string;
@@ -138,6 +140,11 @@ function PriceCard({
         </h3>
 
         <div className="mt-3">
+          {strikePrice && (
+            <p className="text-sm font-semibold text-slate-400 line-through">
+              {strikePrice}
+            </p>
+          )}
           <p className="text-3xl md:text-4xl font-extrabold text-slate-900">
             {price}
           </p>
@@ -316,7 +323,7 @@ export function PricingComparisonSection() {
               Mulai dari{" "}
               <span className="font-bold text-slate-800">4 soal gratis</span>.
               Kalau cocok, upgrade untuk buka video, soal lebih banyak, try-out,
-              dan PR (khusus Intensive).
+              dan kelas Zoom (paket Zoom Premium).
             </p>
           </div>
 
@@ -382,7 +389,7 @@ export function PricingComparisonSection() {
             </div>
           </div>
 
-          <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-5 gap-5 items-stretch">
+          <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
             <PriceCard
               tone="slate"
               title="Free"
@@ -398,58 +405,28 @@ export function PricingComparisonSection() {
             />
 
             <PriceCard
-              tone="indigo"
-              title="Belajar"
-              price="Rp 129.000"
-              sub="per bulan — rutin & terarah"
-              bullets={[
-                "Ringkasan + full video",
-                "Soal 1–25 per materi",
-                "Report skor + progress tersimpan",
-                "Support chat standar",
-              ]}
-              ctaText="Pilih Paket Belajar"
-              ctaHref={`${WA}?text=Halo%20BeSmartKids,%20saya%20ingin%20daftar%20Paket%20Belajar%20129rb%20per%20bulan.`}
-            />
-
-            <PriceCard
               tone="emerald"
               badge="⭐ Paling Laris"
               title="Premium"
-              price="Rp 149.000"
+              price="Rp 145.000"
               sub="per bulan — value terbaik"
               bullets={[
-                "Semua fitur paket Belajar",
+                "Ringkasan + full video",
                 "Soal 1–30 per materi",
                 "Try-out 1×/bulan",
                 "Badge Premium + support prioritas",
               ]}
               ctaText="Pilih Paket Premium"
-              ctaHref={`${WA}?text=Halo%20BeSmartKids,%20saya%20ingin%20daftar%20Paket%20Premium%20149rb%20per%20bulan.`}
+              ctaHref={`${WA}?text=Halo%20BeSmartKids,%20saya%20ingin%20daftar%20Paket%20Premium%20145rb%20per%20bulan.`}
               highlight
               footerNote="Paling dipilih karena soal lebih banyak + try-out bulanan tanpa bikin budget bengkak."
-            />
-
-            <PriceCard
-              tone="amber"
-              title="Intensive"
-              price="Rp 199.000"
-              sub="per bulan — untuk anak yang butuh dorongan"
-              bullets={[
-                "Soal 1–40 per materi",
-                "PR rutin 2 hari sekali",
-                "Try-out mingguan",
-                "Report paling detail + prioritas",
-              ]}
-              ctaText="Pilih Paket Intensive"
-              ctaHref={`${WA}?text=Halo%20BeSmartKids,%20saya%20ingin%20daftar%20Paket%20Intensive%20199rb%20per%20bulan.`}
             />
 
             <PriceCard
               tone="violet"
               badge="💰 Hemat"
               title="3 Bulan"
-              price="Rp 399.000"
+              price="Rp 419.000"
               sub="sekali bayar — paling hemat"
               bullets={[
                 "Soal 1–40 per materi",
@@ -458,7 +435,24 @@ export function PricingComparisonSection() {
                 "Support prioritas + badge 3-Month",
               ]}
               ctaText="Bundling 3 Bulan"
-              ctaHref={`${WA}?text=Halo%20BeSmartKids,%20saya%20ingin%20ambil%20Bundling%203%20Bulan%20399rb.`}
+              ctaHref={`${WA}?text=Halo%20BeSmartKids,%20saya%20ingin%20ambil%20Bundling%203%20Bulan%20419rb.`}
+            />
+
+            <PriceCard
+              tone="amber"
+              badge="🎥 Zoom"
+              title="Zoom Premium 15 Kelas"
+              price="Rp 1.350.000"
+              strikePrice="Rp 1.500.000"
+              sub="paket 15 kelas — bimbingan intensif"
+              bullets={[
+                "Soal 1–40 per materi",
+                "15 kelas Zoom privat/kelompok",
+                "Try-out 2×/bulan",
+                "Support prioritas + badge Zoom Premium",
+              ]}
+              ctaText="Pilih Zoom Premium"
+              ctaHref={`${WA}?text=Halo%20BeSmartKids,%20saya%20ingin%20daftar%20Paket%20Zoom%20Premium%2015%20Kelas%201350rb.`}
             />
           </div>
         </div>

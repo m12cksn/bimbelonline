@@ -80,6 +80,7 @@ export default function StudentClassesPage() {
           shadow-[0_24px_80px_-45px_rgba(0,0,0,1)]
         "
       >
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-emerald-900/60 via-emerald-800/40 to-emerald-700/20" />
         {/* subtle glows */}
         <div
           className="pointer-events-none absolute -left-24 top-0 h-48 w-48 rounded-full bg-emerald-300/30 blur-3xl"
@@ -92,26 +93,26 @@ export default function StudentClassesPage() {
 
         <div className="relative z-10 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div className="space-y-3">
-            <p className="text-[11px] uppercase tracking-[0.25em] text-emerald-700">
+            <p className="text-[11px] uppercase tracking-[0.25em] text-emerald-100">
               Student Classes
             </p>
-            <h1 className="text-2xl md:text-3xl font-bold text-slate-200">
+            <h1 className="text-2xl md:text-3xl font-bold text-white">
               Kelas Online yang Kamu Ikuti
             </h1>
-            <p className="max-w-xl text-sm md:text-[15px] text-emerald-700 leading-relaxed">
+            <p className="max-w-xl text-sm md:text-[15px] text-emerald-100 leading-relaxed">
               Pilih kelas untuk melihat jadwal Zoom, materi, dan aktivitas
               belajar. Semua kelas aktif yang terhubung ke akunmu tampil di
               daftar di bawah.
             </p>
 
             <div className="flex flex-wrap gap-2 text-[11px] md:text-xs">
-              <span className="rounded border border-emerald-400/60 bg-emerald-200/60 px-3 py-1 text-emerald-800">
+              <span className="rounded border border-emerald-200/70 bg-white/15 px-3 py-1 text-emerald-50">
                 Live session terjadwal
               </span>
-              <span className="rounded border border-emerald-400/60 bg-emerald-200/60 px-3 py-1 text-emerald-800">
+              <span className="rounded border border-emerald-200/70 bg-white/15 px-3 py-1 text-emerald-50">
                 Progres belajar terpantau
               </span>
-              <span className="rounded border border-amber-400/60 bg-amber-200/60 px-3 py-1 text-amber-900">
+              <span className="rounded border border-amber-200/70 bg-white/15 px-3 py-1 text-amber-100">
                 Materi terstruktur per kelas
               </span>
             </div>
@@ -121,12 +122,12 @@ export default function StudentClassesPage() {
           <div
             className="
               mt-2 flex w-full max-w-xs flex-col gap-3
-              rounded-2xl border border-emerald-300/60 bg-white/80
+              rounded-2xl border border-white/20 bg-white/90
               px-4 py-4 text-emerald-900 text-xs md:text-sm
             "
           >
             <p className="font-semibold text-emerald-900">Tips memilih kelas</p>
-            <ul className="space-y-1 text-[11px] md:text-xs text-emerald-700">
+            <ul className="space-y-1 text-[11px] md:text-xs text-emerald-800">
               <li>• Cocokkan nama kelas dengan info dari admin/guru.</li>
               <li>• Fokus di satu kelas terlebih dahulu sebelum pindah.</li>
               <li>• Catat jadwal Zoom di kalender atau catatanmu.</li>

@@ -1,0 +1,41 @@
+material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
+41,1,essay,practice,,🍎🍎🍎🍎🍎 ada berapa?,,,5,,Hitung semua ikon apel: ada 5.,,,,,,,,,,,
+41,2,essay,practice,,"Lengkapi: 1,2,3,__,5",,,4,,"Urutan naik 1,2,3,4,5.",,,,,,,,,,,
+41,3,mcq,practice,,Mana lebih banyak?,,,A,,Bintang tiga lebih banyak dari bintang dua.,⭐⭐⭐,⭐⭐,Sama,Tidak tahu,,,,,,,
+41,4,drag_drop,practice,,Pasangkan jumlah dengan angka.,,,,,Cocokkan banyak bintang dengan angka yang tepat.,,,,,,,,,⭐;⭐⭐;⭐⭐⭐;⭐⭐⭐⭐,1;2;3;4,
+41,5,essay,practice,,Hitung: ⚽⚽⚽ + ⚽ = ?,,,4,,Tiga bola ditambah satu bola menjadi empat.,,,,,,,,,,,
+41,6,mcq,practice,,Bilangan setelah 6 adalah...,,,C,,Setelah 6 adalah 7.,5,6,7,8,,,,,,,
+41,7,multipart,practice,,Hitung tiap bagian.,,,,,Jumlahkan atau kurangi sesuai perintah.,,,,,,,,,,,"a|🍌🍌 + 🍌 =|3;b|⭐⭐⭐ - ⭐ =|2;c|Lengkapi: 8,7,__,5|6"
+41,8,essay,practice,,"Hitung mundur: 5,4,__,2,1",,,3,,"Urutan mundur 5,4,3,2,1.",,,,,,,,,,,
+41,9,mcq,practice,,Pilih yang lebih kecil: 9 atau 6,,,B,,6 lebih kecil dari 9.,9,6,Sama,Tidak tahu,,,,,,,
+41,11,essay,practice,,🐟🐟🐟🐟 diambil 1. Sisa?,,,3,,4 ikan dikurangi 1 ikan tersisa 3.,,,,,,,,,,,
+41,11,drag_drop,practice,,Pasangkan pasangan bilangan jumlah 5.,,,,,Setiap pasangan harus berjumlah 5.,,,,,,,,,1+4;2+3;0+5;5+1,5;5;5;5,
+41,12,mcq,practice,,3 + 4 = ?,,,C,,3 ditambah 4 sama dengan 7.,5,6,7,8,,,,,,,
+41,13,essay,practice,,"Lengkapi: __,2,3,4,5",,,1,,Urutan naik mulai dari 1.,,,,,,,,,,,
+41,14,multipart,practice,,Hitung tiap bagian.,,,,,Jumlahkan atau kurangi sesuai perintah.,,,,,,,,,,,"a|🍎🍎🍎 + 🍎🍎 =|5;b|8 - 3 =|5;c|Lengkapi: 11,9,__,7|8"
+41,15,mcq,practice,,10 - 1 = ?,,,B,,10 dikurangi 1 sama dengan 9.,8,9,11,11,,,,,,,
+41,16,essay,practice,,Hitung: 2 + 5 = ?,,,7,,2 ditambah 5 sama dengan 7.,,,,,,,,,,,
+41,17,drag_drop,practice,,Pasangkan gambar dengan angka.,,,,,Hitung jumlah kue pada tiap gambar.,,,,,,,,,🍪🍪;🍪🍪🍪🍪;🍪;🍪🍪🍪,2;4;1;3,
+41,18,essay,practice,,"Lengkapi: 2,4,6,__,10",,,8,,"Urutan genap: 2,4,6,8,10.",,,,,,,,,,,
+41,19,mcq,practice,,🎈🎈 dan 🎈🎈 adalah...,,,A,,"Jumlahnya sama, masing-masing 2 balon.",Sama,Tidak sama,Kiri lebih banyak,Kanan lebih banyak,,,,,,,
+41,20,essay,practice,,9 - 4 = ?,,,5,,9 dikurangi 4 sama dengan 5.,,,,,,,,,,,
+41,21,multipart,practice,,Hitung tiap bagian.,,,,,Kerjakan tiap bagian.,,,,,,,,,,,"a|1 + 1 =|2;b|7 - 2 =|5;c|Lengkapi: 3,4,__,6|5"
+41,22,mcq,practice,,Bilangan sebelum 5 adalah...,,,B,,Sebelum 5 adalah 4.,3,4,5,6,,,,,,,
+41,23,essay,practice,,Hitung: 6 + 3 = ?,,,9,,6 ditambah 3 sama dengan 9.,,,,,,,,,,,
+41,24,drag_drop,practice,,Pasangkan tanda yang benar.,,,,,Bandingkan kedua sisi.,,,,,,,,,2+1 ? 4;3+2 ? 5;5 ? 2+3,<;=;=,
+41,25,mcq,practice,,2 + 2 = ?,,,B,,2 ditambah 2 sama dengan 4.,3,4,5,6,,,,,,,
+41,26,essay,practice,,🐱🐱🐱🐱🐱 + 🐱🐱 = ?,,,7,,5 kucing ditambah 2 kucing menjadi 7.,,,,,,,,,,,
+41,27,multipart,practice,,Hitung tiap bagian.,,,,,Kerjakan tiap bagian.,,,,,,,,,,,"a|4 + 4 =|8;b|10 - 6 =|4;c|Lengkapi: 1,3,5,__,9|7"
+41,28,essay,practice,,"Lengkapi: 10,__,8,7,6",,,9,,"Urutan mundur dari 10: 10,9,8,7,6.",,,,,,,,,,,
+41,29,mcq,practice,,Mana lebih banyak?,,,A,,4 stroberi lebih banyak daripada 3.,🍓🍓🍓🍓,🍓🍓🍓,Sama,Tidak tahu,,,,,,,
+41,30,drag_drop,practice,,Pasangkan bilangan dengan nama.,,,,,Cocokkan angka dengan nama bilangan.,,,,,,,,,1;2;3;4,satu;dua;tiga;empat,
+41,31,essay,practice,,Hitung: 5 + 0 = ?,,,5,,Menambah 0 tidak mengubah bilangan.,,,,,,,,,,,
+41,32,mcq,practice,,Angka untuk 'delapan' adalah...,,,C,,Delapan ditulis 8.,6,7,8,9,,,,,,,
+41,33,multipart,practice,,Hitung tiap bagian.,,,,,Kerjakan tiap bagian.,,,,,,,,,,,"a|Ada 6 kelereng diambil 1, sisa|5;b|2 + 7 =|9;c|Lengkapi: 4,3,__,1|2"
+41,34,essay,practice,,8 - 2 = ?,,,6,,8 dikurangi 2 sama dengan 6.,,,,,,,,,,,
+41,35,mcq,practice,,Pilih urutan naik.,,,A,,Urutan naik dari kecil ke besar.,"1,2,3","3,2,1","2,1,3","1,3,2",,,,,,,
+41,36,drag_drop,practice,,Pasangkan jumlah ikan.,,,,,Hitung jumlah ikan pada tiap kelompok.,,,,,,,,,🐟🐟🐟;🐟🐟🐟🐟🐟;🐟🐟;🐟,3;5;2;1,
+41,37,multipart,practice,,Hitung tiap bagian.,,,,,Kerjakan tiap bagian.,,,,,,,,,,,"a|Lebih besar: 7 atau 5 (jawab)|7;b|3 + 3 =|6;c|Lengkapi: 2,3,4,__,6|5"
+41,38,essay,practice,,9 - 9 = ?,,,0,,Bilangan dikurangi dirinya sendiri hasilnya 0.,,,,,,,,,,,
+41,39,mcq,practice,,4 + 1 = ?,,,C,,4 ditambah 1 sama dengan 5.,3,4,5,6,,,,,,,
+41,40,essay,practice,,Ada 10 pensil diberi 3. Sisa?,,,7,,10 dikurangi 3 sama dengan 7.,,,,,,,,,,,

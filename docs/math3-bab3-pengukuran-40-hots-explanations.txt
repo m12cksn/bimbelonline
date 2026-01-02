@@ -1,0 +1,40 @@
+61-1: Penggaris menggunakan sentimeter (cm).
+61-2: 100 cm = 1 m, jadi 250 cm = 2.5 m.
+61-3: 210 cm = 2.1 m.
+61-4: 4 m 37 cm + 7 m 43 cm = 11 m 80 cm.
+61-5: 75 m 80 cm - 38 m 45 cm = 37 m 35 cm.
+61-6: 5.000 cm = 50 m.
+61-7: Benda ringan diukur dalam gram.
+61-8: Benda berat diukur dalam kilogram.
+61-9: 1.753 gram = 1 kg 753 gram.
+61-10: 1 kg = 1000 gram.
+61-11: 4 kg = 4.000 g, jadi 8.000 - 4.000 = 4.000 g.
+61-12: 500 g x 2 = 1.000 g.
+61-13: 3 kg 200 g = 3.200 g.
+61-14: 4.500 g = 4.5 kg.
+61-15: Meja lebih panjang dari penggaris, gunakan meteran.
+61-16: 1 ons = 100 gram.
+61-17: Tinggi badan diukur dengan meteran.
+61-18: Meter lebih besar dari sentimeter.
+61-19: 200 cm = 2 m.
+61-20: 1 kg = 1.000 g.
+61-21: Pensil termasuk benda ringan.
+61-22: Semangka lebih tepat diukur kilogram.
+61-23: 3 m 45 cm = 345 cm.
+61-24: Panjang pensil diukur cm.
+61-25: Buku diukur dengan penggaris.
+61-26: 5.000 g = 5 kg.
+61-27: 1 m = 100 cm.
+61-28: 2.300 g.
+61-29: Benda panjang pakai meteran, kecil pakai penggaris.
+61-30: cm untuk kecil, meter untuk panjang, gram ringan, kilogram berat.
+61-31: 1 m = 100 cm, 1 kg = 1000 g.
+61-32: Ubah cm ke m dan g ke kg dengan benar.
+61-33: Samakan satuan gram dan kilogram.
+61-34: Hanya 1 m = 10 cm yang salah.
+61-35: Gunakan 100 cm = 1 m.
+61-36: 1 kg = 1000 g.
+61-37: Sesuaikan alat ukur dengan benda.
+61-38: Ubah ke cm lalu jumlah/kurang.
+61-39: Samakan satuan ke gram, lalu hitung.
+61-40: Kerjakan penjumlahan/pengurangan panjang dan berat.

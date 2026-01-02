@@ -1,0 +1,41 @@
+material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
+60,1,essay,practice,,"Galih memiliki sejumlah kelereng. Setelah membeli 5 kelereng, jumlahnya 17. Banyak kelereng Galih mula-mula adalah ...",,,12,,,,,,,,,,,,,
+60,2,essay,practice,,"Pak Budi panen 78 manggis, sisa 42. Banyak yang dibagikan adalah ...",,,36,,,,,,,,,,,,,
+60,3,essay,practice,,"Jumlah tiket terjual 95. Jika 47 tiket laki-laki, maka tiket perempuan adalah ...",,,48,,,,,,,,,,,,,
+60,4,essay,practice,,"Sisa buku di perpustakaan 48, jumlah awal 96. Buku yang dipinjam adalah ...",,,48,,,,,,,,,,,,,
+60,5,essay,practice,,Diketahui 32 - x = 15. Nilai x adalah ...,,,17,,,,,,,,,,,,,
+60,6,essay,practice,,Diketahui x + 36 = 68. Nilai x adalah ...,,,32,,,,,,,,,,,,,
+60,7,essay,practice,,Jumlah dua bilangan adalah 50. Salah satu bilangan 30. Bilangan lainnya adalah ...,,,20,,,,,,,,,,,,,
+60,8,essay,practice,,Pak Slamet punya 80 ayam. Sisa 45. Ayam yang dijual adalah ...,,,35,,,,,,,,,,,,,
+60,9,essay,practice,,"Hari ini dijual 45 ayam, sisa 27. Banyak ayam mula-mula adalah ...",,,72,,,,,,,,,,,,,
+60,10,essay,practice,,Lengkapi: 8 + x = 19. Nilai x = ...,,,11,,,,,,,,,,,,,
+60,11,essay,practice,,Lengkapi: x - 12 = 26. Nilai x = ...,,,38,,,,,,,,,,,,,
+60,12,essay,practice,,Andi dan Galih memiliki 50 kelereng. Andi 30. Galih ...,,,20,,,,,,,,,,,,,
+60,13,essay,practice,,"Di toko ada 40 TV, terjual 28. Sisa TV adalah ...",,,12,,,,,,,,,,,,,
+60,14,essay,practice,,"Jika 83 - x = 38, maka x adalah ...",,,45,,,,,,,,,,,,,
+60,15,essay,practice,,Jumlah dua bilangan adalah 100. Salah satunya 65. Bilangan lainnya ...,,,35,,,,,,,,,,,,,
+60,16,essay,practice,,"Sebuah bioskop menjual 95 tiket. Jika 53 tiket terjual pada pagi hari, maka sisa tiket adalah ...",,,42,,,,,,,,,,,,,
+60,17,mcq,practice,,Nilai yang tepat untuk x pada 23 + x = 45 adalah ...,,,B,,,18,22,24,26,,,,,,,
+60,18,mcq,practice,,Nilai x pada x + 16 = 54 adalah ...,,,C,,,32,36,38,40,,,,,,,
+60,19,mcq,practice,,Nilai x pada 56 - x = 24 adalah ...,,,A,,,32,34,36,38,,,,,,,
+60,20,mcq,practice,,Nilai x pada x - 23 = 42 adalah ...,,,D,,,60,62,64,65,,,,,,,
+60,21,mcq,practice,,Kalimat matematika yang benar untuk “jumlah 30 dan x adalah 50” adalah ...,,,B,,,30 - x = 50,30 + x = 50,x - 30 = 50,50 - x = 30,,,,,,,
+60,22,mcq,practice,,Kalimat matematika untuk “selisih x dan 17 adalah 9” adalah ...,,,A,,,x - 17 = 9,17 - x = 9,x + 17 = 9,9 - x = 17,,,,,,,
+60,23,mcq,practice,,"Jika x + 48 = 84, maka x = ...",,,C,,,26,32,36,40,,,,,,,
+60,24,mcq,practice,,"Jika x - 31 = 19, maka x = ...",,,D,,,40,46,48,50,,,,,,,
+60,25,mcq,practice,,"Jika 37 - x = 24, maka x = ...",,,B,,,11,13,15,17,,,,,,,
+60,26,mcq,practice,,"Jika x + 52 = 98, maka x = ...",,,A,,,46,44,42,40,,,,,,,
+60,27,mcq,practice,,Kalimat matematika untuk “sisa ayam 45 dari total 80” adalah ...,,,C,,,45 + x = 80,80 - 45 = x,80 - x = 45,x - 45 = 80,,,,,,,
+60,28,mcq,practice,,"Jika x - 45 = 26, maka x = ...",,,B,,,61,71,81,91,,,,,,,
+60,29,drag_drop,practice,,Pasangkan cerita dengan kalimat matematika.,,,,,,,,,,,,,,jumlah 50 dan 30;selisih x dan 17 adalah 9;jumlah 72 dan 18;selisih 80 dan 45,30 + x = 50;x - 17 = 9;72 + 18 = 90;80 - 45 = 35,
+60,30,drag_drop,practice,,Pasangkan persamaan dengan nilai x.,,,,,,,,,,,,,,8 + x = 19;23 + x = 45;x + 16 = 54;x - 12 = 26,11;22;38;38,
+60,31,drag_drop,practice,,Pasangkan persamaan dengan operasi untuk mencari x.,,,,,,,,,,,,,,x + 36 = 68;32 - x = 15;x - 45 = 26;83 - x = 38,68 - 36;32 - 15;26 + 45;83 - 38,
+60,32,drag_drop,practice,,Pasangkan soal cerita dengan langkah pertama.,,,,,,,,,,,,,,80 ayam sisa 45;45 ayam sisa 27;jumlah 95 tiket;jumlah 100 buku,80 - 45;45 + 27;95 - diketahui;100 - diketahui,
+60,33,drag_drop,practice,,Pasangkan kalimat dengan hasilnya.,,,,,,,,,,,,,,x + 36 = 68;56 - x = 24;x - 23 = 42;8 + x = 19,x=32;x=32;x=65;x=11,
+60,34,drag_drop,practice,,Pasangkan bentuk cerita dengan tanda operasi.,,,,,,,,,,,,,,jumlah;selisih;sisa;bertambah,+;-;-;+,
+60,35,multipart,practice,,Isi nilai yang belum diketahui.,,,,,,,,,,,,,,,,a|7 + x = 15|8;b|18 + x = 39|21;c|x + 36 = 62|26
+60,36,multipart,practice,,Isi nilai yang belum diketahui.,,,,,,,,,,,,,,,,a|15 - x = 6|9;b|37 - x = 24|13;c|x - 45 = 26|71
+60,37,multipart,practice,,Soal cerita: tentukan nilai yang hilang.,,,,,,,,,,,,,,,,"a|Jumlah 95, salah satu 47|48;b|Sisa 42 dari 78|36;c|Jumlah 50, salah satu 30|20"
+60,38,multipart,practice,,Kalimat matematika dari cerita.,,,,,,,,,,,,,,,,a|Jumlah 17 setelah tambah 5|x+5=17;b|Sisa 45 dari 80|80-x=45;c|Jumlah 96 sisa 48|96-x=48
+60,39,multipart,practice,,Selesaikan nilai yang hilang.,,,,,,,,,,,,,,,,a|x + 48 = 84|36;b|x + 52 = 98|46;c|83 - x = 38|45
+60,40,multipart,practice,,"Soal HOTS: Cari dua bilangan yang jumlahnya 95, jika salah satunya 5 lebih besar dari yang lain.",,,,,,,,,,,,,,,,a|bilangan kecil|45;b|bilangan besar|50;c|cek|45+50=95

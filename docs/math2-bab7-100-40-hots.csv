@@ -1,0 +1,42 @@
+material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
+58,1,essay,practice,,Tina mengikat 7 ikat stik (tiap ikat 10) dan 3 stik lepas. Banyak stik seluruhnya adalah ...,,,73,,,,,,,,,,,,,
+58,2,essay,practice,,Bilangan 56 terdiri dari ... puluhan dan ... satuan.,,,5 puluhan 6 satuan,,,,,,,,,,,,,
+58,3,mcq,practice,,Bilangan yang lebih besar adalah...,,,B,,,56,65,59,60,,,,,,,
+58,4,essay,practice,,"Urutkan 65, 71, 56, 79, 60 dari yang paling kecil.",,,56 60 65 71 79,,,,,,,,,,,,,
+58,5,mcq,practice,,Bilangan yang lebih kecil adalah...,,,C,,,72,80,67,74,,,,,,,
+58,6,essay,practice,,Aku 2 lebihnya dari 76. Bilanganku adalah ...,,,78,,,,,,,,,,,,,
+58,7,mcq,practice,,Yang menunjukkan 8 puluhan 7 satuan adalah...,,,D,,,78,97,807,87,,,,,,,
+58,8,essay,practice,,Bilangan dengan 9 puluhan dan 2 satuan adalah ...,,,92,,,,,,,,,,,,,
+58,9,mcq,practice,,Urutan benar dari kecil ke besar adalah...,,,A,,,60 65 71,71 65 60,65 60 71,71 60 65,,,,,,,
+58,10,mcq,practice,,Bilangan 73 terdiri dari ...,,,B,,,3 puluhan 7 satuan,7 puluhan 3 satuan,73 puluhan 0 satuan,7 satuan 3 puluhan,,,,,,,
+58,11,essay,practice,,"Rani menebak ada 84 kelereng. Setelah dihitung, ternyata 8 puluhan 1 satuan. Banyak kelereng sebenarnya ...",,,81,,,,,,,,,,,,,
+58,12,mcq,practice,,"Jika aku di 70 lalu mundur 4 langkah, aku berada di ...",,,C,,,74,68,66,64,,,,,,,
+58,13,essay,practice,,Tulis lambang bilangan: “tujuh puluh delapan”.,,,78,,,,,,,,,,,,,
+58,14,mcq,practice,,Bilangan yang tepat untuk “sembilan puluh dua” adalah...,,,A,,,92,82,29,90,,,,,,,
+58,15,drag_drop,practice,,Pasangkan puluhan-satuan dengan bilangan.,,,,,,,,,,,,,,7 puluhan 3 satuan;9 puluhan 2 satuan;6 puluhan 6 satuan;8 puluhan 7 satuan,73;92;66;87,
+58,16,essay,practice,,"Jika aku menambah 4 pada puluhan dan 3 pada satuan, hasilnya 55. Bilangan awalku adalah ...",,,12,,,,,,,,,,,,,
+58,17,mcq,practice,,Yang paling besar adalah...,,,D,,,78,87,79,92,,,,,,,
+58,18,drag_drop,practice,,Pasangkan kata dengan lambang bilangan.,,,,,,,,,,,,,,lima puluh tiga;tujuh puluh delapan;sembilan puluh;enam puluh dua,53;78;90;62,
+58,19,essay,practice,,Dari 92 mundur 3 langkah di garis bilangan. Aku berada di ...,,,89,,,,,,,,,,,,,
+58,20,mcq,practice,,"Jika bilangan X lebih besar dari 68 dan lebih kecil dari 70, maka X = ...",,,A,,,69,67,71,70,,,,,,,
+58,21,drag_drop,practice,,Pasangkan perbandingan dengan tanda.,,,,,,,,,,,,,,65 ? 56;74 ? 83;92 ? 92;60 ? 71,>;<;=;<,
+58,22,essay,practice,,Bilangan terbesar yang tersusun dari kartu 5 dan 8 adalah ...,,,85,,,,,,,,,,,,,
+58,23,mcq,practice,,Bilangan yang menunjukkan 10 puluhan dan 0 satuan adalah...,,,B,,,90,100,10,0,,,,,,,
+58,24,essay,practice,,Aku berada di antara 67 dan 69 pada deret bilangan. Aku adalah ...,,,68,,,,,,,,,,,,,
+58,25,drag_drop,practice,,Pasangkan cerita dengan bilangan.,,,,,,,,,,,,,,6 puluhan 5 satuan;7 puluhan 1 satuan;5 puluhan 9 satuan;8 puluhan 4 satuan,65;71;59;84,
+58,26,mcq,practice,,Aku memiliki 7 puluhan dan 8 satuan. Bilanganku adalah...,,,D,,,87,708,70,78,,,,,,,
+58,27,essay,practice,,Ada 6 puluhan dan 9 satuan. Bilanganku adalah ...,,,69,,,,,,,,,,,,,
+58,28,drag_drop,practice,,Pasangkan urutan dengan jenisnya.,,,,,,,,,,,,,,56 60 65;92 78 66;70 71 72;88 84 80,naik;turun;naik;turun,
+58,29,essay,practice,,Bilangan 100 terdiri dari ... puluhan dan ... satuan.,,,10 puluhan 0 satuan,,,,,,,,,,,,,
+58,30,mcq,practice,,Bilangan yang lebih besar dari 74 tetapi lebih kecil dari 77 adalah...,,,C,,,73,77,75,78,,,,,,,
+58,31,essay,practice,,"Urutkan dari terbesar: 73, 66, 92.",,,92 73 66,,,,,,,,,,,,,
+58,33,drag_drop,practice,,Pasangkan bilangan dengan posisi puluhan dan satuan.,,,,,,,,,,,,,,50;73;100;68,5 puluhan 0 satuan;7 puluhan 3 satuan;10 puluhan 0 satuan;6 puluhan 8 satuan,
+58,34,essay,practice,,"Jika aku maju 5 langkah dari 58, aku berada di ...",,,63,,,,,,,,,,,,,
+58,35,essay,practice,,Bilanganku 1 kurangnya dari 67. Aku adalah ...,,,66,,,,,,,,,,,,,
+58,35,multipart,practice,,Hitung maju atau mundur.,,,,,,,,,,,,,,,,a|Mulai 68 maju 4|72;b|Mulai 90 mundur 5|85;c|Mulai 77 maju 2|79
+58,36,multipart,practice,,Bandingkan bilangan.,,,,,,,,,,,,,,,,a|56 ? 65|<;b|73 ? 73|=;c|87 ? 78|>
+58,36,multipart,practice,,Lengkapi puluhan-satuan.,,,,,,,,,,,,,,,,a|82|8 puluhan 2 satuan;b|69|6 puluhan 9 satuan;c|90|9 puluhan 0 satuan
+58,37,multipart,practice,,Soal cerita singkat.,,,,,,,,,,,,,,,,a|Tia punya 7 ikat stik dan 2 stik lepas|72;b|Dani punya 9 ikat dan 5 lepas|95;c|Sari punya 6 ikat dan 0 lepas|60
+58,38,multipart,practice,,Urutkan tiga bilangan.,,,,,,,,,,,,,,,,a|65 56 74|56 65 74;b|77 86 79|86 79 77;c|60 71 65|60 65 71
+58,39,multipart,practice,,Tentukan bilangan yang dimaksud.,,,,,,,,,,,,,,,,a|Aku 1 kurang dari 67|66;b|Aku 2 lebih dari 76|78;c|Aku di antara 88 dan 90|89
+58,40,multipart,practice,,Cocokkan cerita dengan bilangan.,,,,,,,,,,,,,,,,a|7 puluhan 8 satuan|78;b|9 puluhan 0 satuan|90;c|10 puluhan 0 satuan|100

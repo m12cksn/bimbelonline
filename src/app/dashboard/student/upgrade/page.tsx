@@ -100,16 +100,14 @@ export default async function UpgradePage() {
               <tr className="border-b border-slate-700 text-left text-[11px] uppercase tracking-[0.2em] text-slate-400">
                 <th className="py-2">Fitur</th>
                 <th className="py-2">Free</th>
-                <th className="py-2">Belajar</th>
                 <th className="py-2">Premium</th>
-                <th className="py-2">Intensive</th>
+                <th className="py-2">3 Bulan</th>
                 <th className="py-2">Zoom Premium</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-800">
               <tr>
                 <td className="py-2 text-slate-300">Baca ringkasan materi</td>
-                <td className="py-2 text-emerald-300">✓</td>
                 <td className="py-2 text-emerald-300">✓</td>
                 <td className="py-2 text-emerald-300">✓</td>
                 <td className="py-2 text-emerald-300">✓</td>
@@ -121,12 +119,10 @@ export default async function UpgradePage() {
                 <td className="py-2 text-emerald-300">✓</td>
                 <td className="py-2 text-emerald-300">✓</td>
                 <td className="py-2 text-emerald-300">✓</td>
-                <td className="py-2 text-emerald-300">✓</td>
               </tr>
               <tr>
                 <td className="py-2 text-slate-300">Kerjakan soal</td>
                 <td className="py-2">1-4</td>
-                <td className="py-2">1-20</td>
                 <td className="py-2">1-30</td>
                 <td className="py-2">1-40</td>
                 <td className="py-2">1-40</td>
@@ -137,44 +133,38 @@ export default async function UpgradePage() {
                 <td className="py-2 text-emerald-300">✓</td>
                 <td className="py-2 text-emerald-300">✓</td>
                 <td className="py-2 text-emerald-300">✓</td>
-                <td className="py-2 text-emerald-300">✓</td>
               </tr>
               <tr>
                 <td className="py-2 text-slate-300">PR rutin</td>
                 <td className="py-2 text-slate-500">✕</td>
                 <td className="py-2 text-slate-500">✕</td>
                 <td className="py-2 text-slate-500">✕</td>
-                <td className="py-2">2 hari sekali</td>
                 <td className="py-2 text-slate-500">✕</td>
               </tr>
               <tr>
                 <td className="py-2 text-slate-300">Try-Out</td>
                 <td className="py-2 text-slate-500">✕</td>
-                <td className="py-2 text-slate-500">✕</td>
                 <td className="py-2">1x/bulan</td>
-                <td className="py-2">Mingguan</td>
-                <td className="py-2">2x besar</td>
+                <td className="py-2">2x/bulan</td>
+                <td className="py-2">2x/bulan + Zoom</td>
               </tr>
               <tr>
                 <td className="py-2 text-slate-300">Report skor</td>
                 <td className="py-2 text-slate-500">✕</td>
                 <td className="py-2 text-emerald-300">✓</td>
                 <td className="py-2 text-emerald-300">✓</td>
-                <td className="py-2 text-emerald-300">✓ (paling detail)</td>
                 <td className="py-2 text-emerald-300">✓</td>
               </tr>
               <tr>
                 <td className="py-2 text-slate-300">Badge akun</td>
                 <td className="py-2 text-slate-500">✕</td>
-                <td className="py-2 text-slate-500">✕</td>
                 <td className="py-2">Premium</td>
-                <td className="py-2">Intensive</td>
-                <td className="py-2">3-Month</td>
+                <td className="py-2">3-Bulan</td>
+                <td className="py-2">Zoom Premium</td>
               </tr>
               <tr>
                 <td className="py-2 text-slate-300">Support chat</td>
                 <td className="py-2 text-slate-500">✕</td>
-                <td className="py-2">Standar</td>
                 <td className="py-2">Prioritas</td>
                 <td className="py-2">Prioritas</td>
                 <td className="py-2">Prioritas</td>

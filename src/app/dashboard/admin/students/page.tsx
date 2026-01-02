@@ -149,7 +149,9 @@ export default async function AdminStudentsPage({ searchParams }: PageProps) {
       <section className="rounded-2xl border border-slate-200 bg-white p-5 text-slate-900 shadow-[0_20px_60px_-45px_rgba(0,0,0,1)]">
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
           <div>
-            <h1 className="text-xl font-semibold text-white">Daftar Siswa</h1>
+            <h1 className="text-xl font-semibold text-slate-900">
+              Daftar Siswa
+            </h1>
             <p className="text-xs text-slate-500">
               Pantau status paket, masa berlaku, dan reset subscription jika
               diperlukan.

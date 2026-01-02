@@ -1,0 +1,41 @@
+material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
+54,1,essay,practice,,Hitung ikon: 🔺🔺🔺 dan ⬛⬛. Berapa bangun datar semuanya?,,,5,,,,,,,,,,,,,
+54,2,mcq,practice,,Yang termasuk segi banyak adalah...,,,B,,,lingkaran,segitiga,bola,kerucut,,,,,,,
+54,3,essay,practice,,Bangun datar yang punya 3 sisi bernama...,,,segitiga,,,,,,,,,,,,,
+54,4,drag_drop,practice,,Pasangkan bangun dengan jumlah sisinya.,,,,,,,,,,,,,,segitiga;persegi;persegi panjang;segi lima,3;4;4;5,
+54,5,mcq,practice,,Yang bukan segi banyak adalah...,,,C,,,segi empat,segi lima,lingkaran,segitiga,,,,,,,
+54,6,essay,practice,,Ada 2 segitiga dan 3 persegi. Total bangun datar?,,,5,,,,,,,,,,,,,
+54,7,multipart,practice,,Lengkapi nama bangun.,,,,,,,,,,,,,,,,a|Punya 3 sisi|segitiga;b|Punya 4 sisi sama panjang|persegi;c|Tidak punya sisi|lingkaran
+54,8,mcq,practice,,Bangun ruang yang punya 8 titik sudut adalah...,,,A,,,kubus,bola,kerucut,tabung,,,,,,,
+54,9,essay,practice,,Rambu lalu lintas berbentuk segitiga. Bentuknya adalah...,,,segitiga,,,,,,,,,,,,,
+54,10,drag_drop,practice,,Pasangkan bangun ruang dengan cirinya.,,,,,,,,,,,,,,kubus;balok;kerucut;bola,6 sisi sama;6 sisi tidak sama;1 alas 1 puncak;tidak bersisi,
+54,11,essay,practice,,Persegi punya berapa sisi?,,,4,,,,,,,,,,,,,
+54,12,mcq,practice,,Segi banyak adalah bangun datar yang...,,,D,,,punya sisi lengkung,punya 1 sisi,tidak punya sudut,punya sisi garis lurus,,,,,,,
+54,13,essay,practice,,Segi enam memiliki ... sisi.,,,6,,,,,,,,,,,,,
+54,14,mcq,practice,,Benda berbentuk bola adalah...,,,B,,,buku,bola sepak,papan tulis,kertas,,,,,,,
+54,15,multipart,practice,,Klasifikasi bangun.,,,,,,,,,,,,,,,,a|lingkaran|bukan segi banyak;b|segi tiga|segi banyak;c|segi lima|segi banyak
+54,16,essay,practice,,Ayu menyusun 4 persegi kecil menjadi satu bentuk. Berapa persegi kecilnya?,,,4,,,,,,,,,,,,,
+54,17,drag_drop,practice,,Pasangkan bangun dengan contoh benda.,,,,,,,,,,,,,,lingkaran;persegi panjang;segitiga;bola,koin;buku;roti segitiga;bola,
+54,18,mcq,practice,,Bangun datar dengan 4 sisi sama panjang adalah...,,,A,,,persegi,persegi panjang,segitiga,lingkaran,,,,,,,
+54,19,essay,practice,,Segitiga punya berapa sudut?,,,3,,,,,,,,,,,,,
+54,20,mcq,practice,,Bangun ruang yang tidak punya rusuk adalah...,,,C,,,kubus,balok,bola,kerucut,,,,,,,
+54,21,essay,practice,,Di taman ada 3 papan persegi dan 2 papan segitiga. Total papan?,,,5,,,,,,,,,,,,,
+54,22,multipart,practice,,Lengkapi nama bangun ruang.,,,,,,,,,,,,,,,,a|1 alas lingkaran dan 1 puncak|kerucut;b|6 sisi persegi sama|kubus;c|6 sisi persegi panjang|balok
+54,23,drag_drop,practice,,Pasangkan ikon dengan nama bangun.,,,,,,,,,,,,,,🔺;⬛;▭;⚪,segitiga;persegi;persegi panjang;lingkaran,
+54,24,mcq,practice,,Papan nama berbentuk persegi panjang. Berapa sisinya?,,,B,,,2,4,3,5,,,,,,,
+54,25,essay,practice,,Bangun datar yang punya 5 sisi disebut...,,,segi lima,,,,,,,,,,,,,
+54,26,mcq,practice,,Yang termasuk bangun ruang adalah...,,,D,,,segitiga,lingkaran,persegi,kubus,,,,,,,
+54,27,essay,practice,,Nia memotong kertas menjadi 2 segitiga dan 1 persegi. Berapa bangun datar?,,,3,,,,,,,,,,,,,
+54,28,multipart,practice,,Isi jumlah sisi.,,,,,,,,,,,,,,,,a|segitiga|3;b|persegi panjang|4;c|segi enam|6
+54,29,drag_drop,practice,,Klasifikasikan segi banyak atau bukan.,,,,,,,,,,,,,,segi tiga;lingkaran;segi empat;bola,segi banyak;bukan segi banyak;segi banyak;bukan segi banyak,
+54,30,mcq,practice,,Lingkaran termasuk segi banyak?,,,A,,,tidak,ya,kadang,tidak tahu,,,,,,,
+54,31,essay,practice,,Kerucut punya berapa puncak?,,,1,,,,,,,,,,,,,
+54,32,mcq,practice,,Bangun ruang yang dapat menggelinding adalah...,,,B,,,balok,bola,kubus,limas,,,,,,,
+54,33,essay,practice,,Tia punya 8 kartu: 5 segitiga dan 3 lingkaran. Berapa segi banyak?,,,5,,,,,,,,,,,,,
+54,34,multipart,practice,,Tentukan benar/salah.,,,,,,,,,,,,,,,,a|Lingkaran punya sisi lurus|salah;b|Kubus punya 8 titik sudut|benar;c|Balok punya 6 sisi|benar
+54,35,drag_drop,practice,,Pasangkan jumlah sisi dengan nama bangun.,,,,,,,,,,,,,,3 sisi;4 sisi;0 sisi;5 sisi,segitiga;segi empat;lingkaran;segi lima,
+54,36,mcq,practice,,Bangun datar dengan 4 sisi dan 4 sudut disebut...,,,C,,,segitiga,segi lima,segi empat,lingkaran,,,,,,,
+54,37,essay,practice,,Ada 2 kubus dan 1 balok. Total bangun ruang?,,,3,,,,,,,,,,,,,
+54,38,mcq,practice,,Benda berbentuk balok adalah...,,,D,,,koin,bola,kerucut,buku,,,,,,,
+54,39,multipart,practice,,Lengkapi nama bangun ruang.,,,,,,,,,,,,,,,,a|6 sisi sama dan 8 titik sudut|kubus;b|1 alas lingkaran dan puncak|kerucut;c|tidak punya titik sudut|bola
+54,40,essay,practice,,Gambar rumah terdiri dari 1 persegi dan 1 segitiga. Berapa bangun datar?,,,2,,,,,,,,,,,,,

@@ -1,0 +1,41 @@
+material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
+55,1,essay,practice,,Kucing di atas meja dan bola di bawah meja. Posisi kucing terhadap bola adalah...,,,di atas,,,,,,,,,,,,,
+55,2,mcq,practice,,Burung di atas pohon. Pohon berada di ... burung.,,,C,,,kiri,kanan,bawah,depan,,,,,,,
+55,3,drag_drop,practice,,Pasangkan kata posisi dengan contoh kalimatnya.,,,,,,,,,,,,,,atas;bawah;depan;belakang;kiri;kanan,lampu di atas meja;sepatu di bawah kursi;bola di depan kotak;kotak di belakang bola;tas di kiri buku;tas di kanan buku,
+55,4,essay,practice,,Buku mula-mula di atas meja. Dipindah ke bawah meja. Lalu dipindah ke kanan kursi. Posisi akhir buku adalah...,,,di kanan kursi,,,,,,,,,,,,,
+55,5,multipart,practice,,Tentukan posisi benda.,,,,,,,,,,,,,,,,a|Bola di atas meja|atas;b|Kucing di belakang kursi|belakang;c|Sepatu di depan pintu|depan
+55,6,mcq,practice,,Rina di kanan Bimo. Bimo di kanan Tika. Siapa yang paling kiri?,,,B,,,Rina,Tika,Bimo,Semua sama,,,,,,,
+55,7,essay,practice,,Pola warna: merah biru merah biru merah. Warna ke-6 adalah...,,,biru,,,,,,,,,,,,,
+55,8,mcq,practice,,Pola: 🔺 ⬛ 🔺 ⬛ ... gambar berikutnya adalah,,,A,,,🔺,⬛,⚪,⭐,,,,,,,
+55,9,mcq,practice,,Yang merupakan pola adalah...,,,D,,,🔴 🔴 🔵 🔵,🔺 ⬛ ⬛ 🔺,⭐ 🔺 🔵 ⭐,🔴 🔵 🔴 🔵,,,,,,,
+55,10,essay,practice,,Pola bunyi: tepuk diam tepuk diam tepuk. Bunyi ke-6 adalah...,,,diam,,,,,,,,,,,,,
+55,11,essay,practice,,Kursi di kiri meja. Bola di kanan meja. Bola berada di ... kursi.,,,di kanan kursi,,,,,,,,,,,,,
+55,12,mcq,practice,,Perhatikan gambar kamar. Benda yang berada di atas meja adalah...,,TODO_IMG_KAMAR_POSISI.png,A,,,buku,bola,sepatu,tas,,,,,,,
+55,13,drag_drop,practice,,Cocokkan posisi dengan kalimat.,,,,,,,,,,,,,,kiri;kanan;atas;bawah,lampu di kiri meja;tas di kanan kursi;topi di atas rak;sepatu di bawah bangku,
+55,14,multipart,practice,,Tentukan posisi benda terhadap benda lain.,,,,,,,,,,,,,,,,a|Burung di atas pohon|atas;b|Kucing di bawah kursi|bawah;c|Bola di depan kotak|depan
+55,15,essay,practice,,Pola bentuk: segitiga segitiga lingkaran segitiga segitiga lingkaran. Bentuk ke-7 adalah...,,,segitiga,,,,,,,,,,,,,
+55,16,mcq,practice,,Manakah yang bukan pola?,,,C,,,merah biru merah biru,tepuk diam tepuk diam,segitiga segi empat segi lima,bintang bulan bintang bulan,,,,,,,
+55,17,essay,practice,,Ada pot berbaris A B C D E dari kiri ke kanan. Kunci di bawah pot paling kanan. Pot mana?,,,E,,,,,,,,,,,,,
+55,18,mcq,practice,,Pola angka: 2 4 2 4 2 ... angka berikutnya adalah,,,B,,,4,4,6,2,,,,,,,
+55,19,drag_drop,practice,,Pasangkan cerita dengan kata posisi.,,,,,,,,,,,,,,depan;belakang;atas;bawah,mobil di depan rumah;kursi di belakang meja;burung di atas pohon;sepatu di bawah bangku,
+55,20,essay,practice,,Pola warna: merah kuning hijau merah kuning hijau. Warna ke-7 adalah...,,,merah,,,,,,,,,,,,,
+55,21,mcq,practice,,"Kanan dan kiri gambar mengikuti posisi pembaca. Jadi jika tas di kananmu, tas berada di sisi ... gambar.",,,D,,,atas,bawah,kiri,kanan,,,,,,,
+55,22,multipart,practice,,Lengkapi pola dan posisi.,,,,,,,,,,,,,,,,"a|Pola: merah biru merah biru, berikutnya|merah;b|Bola di bawah meja|bawah;c|Kucing di depan kursi|depan"
+55,23,essay,practice,,Pensil di atas meja. Dipindah ke kiri buku. Lalu dipindah ke bawah buku. Posisi akhir pensil adalah...,,,di bawah buku,,,,,,,,,,,,,
+55,24,mcq,practice,,Pola adalah...,,,A,,,sesuatu yang berulang,sesuatu yang acak,sesuatu yang berhenti,sesuatu yang hanya sekali,,,,,,,
+55,25,drag_drop,practice,,Pasangkan jenis pola dengan contohnya.,,,,,,,,,,,,,,warna;bentuk;gerakan;suara;posisi;campuran,merah biru merah biru;segitiga lingkaran segitiga;tepuk diam tepuk;ting ting tung ting;bola atas bawah atas;merah segitiga merah segitiga,
+55,26,essay,practice,,Bendera di depan gawang. Bola di depan bendera. Bola berada di ... gawang.,,,di depan gawang,,,,,,,,,,,,,
+55,27,mcq,practice,,Perhatikan gambar. Kunci berada di bawah pot paling kanan. Pot yang benar adalah...,,TODO_IMG_POT_POSISI.png,C,,,A,B,C,D,,,,,,,
+55,28,essay,practice,,Pola gerakan: lompat lompat diam lompat lompat diam. Gerakan ke-7 adalah...,,,lompat,,,,,,,,,,,,,
+55,29,drag_drop,practice,,Pasangkan pola dengan gambar berikutnya.,,,,,,,,,,,,,,🔴;🟡;🔺;🟢;tepuk;diam,🔴 🔵 🔴 _;🟡 🟡 🔵 _;🔺 ⬛ 🔺 _;🟢 🟢 🟢 _;tepuk diam tepuk _;diam tepuk diam _,
+55,30,essay,practice,,Pola bentuk: segitiga segi empat segitiga segi empat segitiga. Bentuk ke-6 adalah...,,,segi empat,,,,,,,,,,,,,
+55,31,mcq,practice,,"Lampu di kanan meja, kursi di kiri meja. Lampu berada di ... kursi.",,,A,,,kanan,kiri,atas,bawah,,,,,,,
+55,32,multipart,practice,,Tentukan posisi dengan benar.,,,,,,,,,,,,,,,,a|Ikan di bawah perahu|bawah;b|Kupu di atas bunga|atas;c|Anjing di belakang pagar|belakang
+55,33,essay,practice,,Rak di atas meja. Buku di atas rak. Posisi buku terhadap meja adalah...,,,di atas meja,,,,,,,,,,,,,
+55,34,multipart,practice,,Lengkapi pola warna.,,,,,,,,,,,,,,,,"a|pola merah biru merah biru, berikutnya|merah;b|pola kuning hijau kuning hijau, berikutnya|kuning;c|pola biru biru merah, berikutnya|biru"
+55,35,mcq,practice,,Yang menunjukkan pola suara adalah...,,,B,,,tiup sekali lalu berhenti,tepuk diam tepuk diam,teriak satu kali,diam terus,,,,,,,
+55,36,essay,practice,,Tas di bawah meja. Dipindah ke belakang kursi. Lalu ke atas kursi. Posisi akhir tas adalah...,,,di atas kursi,,,,,,,,,,,,,
+55,37,drag_drop,practice,,Cocokkan posisi dengan lawan katanya.,,,,,,,,,,,,,,atas;bawah;kiri;kanan;depan;belakang,bawah;atas;kanan;kiri;belakang;depan,
+55,38,essay,practice,,Pola: 1 3 1 3 1 3 ... angka ke-8 adalah...,,,3,,,,,,,,,,,,,
+55,39,multipart,practice,,Jawab pertanyaan posisi berikut.,,,,,,,,,,,,,,,,a|Kucing di depan lemari|depan;b|Bola di bawah kursi|bawah;c|Buku di kiri lampu|kiri
+55,40,essay,practice,,"Di gambar taman, pohon di kiri rumah dan sepeda di kanan rumah. Posisi pohon terhadap sepeda adalah...",,TODO_IMG_TAMAN_POSISI.png,di kiri sepeda,,,,,,,,,,,,,

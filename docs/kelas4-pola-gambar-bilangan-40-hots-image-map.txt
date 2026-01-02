@@ -1,0 +1,3 @@
+10. Lihat pola kotak pada gambar. -> TODO_IMG_PATTERN_SQUARES.png
+21. Lihat pola segitiga pada gambar. -> TODO_IMG_PATTERN_TRIANGLES.png
+30. Lihat pola titik pada gambar. -> TODO_IMG_PATTERN_GRID_A.png

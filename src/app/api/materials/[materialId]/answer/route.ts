@@ -2,6 +2,7 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { createServerClient } from "@supabase/ssr";
+import { createClient } from "@supabase/supabase-js";
 import { resolvePlanAccess } from "@/lib/planAccess";
 import { isInputAnswerCorrect } from "@/lib/answerValidation";
 
@@ -52,6 +53,7 @@ function buildFallbackExplanation(
 }
 
 export async function POST(req: Request, props: MaterialParams) {
+  const guestMaterialIds = new Set([1, 3, 4]);
   const { materialId: materialIdStr } = await props.params;
   const materialId = parseInt(materialIdStr, 10);
 
@@ -105,56 +107,69 @@ export async function POST(req: Request, props: MaterialParams) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) {
+  const isGuest = !user;
+  if (isGuest && !guestMaterialIds.has(materialId)) {
     return NextResponse.json({ error: "Unauthenticated" }, { status: 401 });
   }
 
-  // 2. ambil status langganan untuk limit soal
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("is_premium")
-    .eq("id", user.id)
-    .single();
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const dbClient =
+    isGuest && serviceKey
+      ? createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, serviceKey, {
+          auth: { autoRefreshToken: false, persistSession: false },
+        })
+      : supabase;
 
-  const nowIso = new Date().toISOString();
-  const { data: activeSub } = await supabase
-    .from("subscriptions")
-    .select(
-      `
-        id,
-        status,
-        start_at,
-        end_at,
-        subscription_plans (
-          name,
-          code
-        )
-      `
-    )
-    .eq("user_id", user.id)
-    .eq("status", "active")
-    .lte("start_at", nowIso)
-    .gte("end_at", nowIso)
-    .order("end_at", { ascending: false })
-    .limit(1)
-    .maybeSingle();
+  let planAccess = resolvePlanAccess(null, null, false);
 
-  let planName: string | null = null;
-  let planCode: string | null = null;
-  const rel = (activeSub as any)?.subscription_plans;
-  if (Array.isArray(rel) && rel.length > 0) {
-    planName = rel[0]?.name ?? null;
-    planCode = rel[0]?.code ?? null;
-  } else if (rel) {
-    planName = rel?.name ?? null;
-    planCode = rel?.code ?? null;
+  if (!isGuest && user) {
+    // 2. ambil status langganan untuk limit soal
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("is_premium")
+      .eq("id", user.id)
+      .single();
+
+    const nowIso = new Date().toISOString();
+    const { data: activeSub } = await supabase
+      .from("subscriptions")
+      .select(
+        `
+          id,
+          status,
+          start_at,
+          end_at,
+          subscription_plans (
+            name,
+            code
+          )
+        `
+      )
+      .eq("user_id", user.id)
+      .eq("status", "active")
+      .lte("start_at", nowIso)
+      .gte("end_at", nowIso)
+      .order("end_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+
+    let planName: string | null = null;
+    let planCode: string | null = null;
+    const rel = (activeSub as any)?.subscription_plans;
+    if (Array.isArray(rel) && rel.length > 0) {
+      planName = rel[0]?.name ?? null;
+      planCode = rel[0]?.code ?? null;
+    } else if (rel) {
+      planName = rel?.name ?? null;
+      planCode = rel?.code ?? null;
+    }
+
+    planAccess = resolvePlanAccess(
+      planCode,
+      planName,
+      profile?.is_premium === true
+    );
   }
-
-  const planAccess = resolvePlanAccess(
-    planCode,
-    planName,
-    profile?.is_premium === true
-  );
 
   // 3. validasi questionId
   const qId = typeof questionId === "string" ? questionId : String(questionId);
@@ -166,7 +181,7 @@ export async function POST(req: Request, props: MaterialParams) {
   }
 
   // 4. ambil data soal
-  const { data: question, error: questionError } = await supabase
+  const { data: question, error: questionError } = await dbClient
     .from("questions")
     .select(
       "id, material_id, question_number, type, prompt, correct_answer, correct_answer_image_url, explanation, question_mode"
@@ -216,7 +231,7 @@ export async function POST(req: Request, props: MaterialParams) {
       parsed = {};
     }
 
-    const { data: partRows, error: partError } = await supabase
+    const { data: partRows, error: partError } = await dbClient
       .from("question_items")
       .select("id, label")
       .eq("question_id", qId)
@@ -228,7 +243,7 @@ export async function POST(req: Request, props: MaterialParams) {
 
     const partIds = (partRows || []).map((row) => row.id);
     const { data: answerRows, error: answerError } = partIds.length
-      ? await supabase
+      ? await dbClient
           .from("question_item_answers")
           .select("item_id, answer_text")
           .in("item_id", partIds)
@@ -272,7 +287,7 @@ export async function POST(req: Request, props: MaterialParams) {
       parsed = {};
     }
 
-    const { data: dropItems, error: dropItemsError } = await supabase
+    const { data: dropItems, error: dropItemsError } = await dbClient
       .from("question_drop_items")
       .select("id, label, correct_target_id")
       .eq("question_id", qId);
@@ -305,7 +320,7 @@ export async function POST(req: Request, props: MaterialParams) {
         }
       );
   } else {
-    const { data: correctOption } = await supabase
+    const { data: correctOption } = await dbClient
       .from("question_options")
       .select("value")
       .eq("question_id", qId)
@@ -317,64 +332,66 @@ export async function POST(req: Request, props: MaterialParams) {
   }
 
   // 6. simpan attempt per soal (PASTI ada attempt_number)
-  const { error: attemptError } = await supabase
-    .from("question_attempts")
-    .insert({
-      user_id: user.id,
-      material_id: materialId,
-      question_id: question.id,
-      selected_answer: selectedAnswer,
-      is_correct: isCorrect,
-      attempt_number: attemptNumber,
-    });
+  if (!isGuest && user) {
+    const { error: attemptError } = await supabase
+      .from("question_attempts")
+      .insert({
+        user_id: user.id,
+        material_id: materialId,
+        question_id: question.id,
+        selected_answer: selectedAnswer,
+        is_correct: isCorrect,
+        attempt_number: attemptNumber,
+      });
 
-  if (attemptError) {
-    console.error("Attempt save error:", attemptError);
-  }
+    if (attemptError) {
+      console.error("Attempt save error:", attemptError);
+    }
 
-  // 7. simpan progress last_question_number
-  const { data: progressRows, error: progressSelectError } = await supabase
-    .from("student_material_progress")
-    .select("id, last_question_number")
-    .eq("user_id", user.id)
-    .eq("material_id", materialId);
-
-  if (progressSelectError) {
-    console.error("Progress select error:", progressSelectError);
-  }
-
-  const existingProgress =
-    progressRows && progressRows.length > 0 ? progressRows[0] : null;
-
-  const newLastNumber = Math.max(
-    existingProgress?.last_question_number ?? 0,
-    question.question_number
-  );
-
-  let progressError = null;
-
-  if (!existingProgress) {
-    const { error } = await supabase.from("student_material_progress").insert({
-      user_id: user.id,
-      material_id: materialId,
-      last_question_number: newLastNumber,
-      is_completed: false,
-      updated_at: new Date().toISOString(),
-    });
-    progressError = error;
-  } else {
-    const { error } = await supabase
+    // 7. simpan progress last_question_number
+    const { data: progressRows, error: progressSelectError } = await supabase
       .from("student_material_progress")
-      .update({
-        last_question_number: newLastNumber,
-        updated_at: new Date().toISOString(),
-      })
-      .eq("id", existingProgress.id);
-    progressError = error;
-  }
+      .select("id, last_question_number")
+      .eq("user_id", user.id)
+      .eq("material_id", materialId);
 
-  if (progressError) {
-    console.error("Progress save error:", progressError);
+    if (progressSelectError) {
+      console.error("Progress select error:", progressSelectError);
+    }
+
+    const existingProgress =
+      progressRows && progressRows.length > 0 ? progressRows[0] : null;
+
+    const newLastNumber = Math.max(
+      existingProgress?.last_question_number ?? 0,
+      question.question_number
+    );
+
+    let progressError = null;
+
+    if (!existingProgress) {
+      const { error } = await supabase.from("student_material_progress").insert({
+        user_id: user.id,
+        material_id: materialId,
+        last_question_number: newLastNumber,
+        is_completed: false,
+        updated_at: new Date().toISOString(),
+      });
+      progressError = error;
+    } else {
+      const { error } = await supabase
+        .from("student_material_progress")
+        .update({
+          last_question_number: newLastNumber,
+          updated_at: new Date().toISOString(),
+        })
+        .eq("id", existingProgress.id);
+      progressError = error;
+    }
+
+    if (progressError) {
+      console.error("Progress save error:", progressError);
+    }
   }
 
   // 8. response ke frontend

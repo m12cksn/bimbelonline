@@ -1,0 +1,41 @@
+material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
+69,1,essay,practice,Apa itu piktogram? Jelaskan singkat.,,,,diagram gambar untuk menyajikan data,,,,,,,,,,,,,
+69,2,mcq,practice,Piktogram menyajikan data dengan menggunakan...,,,,A,,,gambar,tabel,angka acak,garis,,,,,,,
+69,3,drag_drop,practice,"Data buah: Apel 5, Jeruk 3, Pisang 4, Anggur 2. Pasangkan buah dengan jumlah.",,,,,,,,,,,,,,,Apel;Jeruk;Pisang;Anggur,"5,3,4,2",
+69,4,multipart,practice,Perhatikan piktogram buah pada gambar.,,,TODO_IMG_PICTO_FRUIT.png,,,,,,,,,,,,,,a|Jumlah Jeruk|3;b|Buah terbanyak|Apel
+69,5,essay,practice,"Buat piktogram dari data: Pensil 4, Penghapus 2, Penggaris 3. Satu gambar = 1 benda.",,,,piktogram sesuai data,,,,,,,,,,,,,
+69,6,mcq,practice,"Jika 1 gambar mewakili 2 buku dan ada 6 gambar, banyak buku adalah...",,,,B,,,10,12,14,8,,,,,,,
+69,7,drag_drop,practice,"Data hari: Senin 3, Selasa 5, Rabu 2, Kamis 4. Pasangkan hari dengan jumlah.",,,,,,,,,,,,,,,Senin;Selasa;Rabu;Kamis,"3,5,2,4",
+69,8,essay,practice,"Jika piktogram menunjukkan Buku 4, Pensil 6, Penghapus 2 (1 gambar=1), berapa total benda?",,,,12,,,,,,,,,,,,,
+69,9,multipart,practice,Perhatikan piktogram peminjaman buku.,,,TODO_IMG_PICTO_BOOKS.png,,,,,,,,,,,,,,a|Hari terbanyak|Sabtu;b|Total buku selama minggu|27
+69,10,mcq,practice,"Kelas A 6 gambar, B 4 gambar, C 5 gambar, D 3 gambar (1 gambar=1). Kelas paling sedikit adalah...",,,,D,,,A,B,C,D,,,,,,,
+69,11,essay,practice,Satu gambar mewakili 4 siswa. Ada 5 gambar. Berapa siswa?,,,,20,,,,,,,,,,,,,
+69,12,drag_drop,practice,Pasangkan jenis diagram dengan cirinya.,,,,,,,,,,,,,,,piktogram;diagram batang tegak;diagram batang mendatar;diagram tabel,diagram gambar;batang vertikal;batang horizontal;tabel data,
+69,13,essay,practice,"Data siswa: Kelas 4A 28, 4B 26, 4C 30. Berapa total siswa?",,,,84,,,,,,,,,,,,,
+69,14,mcq,practice,Diagram batang paling cocok untuk membandingkan...,,,,B,,,warna favorit satu orang,banyaknya tiap kategori,panjang satu benda,urutan angka acak,,,,,,,
+69,15,multipart,practice,Perhatikan diagram batang pada gambar.,,,TODO_IMG_BAR_CHART_A.png,,,,,,,,,,,,,,a|Kategori terbanyak|Menyanyi;b|Total semua kategori|18
+69,16,essay,practice,"Data lomba: Lari 3, Catur 5, Renang 2, Menyanyi 8. Lomba paling banyak adalah...",,,,Menyanyi,,,,,,,,,,,,,
+69,17,drag_drop,practice,Pasangkan lomba dengan jumlah peserta.,,,,,,,,,,,,,,,Lari;Catur;Renang;Menyanyi,"3,5,2,8",
+69,18,essay,practice,"Pada diagram batang, kategori Sepeda 7 dan Motor 5. Berapa selisihnya?",,,,2,,,,,,,,,,,,,
+69,19,mcq,practice,Diagram batang mendatar berarti batangnya...,,,,B,,,vertikal,horizontal,melingkar,bergelombang,,,,,,,
+69,20,essay,practice,"Data penjualan: Senin 12, Selasa 9, Rabu 15. Selisih terbesar dan terkecil adalah...",,,,6,,,,,,,,,,,,,
+69,21,multipart,practice,Perhatikan diagram batang mendatar pada gambar.,,,TODO_IMG_BAR_CHART_B.png,,,,,,,,,,,,,,a|Kategori terbanyak|Melati;b|Jumlah Anggrek|7
+69,22,essay,practice,"Data bunga: Mawar 5, Melati 8, Anggrek 7, Sepatu 3. Berapa total bunga?",,,,23,,,,,,,,,,,,,
+69,23,drag_drop,practice,Pasangkan kategori dengan jumlah.,,,,,,,,,,,,,,,A;B;C;D,"6,4,7,5",
+69,24,essay,practice,"Jumlah siswa kelas I-V: 28, 24, 30, 26, 32. Berapa total siswa?",,,,140,,,,,,,,,,,,,
+69,25,mcq,practice,Pada piktogram ada 8 gambar dan 1 gambar = 1. Banyak data adalah...,,,,A,,,8,6,10,12,,,,,,,
+69,26,essay,practice,"Pada diagram batang, kategori X 12 dan Y 5. Berapa selisihnya?",,,,7,,,,,,,,,,,,,
+69,27,multipart,practice,Perhatikan piktogram transportasi pada gambar.,,,TODO_IMG_PICTO_TRANSPORT.png,,,,,,,,,,,,,,a|Transportasi terbanyak|Motor;b|Transportasi tersedikit|Becak
+69,28,essay,practice,"Sajikan data berikut dalam diagram batang tegak: Sepatu 4, Sandal 7, Tas 5.",,,,diagram batang sesuai data,,,,,,,,,,,,,
+69,29,drag_drop,practice,Tentukan benar atau salah.,,,,,,,,,,,,,,,Piktogram menggunakan gambar;Diagram batang memakai persegi panjang;Skala menunjukkan nilai tiap gambar;Diagram batang hanya untuk satu kategori,"benar,benar,benar,salah",
+69,30,essay,practice,"Urutkan data A 12, B 9, C 15, D 10 dari terbanyak ke terkecil.",,,,C-A-D-B,,,,,,,,,,,,,
+69,31,multipart,practice,Perhatikan diagram batang pada gambar.,,,TODO_IMG_BAR_CHART_C.png,,,,,,,,,,,,,,a|Kategori paling sedikit|Senin;b|Jumlah Selasa dan Kamis|13
+69,32,mcq,practice,"Jika total 30 dan kategori A 12, sisa kategori lain adalah...",,,,A,,,18,16,12,20,,,,,,,
+69,33,essay,practice,Satu gambar mewakili 2 siswa. Ada 7 gambar. Berapa siswa?,,,,14,,,,,,,,,,,,,
+69,34,drag_drop,practice,Pasangkan istilah dengan maknanya.,,,,,,,,,,,,,,,kategori;frekuensi;skala;judul,jenis data;jumlah data;nilai per gambar;nama diagram,
+69,35,essay,practice,Sebuah piktogram memiliki 5 gambar dan tiap gambar 3 buku. Berapa buku?,,,,15,,,,,,,,,,,,,
+69,36,essay,practice,Perhatikan piktogram bunga pada gambar. Berapa jumlah seluruh bunga?,,,TODO_IMG_PICTO_FLOWER.png,13,,,,,,,,,,,,,
+69,37,essay,practice,Jelaskan perbedaan piktogram dan diagram batang.,,,,piktogram memakai gambar; diagram batang memakai batang,,,,,,,,,,,,,
+69,38,essay,practice,"Data olahraga: Sepak bola 9, Basket 6, Bulu tangkis 5. Olahraga paling sedikit adalah...",,,,Bulu tangkis,,,,,,,,,,,,,
+69,39,essay,practice,"Urutkan data A 4, B 7, C 3, D 6 dari terkecil ke terbesar.",,,,C-A-D-B,,,,,,,,,,,,,
+69,40,essay,practice,"Jika batang kategori X naik dari 4 ke 6, perubahan jumlahnya adalah...",,,,bertambah 2,,,,,,,,,,,,,

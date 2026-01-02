@@ -1,0 +1,41 @@
+material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
+57,1,essay,practice,,"Pada timbangan, sisi A turun dan sisi B naik. Benda A ... dari benda B.",,,lebih berat,,,,,,,,,,,,,
+57,4,essay,practice,,Tas lebih berat dari buku. Buku lebih berat dari pensil. Benda paling ringan adalah ...,,,pensil,,,,,,,,,,,,,
+57,6,essay,practice,,Sebuah boneka setara dengan 4 bola tenis. Sebuah kotak setara dengan 6 bola tenis. Benda yang lebih berat adalah ...,,,kotak,,,,,,,,,,,,,
+57,9,essay,practice,,Ani menimbang apel dengan 3 kelereng. Jeruk setara 5 kelereng. Buah yang lebih berat adalah ...,,,jeruk,,,,,,,,,,,,,
+57,11,essay,practice,,Jam analog menunjukkan jarum pendek di 7 dan jarum panjang di 12. Waktu menunjukkan pukul ...,,,7,,,,,,,,,,,,,
+57,14,essay,practice,,Rara belajar dari pukul 18 sampai 19. Mandi dari pukul 19 sampai 19.20. Kegiatan yang lebih lama adalah ...,,,belajar,,,,,,,,,,,,,
+57,16,essay,practice,,"Di kelas, penggaris lebih berat daripada penghapus, tetapi lebih ringan daripada buku. Benda paling berat adalah ...",,,buku,,,,,,,,,,,,,
+57,19,essay,practice,,"Kegiatan A 10 menit, kegiatan B 25 menit. Kegiatan yang lebih sebentar adalah ...",,,A,,,,,,,,,,,,,
+57,21,essay,practice,,Jam digital menunjukkan 05:00. Waktu tersebut termasuk ...,,,pagi,,,,,,,,,,,,,
+57,24,essay,practice,,"Jika 1 botol air setara 2 gelas, dan 1 ember setara 5 gelas, benda yang lebih berat adalah ...",,,ember,,,,,,,,,,,,,
+57,26,essay,practice,,"Paling ringan: kelereng, buku, tas. Urutkan dari paling ringan ke paling berat.",,,"kelereng, buku, tas",,,,,,,,,,,,,
+57,29,essay,practice,,"Dina bangun pukul 06:00, berangkat sekolah pukul 07:00. Lama waktunya adalah ...",,,1 jam,,,,,,,,,,,,,
+57,31,essay,practice,,"Dalam lomba, A 12 menit, B 12 menit. Perbandingan waktunya adalah ...",,,sama,,,,,,,,,,,,,
+57,34,essay,practice,,"Roni mengangkat kotak 3 koin, Santi 4 koin, Edo 5 koin (satuan tidak baku). Siapa paling kuat?",,,Edo,,,,,,,,,,,,,
+57,36,essay,practice,,"Ibu menimbang semangka dengan 8 kelereng, melon dengan 7 kelereng. Mana lebih berat?",,,semangka,,,,,,,,,,,,,
+57,39,essay,practice,,Pukul 20:00 termasuk waktu ...,,,malam,,,,,,,,,,,,,
+57,2,mcq,practice,,"Jika dua benda seimbang pada timbangan, artinya ...",,,C,,,satu lebih berat,satu lebih ringan,sama berat,tidak bisa dibandingkan,,,,,,,
+57,5,mcq,practice,,Benda yang lebih berat akan berada di posisi ... pada timbangan jungkat-jungkit.,,,A,,,lebih bawah,lebih atas,tetap,di tengah,,,,,,,
+57,8,mcq,practice,,Jam analog menunjukkan jarum panjang di 12 dan jarum pendek di 5. Waktunya ...,,TODO_IMG_JAM_5_TEPAT.png,B,,,pukul 4,pukul 5,pukul 6,pukul 7,,,,,,,
+57,10,mcq,practice,,Yang menunjukkan waktu sore adalah ...,,,D,,,05:00,10:00,13:00,16:00,,,,,,,
+57,13,mcq,practice,,"Jika 1 buku setara 4 kelereng dan 1 tas setara 9 kelereng, maka ...",,,A,,,tas lebih berat,buku lebih berat,sama berat,tidak bisa dibandingkan,,,,,,,
+57,17,mcq,practice,,Kegiatan yang biasanya paling lama adalah ...,,,C,,,minum air,menyikat gigi,tidur malam,mengikat tali sepatu,,,,,,,
+57,20,mcq,practice,,Pagi hari biasanya dimulai pada sekitar pukul ...,,,A,,,05:00,12:00,15:00,19:00,,,,,,,
+57,23,mcq,practice,,Waktu paling sebentar adalah ...,,,D,,,1 jam,45 menit,30 menit,10 menit,,,,,,,
+57,27,mcq,practice,,"Jika kegiatan A 15 menit dan B 25 menit, maka ...",,,B,,,A lebih lama,B lebih lama,sama lama,tidak bisa dibandingkan,,,,,,,
+57,30,mcq,practice,,Urutan waktu dari pagi ke malam yang benar adalah ...,,,C,,,malam-sore-siang-pagi,siang-pagi-sore-malam,pagi-siang-sore-malam,sore-pagi-siang-malam,,,,,,,
+57,33,mcq,practice,,"Jika 1 apel setara 2 kelereng, 1 jeruk setara 2 kelereng, maka ...",,,D,,,apel lebih berat,jeruk lebih berat,apel lebih ringan,apel dan jeruk sama berat,,,,,,,
+57,38,mcq,practice,,Jam menunjukkan 07:00. Kegiatan yang cocok adalah ...,,TODO_IMG_JAM_7_TEPAT.png,A,,,sarapan,makan malam,tidur malam,belajar sore,,,,,,,
+57,3,drag_drop,practice,,Pasangkan kegiatan dengan waktu yang tepat.,,,,,,,,,,,,,,sarapan;belajar di sekolah;bermain bola;tidur,pagi;siang;sore;malam,
+57,12,drag_drop,practice,,Pasangkan benda dengan kategori beratnya.,,,,,,,,,,,,,,semangka;buku;pensil;kapas,paling berat;lebih berat;lebih ringan;paling ringan,
+57,18,drag_drop,practice,,Pasangkan jam digital dengan waktu hari.,,,,,,,,,,,,,,05:00;12:00;16:00;20:00;07:00;18:00,pagi;siang;sore;malam;pagi;sore,
+57,25,drag_drop,practice,,Pasangkan pernyataan dengan kesimpulannya.,,,,,,,,,,,,,,A lebih berat dari B;B lebih berat dari C;C lebih berat dari D;A lebih berat dari C,A > B;B > C;C > D;A > C,
+57,32,drag_drop,practice,,Pasangkan alat ukur tidak baku dengan contoh benda.,,,,,,,,,,,,,,kelereng;koin;bola tenis;balok mainan,mengukur berat pensil;mengukur berat buah kecil;mengukur berat boneka;mengukur berat kotak,
+57,40,drag_drop,practice,,Pasangkan istilah dengan arti.,,,,,,,,,,,,,,lebih berat;lebih ringan;sama berat;paling berat;paling ringan;lebih lama,beratnya lebih besar;beratnya lebih kecil;beratnya sama;beratnya paling besar;beratnya paling kecil;durasi lebih panjang,
+57,7,multipart,practice,,Bandingkan berat benda (jawab: lebih berat/lebih ringan/sama).,,,,,,,,,,,,,,,,a|Batu dibanding kapas|lebih berat;b|Pensil dibanding buku|lebih ringan;c|Jeruk dibanding jeruk|sama
+57,15,multipart,practice,,Baca waktu dan tentukan bagian hari.,,,,,,,,,,,,,,,,a|06:00|pagi;b|13:00|siang;c|18:00|sore
+57,22,multipart,practice,,Gunakan satuan tidak baku.,,,,,,,,,,,,,,,,"a|Bola setara 3 kelereng, tas setara 7 kelereng. Tas ... bola|lebih berat;b|Buku setara 4 koin, pensil setara 2 koin. Buku ... pensil|lebih berat;c|Apel setara 5 kelereng, jeruk setara 5 kelereng|sama"
+57,28,multipart,practice,,Bandingkan durasi.,,,,,,,,,,,,,,,,a|Membaca 20 menit vs bermain 10 menit|membaca lebih lama;b|Makan 15 menit vs mandi 15 menit|sama;c|Jalan 5 menit vs tidur 60 menit|jalan lebih sebentar
+57,35,multipart,practice,,Urutkan berat dari paling ringan ke paling berat.,,,,,,,,,,,,,,,,a|penghapus|paling ringan;b|buku|sedang;c|tas|paling berat
+57,37,multipart,practice,,Tentukan posisi jarum jam tepat.,,,,,,,,,,,,,,,,a|pukul 3 tepat|jarum pendek di 3 jarum panjang di 12;b|pukul 9 tepat|jarum pendek di 9 jarum panjang di 12;c|pukul 12 tepat|jarum pendek di 12 jarum panjang di 12

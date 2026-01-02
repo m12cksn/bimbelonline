@@ -1,7 +1,15 @@
 "use client";
 /* eslint-disable @next/next/no-img-element */
 
-import { ReactNode, useEffect, useMemo, useRef, useState } from "react";
+import {
+  ReactNode,
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import Link from "next/link";
 import { DndContext, useDraggable, useDroppable } from "@dnd-kit/core";
 
@@ -57,6 +65,13 @@ type Question = {
   items: QuestionItemRow[];
 };
 
+type QuestionMeta = {
+  id: string;
+  question_number: number;
+  type: "mcq" | "essay" | "multipart" | "drag_drop";
+  question_mode?: "practice" | "tryout" | null;
+};
+
 type NormalizedQuestion = {
   prompt: string;
   helperText?: string;
@@ -68,7 +83,7 @@ type NormalizedQuestion = {
 
 interface Props {
   materialId: number;
-  questions: Question[];
+  questionMeta: QuestionMeta[];
   initialLastNumber: number;
   userId: string;
   isPremium: boolean;
@@ -78,6 +93,8 @@ interface Props {
   upgradeOptions: Array<{ label: string; priceLabel: string }>;
   isTryout?: boolean;
   timerSeconds?: number;
+  isGuest?: boolean;
+  onReady?: () => void;
 }
 
 const LEVEL_SIZE = 20;
@@ -105,7 +122,13 @@ type DropZoneProps = {
   id: string;
   label: string;
   children?: ReactNode;
+  onClick?: () => void;
 };
+
+type DoodlePoint = { x: number; y: number };
+type DoodleStroke = { points: DoodlePoint[]; color: string; width: number };
+type DoodleState = { canUndo: boolean; canRedo: boolean; hasStrokes: boolean };
+type DoodleHandle = { undo: () => void; redo: () => void; clear: () => void };
 
 function DraggableOption({ id, label, isUsed }: DraggableOptionProps) {
   const { attributes, listeners, setNodeRef, transform, isDragging } =
@@ -131,17 +154,18 @@ function DraggableOption({ id, label, isUsed }: DraggableOptionProps) {
   );
 }
 
-function DropZone({ id, label, children }: DropZoneProps) {
+function DropZone({ id, label, children, onClick }: DropZoneProps) {
   const { setNodeRef, isOver } = useDroppable({ id });
 
   return (
     <div
       ref={setNodeRef}
+      onClick={onClick}
       className={`rounded-xl border border-dashed px-4 py-4 text-base transition ${
         isOver
           ? "border-emerald-400 bg-emerald-50"
           : "border-slate-200 bg-slate-50"
-      }`}
+      } ${onClick ? "cursor-pointer" : ""}`}
     >
       <div className="text-[11px] uppercase tracking-wide text-slate-500">
         {label}
@@ -151,9 +175,198 @@ function DropZone({ id, label, children }: DropZoneProps) {
   );
 }
 
+const DoodleOverlay = forwardRef<
+  DoodleHandle,
+  {
+    resetKey: string | number | null;
+    active: boolean;
+    onStateChange?: (state: DoodleState) => void;
+  }
+>(function DoodleOverlay({ resetKey, active, onStateChange }, ref) {
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const drawingRef = useRef(false);
+  const currentStrokeRef = useRef<DoodleStroke | null>(null);
+  const [strokes, setStrokes] = useState<DoodleStroke[]>([]);
+  const [redoStack, setRedoStack] = useState<DoodleStroke[]>([]);
+
+  useEffect(() => {
+    setStrokes([]);
+    setRedoStack([]);
+    currentStrokeRef.current = null;
+  }, [resetKey]);
+
+  useEffect(() => {
+    if (active) return;
+    drawingRef.current = false;
+    currentStrokeRef.current = null;
+  }, [active]);
+
+  useEffect(() => {
+    onStateChange?.({
+      canUndo: strokes.length > 0,
+      canRedo: redoStack.length > 0,
+      hasStrokes: strokes.length > 0,
+    });
+  }, [strokes, redoStack, onStateChange]);
+
+  const redraw = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.save();
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+
+    strokes.forEach((stroke) => {
+      if (stroke.points.length < 2) return;
+      ctx.strokeStyle = stroke.color;
+      ctx.lineWidth = stroke.width;
+      ctx.beginPath();
+      ctx.moveTo(stroke.points[0].x, stroke.points[0].y);
+      stroke.points.slice(1).forEach((pt) => {
+        ctx.lineTo(pt.x, pt.y);
+      });
+      ctx.stroke();
+    });
+    ctx.restore();
+  };
+
+  const resizeCanvas = () => {
+    const canvas = canvasRef.current;
+    const wrapper = wrapperRef.current;
+    if (!canvas || !wrapper) return;
+    const rect = wrapper.getBoundingClientRect();
+    const ratio = window.devicePixelRatio || 1;
+    canvas.width = Math.max(1, Math.floor(rect.width * ratio));
+    canvas.height = Math.max(1, Math.floor(rect.height * ratio));
+    canvas.style.width = `${rect.width}px`;
+    canvas.style.height = `${rect.height}px`;
+    const ctx = canvas.getContext("2d");
+    if (ctx) {
+      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+    }
+    redraw();
+  };
+
+  useEffect(() => {
+    resizeCanvas();
+    const wrapper = wrapperRef.current;
+    if (!wrapper || typeof ResizeObserver === "undefined") return;
+    const observer = new ResizeObserver(() => resizeCanvas());
+    observer.observe(wrapper);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    redraw();
+  }, [strokes]);
+
+  const getPoint = (event: React.PointerEvent<HTMLCanvasElement>) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return { x: 0, y: 0 };
+    const rect = canvas.getBoundingClientRect();
+    return {
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top,
+    };
+  };
+
+  const startStroke = (event: React.PointerEvent<HTMLCanvasElement>) => {
+    if (!active) return;
+    const point = getPoint(event);
+    const stroke: DoodleStroke = {
+      points: [point],
+      color: "#111827",
+      width: 2.5,
+    };
+    currentStrokeRef.current = stroke;
+    drawingRef.current = true;
+    setStrokes((prev) => [...prev, stroke]);
+    setRedoStack([]);
+  };
+
+  const moveStroke = (event: React.PointerEvent<HTMLCanvasElement>) => {
+    if (!active || !drawingRef.current || !currentStrokeRef.current) return;
+    const point = getPoint(event);
+    currentStrokeRef.current.points.push(point);
+    redraw();
+  };
+
+  const endStroke = (event: React.PointerEvent<HTMLCanvasElement>) => {
+    if (!drawingRef.current) return;
+    drawingRef.current = false;
+    currentStrokeRef.current = null;
+    redraw();
+    event.currentTarget.releasePointerCapture(event.pointerId);
+  };
+
+  const handleUndo = () => {
+    if (strokes.length === 0) return;
+    setStrokes((prev) => {
+      const next = [...prev];
+      const removed = next.pop();
+      if (removed) {
+        setRedoStack((redo) => [...redo, removed]);
+      }
+      return next;
+    });
+  };
+
+  const handleRedo = () => {
+    setRedoStack((prev) => {
+      if (prev.length === 0) return prev;
+      const next = [...prev];
+      const restored = next.pop();
+      if (restored) {
+        setStrokes((curr) => [...curr, restored]);
+      }
+      return next;
+    });
+  };
+
+  const handleClear = () => {
+    setStrokes([]);
+    setRedoStack([]);
+  };
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      undo: handleUndo,
+      redo: handleRedo,
+      clear: handleClear,
+    }),
+    [strokes, redoStack]
+  );
+
+  return (
+    <div ref={wrapperRef} className="pointer-events-none absolute inset-0 z-20">
+      <canvas
+        ref={canvasRef}
+        className={`absolute inset-0 ${
+          active ? "pointer-events-auto" : "pointer-events-none"
+        } touch-none`}
+        onPointerDown={(event) => {
+          if (!active) return;
+          event.currentTarget.setPointerCapture(event.pointerId);
+          startStroke(event);
+        }}
+        onPointerMove={moveStroke}
+        onPointerUp={endStroke}
+        onPointerLeave={endStroke}
+        onPointerCancel={endStroke}
+      />
+    </div>
+  );
+});
+
 export default function MaterialQuiz({
   materialId,
-  questions,
+  questionMeta,
   initialLastNumber,
   userId,
   isPremium,
@@ -163,6 +376,8 @@ export default function MaterialQuiz({
   upgradeOptions,
   isTryout = false,
   timerSeconds,
+  isGuest = false,
+  onReady,
 }: Props) {
   const [currentNumber, setCurrentNumber] = useState(
     initialLastNumber > 0 ? initialLastNumber + 1 : 1
@@ -170,6 +385,10 @@ export default function MaterialQuiz({
   const [maxUnlockedNumber, setMaxUnlockedNumber] = useState(
     initialLastNumber > 0 ? initialLastNumber + 1 : 1
   );
+  const [questionDetails, setQuestionDetails] = useState<
+    Record<number, Question>
+  >({});
+  const [loadingLevel, setLoadingLevel] = useState(false);
 
   const [loadingAnswer, setLoadingAnswer] = useState(false);
   const [feedback, setFeedback] = useState<{
@@ -191,6 +410,8 @@ export default function MaterialQuiz({
   const [multipartAnswers, setMultipartAnswers] = useState<
     Record<string, string>
   >({});
+  const [tapMode, setTapMode] = useState(false);
+  const [tapSelection, setTapSelection] = useState<string | null>(null);
 
   // status benar/salah tiap soal di percobaan aktif (buat warna bubble)
   // simpan berdasarkan question_number agar konsisten di UI
@@ -224,11 +445,30 @@ export default function MaterialQuiz({
   } | null>(null);
   const [copiedBank, setCopiedBank] = useState(false);
   const [promoCountdown, setPromoCountdown] = useState<string | null>(null);
+  const doodleRef = useRef<DoodleHandle | null>(null);
+  const [doodleActive, setDoodleActive] = useState(false);
+  const [doodleState, setDoodleState] = useState<DoodleState>({
+    canUndo: false,
+    canRedo: false,
+    hasStrokes: false,
+  });
+  const readyRef = useRef(false);
 
-  const totalQuestions = questions.length;
-  const premiumPrice = "149.000";
+  const activeMeta = useMemo(() => {
+    return questionMeta.filter((q) =>
+      isTryout ? q.question_mode === "tryout" : q.question_mode !== "tryout"
+    );
+  }, [questionMeta, isTryout]);
+
+  const orderedMeta = useMemo(() => {
+    return [...activeMeta].sort(
+      (a, b) => a.question_number - b.question_number
+    );
+  }, [activeMeta]);
+
+  const totalQuestions = orderedMeta.length;
+  const premiumPrice = "145.000";
   const promoPrice = "99.000";
-  const bankName = "BCA";
   const bankAccount = "0961097923";
   const bankHolder = "Iwan Setiawan";
   const progressKey = `material_progress_${materialId}_${userId}`;
@@ -238,7 +478,7 @@ export default function MaterialQuiz({
   // -------------------------------
   useEffect(() => {
     if (isTryout) {
-      const tryoutNumbers = questions.map((q) => q.question_number);
+      const tryoutNumbers = orderedMeta.map((q) => q.question_number);
       const startNumber =
         tryoutNumbers.length > 0 ? Math.min(...tryoutNumbers) : 1;
       setCurrentNumber(startNumber);
@@ -258,7 +498,7 @@ export default function MaterialQuiz({
     const nextNumber = Math.max(startNumber, storedNumber);
     setCurrentNumber(nextNumber);
     setMaxUnlockedNumber(nextNumber);
-  }, [initialLastNumber, isTryout, questions, progressKey]);
+  }, [initialLastNumber, isTryout, orderedMeta, progressKey]);
 
   useEffect(() => {
     if (isTryout) return;
@@ -289,6 +529,11 @@ export default function MaterialQuiz({
   }, [isTryout, secondsLeft, timeUp]);
 
   useEffect(() => {
+    setQuestionDetails({});
+    setLoadingLevel(false);
+  }, [isTryout, materialId]);
+
+  useEffect(() => {
     const end = new Date();
     end.setDate(end.getDate() + 7);
 
@@ -303,9 +548,7 @@ export default function MaterialQuiz({
       const mins = Math.floor((diff % 3600000) / 60000);
       const secs = Math.floor((diff % 60000) / 1000);
       const pad = (val: number) => String(val).padStart(2, "0");
-      setPromoCountdown(
-        `${days} hari ${pad(hours)}:${pad(mins)}:${pad(secs)}`
-      );
+      setPromoCountdown(`${days} hari ${pad(hours)}:${pad(mins)}:${pad(secs)}`);
     };
 
     update();
@@ -320,6 +563,14 @@ export default function MaterialQuiz({
     let isMounted = true;
 
     async function loadAttempts() {
+      if (isGuest) {
+        setAttemptHistory({});
+        setAttemptNumber(1);
+        setActiveAttemptView(null);
+        setLoadingAttempts(false);
+        return;
+      }
+
       try {
         setLoadingAttempts(true);
         const summaryUrl = isTryout
@@ -383,7 +634,7 @@ export default function MaterialQuiz({
         setActiveAttemptView(nextActiveView);
 
         const idToNumber = new Map(
-          questions.map((q) => [q.id, q.question_number])
+          questionMeta.map((q) => [q.id, q.question_number])
         );
         const resultMap: Record<number, "correct" | "wrong"> = {};
         for (const row of data.question_status || []) {
@@ -405,7 +656,7 @@ export default function MaterialQuiz({
     return () => {
       isMounted = false;
     };
-  }, [materialId, totalQuestions, isPremium]);
+  }, [materialId, totalQuestions, isPremium, questionMeta, isGuest, isTryout]);
 
   // reset flag penyimpanan ketika ganti percobaan
   useEffect(() => {
@@ -415,9 +666,12 @@ export default function MaterialQuiz({
   // -------------------------------
   // Normalisasi soal
   // -------------------------------
-  const currentQuestion = questions.find(
-    (q) => q.question_number === currentNumber
-  );
+  const currentQuestion = questionDetails[currentNumber];
+
+  useEffect(() => {
+    setDoodleActive(false);
+    setDoodleState({ canUndo: false, canRedo: false, hasStrokes: false });
+  }, [currentQuestion?.id]);
 
   const normalizedQuestion: NormalizedQuestion | null = useMemo(() => {
     if (!currentQuestion) return null;
@@ -465,20 +719,130 @@ export default function MaterialQuiz({
     };
   }, [currentQuestion]);
 
+  const toggleDoodle = () => setDoodleActive((prev) => !prev);
+  const handleDoodleUndo = () => doodleRef.current?.undo();
+  const handleDoodleRedo = () => doodleRef.current?.redo();
+  const handleDoodleClear = () => doodleRef.current?.clear();
+  const handleTapOption = (value: string) => setTapSelection(value);
+  const handleTapTarget = (targetKey: string) => {
+    if (!tapSelection) {
+      if (!placements[targetKey]) return;
+      setPlacements((prev) => {
+        const next = { ...prev };
+        delete next[targetKey];
+        return next;
+      });
+      return;
+    }
+    setPlacements((prev) => {
+      const next = { ...prev };
+      Object.keys(next).forEach((key) => {
+        if (next[key] === tapSelection) delete next[key];
+      });
+      next[targetKey] = tapSelection;
+      return next;
+    });
+    setTapSelection(null);
+  };
+
+  const maxQuestionNumber = orderedMeta.length
+    ? Math.max(...orderedMeta.map((q) => q.question_number))
+    : 0;
+
+  useEffect(() => {
+    if (!materialId || orderedMeta.length === 0) return;
+    if (currentNumber > maxQuestionNumber) return;
+
+    const levelStart = Math.max(
+      1,
+      Math.floor((currentNumber - 1) / LEVEL_SIZE) * LEVEL_SIZE + 1
+    );
+    const levelEnd = Math.min(levelStart + LEVEL_SIZE - 1, maxQuestionNumber);
+    const needsFetch = orderedMeta
+      .filter(
+        (q) => q.question_number >= levelStart && q.question_number <= levelEnd
+      )
+      .some((q) => !questionDetails[q.question_number]);
+
+    if (!needsFetch) return;
+
+    async function fetchLevel() {
+      setLoadingLevel(true);
+      try {
+        const mode = isTryout ? "tryout" : "practice";
+        const res = await fetch(
+          `/api/materials/${materialId}/questions?mode=${mode}&start=${levelStart}&end=${levelEnd}`
+        );
+        const json = await res.json();
+        if (!res.ok || !json.ok) {
+          throw new Error(json.error || "Gagal memuat soal.");
+        }
+        const incoming = Array.isArray(json.questions) ? json.questions : [];
+        setQuestionDetails((prev) => {
+          const next = { ...prev };
+          for (const q of incoming) {
+            if (q?.question_number) {
+              next[q.question_number] = q;
+            }
+          }
+          return next;
+        });
+      } catch (err) {
+        console.error("fetch level questions error:", err);
+      } finally {
+        setLoadingLevel(false);
+      }
+    }
+
+    fetchLevel();
+  }, [
+    materialId,
+    currentNumber,
+    isTryout,
+    orderedMeta,
+    questionDetails,
+    maxQuestionNumber,
+  ]);
+
   // reset jawaban tiap ganti soal
   useEffect(() => {
     setEssayAnswer("");
     setPlacements({});
     setMultipartAnswers({});
+    setTapSelection(null);
     setFeedback({ isCorrect: null, message: null, explanation: null });
     setLockedMessage(null);
   }, [currentQuestion?.id]);
+
+  useEffect(() => {
+    readyRef.current = false;
+  }, [materialId, isTryout]);
+
+  useEffect(() => {
+    if (!currentQuestion || readyRef.current) return;
+    readyRef.current = true;
+    onReady?.();
+  }, [currentQuestion, onReady]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const media = window.matchMedia("(pointer: coarse)");
+    const update = () => setTapMode(media.matches);
+    update();
+    if (typeof media.addEventListener === "function") {
+      media.addEventListener("change", update);
+      return () => media.removeEventListener("change", update);
+    }
+    media.addListener(update);
+    return () => media.removeListener(update);
+  }, []);
 
   // -------------------------------
   // Jika sudah tidak ada currentQuestion → mode ringkasan
   // -------------------------------
 
   useEffect(() => {
+    if (isGuest) return;
     // kalau masih loading attempt dari server, jangan simpan apa-apa dulu
     if (loadingAttempts) return;
     // kalau masih ada soal, berarti belum selesai
@@ -531,18 +895,56 @@ export default function MaterialQuiz({
     hasSavedTryout,
     loadingAttempts,
     isTryout,
+    isGuest,
   ]);
 
-  const orderedQuestions = useMemo(() => {
-    return [...questions].sort((a, b) => a.question_number - b.question_number);
-  }, [questions]);
+  const orderedQuestions = orderedMeta;
 
   if (!currentQuestion || !normalizedQuestion) {
     // MODE RINGKASAN
-    if (loadingAttempts) {
+    const waitingForQuestion =
+      orderedMeta.length > 0 && currentNumber <= maxQuestionNumber;
+
+    if (loadingAttempts || (waitingForQuestion && loadingLevel)) {
       return (
         <div className="mt-6 rounded-2xl border border-slate-200 bg-white p-4 text-sm text-slate-600">
-          Memuat riwayat percobaan...
+          Memuat soal...
+        </div>
+      );
+    }
+
+    if (waitingForQuestion) {
+      return (
+        <div className="mt-6 rounded-2xl border border-slate-200 bg-white p-4 text-sm text-slate-600">
+          Menyiapkan soal berikutnya...
+        </div>
+      );
+    }
+
+    if (isGuest) {
+      return (
+        <div className="mt-6 rounded-2xl border border-emerald-200 bg-white p-5 text-sm text-slate-700 shadow-xl shadow-slate-200/70">
+          <h2 className="text-lg font-bold text-emerald-700">
+            Latihan gratis selesai 🎉
+          </h2>
+          <p className="mt-2 text-xs text-slate-600">
+            Kamu sudah menyelesaikan {questionLimit} soal gratis. Lanjutkan ke
+            materi lain atau upgrade untuk membuka semua soal.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-2 text-[11px]">
+            <Link
+              href="/materials"
+              className="rounded-xl border border-emerald-400/70 bg-emerald-500 px-3 py-2 font-semibold text-white hover:bg-emerald-600"
+            >
+              Lihat materi lain
+            </Link>
+            <Link
+              href="/dashboard/student/upgrade"
+              className="rounded-xl border border-amber-300 bg-amber-400 px-3 py-2 font-semibold text-slate-900 hover:bg-amber-500"
+            >
+              Upgrade premium
+            </Link>
+          </div>
         </div>
       );
     }
@@ -715,10 +1117,10 @@ export default function MaterialQuiz({
             <div className="mt-1">
               {planLabel === "Free"
                 ? "Upgrade ke paket berbayar untuk akses soal lebih banyak."
-                : planLabel === "Belajar"
-                ? "Naik paket untuk latihan dan laporan lebih lengkap."
                 : planLabel === "Premium"
-                ? "Upgrade agar intensitas belajar maksimal."
+                ? "Upgrade ke Bundling 3 Bulan atau Zoom Premium."
+                : planLabel === "3 Bulan"
+                ? "Tambah Zoom Premium untuk kelas tambahan."
                 : ""}
             </div>
             <div className="mt-2 flex flex-wrap items-center gap-2 text-[11px]">
@@ -894,7 +1296,7 @@ export default function MaterialQuiz({
         if (isEndOfLevel) {
           const rangeQuestions = isTryout
             ? orderedQuestions.slice(levelStart - 1, levelEnd)
-            : questions.filter(
+            : orderedQuestions.filter(
                 (q) =>
                   q.question_number >= levelStart &&
                   q.question_number <= levelEnd
@@ -949,7 +1351,7 @@ export default function MaterialQuiz({
         setTimeout(() => {
           proceedRef.current?.();
           proceedRef.current = null;
-        }, 5000);
+        }, 2000);
       }
     } catch (err) {
       console.error(err);
@@ -1162,7 +1564,7 @@ export default function MaterialQuiz({
           <nav className="mb-4 flex flex-wrap justify-center gap-2 sm:gap-2.5">
             {(isTryout
               ? orderedQuestions.slice(levelStart - 1, levelEnd)
-              : questions.filter(
+              : orderedQuestions.filter(
                   (qq) =>
                     qq.question_number >= levelStart &&
                     qq.question_number <= levelEnd
@@ -1218,7 +1620,14 @@ export default function MaterialQuiz({
             <div className="pointer-events-none absolute -top-10 -right-10 h-32 w-32 rounded-full bg-linear-to-tr from-cyan-500/25 via-purple-500/25 to-pink-500/25 blur-3xl" />
             <div className="pointer-events-none absolute -bottom-10 -left-16 h-32 w-32 rounded-full bg-linear-to-br from-emerald-500/25 via-cyan-500/25 to-indigo-500/25 blur-3xl" />
 
-              <div className="relative z-10 space-y-3">
+            <DoodleOverlay
+              ref={doodleRef}
+              resetKey={currentQuestion?.id ?? null}
+              active={doodleActive}
+              onStateChange={setDoodleState}
+            />
+
+            <div className="relative z-10 space-y-3">
               <div className="flex flex-col gap-3">
                 <div className="space-y-1">
                   <p className="text-lg font-semibold text-slate-900 md:text-2xl leading-snug">
@@ -1249,13 +1658,17 @@ export default function MaterialQuiz({
 
                   <div className="relative grid gap-5 md:grid-cols-[1.2fr_1fr]">
                     <div className="space-y-3">
-                      <div className="inline-flex items-center gap-2 rounded-full border border-rose-200 bg-rose-50 px-3 py-1 text-[11px] font-semibold uppercase text-rose-600">Promo terbatas</div>
+                      <div className="inline-flex items-center gap-2 rounded-full border border-rose-200 bg-rose-50 px-3 py-1 text-[11px] font-semibold uppercase text-rose-600">
+                        Promo terbatas
+                      </div>
                       <h3 className="text-xl font-extrabold text-slate-900">
-                        Diskon Paket Premium! Upgrade sekarang supaya semua soal terbuka.
+                        Diskon Paket Premium! Upgrade sekarang supaya semua soal
+                        terbuka.
                       </h3>
                       <p className="text-[13px] text-slate-600">
-                        Kamu sudah menyelesaikan soal gratis. Buka akses penuh, pembahasan lengkap,
-                        dan sesi Zoom tambahan untuk hasil terbaik.
+                        Kamu sudah menyelesaikan soal gratis. Buka akses penuh,
+                        pembahasan lengkap, dan sesi Zoom tambahan untuk hasil
+                        terbaik.
                       </p>
                       <div className="flex flex-wrap items-center gap-3">
                         <div className="rounded-2xl border border-rose-200 bg-rose-50 px-6 py-5 text-center">
@@ -1276,17 +1689,23 @@ export default function MaterialQuiz({
                           </div>
                           <div className="mt-2 rounded-xl border border-rose-200 bg-white px-3 py-2 text-[10px] text-rose-700">
                             Berakhir dalam:{" "}
-                            <span className="font-semibold" suppressHydrationWarning>
+                            <span
+                              className="font-semibold"
+                              suppressHydrationWarning
+                            >
                               {promoCountdown ?? "Menghitung..."}
                             </span>
                           </div>
                         </div>
                         <div className="space-y-2 text-[11px] text-slate-600">
                           <div className="flex items-center gap-2">
-                            <span className="rounded-full bg-emerald-100 px-2 py-1 text-emerald-700">Semua soal terbuka</span>
-                            <span className="rounded-full bg-sky-100 px-2 py-1 text-sky-700">Analisis & progres</span>
+                            <span className="rounded-full bg-emerald-100 px-2 py-1 text-emerald-700">
+                              Semua soal terbuka
+                            </span>
+                            <span className="rounded-full bg-sky-100 px-2 py-1 text-sky-700">
+                              Analisis & progres
+                            </span>
                           </div>
-                          <span className="rounded-full bg-amber-100 px-2 py-1 text-amber-700">Bonus kelas Zoom</span>
                         </div>
                       </div>
                     </div>
@@ -1294,10 +1713,18 @@ export default function MaterialQuiz({
                     <div className="space-y-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-inner">
                       <div className="flex items-center justify-between text-[11px] text-slate-500">
                         <span>Transfer ke rekening</span>
-                        <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] text-slate-500">{bankName}</span>
+                        <img
+                          src="/images/bca.png"
+                          alt="BCA"
+                          className="h-4 w-auto"
+                        />
                       </div>
-                      <div className="text-lg font-semibold text-slate-900">{bankAccount}</div>
-                      <div className="text-[12px] text-slate-600">a.n {bankHolder}</div>
+                      <div className="text-lg font-semibold text-slate-900">
+                        {bankAccount}
+                      </div>
+                      <div className="text-[12px] text-slate-600">
+                        a.n {bankHolder}
+                      </div>
                       <button
                         type="button"
                         onClick={async () => {
@@ -1311,7 +1738,9 @@ export default function MaterialQuiz({
                         }}
                         className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-slate-900 px-4 py-2 text-xs font-semibold text-white hover:bg-slate-800"
                       >
-                        {copiedBank ? "Rekening tersalin" : "Salin nomor rekening"}
+                        {copiedBank
+                          ? "Rekening tersalin"
+                          : "Salin nomor rekening"}
                       </button>
                       <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 px-3 py-2 text-[11px] text-slate-500">
                         QRIS menyusul. Setelah transfer, kirim bukti ke admin.
@@ -1324,9 +1753,15 @@ export default function MaterialQuiz({
                       </Link>
                       <Link
                         href="/dashboard/student/upgrade"
-                        className="inline-flex items-center justify-center rounded-xl border border-purple-200 bg-purple-600 px-4 py-2 text-xs font-semibold text-white shadow-lg shadow-purple-500/30 transition hover:-translate-y-0.5 hover:bg-purple-700"
+                        className="inline-flex mr-3 items-center justify-center rounded-xl border border-purple-200 bg-purple-600 px-4 py-2 text-xs font-semibold text-white shadow-lg shadow-purple-500/30 transition hover:-translate-y-0.5 hover:bg-purple-700"
                       >
                         Lihat paket lain
+                      </Link>
+                      <Link
+                        href="/materials"
+                        className="inline-flex items-center justify-center rounded-xl border border-slate-200  px-4 py-2 text-xs font-semibold bg-amber-400 text-slate-700 hover:bg-slate-50"
+                      >
+                        Lihat materi lain
                       </Link>
                     </div>
                   </div>
@@ -1334,29 +1769,73 @@ export default function MaterialQuiz({
               ) : (
                 <>
                   {normalizedQuestion.type === "mcq" && (
-                    <div className="grid gap-2 md:grid-cols-2">
-                      {normalizedQuestion.options.map((opt) => (
+                    <div className="space-y-3">
+                      <div className="grid gap-2 md:grid-cols-2">
+                        {normalizedQuestion.options.map((opt) => (
+                          <button
+                            key={opt.value}
+                            disabled={loadingAnswer}
+                            onClick={() => handleAnswer(opt.value)}
+                            className="group relative w-full overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-left text-base text-slate-900 transition hover:-translate-y-0.5 hover:border-cyan-400 hover:bg-slate-100 hover:shadow-md hover:shadow-cyan-500/30 disabled:opacity-60"
+                          >
+                            {opt.imageUrl && (
+                              <div className="mb-2 overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
+                                <img
+                                  src={opt.imageUrl}
+                                  alt={opt.label}
+                                  className="h-32 w-full object-contain"
+                                />
+                              </div>
+                            )}
+                            <span className="font-semibold text-slate-900">
+                              {opt.label}
+                            </span>
+                            <div className="pointer-events-none absolute -bottom-6 -right-8 h-16 w-16 rounded-full bg-linear-to-tr from-cyan-500/20 via-purple-500/20 to-pink-500/20 blur-xl" />
+                          </button>
+                        ))}
+                      </div>
+                      <div className="relative z-30 flex flex-wrap items-center justify-end gap-2 text-[11px] text-slate-600">
                         <button
-                          key={opt.value}
-                          disabled={loadingAnswer}
-                          onClick={() => handleAnswer(opt.value)}
-                          className="group relative w-full overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-left text-base text-slate-900 transition hover:-translate-y-0.5 hover:border-cyan-400 hover:bg-slate-100 hover:shadow-md hover:shadow-cyan-500/30 disabled:opacity-60"
+                          type="button"
+                          onClick={toggleDoodle}
+                          aria-pressed={doodleActive}
+                          title="Coret-coret"
+                          className={`rounded-xl border px-2 py-2 text-sm transition ${
+                            doodleActive
+                              ? "border-slate-900 bg-slate-900 text-white"
+                              : "border-slate-200 bg-white text-slate-600"
+                          }`}
                         >
-                          {opt.imageUrl && (
-                            <div className="mb-2 overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
-                              <img
-                                src={opt.imageUrl}
-                                alt={opt.label}
-                                className="h-32 w-full object-contain"
-                              />
-                            </div>
-                          )}
-                          <span className="font-semibold text-slate-900">
-                            {opt.label}
-                          </span>
-                          <div className="pointer-events-none absolute -bottom-6 -right-8 h-16 w-16 rounded-full bg-linear-to-tr from-cyan-500/20 via-purple-500/20 to-pink-500/20 blur-xl" />
+                          ✏️
                         </button>
-                      ))}
+                        <button
+                          type="button"
+                          onClick={handleDoodleUndo}
+                          disabled={!doodleState.canUndo}
+                          title="Undo"
+                          className="rounded-xl border border-slate-200 bg-white px-2 py-2 text-sm text-slate-600 disabled:opacity-50"
+                        >
+                          ↶
+                        </button>
+                        <button
+                          type="button"
+                          onClick={handleDoodleRedo}
+                          disabled={!doodleState.canRedo}
+                          title="Redo"
+                          className="rounded-xl border border-slate-200 bg-white px-2 py-2 text-sm text-slate-600 disabled:opacity-50"
+                        >
+                          ↷
+                        </button>
+                        <button
+                          type="button"
+                          onClick={handleDoodleClear}
+                          disabled={!doodleState.hasStrokes}
+                          title="Hapus"
+                          className="rounded-xl border border-slate-200 bg-white px-2 py-2 text-sm text-slate-600 disabled:opacity-50"
+                        >
+                          🧹
+                        </button>
+                      </div>
                     </div>
                   )}
 
@@ -1374,14 +1853,56 @@ export default function MaterialQuiz({
                           Ekspresikan jawaban dengan bahasamu sendiri. Kamu
                           boleh menulis langkah-langkahnya.
                         </span>
-                        <button
-                          type="button"
-                          disabled={loadingAnswer || !essayAnswer.trim()}
-                          onClick={() => handleAnswer(essayAnswer.trim())}
-                          className="rounded-xl border border-emerald-500 bg-emerald-600 px-3 py-2 font-semibold text-white shadow-md shadow-emerald-500/40 transition hover:-translate-y-px hover:bg-emerald-700 disabled:opacity-60"
-                        >
-                          Kirim jawaban
-                        </button>
+                        <div className="relative z-30 flex items-center gap-2">
+                          <button
+                            type="button"
+                            onClick={toggleDoodle}
+                            aria-pressed={doodleActive}
+                            title="Coret-coret"
+                            className={`rounded-xl border px-2 py-2 text-sm transition ${
+                              doodleActive
+                                ? "border-slate-900 bg-slate-900 text-white"
+                                : "border-slate-200 bg-white text-slate-600"
+                            }`}
+                          >
+                            ✏️
+                          </button>
+                          <button
+                            type="button"
+                            onClick={handleDoodleUndo}
+                            disabled={!doodleState.canUndo}
+                            title="Undo"
+                            className="rounded-xl border border-slate-200 bg-white px-2 py-2 text-sm text-slate-600 disabled:opacity-50"
+                          >
+                            ↶
+                          </button>
+                          <button
+                            type="button"
+                            onClick={handleDoodleRedo}
+                            disabled={!doodleState.canRedo}
+                            title="Redo"
+                            className="rounded-xl border border-slate-200 bg-white px-2 py-2 text-sm text-slate-600 disabled:opacity-50"
+                          >
+                            ↷
+                          </button>
+                          <button
+                            type="button"
+                            onClick={handleDoodleClear}
+                            disabled={!doodleState.hasStrokes}
+                            title="Hapus"
+                            className="rounded-xl border border-slate-200 bg-white px-2 py-2 text-sm text-slate-600 disabled:opacity-50"
+                          >
+                            🧹
+                          </button>
+                          <button
+                            type="button"
+                            disabled={loadingAnswer || !essayAnswer.trim()}
+                            onClick={() => handleAnswer(essayAnswer.trim())}
+                            className="rounded-xl border border-emerald-500 bg-emerald-600 px-3 py-2 font-semibold text-white shadow-md shadow-emerald-500/40 transition hover:-translate-y-px hover:bg-emerald-700 disabled:opacity-60"
+                          >
+                            Kirim jawaban
+                          </button>
+                        </div>
                       </div>
                     </div>
                   )}
@@ -1428,125 +1949,363 @@ export default function MaterialQuiz({
                         <span>
                           Pastikan semua bagian terisi sebelum mengirim.
                         </span>
-                        <button
-                          type="button"
-                          disabled={loadingAnswer || !multipartReady}
-                          onClick={() =>
-                            handleAnswer(JSON.stringify(multipartAnswers))
-                          }
-                          className="rounded-xl border border-emerald-500 bg-emerald-600 px-3 py-2 font-semibold text-white shadow-md shadow-emerald-500/40 transition hover:-translate-y-px hover:bg-emerald-700 disabled:opacity-60"
-                        >
-                          Kirim jawaban
-                        </button>
+                        <div className="relative z-30 flex items-center gap-2">
+                          <button
+                            type="button"
+                            onClick={toggleDoodle}
+                            aria-pressed={doodleActive}
+                            title="Coret-coret"
+                            className={`rounded-xl border px-2 py-2 text-sm transition ${
+                              doodleActive
+                                ? "border-slate-900 bg-slate-900 text-white"
+                                : "border-slate-200 bg-white text-slate-600"
+                            }`}
+                          >
+                            ✏️
+                          </button>
+                          <button
+                            type="button"
+                            onClick={handleDoodleUndo}
+                            disabled={!doodleState.canUndo}
+                            title="Undo"
+                            className="rounded-xl border border-slate-200 bg-white px-2 py-2 text-sm text-slate-600 disabled:opacity-50"
+                          >
+                            ↶
+                          </button>
+                          <button
+                            type="button"
+                            onClick={handleDoodleRedo}
+                            disabled={!doodleState.canRedo}
+                            title="Redo"
+                            className="rounded-xl border border-slate-200 bg-white px-2 py-2 text-sm text-slate-600 disabled:opacity-50"
+                          >
+                            ↷
+                          </button>
+                          <button
+                            type="button"
+                            onClick={handleDoodleClear}
+                            disabled={!doodleState.hasStrokes}
+                            title="Hapus"
+                            className="rounded-xl border border-slate-200 bg-white px-2 py-2 text-sm text-slate-600 disabled:opacity-50"
+                          >
+                            🧹
+                          </button>
+                          <button
+                            type="button"
+                            disabled={loadingAnswer || !multipartReady}
+                            onClick={() =>
+                              handleAnswer(JSON.stringify(multipartAnswers))
+                            }
+                            className="rounded-xl border border-emerald-500 bg-emerald-600 px-3 py-2 font-semibold text-white shadow-md shadow-emerald-500/40 transition hover:-translate-y-px hover:bg-emerald-700 disabled:opacity-60"
+                          >
+                            Kirim jawaban
+                          </button>
+                        </div>
                       </div>
                     </div>
                   )}
 
                   {normalizedQuestion.type === "drag_drop" && (
-                    <DndContext
-                      onDragEnd={(event) => {
-                        if (!event.over) return;
-                        const targetKey = String(event.over.id);
-                        const value = String(event.active.id);
-                        setPlacements((prev) => {
-                          const next = { ...prev };
-                          Object.keys(next).forEach((key) => {
-                            if (next[key] === value) delete next[key];
-                          });
-                          next[targetKey] = value;
-                          return next;
-                        });
-                      }}
-                    >
-                      <div className="grid gap-4 lg:grid-cols-[1.1fr_1fr]">
-                        <div className="space-y-2">
-                          <div className="text-[11px] font-semibold text-slate-600">
-                            Pilih kartu jawaban
-                          </div>
-                          <div className="flex flex-wrap gap-2">
-                            {normalizedQuestion.options.map((opt) => {
-                              const used = Object.values(placements).includes(
-                                opt.value
-                              );
-                              return (
-                                <DraggableOption
-                                  key={opt.value}
-                                  id={opt.value}
-                                  label={opt.label}
-                                  isUsed={used}
-                                />
-                              );
-                            })}
-                          </div>
-                        </div>
-
-                        <div className="space-y-2 rounded-2xl border border-slate-200 bg-slate-50 p-4 shadow-inner shadow-slate-200/70">
-                          <div className="text-[11px] font-semibold text-slate-600">
-                            Kotak jawaban
-                          </div>
-
+                    <>
+                      {tapMode ? (
+                        <div className="grid gap-4 lg:grid-cols-[1.1fr_1fr]">
                           <div className="space-y-2">
-                            {(normalizedQuestion.dropTargets || []).map(
-                              (target) => (
-                                <DropZone
-                                  key={target.key}
-                                  id={target.key}
-                                  label={target.label}
-                                >
-                                  {placements[target.key] ? (
-                                    <div className="mt-1 rounded-lg border border-emerald-200 bg-emerald-50 px-2 py-1 text-emerald-700">
-                                      {normalizedQuestion.options.find(
-                                        (opt) =>
-                                          opt.value === placements[target.key]
-                                      )?.label ?? placements[target.key]}
-                                    </div>
-                                  ) : (
-                                    <div className="mt-1 rounded-lg border border-slate-200 bg-white px-2 py-1 text-[12px] text-slate-500">
-                                      {target.placeholder ??
-                                        "Seret jawaban ke sini"}
-                                    </div>
-                                  )}
-                                </DropZone>
-                              )
+                            <div className="text-[11px] font-semibold text-slate-600">
+                              Tap pilihan, lalu tap kotak jawaban
+                            </div>
+                            <div className="flex flex-wrap gap-2">
+                              {normalizedQuestion.options.map((opt) => {
+                                const used = Object.values(placements).includes(
+                                  opt.value
+                                );
+                                const isSelected = tapSelection === opt.value;
+                                return (
+                                  <button
+                                    key={opt.value}
+                                    type="button"
+                                    onClick={() => handleTapOption(opt.value)}
+                                    className={`rounded-xl border px-3 py-2 text-sm font-semibold transition ${
+                                      isSelected
+                                        ? "border-slate-900 bg-slate-900 text-white"
+                                        : "border-slate-200 bg-white text-slate-700"
+                                    } ${used ? "opacity-70" : ""}`}
+                                  >
+                                    {opt.label}
+                                  </button>
+                                );
+                              })}
+                            </div>
+                            {tapSelection && (
+                              <div className="text-[11px] text-slate-500">
+                                Dipilih:{" "}
+                                {
+                                  normalizedQuestion.options.find(
+                                    (opt) => opt.value === tapSelection
+                                  )?.label
+                                }
+                              </div>
                             )}
                           </div>
 
-                          <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-600">
-                            <span>
-                              {Object.values(placements).length}/
-                              {normalizedQuestion.dropTargets?.length ?? 0}{" "}
-                              kotak terisi.
-                            </span>
-                            <button
-                              type="button"
-                              disabled={
-                                loadingAnswer ||
-                                !normalizedQuestion.dropTargets?.every(
-                                  (target) => placements[target.key]
+                          <div className="space-y-2 rounded-2xl border border-slate-200 bg-slate-50 p-4 shadow-inner shadow-slate-200/70">
+                            <div className="text-[11px] font-semibold text-slate-600">
+                              Kotak jawaban
+                            </div>
+
+                            <div className="space-y-2">
+                              {(normalizedQuestion.dropTargets || []).map(
+                                (target) => (
+                                  <DropZone
+                                    key={target.key}
+                                    id={target.key}
+                                    label={target.label}
+                                    onClick={() => handleTapTarget(target.key)}
+                                  >
+                                    {placements[target.key] ? (
+                                      <div className="mt-1 rounded-lg border border-emerald-200 bg-emerald-50 px-2 py-1 text-emerald-700">
+                                        {normalizedQuestion.options.find(
+                                          (opt) =>
+                                            opt.value === placements[target.key]
+                                        )?.label ?? placements[target.key]}
+                                      </div>
+                                    ) : (
+                                      <div className="mt-1 rounded-lg border border-slate-200 bg-white px-2 py-1 text-[12px] text-slate-500">
+                                        {target.placeholder ??
+                                          "Tap untuk mengisi"}
+                                      </div>
+                                    )}
+                                  </DropZone>
                                 )
-                              }
-                              onClick={() =>
-                                handleAnswer(
-                                  JSON.stringify(
-                                    normalizedQuestion.dropTargets?.reduce(
-                                      (acc, target) => ({
-                                        ...acc,
-                                        [target.key]:
-                                          placements[target.key] ?? "",
-                                      }),
-                                      {}
-                                    ) || {}
-                                  )
-                                )
-                              }
-                              className="rounded-xl border border-cyan-600 bg-cyan-600 px-3 py-2 font-semibold text-white shadow-md shadow-cyan-200/70 transition hover:-translate-y-px hover:bg-cyan-700 disabled:opacity-60"
-                            >
-                              Kirim jawaban
-                            </button>
+                              )}
+                            </div>
+
+                            <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-600">
+                              <span>
+                                {Object.values(placements).length}/
+                                {normalizedQuestion.dropTargets?.length ?? 0}{" "}
+                                kotak terisi.
+                              </span>
+                              <div className="relative z-30 flex items-center gap-2">
+                                <button
+                                  type="button"
+                                  onClick={toggleDoodle}
+                                  aria-pressed={doodleActive}
+                                  title="Coret-coret"
+                                  className={`rounded-xl border px-2 py-2 text-sm transition ${
+                                    doodleActive
+                                      ? "border-slate-900 bg-slate-900 text-white"
+                                      : "border-slate-200 bg-white text-slate-600"
+                                  }`}
+                                >
+                                  ✏️
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={handleDoodleUndo}
+                                  disabled={!doodleState.canUndo}
+                                  title="Undo"
+                                  className="rounded-xl border border-slate-200 bg-white px-2 py-2 text-sm text-slate-600 disabled:opacity-50"
+                                >
+                                  ↶
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={handleDoodleRedo}
+                                  disabled={!doodleState.canRedo}
+                                  title="Redo"
+                                  className="rounded-xl border border-slate-200 bg-white px-2 py-2 text-sm text-slate-600 disabled:opacity-50"
+                                >
+                                  ↷
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={handleDoodleClear}
+                                  disabled={!doodleState.hasStrokes}
+                                  title="Hapus"
+                                  className="rounded-xl border border-slate-200 bg-white px-2 py-2 text-sm text-slate-600 disabled:opacity-50"
+                                >
+                                  🧹
+                                </button>
+                                <button
+                                  type="button"
+                                  disabled={
+                                    loadingAnswer ||
+                                    !normalizedQuestion.dropTargets?.every(
+                                      (target) => placements[target.key]
+                                    )
+                                  }
+                                  onClick={() =>
+                                    handleAnswer(
+                                      JSON.stringify(
+                                        normalizedQuestion.dropTargets?.reduce(
+                                          (acc, target) => ({
+                                            ...acc,
+                                            [target.key]:
+                                              placements[target.key] ?? "",
+                                          }),
+                                          {}
+                                        ) || {}
+                                      )
+                                    )
+                                  }
+                                  className="rounded-xl border border-cyan-600 bg-cyan-600 px-3 py-2 font-semibold text-white shadow-md shadow-cyan-200/70 transition hover:-translate-y-px hover:bg-cyan-700 disabled:opacity-60"
+                                >
+                                  Kirim jawaban
+                                </button>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </DndContext>
+                      ) : (
+                        <DndContext
+                          onDragEnd={(event) => {
+                            if (!event.over) return;
+                            const targetKey = String(event.over.id);
+                            const value = String(event.active.id);
+                            setPlacements((prev) => {
+                              const next = { ...prev };
+                              Object.keys(next).forEach((key) => {
+                                if (next[key] === value) delete next[key];
+                              });
+                              next[targetKey] = value;
+                              return next;
+                            });
+                          }}
+                        >
+                          <div className="grid gap-4 lg:grid-cols-[1.1fr_1fr]">
+                            <div className="space-y-2">
+                              <div className="text-[11px] font-semibold text-slate-600">
+                                Pilih kartu jawaban
+                              </div>
+                              <div className="flex flex-wrap gap-2">
+                                {normalizedQuestion.options.map((opt) => {
+                                  const used = Object.values(
+                                    placements
+                                  ).includes(opt.value);
+                                  return (
+                                    <DraggableOption
+                                      key={opt.value}
+                                      id={opt.value}
+                                      label={opt.label}
+                                      isUsed={used}
+                                    />
+                                  );
+                                })}
+                              </div>
+                            </div>
+
+                            <div className="space-y-2 rounded-2xl border border-slate-200 bg-slate-50 p-4 shadow-inner shadow-slate-200/70">
+                              <div className="text-[11px] font-semibold text-slate-600">
+                                Kotak jawaban
+                              </div>
+
+                              <div className="space-y-2">
+                                {(normalizedQuestion.dropTargets || []).map(
+                                  (target) => (
+                                    <DropZone
+                                      key={target.key}
+                                      id={target.key}
+                                      label={target.label}
+                                    >
+                                      {placements[target.key] ? (
+                                        <div className="mt-1 rounded-lg border border-emerald-200 bg-emerald-50 px-2 py-1 text-emerald-700">
+                                          {normalizedQuestion.options.find(
+                                            (opt) =>
+                                              opt.value ===
+                                              placements[target.key]
+                                          )?.label ?? placements[target.key]}
+                                        </div>
+                                      ) : (
+                                        <div className="mt-1 rounded-lg border border-slate-200 bg-white px-2 py-1 text-[12px] text-slate-500">
+                                          {target.placeholder ??
+                                            "Seret jawaban ke sini"}
+                                        </div>
+                                      )}
+                                    </DropZone>
+                                  )
+                                )}
+                              </div>
+
+                              <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-600">
+                                <span>
+                                  {Object.values(placements).length}/
+                                  {normalizedQuestion.dropTargets?.length ?? 0}{" "}
+                                  kotak terisi.
+                                </span>
+                                <div className="relative z-30 flex items-center gap-2">
+                                  <button
+                                    type="button"
+                                    onClick={toggleDoodle}
+                                    aria-pressed={doodleActive}
+                                    title="Coret-coret"
+                                    className={`rounded-xl border px-2 py-2 text-sm transition ${
+                                      doodleActive
+                                        ? "border-slate-900 bg-slate-900 text-white"
+                                        : "border-slate-200 bg-white text-slate-600"
+                                    }`}
+                                  >
+                                    ✏️
+                                  </button>
+                                  <button
+                                    type="button"
+                                    onClick={handleDoodleUndo}
+                                    disabled={!doodleState.canUndo}
+                                    title="Undo"
+                                    className="rounded-xl border border-slate-200 bg-white px-2 py-2 text-sm text-slate-600 disabled:opacity-50"
+                                  >
+                                    ↶
+                                  </button>
+                                  <button
+                                    type="button"
+                                    onClick={handleDoodleRedo}
+                                    disabled={!doodleState.canRedo}
+                                    title="Redo"
+                                    className="rounded-xl border border-slate-200 bg-white px-2 py-2 text-sm text-slate-600 disabled:opacity-50"
+                                  >
+                                    ↷
+                                  </button>
+                                  <button
+                                    type="button"
+                                    onClick={handleDoodleClear}
+                                    disabled={!doodleState.hasStrokes}
+                                    title="Hapus"
+                                    className="rounded-xl border border-slate-200 bg-white px-2 py-2 text-sm text-slate-600 disabled:opacity-50"
+                                  >
+                                    🧹
+                                  </button>
+                                  <button
+                                    type="button"
+                                    disabled={
+                                      loadingAnswer ||
+                                      !normalizedQuestion.dropTargets?.every(
+                                        (target) => placements[target.key]
+                                      )
+                                    }
+                                    onClick={() =>
+                                      handleAnswer(
+                                        JSON.stringify(
+                                          normalizedQuestion.dropTargets?.reduce(
+                                            (acc, target) => ({
+                                              ...acc,
+                                              [target.key]:
+                                                placements[target.key] ?? "",
+                                            }),
+                                            {}
+                                          ) || {}
+                                        )
+                                      )
+                                    }
+                                    className="rounded-xl border border-cyan-600 bg-cyan-600 px-3 py-2 font-semibold text-white shadow-md shadow-cyan-200/70 transition hover:-translate-y-px hover:bg-cyan-700 disabled:opacity-60"
+                                  >
+                                    Kirim jawaban
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </DndContext>
+                      )}
+                    </>
                   )}
                 </>
               )}
@@ -1562,9 +2321,11 @@ export default function MaterialQuiz({
                   >
                     {feedback.isCorrect && (
                       <>
-                        <span className="absolute -right-6 -top-6 h-16 w-16 rounded-full bg-emerald-300/40 blur-xl" />
-                        <span className="absolute -left-4 top-8 h-10 w-10 rounded-full bg-cyan-300/50 blur-lg animate-pulse" />
-                        <span className="absolute right-6 bottom-6 h-8 w-8 rounded-full bg-lime-300/50 blur-lg animate-pulse" />
+                        <span className="absolute -right-8 -top-8 h-20 w-20 rounded-full bg-amber-300/40 blur-2xl" />
+                        <span className="absolute -left-6 top-6 h-12 w-12 rounded-full bg-cyan-300/50 blur-xl animate-pulse" />
+                        <span className="absolute right-10 bottom-6 h-10 w-10 rounded-full bg-rose-300/50 blur-xl animate-pulse" />
+                        <span className="absolute left-12 bottom-8 h-8 w-8 rounded-full bg-lime-300/50 blur-lg animate-pulse" />
+                        <span className="absolute right-20 top-14 h-6 w-6 rounded-full bg-sky-300/50 blur-lg animate-pulse" />
                       </>
                     )}
                     {!feedback.isCorrect && (
@@ -1574,19 +2335,9 @@ export default function MaterialQuiz({
                       </>
                     )}
 
-                    <div className="relative mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-white shadow">
+                    <div className="relative mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-linear-to-br from-amber-100 via-rose-100 to-sky-100 shadow-lg shadow-amber-200/60">
                       {feedback.isCorrect ? (
-                        <svg
-                          viewBox="0 0 24 24"
-                          className="h-8 w-8 text-emerald-500"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path d="M20 6L9 17l-5-5" />
-                        </svg>
+                        <span className="text-9xlxl">🎆</span>
                       ) : (
                         <svg
                           viewBox="0 0 24 24"

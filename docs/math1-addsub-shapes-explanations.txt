@@ -1,0 +1,40 @@
+44-1: Pengurangan adalah kebalikan penjumlahan.
+44-2: 8 dikurangi 2 = 6.
+44-3: 7 dikurangi 3 = 4.
+44-4: 10 dikurangi 6 = 4.
+44-5: Agar jumlah 10, diperlukan 6.
+44-6: 7 ditambah 2 = 9.
+44-7: 10 dikurangi 3 = 7.
+44-8: 9 - 4 = 5.
+44-9: 🔺 adalah segitiga.
+44-10: ⬛ adalah segi empat.
+44-11: ⚪ adalah bentuk lengkung.
+44-12: Ada 2 merah.
+44-13: Satu ikon besar.
+44-14: 7 dikurangi 2 = 5.
+44-15: 6 dikurangi 5 = 1.
+44-16: Bilangan dikurangi dirinya = 0.
+44-17: 2 + 3 = 5.
+44-18: 7 - 3 = 4.
+44-19: Segi empat punya 4 sisi.
+44-20: Lingkaran bentuk lengkung.
+44-21: 9 - 6 = 3.
+44-22: 10 - 7 = 3.
+44-23: Turun satu-satu.
+44-24: Rambu segitiga.
+44-25: Buku bentuk segi empat.
+44-26: 6 - 2 = 4.
+44-27: 8 - 1 = 7.
+44-28: 3 + 7 = 10.
+44-29: Cocokkan bentuk dan nama.
+44-30: Hitung hasilnya.
+44-31: Cocokkan gambar dan bentuk.
+44-32: Cocokkan benda dan bentuk.
+44-33: Kelompokkan berdasarkan warna.
+44-34: Hitung hasilnya.
+44-35: Kerjakan tiap bagian.
+44-36: Kerjakan tiap bagian.
+44-37: Kerjakan tiap bagian.
+44-38: Kerjakan tiap bagian.
+44-39: Kerjakan tiap bagian.
+44-40: Kerjakan tiap bagian.

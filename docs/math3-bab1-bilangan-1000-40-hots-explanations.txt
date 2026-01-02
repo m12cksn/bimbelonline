@@ -1,0 +1,40 @@
+59-1: Tujuh ratus tiga ditulis 703.
+59-2: 634 = enam ratus tiga puluh empat.
+59-3: Angka 8 berada di ratusan, nilainya 800.
+59-4: 671 = 6 ratusan, 7 puluhan, 1 satuan.
+59-5: Bandingkan ratusan dan puluhan untuk urutan naik.
+59-6: Susun terbesar dengan ratusan terbesar: 5-3-0 = 530.
+59-7: Urutan naik 1-4-9 = 149.
+59-8: 58 + 27 = 85.
+59-9: 96 - 38 = 58.
+59-10: 6 x 8 = 48.
+59-11: 72 ÷ 9 = 8.
+59-12: 572 = 500 + 70 + 2.
+59-13: 804 = 8 ratusan, 0 puluhan, 4 satuan.
+59-14: 120 - 45 + 30 = 105.
+59-15: 583 lebih besar dari 529 karena puluhannya lebih besar.
+59-16: 76 + 2 = 78.
+59-17: 9 ratusan 0 puluhan 7 satuan = 907.
+59-18: 339 paling kecil.
+59-19: 46 + 27 = 73.
+59-20: 90 - 35 = 55.
+59-21: 7 x 8 = 56.
+59-22: 81 ÷ 9 = 9.
+59-23: Sembilan ratus lima puluh = 950.
+59-24: Angka 5 berada di puluhan, nilainya 50.
+59-25: 3 ratusan 5 puluhan 4 satuan = 354.
+59-26: Urutan turun: 720, 709, 639.
+59-27: Satuan 9 lebih besar dari 1, jadi 769 > 761.
+59-28: 600 + 20 + 5 = 625.
+59-29: Cocokkan bilangan dengan cara membacanya.
+59-30: Uraikan ratusan, puluhan, satuan.
+59-31: Bandingkan bilangan dan pasangkan tanda yang tepat.
+59-32: Tentukan operasi yang sesuai cerita.
+59-33: Cocokkan bilangan dengan nilai tempatnya.
+59-34: Hitung lalu pasangkan hasilnya.
+59-35: Tentukan nilai tempat yang diminta.
+59-36: Bandingkan menggunakan ratusan puluhan satuan.
+59-37: Urutkan sesuai perintah.
+59-38: Hitung penjumlahan, pengurangan, perkalian.
+59-39: Ucapkan bilangan sesuai lambang.
+59-40: Terapkan bilangan ke konteks cerita.

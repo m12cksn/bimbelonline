@@ -1,0 +1,41 @@
+material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
+62,1,essay,practice,,Sebutkan perbedaan sinar garis dan ruas garis.,,,"sinar garis diperpanjang satu arah, ruas garis punya dua ujung",,,,,,,,,,,,,
+62,2,essay,practice,,"Jika garis AB dapat diperpanjang ke dua arah, itu disebut ...",,,garis,,,,,,,,,,,,,
+62,3,essay,practice,,Tuliskan simbol ruas garis yang menghubungkan titik P dan Q.,,,PQ,,,,,,,,,,,,,
+62,4,essay,practice,,Bangun segitiga memiliki ... sisi dan ... sudut.,,,3 sisi dan 3 sudut,,,,,,,,,,,,,
+62,5,essay,practice,,Sebutkan contoh benda di rumah yang memiliki sudut siku-siku.,,,meja,,,,,,,,,,,,,
+62,6,essay,practice,,"Jika dua garis berpotongan membentuk sudut 90°, sudut itu disebut ...",,,sudut siku-siku,,,,,,,,,,,,,
+62,7,essay,practice,,Tuliskan besar sudut AOB jika diukur 30°.,,,30°,,,,,,,,,,,,,
+62,8,essay,practice,,Sebutkan dua contoh garis sejajar di kehidupan sehari-hari.,,,rel kereta,,,,,,,,,,,,,
+62,9,essay,practice,,Sebutkan dua contoh garis tegak lurus di kehidupan sehari-hari.,,,tepi meja dan kaki meja,,,,,,,,,,,,,
+62,10,essay,practice,,"Jika sudut A lebih besar dari sudut B, maka sudut A disebut ...",,,lebih besar,,,,,,,,,,,,,
+62,11,essay,practice,,Gambar persegi memiliki ... sisi dan ... sudut siku-siku.,,,4 sisi dan 4 sudut siku-siku,,,,,,,,,,,,,
+62,12,essay,practice,,Sebuah garis memiliki berapa titik ujung?,,,tidak punya,,,,,,,,,,,,,
+62,13,essay,practice,,"Ruas garis AB panjangnya 5 cm. Jika AB diperpanjang satu arah, menjadi ...",,,sinar garis,,,,,,,,,,,,,
+62,14,essay,practice,,Tuliskan nama sudut dengan titik sudut O dan kaki OA serta OB.,,,AOB,,,,,,,,,,,,,
+62,15,essay,practice,,Bangun segiempat memiliki ... sisi.,,,4,,,,,,,,,,,,,
+62,16,essay,practice,,Sebuah sudut diukur dengan busur derajat menunjukkan 60°. Itu termasuk sudut ...,,,lancip,,,,,,,,,,,,,
+62,17,mcq,practice,,Manakah yang merupakan ruas garis?,,,B,,,garis AB tanpa ujung,ruas garis AB,sinar garis AB,kurva,,,,,,,
+62,18,mcq,practice,,Sudut siku-siku besarnya ...,,,C,,,45°,60°,90°,120°,,,,,,,
+62,19,mcq,practice,,Garis sejajar adalah garis yang ...,,,A,,,tidak pernah berpotongan,berpotongan sekali,membentuk sudut 90°,bertemu di ujung,,,,,,,
+62,20,mcq,practice,,Garis tegak lurus membentuk sudut ...,,,D,,,30°,45°,60°,90°,,,,,,,
+62,21,mcq,practice,,Sudut terbesar di antara berikut adalah ...,,,B,,,30°,120°,60°,90°,,,,,,,
+62,22,mcq,practice,,Sinar garis memiliki ...,,,A,,,satu titik ujung,dua titik ujung,tidak punya titik,tiga titik,,,,,,,
+62,23,mcq,practice,,Bangun dengan 3 sisi disebut ...,,,C,,,segiempat,lingkaran,segitiga,segi lima,,,,,,,
+62,24,mcq,practice,,Sudut 180° disebut sudut ...,,,D,,,lancip,tumpul,siku-siku,lurus,,,,,,,
+62,25,mcq,practice,,Perhatikan gambar. Garis yang sejajar adalah ...,,TODO_IMG_PARALLEL_LINES.png,A,,,AB dan CD,AB dan AC,AD dan BD,AC dan BD,,,,,,,
+62,26,mcq,practice,,Sudut yang lebih kecil dari 90° disebut ...,,,B,,,tumpul,lancip,lurus,siku-siku,,,,,,,
+62,27,mcq,practice,,Sudut yang lebih besar dari 90° tetapi kurang dari 180° disebut ...,,,C,,,lancip,lurus,tumpul,siku-siku,,,,,,,
+62,28,mcq,practice,,Garis yang berpotongan membentuk sudut 90° disebut ...,,,D,,,sejajar,berimpit,melengkung,tegak lurus,,,,,,,
+62,29,drag_drop,practice,,Pasangkan istilah dengan cirinya.,,,,,,,,,,,,,,garis;sinar garis;ruas garis;kurva,tak berhingga dua arah;tak berhingga satu arah;dua titik ujung tetap;garis melengkung,
+62,30,drag_drop,practice,,Pasangkan sudut dengan ukurannya.,,,,,,,,,,,,,,siku-siku;lurus;lancip;tumpul,90°;180°;<90°;>90° dan <180°,
+62,31,drag_drop,practice,,Pasangkan bangun dengan jumlah sisi.,,,,,,,,,,,,,,segitiga;segiempat;segi lima;segi enam,3;4;5;6,
+62,32,drag_drop,practice,,Pasangkan contoh dengan jenis garis.,,,,,,,,,,,,,,rel kereta;pinggiran buku;garis pada kertas kotak;busur pelangi,sejajar;tegak lurus;tegak lurus;kurva,
+62,33,drag_drop,practice,,Pasangkan nama sudut dengan gambar.,,,,,,,,,,,,,,AOB;BOC;COD,sudut kecil;sudut siku-siku;sudut tumpul,
+62,34,drag_drop,practice,,Pasangkan pernyataan dengan benar/salah.,,,,,,,,,,,,,,Garis punya dua ujung;Ruas garis punya dua ujung;Sinar garis dua arah;Sudut siku-siku 90°,salah;benar;salah;benar,
+62,35,multipart,practice,,Tentukan jenis sudut.,,,,,,,,,,,,,,,,a|60°|lancip;b|90°|siku-siku;c|120°|tumpul
+62,36,multipart,practice,,Tentukan jenis garis.,,,,,,,,,,,,,,,,a|garis tak berhingga dua arah|garis;b|garis satu arah|sinar garis;c|garis dua ujung|ruas garis
+62,37,multipart,practice,,Soal cerita sudut.,,,,,,,,,,,,,,,,a|Buku dibuka membentuk 90°|siku-siku;b|Pintu terbuka kecil sekitar 30°|lancip;c|Jendela terbuka lebar 120°|tumpul
+62,38,multipart,practice,,Hitung sisi dan sudut.,,,,,,,,,,,,,,,,a|persegi|4 sisi 4 sudut;b|segitiga|3 sisi 3 sudut;c|segi lima|5 sisi 5 sudut
+62,39,multipart,practice,,"Bandingkan sudut pada gambar (A,B,C).",,,,,,,,,,,,,,,,a|A dibanding B|A lebih kecil;b|B dibanding C|B lebih kecil;c|C dibanding A|C lebih besar
+62,40,multipart,practice,,Soal HOTS: Diketahui AB // CD dan garis EF memotong keduanya. Sudut di perpotongan atas 60°. Sudut sehadap di bawah adalah ...,,,,,,,,,,,,,,,,a|nilai sudut sehadap|60°;b|jenis sudut|lancip;c|alasan|sehadap pada garis sejajar sama besar

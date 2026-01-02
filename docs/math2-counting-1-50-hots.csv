@@ -1,0 +1,41 @@
+material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
+52,1,essay,practice,,"Di kelas, ada 2 kelompok. Kelompok A berisi 18 siswa dan Kelompok B berisi 22 siswa. Berapa selisihnya?",,,4,,Selisih 22 dan 18 adalah 4.,,,,,,,,,,,
+52,2,essay,practice,,Dina mengikat 3 ikat lidi. Setiap ikat berisi 10 lidi dan ada 6 lidi lepas. Berapa jumlah lidi Dina?,,,36,,3 puluhan + 6 satuan = 36.,,,,,,,,,,,
+52,3,essay,practice,,Rafi memperkirakan ada 27 kelereng di stoples. Setelah dihitung ternyata 30. Selisihnya berapa?,,,3,,30 - 27 = 3.,,,,,,,,,,,
+52,4,essay,practice,,Di rak ada 14 buku cerita dan 9 buku komik. Berapa jumlah buku semuanya?,,,23,,14 + 9 = 23.,,,,,,,,,,,
+52,5,essay,practice,,Siska menulis bilangan 4 puluhan dan 7 satuan. Bilangan berapakah itu?,,,47,,4 puluhan 7 satuan = 47.,,,,,,,,,,,
+52,6,essay,practice,,Di taman ada 25 kupu-kupu. Datang lagi 12 kupu-kupu. Ada berapa kupu-kupu sekarang?,,,37,,25 + 12 = 37.,,,,,,,,,,,
+52,7,essay,practice,,Pak Budi punya 40 mangga. Ia memberi 13. Sisa mangga berapa?,,,27,,40 - 13 = 27.,,,,,,,,,,,
+52,8,essay,practice,,"Urutkan dari kecil ke besar: 42, 29, 35",,,"29,35,42",,Urutan naik.,,,,,,,,,,,
+52,9,essay,practice,,Nina membaca halaman 16 pada hari pertama dan 19 pada hari kedua. Berapa halaman total?,,,35,,16 + 19 = 35.,,,,,,,,,,,
+52,10,essay,practice,,Tulis bilangan yang nilainya 3 puluhan dan 2 satuan.,,,32,,3 puluhan + 2 satuan = 32.,,,,,,,,,,,
+52,11,essay,practice,,Beda banyak 48 dan 31 adalah...,,,17,,48 - 31 = 17.,,,,,,,,,,,
+52,12,essay,practice,,Toni mengumpulkan 12 stiker lalu mendapat 18 lagi. Berapa jumlah stiker Toni?,,,30,,12 + 18 = 30.,,,,,,,,,,,
+52,13,essay,practice,,Ibu membeli 50 telur. Terpakai 24 telur. Sisa telur berapa?,,,26,,50 - 24 = 26.,,,,,,,,,,,
+52,14,essay,practice,,Bilangan mana yang lebih besar: 39 atau 43?,,,43,,43 lebih besar dari 39.,,,,,,,,,,,
+52,15,essay,practice,,"Jika kamu punya 2 puluhan dan 9 satuan, tulis bilangan itu.",,,29,,2 puluhan 9 satuan = 29.,,,,,,,,,,,
+52,16,essay,practice,,"Urutkan dari besar ke kecil: 17, 44, 28",,,"44,28,17",,Urutan turun.,,,,,,,,,,,
+52,17,mcq,practice,,Bilangan yang menunjukkan 2 puluhan dan 4 satuan adalah...,,,B,,2 puluhan 4 satuan = 24.,42,24,20,14,,,,,,,
+52,18,mcq,practice,,Mana yang lebih besar?,,,D,,36 lebih besar dari 33.,28,31,33,36,,,,,,,
+52,19,mcq,practice,,Urutan benar dari kecil ke besar adalah...,,,A,,"Naik: 15, 27, 40.",15 - 27 - 40,40 - 27 - 15,27 - 15 - 40,27 - 40 - 15,,,,,,,
+52,20,mcq,practice,,Hasil 18 + 7 = ?,,,C,,18 + 7 = 25.,23,24,25,26,,,,,,,
+52,21,mcq,practice,,Hasil 50 - 17 = ?,,,B,,50 - 17 = 33.,32,33,34,35,,,,,,,
+52,22,mcq,practice,,Bilangan yang paling kecil adalah...,,,A,,21 paling kecil.,21,29,32,41,,,,,,,
+52,23,mcq,practice,,"Jika selisih A dan B adalah 6 dan A=34, maka B=...",,,C,,34 - 6 = 28.,30,27,28,26,,,,,,,
+52,24,mcq,practice,,Manakah yang menunjukkan 4 puluhan?,,,D,,4 puluhan = 40.,14,24,34,40,,,,,,,
+52,25,mcq,practice,,Bilangan sebelum 30 adalah...,,,B,,Sebelum 30 adalah 29.,28,29,31,27,,,,,,,
+52,26,mcq,practice,,Bilangan setelah 49 adalah...,,,C,,Setelah 49 adalah 50.,48,49,50,51,,,,,,,
+52,27,mcq,practice,,"Jika 25 + x = 50, maka x = ...",,,A,,50 - 25 = 25.,25,20,15,10,,,,,,,
+52,28,mcq,practice,,Bilangan yang tepat untuk 3 puluhan 9 satuan adalah...,,,D,,39.,93,30,9,39,,,,,,,
+52,29,drag_drop,practice,,Pasangkan bilangan dengan nilai tempat.,,,,,Cocokkan bilangan dan nilai tempat.,,,,,,,,,34;27;40,3 puluhan 4 satuan;2 puluhan 7 satuan;4 puluhan 0 satuan,
+52,30,drag_drop,practice,,Pasangkan urutan dengan jenisnya.,,,,,Cocokkan pola bilangan.,,,,,,,,,11-12-13;50-49-48;22-24-26,naik;turun;genap,
+52,31,drag_drop,practice,,Pasangkan cerita dengan operasi.,,,,,Cocokkan cerita dan operasi.,,,,,,,,,Ada 18 apel tambah 7;Ada 40 kelereng hilang 9;Ada 25 stiker tambah 12,18+7;40-9;25+12,
+52,32,drag_drop,practice,,Pasangkan selisihnya.,,,,,Kurangi bilangan besar dengan kecil.,,,,,,,,,39 dan 30;45 dan 28;50 dan 41,9;17;9,
+52,33,drag_drop,practice,,Pasangkan 10 + n.,,,,,Jumlahkan 10 dengan satuan.,,,,,,,,,10+11;10+15;10+19,21;25;29,
+52,34,drag_drop,practice,,Pasangkan perbandingan.,,,,,Isi tanda perbandingan.,,,,,,,,,23 __ 32;45 __ 45;19 __ 17,<;=;>,
+52,35,multipart,practice,,Hitung tiap bagian.,,,,,Kerjakan tiap bagian.,,,,,,,,,,,a|17 + 8 =|25;b|36 - 9 =|27;c|Selisih 41 dan 33|8
+52,36,multipart,practice,,Nilai tempat.,,,,,Tentukan puluhan dan satuan.,,,,,,,,,,,a|24 =|2 puluhan 4 satuan;b|38 =|3 puluhan 8 satuan;c|50 =|5 puluhan 0 satuan
+52,37,multipart,practice,,Bandingkan bilangan.,,,,,Isi dengan < > atau =.,,,,,,,,,,,a|27 __ 35|<;b|42 __ 39|>;c|31 __ 31|=
+52,38,multipart,practice,,Urutkan bilangan.,,,,,Urutkan sesuai perintah.,,,,,,,,,,,"a|Urut kecil: 33, 28, 41|28,33,41;b|Urut besar: 19, 45, 22|45,22,19;c|Urut kecil: 50, 37, 40|37,40,50"
+52,39,multipart,practice,,Hitung puluhan dengan satuan.,,,,,Tambah puluhan dan satuan.,,,,,,,,,,,a|20 + 7 =|27;b|30 + 9 =|39;c|40 + 5 =|45
+52,40,multipart,practice,,Soal cerita.,,,,,Tentukan jumlah atau sisa.,,,,,,,,,,,a|Ada 26 buku ditambah 13 buku|39;b|Ada 48 permen dikurangi 15|33;c|Ada 32 kelereng ditambah 9|41
