@@ -83,7 +83,13 @@ const defaultMultipartItem = (): MultipartItem => ({
   answer: "",
 });
 
-const gradeOptions = Array.from({ length: 9 }, (_, idx) => idx + 1);
+const gradeOptions = [
+  ...Array.from({ length: 9 }, (_, idx) => ({
+    id: idx + 1,
+    label: `Kelas ${idx + 1}`,
+  })),
+  { id: 10, label: "Math Tricks" },
+];
 const subjectOptions = [
   { id: 1, name: "Matematika" },
   { id: 2, name: "IPA" },
@@ -806,8 +812,8 @@ export default function AdminQuestionsPage() {
           >
             <option value="">Pilih grade</option>
             {gradeOptions.map((grade) => (
-              <option key={grade} value={grade}>
-                Kelas {grade}
+              <option key={grade.id} value={grade.id}>
+                {grade.label}
               </option>
             ))}
           </select>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabaseServer";
 import UpcomingZoomWidget from "./_components/upcoming_zoom_widget";
+import ScrollToFreeStart from "./_components/scroll_to_free_start";
 
 type ProgressRow = {
   material_id: number;
@@ -279,6 +280,7 @@ export default async function StudentDashboardPage() {
 
   return (
     <div className="space-y-8">
+      {!isPremium && <ScrollToFreeStart targetId="free-start" />}
       {/* =====================================================
           HEADER / HERO
       ====================================================== */}
@@ -333,7 +335,7 @@ export default async function StudentDashboardPage() {
           {/* ✅ Tombol jadwal Zoom terdekat */}
 
           {!isPremium && (
-            <div className="mt-4 overflow-hidden rounded-2xl border border-emerald-200 bg-emerald-600 shadow-sm">
+            <div id="free-start" tabIndex={-1} className="mt-4 overflow-hidden rounded-2xl border border-emerald-200 bg-emerald-600 shadow-sm">
               <div className="flex flex-col gap-4 p-4 text-white md:flex-row md:items-center md:justify-between">
                 <div className="space-y-1">
                   <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-100">
@@ -349,7 +351,7 @@ export default async function StudentDashboardPage() {
                 <div className="flex flex-wrap items-center gap-2">
                   <Link
                     href="/materials/1"
-                    className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/90 px-4 py-2 text-xs font-semibold text-emerald-900 transition hover:bg-white"
+                    className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-amber-400/90 px-4 py-2 text-xs font-semibold text-slate-900 transition hover:bg-white"
                   >
                     <span className="text-base">🚀</span>
                     Mulai latihan

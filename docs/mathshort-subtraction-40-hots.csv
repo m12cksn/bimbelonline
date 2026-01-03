@@ -1,0 +1,41 @@
+material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
+70,1,essay,practice,Hitung 134 - 97 dengan singgah ke 100.,,,,37,,,,,,,,,,,,,
+70,2,essay,practice,Hitung 163 - 128 dengan singgah ke 130.,,,,35,,,,,,,,,,,,,
+70,3,mcq,practice,Hasil 525 - 496 adalah...,,,,A,,,29,31,19,39,,,,,,,
+70,4,drag_drop,practice,Pasangkan soal dengan hasilnya.,,,,,,,,,,,,,,,204-198;700-689;1004-997;3000-2996,"6,11,7,4",
+70,5,multipart,practice,Hitung dengan langkah bertahap.,,,,,,,,,,,,,,,,,a|452-357|95;b|843-255|588;c|1234-365|869
+70,6,essay,practice,Hitung 1542 - 878 dengan singgah ke 1000.,,,,664,,,,,,,,,,,,,
+70,7,mcq,practice,Hasil 753 - 489 adalah...,,,,B,,,254,264,274,284,,,,,,,
+70,8,essay,practice,Hitung 1000 - 458 (gunakan cara cepat tanpa meminjam).,,,,542,,,,,,,,,,,,,
+70,9,drag_drop,practice,Pasangkan soal dengan hasilnya.,,,,,,,,,,,,,,,134-97;163-128;1542-878;725-498,"37,35,664,227",
+70,10,essay,practice,Hitung 524 - 327 dengan cara kurangi 324 lalu sisa.,,,,197,,,,,,,,,,,,,
+70,11,mcq,practice,Hasil 763 - 478 adalah...,,,,B,,,295,285,275,315,,,,,,,
+70,12,multipart,practice,Selesaikan dengan cara tambah sama-sama.,,,,,,,,,,,,,,,,,a|847-293|554;b|7347-2684|4663;c|5743-1976|3767
+70,13,essay,practice,Hitung 100 - 67 dengan singgah ke 100.,,,,33,,,,,,,,,,,,,
+70,14,drag_drop,practice,Pasangkan soal dengan hasilnya.,,,,,,,,,,,,,,,92-89;508-497;1002-999;430-398,"3,11,3,32",
+70,15,essay,practice,Hitung 1200 - 485 dengan singgah 1000.,,,,715,,,,,,,,,,,,,
+70,16,mcq,practice,Hasil 2000 - 1348 adalah...,,,,C,,,642,662,652,672,,,,,,,
+70,17,essay,practice,Hitung 602 - 199 dengan tambah 1.,,,,403,,,,,,,,,,,,,
+70,18,multipart,practice,Hitung dengan cara bagian.,,,,,,,,,,,,,,,,,a|624-327|297;b|8745-6849|1896;c|2336-1448|888
+70,19,drag_drop,practice,Pasangkan soal dengan hasilnya.,,,,,,,,,,,,,,,905-899;1500-1492;10000-9991;4300-4295,"6,8,9,5",
+70,20,essay,practice,Hitung 10000 - 6789 (tanpa meminjam).,,,,3211,,,,,,,,,,,,,
+70,21,mcq,practice,Hasil 7352 - 2684 adalah...,,,,A,,,4668,4568,4686,4768,,,,,,,
+70,22,essay,practice,Hitung 500 - 248 dengan tambah 2.,,,,252,,,,,,,,,,,,,
+70,23,essay,practice,"Seorang anak punya 1000 poin, terpakai 398. Sisa poinnya?",,,,602,,,,,,,,,,,,,
+70,24,multipart,practice,Hitung dengan singgah ke bilangan bulat.,,,,,,,,,,,,,,,,,a|134-97|37;b|275-198|77;c|1004-998|6
+70,25,essay,practice,Hitung 2500 - 1499 dengan tambah 1.,,,,1001,,,,,,,,,,,,,
+70,26,mcq,practice,Hasil 640 - 295 adalah...,,,,A,,,345,355,335,365,,,,,,,
+70,27,essay,practice,Hitung 1210 - 698 dengan singgah 700.,,,,512,,,,,,,,,,,,,
+70,28,drag_drop,practice,Pasangkan soal dengan penambahan yang tepat.,,,,,,,,,,,,,,,134-97;525-496;847-293;1000-998,"tambah 3,tambah 4,tambah 7,tambah 2",
+70,29,essay,practice,Hitung 4302 - 998 dengan tambah 2.,,,,3304,,,,,,,,,,,,,
+70,30,multipart,practice,Hitung dengan cepat.,,,,,,,,,,,,,,,,,a|163-128|35;b|524-327|197;c|763-478|285
+70,31,essay,practice,Hitung 4573 - 968 dengan singgah 1000.,,,,3605,,,,,,,,,,,,,
+70,32,essay,practice,Hitung 705 - 499 dengan tambah 1.,,,,206,,,,,,,,,,,,,
+70,33,drag_drop,practice,Pasangkan soal dengan hasilnya.,,,,,,,,,,,,,,,200-97;900-799;1200-1001;3100-2988,"103,101,199,112",
+70,34,essay,practice,Hitung 3000 - 1478 dengan singgah 1500.,,,,1522,,,,,,,,,,,,,
+70,35,multipart,practice,Isian cepat.,,,,,,,,,,,,,,,,,a|1000-876|124;b|2000-1993|7;c|520-498|22
+70,36,essay,practice,Hitung 860 - 457 dengan tambah 3.,,,,403,,,,,,,,,,,,,
+70,37,mcq,practice,Hasil 10000 - 999 adalah...,,,,C,,,9009,9901,9001,9101,,,,,,,
+70,38,essay,practice,Hitung 250 - 187 dengan singgah 200.,,,,63,,,,,,,,,,,,,
+70,39,drag_drop,practice,Pasangkan soal dengan hasilnya.,,,,,,,,,,,,,,,150-98;1000-995;730-698;4005-3999,"52,5,32,6",
+70,40,essay,practice,Hitung 5000 - 3997 dengan tambah 3.,,,,1003,,,,,,,,,,,,,

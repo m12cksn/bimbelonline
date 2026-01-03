@@ -1478,6 +1478,22 @@ export default function MaterialQuiz({
                       ? "Lihat ringkasan"
                       : "Lanjut level berikutnya"}
                   </button>
+                  {!isPremium && levelReview.level >= totalLevels && (
+                    <>
+                      <Link
+                        href="/materials"
+                        className="rounded-xl border border-slate-200 bg-white px-4 py-2 font-semibold text-slate-700"
+                      >
+                        Lihat materi lain
+                      </Link>
+                      <Link
+                        href="/dashboard/student/upgrade"
+                        className="rounded-xl border border-emerald-500 bg-emerald-600 px-4 py-2 font-semibold text-white shadow-md shadow-emerald-300/60"
+                      >
+                        Upgrade premium
+                      </Link>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
@@ -1627,7 +1643,7 @@ export default function MaterialQuiz({
               onStateChange={setDoodleState}
             />
 
-            <div className="relative z-10 space-y-3">
+            <div className="relative space-y-3">
               <div className="flex flex-col gap-3">
                 <div className="space-y-1">
                   <p className="text-lg font-semibold text-slate-900 md:text-2xl leading-snug">

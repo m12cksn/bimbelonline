@@ -11,17 +11,21 @@ import { resolvePlanAccess } from "@/lib/planAccess";
 // params: Promise<{ id: string }> -> sesuai file kamu
 interface MaterialPageProps {
   params: Promise<{ id: string }>;
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 export default async function MaterialPage(props: MaterialPageProps) {
   const { id } = await props.params;
+  const resolvedSearchParams = props.searchParams
+    ? await props.searchParams
+    : undefined;
+  const isEmbed = resolvedSearchParams?.embed === "1";
 
   const materialId = parseInt(id, 10);
   if (Number.isNaN(materialId)) {
     redirect("/dashboard/student");
   }
 
-  const guestMaterialIds = new Set([1, 3, 4]);
   const supabase = await createSupabaseServerClient();
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
@@ -30,9 +34,6 @@ export default async function MaterialPage(props: MaterialPageProps) {
     data: { user },
   } = await supabase.auth.getUser();
   const isGuest = !user;
-  if (!user && !guestMaterialIds.has(materialId)) {
-    redirect("/login");
-  }
 
   let profile: {
     role?: UserRole | null;
@@ -195,6 +196,27 @@ export default async function MaterialPage(props: MaterialPageProps) {
     ? Math.min(questionCount, questionLimit)
     : questionCount;
 
+  if (isEmbed) {
+    return (
+      <div className="px-4 py-4">
+        <MaterialWithResources
+          material={material}
+          questionMeta={questionMetaList}
+          exampleQuestions={exampleQuestions}
+          initialLastNumber={lastQuestionNumber}
+          userId={userId}
+          isPremium={isPremiumPlan}
+          questionLimit={questionLimit}
+          planLabel={planLabel}
+          planPriceLabel={planPriceLabel}
+          upgradeOptions={upgradeOptions}
+          isGuest={isGuest}
+          isEmbed
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-[calc(100vh-80px)] px-4 py-6 md:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl space-y-6">
@@ -340,6 +362,7 @@ export default async function MaterialPage(props: MaterialPageProps) {
               planPriceLabel={planPriceLabel}
               upgradeOptions={upgradeOptions}
               isGuest={isGuest}
+              isEmbed={false}
             />
           </div>
         </section>

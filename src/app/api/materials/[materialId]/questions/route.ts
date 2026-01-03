@@ -16,7 +16,6 @@ export async function GET(
   req: Request,
   { params }: { params: Promise<{ materialId: string }> }
 ) {
-  const guestMaterialIds = new Set([1, 3, 4]);
   const { materialId: materialIdRaw } = await params;
   const materialId = Number(materialIdRaw);
   if (Number.isNaN(materialId)) {
@@ -45,13 +44,6 @@ export async function GET(
   } = await supabase.auth.getUser();
 
   const isGuest = !user;
-
-  if (isGuest && !guestMaterialIds.has(materialId)) {
-    return NextResponse.json(
-      { ok: false, error: "Unauthenticated" },
-      { status: 401 }
-    );
-  }
 
   if (isGuest && mode === "tryout") {
     return NextResponse.json({ ok: true, questions: [] });

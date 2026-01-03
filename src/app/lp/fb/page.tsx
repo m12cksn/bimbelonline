@@ -518,8 +518,12 @@ export default function FacebookLandingPage() {
                 Jika kamu sudah punya komponen latihan (soal 1–4), taruh di sini
                 agar user langsung mencoba tanpa pindah halaman.
               </p>
-              <div className="mt-4 rounded-2xl border border-dashed border-emerald-200 bg-emerald-50/60 p-6 text-sm text-slate-600">
-                Placeholder area demo latihan
+              <div className="mt-4 overflow-hidden rounded-2xl border border-emerald-200 bg-white shadow-sm">
+                <iframe
+                  title="Demo latihan gratis"
+                  src="/materials/1?embed=1"
+                  className="h-[520px] w-full"
+                />
               </div>
             </div>
 

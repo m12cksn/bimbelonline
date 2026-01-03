@@ -53,7 +53,6 @@ function buildFallbackExplanation(
 }
 
 export async function POST(req: Request, props: MaterialParams) {
-  const guestMaterialIds = new Set([1, 3, 4]);
   const { materialId: materialIdStr } = await props.params;
   const materialId = parseInt(materialIdStr, 10);
 
@@ -108,9 +107,6 @@ export async function POST(req: Request, props: MaterialParams) {
   } = await supabase.auth.getUser();
 
   const isGuest = !user;
-  if (isGuest && !guestMaterialIds.has(materialId)) {
-    return NextResponse.json({ error: "Unauthenticated" }, { status: 401 });
-  }
 
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   const dbClient =
