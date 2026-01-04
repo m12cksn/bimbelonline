@@ -506,54 +506,34 @@ export default function FacebookLandingPage() {
             </PrimaryButton>
           </div>
 
-          <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
-            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
-              <div className="text-xs font-semibold text-slate-500">
-                Opsi A (rekomendasi)
+          <div className="mt-6 rounded-3xl border border-emerald-200 bg-linear-to-br from-emerald-600 via-emerald-500 to-teal-400 p-6 text-white shadow-[0_22px_60px_-30px_rgba(16,185,129,0.6)]">
+            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+              <div className="max-w-xl">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-100">
+                  Latihan gratis
+                </p>
+                <h3 className="mt-2 text-2xl font-extrabold">
+                  Link latihan langsung — tanpa ribet
+                </h3>
+                <p className="mt-2 text-sm text-emerald-50">
+                  Klik tombol di kanan untuk langsung ke latihan 4 soal gratis.
+                  Fokusnya: anak cepat “klik” dan kamu lihat hasilnya.
+                </p>
               </div>
-              <div className="mt-1 text-base font-bold text-slate-900">
-                Embed latihan langsung
-              </div>
-              <p className="mt-2 text-sm text-slate-600">
-                Jika kamu sudah punya komponen latihan (soal 1–4), taruh di sini
-                agar user langsung mencoba tanpa pindah halaman.
-              </p>
-              <div className="mt-4 overflow-hidden rounded-2xl border border-emerald-200 bg-white shadow-sm">
-                <iframe
-                  title="Demo latihan gratis"
-                  src="/materials/1?embed=1"
-                  className="h-[520px] w-full"
-                />
-              </div>
-            </div>
-
-            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
-              <div className="text-xs font-semibold text-slate-500">Opsi B</div>
-              <div className="mt-1 text-base font-bold text-slate-900">
-                Link ke latihan
-              </div>
-              <p className="mt-2 text-sm text-slate-600">
-                Kalau embed belum siap, pakai tombol ini ke halaman latihan
-                gratis (soal 1–4).
-              </p>
-              <div className="mt-4 flex flex-col gap-3">
+              <div className="flex flex-col gap-3 sm:flex-row">
                 <Link
                   href="/materials/1"
-                  className="inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-200"
+                  className="inline-flex items-center justify-center rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-emerald-700 shadow-lg shadow-emerald-900/20 transition hover:-translate-y-0.5 hover:bg-emerald-50"
                 >
-                  Buka Latihan Gratis
+                  🚀 Buka Latihan Gratis
                 </Link>
                 <a
                   href={waLink()}
-                  className="inline-flex items-center justify-center rounded-2xl bg-emerald-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-300/50 transition hover:-translate-y-0.5 hover:bg-emerald-700"
+                  className="inline-flex items-center justify-center rounded-2xl border border-white/40 bg-emerald-700/60 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-900/20 transition hover:-translate-y-0.5 hover:bg-emerald-700"
                 >
-                  Konsultasi di WhatsApp
+                  Tanya via WhatsApp
                 </a>
               </div>
-              <p className="mt-3 text-xs text-slate-500">
-                Tips: dari FB Ads, link utama tetap ke halaman ini. Demo/latihan
-                adalah step berikutnya.
-              </p>
             </div>
           </div>
         </div>
@@ -722,37 +702,34 @@ export default function FacebookLandingPage() {
       </section>
 
       {/* Bottom CTA */}
-      <section className="mx-auto max-w-6xl px-4 pb-24">
-        <div className="rounded-3xl border border-emerald-100 bg-linear-to-r from-emerald-100/70 via-white to-white p-6 shadow-[0_20px_60px_-50px_rgba(16,185,129,0.25)]">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <h3 className="text-xl font-extrabold text-slate-900">
-                Siap mulai hari ini?
-              </h3>
-              <p className="mt-1 text-sm text-slate-600">
-                Klik WhatsApp, sebutkan kelas anak, dan saya bantu arahkan
-                latihan yang paling cocok.
-              </p>
+      <section className="relative mx-auto max-w-6xl px-4 pb-32 sm:pb-24">
+        <div className="absolute inset-x-4 bottom-0 sm:static">
+          <div className="rounded-3xl border border-emerald-100 bg-linear-to-r from-emerald-100/70 via-white to-white p-6 shadow-[0_20px_60px_-50px_rgba(16,185,129,0.25)]">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <h3 className="text-xl font-extrabold text-slate-900">
+                  Siap mulai hari ini?
+                </h3>
+                <p className="mt-1 text-sm text-slate-600">
+                  Klik WhatsApp, sebutkan kelas anak, dan saya bantu arahkan
+                  latihan yang paling cocok.
+                </p>
+              </div>
+              <div className="flex flex-col gap-3 sm:flex-row">
+                <PrimaryButton href={waLink()} className="sm:w-auto">
+                  📲 Konsultasi Gratis via WhatsApp
+                </PrimaryButton>
+                <Link
+                  href="/materials/1"
+                  className="inline-flex items-center justify-center rounded-2xl border border-emerald-200 bg-white px-4 py-3 text-sm font-semibold text-emerald-700 shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-400"
+                >
+                  Coba Gratis
+                </Link>
+              </div>
             </div>
-            <PrimaryButton href={waLink()} className="sm:w-auto">
-              📲 Konsultasi Gratis via WhatsApp
-            </PrimaryButton>
           </div>
         </div>
       </section>
-
-      {/* Sticky mobile CTA */}
-      <div className="fixed inset-x-0 bottom-0 z-50 border-t border-emerald-100 bg-white/80 p-3 backdrop-blur sm:hidden">
-        <a
-          href={waLink()}
-          className="flex w-full items-center justify-center rounded-2xl bg-emerald-600 px-4 py-3 text-sm font-extrabold text-white shadow-lg shadow-emerald-300/50 transition hover:bg-emerald-700"
-        >
-          📲 Konsultasi Gratis via WhatsApp
-        </a>
-        <div className="mt-1 text-center text-[11px] text-slate-500">
-          Tes 4 soal gratis dulu → kalau cocok baru lanjut
-        </div>
-      </div>
 
       <footer className="border-t border-emerald-100 bg-white px-4 py-8">
         <div className="mx-auto max-w-6xl">

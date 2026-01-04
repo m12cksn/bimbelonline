@@ -1,0 +1,41 @@
+material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
+71,1,essay,practice,Jumlahkan bilangan 48 sampai 72 dengan trik bilangan berurutan.,,,,1450,,,,,,,,,,,,,
+71,2,essay,practice,Jumlahkan bilangan 135 sampai 180.,,,,7275,,,,,,,,,,,,,
+71,3,mcq,practice,Jumlah bilangan 31 sampai 59 adalah...,,,,B,,,1245,1275,1290,1315,,,,,,,
+71,4,drag_drop,practice,Pasangkan rentang dengan hasil jumlahnya.,,,,,,,,,,,,,,,10-20;35-45;101-110;250-260,"165,440,1155,2805",
+71,5,multipart,practice,Hitung dengan rumus cepat.,,,,,,,,,,,,,,,,,a|24 sampai 56|1040;b|73 sampai 81|693;c|200 sampai 214|3105
+71,6,essay,practice,Jumlahkan semua bilangan genap dari 26 sampai 74.,,,,1300,,,,,,,,,,,,,
+71,7,mcq,practice,Jumlah bilangan 410 sampai 432 adalah...,,,,C,,,9513,9570,9660,9750,,,,,,,
+71,8,essay,practice,Jumlahkan bilangan 999 sampai 1020.,,,,22119,,,,,,,,,,,,,
+71,9,drag_drop,practice,Pasangkan rentang dengan banyaknya bilangan (n).,,,,,,,,,,,,,,,12-20;55-70;301-320;900-909,"9,16,20,10",
+71,10,essay,practice,"Jumlah bilangan 1 sampai 99, lalu kurangi jumlah 1 sampai 49. Berapa hasilnya?",,,,3725,,,,,,,,,,,,,
+71,11,mcq,practice,Jumlah bilangan 120 sampai 180 adalah...,,,,A,,,9150,9155,9130,9050,,,,,,,
+71,12,multipart,practice,Jumlahkan dengan cepat.,,,,,,,,,,,,,,,,,a|65 sampai 95|2480;b|210 sampai 240|6975;c|500 sampai 515|12120
+71,13,essay,practice,"Di sekolah, 37 sampai 63 adalah nomor loker. Jika dijumlahkan, berapa totalnya?",,,,1350,,,,,,,,,,,,,
+71,14,drag_drop,practice,Pasangkan soal dengan hasilnya.,,,,,,,,,,,,,,,1-100;40-60;75-90;12-28,"5050,1050,1240,328",
+71,15,essay,practice,Jumlahkan bilangan 150 sampai 199.,,,,8725,,,,,,,,,,,,,
+71,16,mcq,practice,Jumlah bilangan 500 sampai 550 adalah...,,,,B,,,26675,26825,27550,27000,,,,,,,
+71,17,essay,practice,Jumlahkan bilangan 260 sampai 298.,,,,10920,,,,,,,,,,,,,
+71,18,multipart,practice,Hitung cepat dengan rumus.,,,,,,,,,,,,,,,,,a|88 sampai 112|2500;b|320 sampai 340|6930;c|1000 sampai 1025|26250
+71,19,drag_drop,practice,Pasangkan soal dengan hasilnya.,,,,,,,,,,,,,,,16-30;44-50;90-99;300-305,"345,329,945,1815",
+71,20,essay,practice,"Jumlahkan bilangan 33 sampai 41, lalu kalikan 3.",,,,999,,,,,,,,,,,,,
+71,21,mcq,practice,Jumlah bilangan 5 sampai 35 adalah...,,,,B,,,560,620,465,650,,,,,,,
+71,22,essay,practice,Jumlahkan bilangan 70 sampai 120.,,,,4845,,,,,,,,,,,,,
+71,23,essay,practice,Jumlahkan bilangan 201 sampai 299.,,,,24750,,,,,,,,,,,,,
+71,24,multipart,practice,Hitung dengan rumus cepat.,,,,,,,,,,,,,,,,,a|18 sampai 42|750;b|301 sampai 309|2745;c|430 sampai 460|13895
+71,25,essay,practice,"Jumlahkan bilangan 2 sampai 200, lalu kurangi jumlah 2 sampai 50.",,,,17550,,,,,,,,,,,,,
+71,26,mcq,practice,Jumlah bilangan 72 sampai 96 adalah...,,,,B,,,2050,2100,2145,2200,,,,,,,
+71,27,essay,practice,Jumlahkan bilangan 600 sampai 654.,,,,34485,,,,,,,,,,,,,
+71,28,drag_drop,practice,Pasangkan rentang dengan hasilnya.,,,,,,,,,,,,,,,21-39;100-125;410-420;701-709,"570,2825,4565,5655",
+71,29,essay,practice,Jumlahkan bilangan 75 sampai 125.,,,,5100,,,,,,,,,,,,,
+71,30,multipart,practice,Hitung cepat.,,,,,,,,,,,,,,,,,a|49 sampai 51|150;b|150 sampai 160|1705;c|390 sampai 400|4345
+71,31,essay,practice,Jumlah bilangan 801 sampai 899.,,,,84150,,,,,,,,,,,,,
+71,32,essay,practice,"Jumlahkan bilangan 20 sampai 80, lalu kurangi 20 sampai 40.",,,,2840,,,,,,,,,,,,,
+71,33,drag_drop,practice,Pasangkan rentang dengan banyaknya bilangan (n).,,,,,,,,,,,,,,,3-17;40-44;230-260;1001-1005,"15,5,31,5",
+71,34,essay,practice,Jumlahkan bilangan 1000 sampai 1100.,,,,105050,,,,,,,,,,,,,
+71,35,multipart,practice,Hitung cepat.,,,,,,,,,,,,,,,,,a|62 sampai 68|455;b|115 sampai 135|2625;c|900 sampai 912|11778
+71,36,essay,practice,Jumlahkan bilangan 2000 sampai 2050.,,,,102550,,,,,,,,,,,,,
+71,37,mcq,practice,Jumlah bilangan 14 sampai 44 adalah...,,,,A,,,900,915,930,945,,,,,,,
+71,38,essay,practice,Jumlahkan bilangan 121 sampai 179.,,,,8850,,,,,,,,,,,,,
+71,39,drag_drop,practice,Pasangkan rentang dengan hasilnya.,,,,,,,,,,,,,,,11-19;50-58;600-612;950-960,"135,486,7812,9555",
+71,40,essay,practice,Jumlahkan bilangan 300 sampai 333.,,,,10561,,,,,,,,,,,,,
