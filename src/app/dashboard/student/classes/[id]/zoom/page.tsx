@@ -136,7 +136,7 @@ export default function StudentZoomPage({
 
         const quotaRes = await fetch(
           `/api/student/classes/${classId}/zoom-quota`,
-          { credentials: "same-origin" }
+          { credentials: "same-origin" },
         );
         const quotaJson = await quotaRes.json();
 
@@ -180,16 +180,16 @@ export default function StudentZoomPage({
       : 0;
 
   return (
-    <div className="min-h-[100vh] bg-slate-900 px-4 py-6 sm:px-6">
+    <div className="min-h-[100vh] bg-slate-50 px-4 py-6 sm:px-6">
       <div className="max-w-6xl mx-auto space-y-6">
         {/* Header */}
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-500/20 border border-indigo-400/60 shadow-md">
+            <div className="flex h-12 w-12 items-center justify-center rounded bg-indigo-500/20 border border-indigo-400/60 shadow-md">
               <span className="text-2xl">🧑‍🎓</span>
             </div>
             <div>
-              <h1 className="text-2xl font-bold tracking-tight text-white">
+              <h1 className="text-2xl font-bold  tracking-tight text-slate-700">
                 Jadwal Zoom Kelas
               </h1>
               <p className="mt-1 text-xs sm:text-sm text-slate-400">
@@ -201,7 +201,7 @@ export default function StudentZoomPage({
 
           <Link
             href="/dashboard/student"
-            className="inline-flex items-center justify-center rounded-full border border-slate-700 bg-slate-800 px-4 py-2 text-xs sm:text-sm font-medium text-slate-100 shadow-sm hover:bg-slate-700 transition"
+            className="inline-flex items-center justify-center rounded border border-slate-700 bg-slate-800 px-4 py-2 text-xs sm:text-sm font-medium text-slate-100 shadow-sm hover:bg-slate-700 transition"
           >
             ← Kembali ke Dashboard
           </Link>
@@ -209,7 +209,7 @@ export default function StudentZoomPage({
 
         {/* Kuota Card */}
         {quota && (
-          <div className="rounded-3xl border border-slate-700 bg-linear-to-r from-slate-900 to-slate-800 px-5 py-4 shadow-lg">
+          <div className="rounded-lg border border-slate-700 bg-linear-to-r from-slate-900 to-slate-800 px-5 py-4 shadow-lg">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-amber-500/15 border border-amber-400/50">
@@ -272,27 +272,27 @@ export default function StudentZoomPage({
               return (
                 <div
                   key={z.id}
-                  className="relative flex flex-col md:flex-row overflow-hidden rounded-3xl bg-slate-900 border border-slate-700 shadow-xl"
+                  className="relative flex flex-col md:flex-row overflow-hidden rounded-xl bg-slate-900 border border-slate-700 shadow-xl"
                 >
                   {/* Image side (seperti thumbnail pekerjaan di contoh) */}
                   <div className="relative w-full md:w-72 h-40 md:h-auto">
                     {/* Ganti src dengan gambar math/zoom milikmu */}
                     <Image
-                      src="/images/cover.png"
+                      src="/images/zoomboy.webp"
                       width={750}
                       height={750}
                       className="h-full w-full object-cover"
-                      alt="Zoom Math Class"
+                      alt="Zoom Coding Class"
                     />
 
                     <div className="absolute inset-0 bg-linear-to-t from-slate-900/70 via-slate-900/10 to-transparent" />
                     <div className="absolute top-3 left-3 flex items-center gap-2 rounded-full bg-slate-900/75 px-3 py-1 text-xs font-medium text-slate-100">
-                      <span>📚</span>
-                      <span>Math & Zoom Class</span>
+                      <span>💻</span>
+                      <span>Coding & Zoom Class</span>
                     </div>
                     <div className="absolute bottom-3 left-3 flex items-center gap-2 rounded-full bg-indigo-500/80 px-3 py-1 text-xs font-semibold text-white shadow-md">
                       <span>🧑‍🎓</span>
-                      <span>Live bersama tutor</span>
+                      <span>Live bersama mentor</span>
                     </div>
                   </div>
 
@@ -336,8 +336,8 @@ export default function StudentZoomPage({
                       )}
 
                       <p className="text-[11px] sm:text-xs text-slate-400 max-w-md">
-                        Siapkan buku dan pensil, ya. Kita akan belajar
-                        matematika sambil diskusi langsung dengan tutor di Zoom.
+                        Siapkan buku dan pensil, ya. Kita akan belajar coding
+                        sambil diskusi langsung dengan mentor di Zoom.
                       </p>
                     </div>
 
@@ -364,10 +364,10 @@ export default function StudentZoomPage({
                           {z.already_present || attended.includes(z.id)
                             ? "Sudah Hadir"
                             : attendingIds.includes(z.id)
-                            ? "Memproses..."
-                            : quota?.remaining === 0
-                            ? "Kuota Habis"
-                            : "Absen Hadir"}
+                              ? "Memproses..."
+                              : quota?.remaining === 0
+                                ? "Kuota Habis"
+                                : "Absen Hadir"}
                         </button>
                       )}
 
@@ -383,8 +383,8 @@ export default function StudentZoomPage({
                         {!hasQuota
                           ? "Zoom Terkunci"
                           : !hasAttendance
-                          ? "Absen dulu"
-                          : "Join Zoom Sekarang"}
+                            ? "Absen dulu"
+                            : "Join Zoom Sekarang"}
                       </button>
 
                       <p className="text-[10px] sm:text-[11px] text-slate-400 md:text-right">

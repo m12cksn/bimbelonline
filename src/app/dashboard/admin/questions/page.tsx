@@ -89,6 +89,7 @@ const gradeOptions = [
     label: `Kelas ${idx + 1}`,
   })),
   { id: 10, label: "Math Tricks" },
+  { id: 11, label: "Mastering Perkalian" },
 ];
 const subjectOptions = [
   { id: 1, name: "Matematika" },

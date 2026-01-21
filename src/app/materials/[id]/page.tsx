@@ -163,6 +163,10 @@ export default async function MaterialPage(props: MaterialPageProps) {
 
   const questionMetaList = questionMeta || [];
   const questionCount = questionMetaList.length;
+  const embedUrl =
+    material.video_url && material.video_url.includes("phet.colorado.edu")
+      ? material.video_url
+      : null;
 
   const { data: exampleRows } = await dbClient
     .from("questions")
@@ -212,6 +216,7 @@ export default async function MaterialPage(props: MaterialPageProps) {
           upgradeOptions={upgradeOptions}
           isGuest={isGuest}
           isEmbed
+          embedUrl={embedUrl}
         />
       </div>
     );
@@ -363,6 +368,7 @@ export default async function MaterialPage(props: MaterialPageProps) {
               upgradeOptions={upgradeOptions}
               isGuest={isGuest}
               isEmbed={false}
+              embedUrl={embedUrl}
             />
           </div>
         </section>

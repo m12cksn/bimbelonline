@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabaseServer";
 import StudentsTable from "../_components/students_table";
+import CreateStudentForm from "../_components/create_student_form";
 
 type StudentProfileRow = {
   id: string;
@@ -146,6 +147,20 @@ export default async function AdminStudentsPage({ searchParams }: PageProps) {
 
   return (
     <div className="space-y-6">
+      <section className="rounded-2xl border border-slate-200 bg-white p-5 text-slate-900 shadow-[0_20px_60px_-45px_rgba(0,0,0,1)]">
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h2 className="text-lg font-semibold text-slate-900">
+              Tambah akun siswa
+            </h2>
+            <p className="text-xs text-slate-500">
+              Buat username & password yang akan dikirim manual ke siswa.
+            </p>
+          </div>
+        </div>
+        <CreateStudentForm />
+      </section>
+
       <section className="rounded-2xl border border-slate-200 bg-white p-5 text-slate-900 shadow-[0_20px_60px_-45px_rgba(0,0,0,1)]">
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
           <div>

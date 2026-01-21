@@ -1,0 +1,41 @@
+material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
+73,1,essay,practice,,Hitung 104 x 11 = ...,,,1144,,,,,,,,,,,,,
+73,2,essay,practice,,Hitung 118 x 11 = ...,,,1298,,,,,,,,,,,,,
+73,3,essay,practice,,Hitung 236 x 11 = ...,,,2596,,,,,,,,,,,,,
+73,4,essay,practice,,Hitung 309 x 11 = ...,,,3399,,,,,,,,,,,,,
+73,5,essay,practice,,Hitung 412 x 11 = ...,,,4532,,,,,,,,,,,,,
+73,6,essay,practice,,Hitung 587 x 11 = ...,,,6457,,,,,,,,,,,,,
+73,7,essay,practice,,Hitung 640 x 11 = ...,,,7040,,,,,,,,,,,,,
+73,8,essay,practice,,Hitung 725 x 11 = ...,,,7975,,,,,,,,,,,,,
+73,9,essay,practice,,Hitung 808 x 11 = ...,,,8888,,,,,,,,,,,,,
+73,10,essay,practice,,Hitung 935 x 11 = ...,,,10285,,,,,,,,,,,,,
+73,11,essay,practice,,Hitung 1200 x 11 = ...,,,13200,,,,,,,,,,,,,
+73,12,essay,practice,,Hitung 1345 x 11 = ...,,,14795,,,,,,,,,,,,,
+73,13,essay,practice,,Hitung 1508 x 11 = ...,,,16588,,,,,,,,,,,,,
+73,14,essay,practice,,Hitung 1720 x 11 = ...,,,18920,,,,,,,,,,,,,
+73,15,essay,practice,,Hitung 1899 x 11 = ...,,,20889,,,,,,,,,,,,,
+73,16,essay,practice,,Hitung 2050 x 11 = ...,,,22550,,,,,,,,,,,,,
+73,17,mcq,practice,,Berapakah hasil 2364 x 11?,,,C,,,26114,25993,26004,26015,,,,,,,
+73,18,mcq,practice,,Berapakah hasil 2705 x 11?,,,A,,,29755,29766,29865,29744,,,,,,,
+73,19,mcq,practice,,Berapakah hasil 3150 x 11?,,,D,,,34760,34661,34639,34650,,,,,,,
+73,20,mcq,practice,,Berapakah hasil 3890 x 11?,,,B,,,42801,42790,42900,42779,,,,,,,
+73,21,mcq,practice,,Berapakah hasil 4025 x 11?,,,D,,,44385,44286,44264,44275,,,,,,,
+73,22,mcq,practice,,Berapakah hasil 4680 x 11?,,,D,,,51590,51491,51469,51480,,,,,,,
+73,23,mcq,practice,,Berapakah hasil 5123 x 11?,,,A,,,56353,56364,56342,56463,,,,,,,
+73,24,mcq,practice,,Berapakah hasil 5870 x 11?,,,C,,,64581,64680,64570,64559,,,,,,,
+73,25,mcq,practice,,Berapakah hasil 6304 x 11?,,,B,,,69454,69344,69355,69333,,,,,,,
+73,26,mcq,practice,,Berapakah hasil 7050 x 11?,,,A,,,77550,77539,77561,77660,,,,,,,
+73,27,mcq,practice,,Berapakah hasil 7812 x 11?,,,C,,,85921,86042,85932,85943,,,,,,,
+73,28,mcq,practice,,Berapakah hasil 8450 x 11?,,,D,,,92961,92939,93060,92950,,,,,,,
+73,29,drag_drop,practice,,Pasangkan operasi dengan hasilnya.,,,,,,,,,,,,,,9056x11;9999x11;12000x11;13500x11;14820x11;15234x11,99616;109989;132000;148500;163020;167574,
+73,30,drag_drop,practice,,Pasangkan operasi dengan hasilnya.,,,,,,,,,,,,,,16890 x 11;17500 x 11;18900 x 11;19550 x 11;20870 x 11;23540 x 11,185790;192500;207900;215050;229570;258940,
+73,31,drag_drop,practice,,Pasangkan operasi dengan hasilnya.,,,,,,,,,,,,,,1200×11;725×11;3890×11;935×11,13200;7975;42790;10285,
+73,32,drag_drop,practice,,Pasangkan operasi dengan hasilnya.,,,,,,,,,,,,,,1508×11;7050×11;9056×11;104×11,16588;77550;99616;1144,
+73,33,drag_drop,practice,,Pasangkan operasi dengan hasilnya.,,,,,,,,,,,,,,23540x11;16890x11;412x11;6304x11,258940;185790;4532;69344,
+73,34,drag_drop,practice,,Pasangkan operasi dengan hasilnya.,,,,,,,,,,,,,,1899 x 11;5123 x 11;2705 x 11;8450 x 11,20889;56353;29755;92950,
+73,35,multipart,practice,,Hitung perkalian berikut.,,,,,,,,,,,,,,,,a|309 x 11|3399;b|1508 x 11|16588;c|7050 x 11|77550
+73,36,multipart,practice,,Hitung perkalian berikut.,,,,,,,,,,,,,,,,a|587 x 11|6457;b|2364 x 11|26004;c|12000 x 11|132000
+73,37,multipart,practice,,Hitung perkalian berikut.,,,,,,,,,,,,,,,,a|412 x 11|4532;b|640 x 11|7040;c|1720 x 11|18920
+73,38,multipart,practice,,Hitung perkalian berikut.,,,,,,,,,,,,,,,,a|935 x 11|10285;b|2050 x 11|22550;c|4680 x 11|51480
+73,39,multipart,practice,,Hitung perkalian berikut.,,,,,,,,,,,,,,,,a|725 x 11|7975;b|3150 x 11|34650;c|9999 x 11|109989
+73,40,multipart,practice,,Hitung perkalian berikut.,,,,,,,,,,,,,,,,a|3890 x 11|42790;b|14820 x 11|163020;c|19550 x 11|215050

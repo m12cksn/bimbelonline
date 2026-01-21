@@ -1,0 +1,41 @@
+material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
+74,1,essay,practice,,Estimate: 12 x 26 (round to tens).,,,300,,,,,,,,,,,,,
+74,2,essay,practice,,Compute: 12 x 26.,,,312,,,,,,,,,,,,,
+74,3,essay,practice,,Estimate: 125 x 30.,,,3000,,,,,,,,,,,,,
+74,4,essay,practice,,Compute: 125 x 30.,,,3750,,,,,,,,,,,,,
+74,5,essay,practice,,Estimate: 235 x 46 (round to tens).,,,10000,,,,,,,,,,,,,
+74,6,essay,practice,,Compute: 235 x 46.,,,10810,,,,,,,,,,,,,
+74,7,essay,practice,,Estimate: 34 x 53 (round to tens).,,,1800,,,,,,,,,,,,,
+74,8,essay,practice,,Compute: 34 x 53.,,,1802,,,,,,,,,,,,,
+74,9,essay,practice,,A factory makes 60 plates per day for 365 days. How many plates in a year?,,,21900,,,,,,,,,,,,,
+74,10,essay,practice,,"If the factory closes 1 day per week, it works 365-52 days. Plates per year?",,,18780,,,,,,,,,,,,,
+74,11,essay,practice,,Divide: 156 ÷ 5. Give quotient and remainder.,,,31 R1,,,,,,,,,,,,,
+74,12,essay,practice,,Divide: 248 ÷ 8.,,,31,,,,,,,,,,,,,
+74,13,essay,practice,,Divide: 305 ÷ 4. Give quotient and remainder.,,,76 R1,,,,,,,,,,,,,
+74,14,essay,practice,,Multiply by 100: 536 x 100 =,,,53600,,,,,,,,,,,,,
+74,15,essay,practice,,Divide by 10: 2340 ÷ 10 =,,,234,,,,,,,,,,,,,
+74,16,essay,practice,,Divide by 100: 94800 ÷ 100 =,,,948,,,,,,,,,,,,,
+74,17,mcq,practice,,Estimate: 235 x 40 is closest to ...,,,B,,,8000,10000,12000,15000,,,,,,,
+74,18,mcq,practice,,Compute: 35 ÷ 6 equals ...,,,C,,,5 R0,5 R1,5 R5,6 R5,,,,,,,
+74,19,mcq,practice,,Compute: 123 ÷ 4 equals ...,,,B,,,30 R3,30 R3,31 R1,29 R7,,,,,,,
+74,20,mcq,practice,,Compute: 96 ÷ 3 equals ...,,,A,,,32,30,36,28,,,,,,,
+74,21,mcq,practice,,Compute: 24 x 100 =,,,D,,,240,2400,24000,2400,,,,,,,
+74,22,mcq,practice,,Compute: 176 ÷ 100 =,,,C,,,17.6,176,1.76,1.76,,,,,,,
+74,23,mcq,practice,,Which is greater? 125 x 30 or 100 x 38,,,B,,,125 x 30,100 x 38,same,cannot tell,,,,,,,
+74,24,mcq,practice,,Compute: 456 ÷ 5 equals ...,,,D,,,90 R6,91 R1,92 R2,91 R1,,,,,,,
+74,25,mcq,practice,,Estimate: 34 x 50 is about ...,,,B,,,1500,1700,2000,2500,,,,,,,
+74,26,mcq,practice,,Compute: 12 x 20 equals ...,,,A,,,240,220,120,200,,,,,,,
+74,27,mcq,practice,,Compute: 2340 ÷ 1000 equals ...,,,C,,,234,23.4,2.34,0.234,,,,,,,
+74,28,mcq,practice,,Which is a correct estimate for 125 x 38?,,,B,,,1000,5000,8000,12000,,,,,,,
+74,29,drag_drop,practice,,Match the expression with the result.,,,,,,,,,,,,,,12x26;125x30;34x53;235x40,312;3750;1802;9400,
+74,30,drag_drop,practice,,Match the division with quotient/remainder.,,,,,,,,,,,,,,156÷5;123÷4;35÷6;305÷4,31 R1;30 R3;5 R5;76 R1,
+74,31,drag_drop,practice,,Match the power-of-10 operation.,,,,,,,,,,,,,,536x100;94800÷100;2340÷10;24x1000,53600;948;234;24000,
+74,32,drag_drop,practice,,Match the estimate (round to tens).,,,,,,,,,,,,,,12x26;34x53;235x46;125x30,300;1500;12000;3000,
+74,33,drag_drop,practice,,Match the story with the equation.,,,,,,,,,,,,,,60 plates for 365 days;12 sticks for 26 students;125 kg for 38 elephants;2500 books on 32 shelves,60x365;12x26;125x38;2500÷32,
+74,34,drag_drop,practice,,Match the comparison.,,,,,,,,,,,,,,estimate 125x38;exact 125x38;estimate 34x53;exact 34x53,5000;4750;1500;1802,
+74,35,multipart,practice,,Compute each product.,,,,,,,,,,,,,,,,a|12x26|312;b|34x53|1802;c|125x30|3750
+74,36,multipart,practice,,Divide and state remainder if any.,,,,,,,,,,,,,,,,a|156÷5|31 R1;b|96÷3|32;c|35÷6|5 R5
+74,37,multipart,practice,,Power of 10 operations.,,,,,,,,,,,,,,,,a|24x100|2400;b|536x1000|536000;c|2340÷10|234
+74,38,multipart,practice,,Estimate then compute.,,,,,,,,,,,,,,,,a|Estimate 235x46|12000;b|Compute 235x46|10810;c|Compare|estimate higher
+74,39,multipart,practice,,Story problem (factory).,,,,,,,,,,,,,,,,a|60 plates × 365 days|21900;b|If closed 52 days|18780;c|If 62 per day|22630
+74,40,multipart,practice,,Story problem (library shelves).,,,,,,,,,,,,,,,,"a|2500 books ÷ 32 shelves|about 78;b|To reach 3000 books, each shelf at least|94;c|Check 94x32|3008"

@@ -79,6 +79,7 @@ interface Props {
   upgradeOptions: Array<{ label: string; priceLabel: string }>;
   isGuest?: boolean;
   isEmbed?: boolean;
+  embedUrl?: string | null;
 }
 
 export default function MaterialWithResources({
@@ -94,27 +95,29 @@ export default function MaterialWithResources({
   upgradeOptions,
   isGuest = false,
   isEmbed = false,
+  embedUrl = null,
 }: Props) {
+  const embedMaterial = isEmbed || Boolean(embedUrl);
   const [mode, setMode] = useState<"practice" | "tryout" | null>(
-    isEmbed ? "practice" : null
+    embedMaterial ? "practice" : null
   );
   const quizRef = useRef<HTMLDivElement | null>(null);
   const startRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (isEmbed) return;
+    if (embedMaterial) return;
     if (!mode || !quizRef.current) return;
     quizRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
-  }, [isEmbed, mode]);
+  }, [embedMaterial, mode]);
 
   useEffect(() => {
-    if (isEmbed) return;
+    if (embedMaterial) return;
     if (!startRef.current) return;
     const handle = window.setTimeout(() => {
       startRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 100);
     return () => window.clearTimeout(handle);
-  }, [isEmbed]);
+  }, [embedMaterial]);
 
   const handleStart = (nextMode: "practice" | "tryout") => {
     setMode(nextMode);
@@ -137,7 +140,7 @@ export default function MaterialWithResources({
 
   return (
     <div className="text-slate-900">
-      {!isEmbed && (
+      {!embedMaterial && (
         <>
           <h1 className="text-2xl font-extrabold text-slate-900">
             {material.title}
@@ -179,7 +182,7 @@ export default function MaterialWithResources({
       )}
 
       {/* Tombol mulai kerjakan soal */}
-      {!isEmbed && (
+      {!embedMaterial && (
         <div
           ref={startRef}
           className="mt-5 rounded-3xl border border-emerald-200/70 bg-white px-5 py-4 shadow-[0_24px_70px_-40px_rgba(16,185,129,0.45)]"
@@ -223,7 +226,7 @@ export default function MaterialWithResources({
       )}
 
       {/* Bagian video & PDF */}
-      {!isEmbed && (
+      {!embedMaterial && (
         <div className="mt-4 grid gap-4 md:grid-cols-3">
           {/* Video */}
           <div className="md:col-span-2 rounded-2xl border border-slate-200 bg-white p-3 shadow-sm">
@@ -294,7 +297,7 @@ export default function MaterialWithResources({
       )}
 
       {/* Ringkasan materi + contoh soal */}
-      {!isEmbed && (
+      {!embedMaterial && (
         <div className="mt-5 grid gap-4 md:grid-cols-2">
           <div className="rounded-2xl border border-slate-200 bg-white p-4 text-xs text-slate-700 shadow-sm">
             <div className="mb-2 font-semibold text-emerald-700">
@@ -348,43 +351,61 @@ export default function MaterialWithResources({
 
       {/* Quiz hanya muncul setelah tombol diklik */}
       {mode && (
-        <div ref={quizRef} className={isEmbed ? "mt-2" : "mt-4 space-y-4"}>
-          <MaterialQuiz
-            materialId={material.id}
-            questionMeta={
-              mode === "tryout" ? tryoutQuestions : visiblePracticeQuestions
-            }
-            initialLastNumber={initialLastNumber}
-            userId={userId}
-            isPremium={isPremium}
-            questionLimit={questionLimit}
-            planLabel={planLabel}
-            planPriceLabel={planPriceLabel}
-            upgradeOptions={upgradeOptions}
-            isGuest={isGuest}
-            isTryout={mode === "tryout"}
-            onReady={
-              isEmbed
-                ? undefined
-                : () => {
-                    quizRef.current?.scrollIntoView({
-                      behavior: "smooth",
-                      block: "start",
-                    });
-                  }
-            }
-            timerSeconds={
-              mode === "tryout"
-                ? (material.tryout_duration_minutes ?? tryoutQuestions.length) *
-                  60
-                : undefined
-            }
-          />
-          {!isEmbed && !isGuest && (
-            <MaterialLeaderboard
-              materialId={material.id}
-              currentUserId={userId}
-            />
+        <div ref={quizRef} className={embedMaterial ? "mt-2" : "mt-4 space-y-4"}>
+          {embedMaterial && embedUrl ? (
+            <div className="rounded-3xl border border-slate-200 bg-white p-4 shadow-[0_18px_50px_-40px_rgba(15,23,42,0.2)]">
+              <div className="relative w-full overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 pb-[62%]">
+                <iframe
+                  src={embedUrl}
+                  title="Latihan interaktif"
+                  className="absolute left-0 top-0 h-full w-full"
+                  allow="fullscreen"
+                />
+              </div>
+              <p className="mt-3 text-xs text-slate-500">
+                Latihan interaktif ini bisa kamu kerjakan langsung di sini.
+              </p>
+            </div>
+          ) : (
+            <>
+              <MaterialQuiz
+                materialId={material.id}
+                questionMeta={
+                  mode === "tryout" ? tryoutQuestions : visiblePracticeQuestions
+                }
+                initialLastNumber={initialLastNumber}
+                userId={userId}
+                isPremium={isPremium}
+                questionLimit={questionLimit}
+                planLabel={planLabel}
+                planPriceLabel={planPriceLabel}
+                upgradeOptions={upgradeOptions}
+                isGuest={isGuest}
+                isTryout={mode === "tryout"}
+                onReady={
+                  embedMaterial
+                    ? undefined
+                    : () => {
+                        quizRef.current?.scrollIntoView({
+                          behavior: "smooth",
+                          block: "start",
+                        });
+                      }
+                }
+                timerSeconds={
+                  mode === "tryout"
+                    ? (material.tryout_duration_minutes ??
+                        tryoutQuestions.length) * 60
+                    : undefined
+                }
+              />
+              {!embedMaterial && !isGuest && (
+                <MaterialLeaderboard
+                  materialId={material.id}
+                  currentUserId={userId}
+                />
+              )}
+            </>
           )}
         </div>
       )}

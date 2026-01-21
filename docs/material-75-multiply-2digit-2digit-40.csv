@@ -1,0 +1,41 @@
+material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
+75,1,essay,practice,,"Hitung 23 × 14.",,,322,,"23×(10+4)=230+92=322",,,,,,,,,,,
+75,2,essay,practice,,"Hitung 35 × 27.",,,945,,"35×(30−3)=1050−105=945",,,,,,,,,,,
+75,3,mcq,practice,,"48 × 12 = ...",,,A,,"48×(10+2)=480+96=576",576,512,552,486,,,,,,,,
+75,4,essay,practice,,"Hitung 64 × 25.",,,1600,,"25×4=100 jadi 64×25=1600",,,,,,,,,,,
+75,5,drag_drop,practice,,"Pasangkan operasi dengan hasilnya.",,,,,"Cocokkan hasil perkalian",,,,,,,,,,12x15;28x13;31x24;45x11,180;364;744;495,
+75,6,essay,practice,,"Hitung 57 × 18.",,,1026,,"57×(20−2)=1140−114",,,,,,,,,,,
+75,7,mcq,practice,,"69 × 14 = ...",,,A,,"69×(10+4)=690+276=966",966,936,996,964,,,,,,,,
+75,8,essay,practice,,"Sebuah toko menjual 24 kotak. Tiap kotak berisi 16 buku. Berapa total buku?",,,384,,"24×16=(20×16)+(4×16)=320+64",,,,,,,,,,,
+75,9,multipart,practice,,"Hitung hasil berikut.",,,,,"Gunakan distributif pada tiap soal",,,,,,,,,,,"a|32×13|416;b|27×18|486;c|45×12|540"
+75,10,mcq,practice,,"38 × 26 = ...",,,A,,"38×(20+6)=760+228=988",988,968,948,1008,,,,,,,,
+75,11,essay,practice,,"Hitung 73 × 19.",,,1387,,"73×(20−1)=1460−73",,,,,,,,,,,
+75,12,drag_drop,practice,,"Pasangkan operasi dengan hasilnya.",,,,,"Cocokkan hasil perkalian",,,,,,,,,,22x34;56x12;19x28;47x15,748;672;532;705,
+75,13,essay,practice,,"Hitung 86 × 17.",,,1462,,"86×(10+7)=860+602",,,,,,,,,,,
+75,14,mcq,practice,,"52 × 31 = ...",,,A,,"52×(30+1)=1560+52=1612",1612,1512,1602,1632,,,,,,,,
+75,15,multipart,practice,,"Hitung hasil berikut.",,,,,"Pisahkan puluhan dan satuan",,,,,,,,,,,"a|14×25|350;b|36×22|792;c|58×14|812"
+75,16,essay,practice,,"Ada 15 kelas, tiap kelas 28 siswa. Berapa jumlah siswa?",,,420,,"28×15=(28×10)+(28×5)",,,,,,,,,,,
+75,17,mcq,practice,,"66 × 24 = ...",,,A,,"66×(20+4)=1320+264=1584",1584,1564,1544,1594,,,,,,,,
+75,18,drag_drop,practice,,"Pasangkan operasi dengan hasilnya.",,,,,"Cocokkan hasil perkalian",,,,,,,,,,34x27;25x16;48x19;52x14,918;400;912;728,
+75,19,essay,practice,,"Hitung 91 × 18.",,,1638,,"91×(20−2)=1820−182",,,,,,,,,,,
+75,20,mcq,practice,,"44 × 35 = ...",,,A,,"44×(30+5)=1320+220=1540",1540,1440,1520,1560,,,,,,,,
+75,21,multipart,practice,,"Hitung hasil berikut.",,,,,"Gunakan distributif",,,,,,,,,,,"a|29×15|435;b|63×12|756;c|47×18|846"
+75,22,essay,practice,,"Hitung 37 × 46.",,,1702,,"37×(40+6)=1480+222",,,,,,,,,,,
+75,23,mcq,practice,,"58 × 27 = ...",,,A,,"58×(20+7)=1160+406=1566",1566,1556,1466,1586,,,,,,,,
+75,24,essay,practice,,"Hitung 68 × 23.",,,1564,,"68×(20+3)=1360+204",,,,,,,,,,,
+75,25,drag_drop,practice,,"Pasangkan operasi dengan hasilnya.",,,,,"Cocokkan hasil perkalian",,,,,,,,,,33x21;72x14;59x16;26x35,693;1008;944;910,
+75,26,mcq,practice,,"75 × 28 = ...",,,A,,"75×(20+8)=1500+600=2100",2100,2000,2150,2080,,,,,,,,
+75,27,essay,practice,,"Pabrik membuat 42 kotak, tiap kotak berisi 18 mainan. Berapa total mainan?",,,756,,"42×18=(40×18)+(2×18)",,,,,,,,,,,
+75,28,multipart,practice,,"Hitung hasil berikut.",,,,,"Gunakan distributif",,,,,,,,,,,"a|81×12|972;b|24×39|936;c|55×22|1210"
+75,29,mcq,practice,,"39 × 47 = ...",,,A,,"39×(40+7)=1560+273=1833",1833,1803,1873,1823,,,,,,,,
+75,30,essay,practice,,"Hitung 63 × 29.",,,1827,,"63×(30−1)=1890−63",,,,,,,,,,,
+75,31,drag_drop,practice,,"Pasangkan operasi dengan hasilnya.",,,,,"Cocokkan hasil perkalian",,,,,,,,,,41x22;36x25;27x44;58x13,902;900;1188;754,
+75,32,mcq,practice,,"62 × 24 = ...",,,A,,"62×(20+4)=1240+248=1488",1488,1448,1528,1468,,,,,,,,
+75,33,mcq,practice,,"84 × 16 = ...",,,A,,"84×(10+6)=840+504=1344",1344,1324,1364,1384,,,,,,,,
+75,34,essay,practice,,"Hitung 95 × 12.",,,1140,,"95×(10+2)=950+190",,,,,,,,,,,
+75,35,multipart,practice,,"Hitung hasil berikut.",,,,,"Gunakan distributif",,,,,,,,,,,"a|73×14|1022;b|46×28|1288;c|39×22|858"
+75,36,mcq,practice,,"57 × 33 = ...",,,A,,"57×(30+3)=1710+171=1881",1881,1861,1891,1811,,,,,,,,
+75,37,essay,practice,,"Sebuah aula memiliki 18 baris kursi, tiap baris 26 kursi. Berapa total kursi?",,,468,,"26×18=(20×18)+(6×18)",,,,,,,,,,,
+75,38,drag_drop,practice,,"Pasangkan operasi dengan hasilnya.",,,,,"Cocokkan hasil perkalian",,,,,,,,,,24x32;38x21;49x17;67x12,768;798;833;804,
+75,39,essay,practice,,"Hitung 88 × 27.",,,2376,,"88×(20+7)=1760+616",,,,,,,,,,,
+75,40,multipart,practice,,"Hitung hasil berikut.",,,,,"Gunakan distributif",,,,,,,,,,,"a|52×19|988;b|64×27|1728;c|75×16|1200"

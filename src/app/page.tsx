@@ -345,7 +345,7 @@ export default function FacebookLandingPage() {
               alt="BeSmartKids"
               width={160}
               height={40}
-              className="h-12 w-auto"
+              className="h-8 w-auto sm:h-12"
               priority
             />
           </Link>
@@ -739,7 +739,7 @@ export default function FacebookLandingPage() {
               alt="BeSmartKids"
               width={160}
               height={40}
-              className="h-12 w-auto"
+              className="h-8 w-auto sm:h-12"
             />
             <div className="text-xs text-slate-500">
               © {new Date().getFullYear()} — Bimbel Online Matematika SD

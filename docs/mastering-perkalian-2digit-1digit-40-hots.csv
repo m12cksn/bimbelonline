@@ -1,0 +1,41 @@
+material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
+72,1,essay,practice,Hitung 27 × 6. 🍎🍎🍎🍎,,,,162,,,,,,,,,,,,,
+72,2,essay,practice,Hitung 48 × 7. 🚀🚀🚀,,,,336,,,,,,,,,,,,,
+72,3,mcq,practice,Hasil 36 × 5 adalah...,,,,B,,,160,180,190,150,,,,,,,
+72,4,drag_drop,practice,Pasangkan operasi dengan hasilnya.,,,,,,,,,,,,,,,23×4;67×3;58×2;91×5,"92,201,116,455",
+72,5,multipart,practice,Hitung setiap operasi.,,,,,,,,,,,,,,,,,a|12×8|96;b|35×6|210;c|74×9|666
+72,6,essay,practice,"Sebuah kelas menyusun 8 baris kursi, tiap baris 24 kursi. Berapa kursi semuanya? 🪑🪑🪑",,,,192,,,,,,,,,,,,,
+72,7,mcq,practice,Hasil 57 × 4 adalah...,,,,C,,,208,214,228,248,,,,,,,
+72,8,essay,practice,Hitung 63 × 9. 🎯🎯,,,,567,,,,,,,,,,,,,
+72,9,drag_drop,practice,Pasangkan operasi dengan hasilnya.,,,,,,,,,,,,,,,19×8;32×7;45×6;84×3,"152,224,270,252",
+72,10,essay,practice,"Sebuah toko menjual 6 pak buku, tiap pak berisi 35 buku. Berapa buku terjual? 📚📚📚",,,,210,,,,,,,,,,,,,
+72,11,mcq,practice,Hasil 72 × 3 adalah...,,,,A,,,216,206,226,196,,,,,,,
+72,12,multipart,practice,Hitung cepat dengan distributif.,,,,,,,,,,,,,,,,,a|28×6|168;b|49×3|147;c|86×4|344
+72,13,essay,practice,Hitung 59 × 8. ⚡⚡,,,,472,,,,,,,,,,,,,
+72,14,drag_drop,practice,Pasangkan operasi dengan hasilnya.,,,,,,,,,,,,,,,26×9;41×5;73×2;55×7,"234,205,146,385",
+72,15,essay,practice,"Di taman ada 9 baris bunga, tiap baris 18 bunga. Berapa bunga semuanya? 🌸🌸🌸",,,,162,,,,,,,,,,,,,
+72,16,mcq,practice,Hasil 64 × 7 adalah...,,,,B,,,428,448,458,468,,,,,,,
+72,17,essay,practice,Hitung 83 × 6. 🧠🧠,,,,498,,,,,,,,,,,,,
+72,18,multipart,practice,Hitung setiap operasi.,,,,,,,,,,,,,,,,,a|37×8|296;b|52×9|468;c|69×4|276
+72,19,drag_drop,practice,Pasangkan operasi dengan hasilnya.,,,,,,,,,,,,,,,34×5;27×9;46×6;58×3,"170,243,276,174",
+72,20,essay,practice,"Sebuah buku latihan punya 9 halaman, tiap halaman ada 12 soal. Berapa soal? ✍️✍️",,,,108,,,,,,,,,,,,,
+72,21,mcq,practice,Hasil 75 × 2 adalah...,,,,B,,,120,150,170,180,,,,,,,
+72,22,essay,practice,Hitung 96 × 5. 🏁🏁,,,,480,,,,,,,,,,,,,
+72,23,essay,practice,"Seorang pedagang punya 7 kotak jeruk, tiap kotak 26 jeruk. Berapa jeruk? 🍊🍊🍊",,,,182,,,,,,,,,,,,,
+72,24,drag_drop,practice,Pasangkan operasi dengan hasilnya.,,,,,,,,,,,,,,,29×7;44×8;68×2;95×3,"203,352,136,285",
+72,25,essay,practice,Hitung 58 × 9. 🔥🔥,,,,522,,,,,,,,,,,,,
+72,26,mcq,practice,Hasil 83 × 4 adalah...,,,,A,,,332,312,342,352,,,,,,,
+72,27,essay,practice,Hitung 71 × 6. 🎲🎲,,,,426,,,,,,,,,,,,,
+72,28,drag_drop,practice,Pasangkan operasi dengan hasilnya.,,,,,,,,,,,,,,,31×9;47×5;62×4;88×3,"279,235,248,264",
+72,29,essay,practice,"Sebuah lomba berlangsung 8 hari, tiap hari 17 poin. Berapa poin total? 🏆🏆",,,,136,,,,,,,,,,,,,
+72,30,multipart,practice,Hitung setiap operasi.,,,,,,,,,,,,,,,,,a|22×7|154;b|39×6|234;c|95×2|190
+72,31,essay,practice,Hitung 84 × 6. 🚴🚴,,,,504,,,,,,,,,,,,,
+72,32,essay,practice,"Seorang guru membagikan 9 paket stiker, tiap paket 14 stiker. Berapa stiker? ⭐⭐⭐",,,,126,,,,,,,,,,,,,
+72,33,drag_drop,practice,Pasangkan operasi dengan hasilnya.,,,,,,,,,,,,,,,12×9;25×8;63×4;77×2,"108,200,252,154",
+72,34,essay,practice,Hitung 67 × 8. 🎈🎈,,,,536,,,,,,,,,,,,,
+72,35,multipart,practice,Hitung setiap operasi.,,,,,,,,,,,,,,,,,a|16×7|112;b|42×9|378;c|88×5|440
+72,36,essay,practice,Sebuah toko menjual 6 lusin (12) pensil per hari selama 4 hari. Berapa pensil? 📝📝,,,,288,,,,,,,,,,,,,
+72,37,mcq,practice,Hasil 94 × 3 adalah...,,,,C,,,262,272,282,292,,,,,,,
+72,38,essay,practice,Hitung 76 × 7. 🧩🧩,,,,532,,,,,,,,,,,,,
+72,39,multipart,practice,Hitung setiap operasi.,,,,,,,,,,,,,,,,,a|33×8|264;b|54×7|378;c|99×3|297
+72,40,essay,practice,"Sebuah klub membaca 8 hari, tiap hari 25 halaman. Berapa halaman? 📖📖",,,,200,,,,,,,,,,,,,

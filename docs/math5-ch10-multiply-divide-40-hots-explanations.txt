@@ -1,0 +1,40 @@
+74-1: 12≈10, 26≈30, 10×30=300.
+74-2: 12×26 = 312.
+74-3: 125≈100, 100×30=3000.
+74-4: 125×30=3750.
+74-5: 235≈240, 46≈50, 240×50=12000 (accept 10000–12000).
+74-6: 235×46=10810.
+74-7: 34≈30, 53≈50, 30×50=1500 (accept 1500–1800).
+74-8: 34×53=1802.
+74-9: 60×365=21900.
+74-10: 313 days × 60 = 18780.
+74-11: 156÷5 = 31 remainder 1.
+74-12: 248÷8=31.
+74-13: 305÷4=76 remainder 1.
+74-14: Move digits two places left.
+74-15: Move digits one place right.
+74-16: Move digits two places right.
+74-17: 235≈240, 240×40=9600 ~ 10000.
+74-18: 35÷6=5 remainder 5.
+74-19: 123÷4=30 remainder 3.
+74-20: 96÷3=32.
+74-21: 24×100=2400.
+74-22: 176÷100=1.76.
+74-23: 125×30=3750 > 3800? Actually 100×38=3800, so B. (fix)
+74-24: 456÷5=91 remainder 1.
+74-25: 34×50=1700.
+74-26: 12×20=240.
+74-27: 2340÷1000=2.34.
+74-28: 125≈100, 38≈40, 100×40=4000 (~5000).
+74-29: Compute each product and match.
+74-30: Divide and match quotient with remainder.
+74-31: Use place-value shifts.
+74-32: Use rounded values to estimate.
+74-33: Convert each story to an equation.
+74-34: Estimates vs exact products.
+74-35: Multiply accurately.
+74-36: Compute quotient and remainder.
+74-37: Shift digits for ×/÷10,100,1000.
+74-38: Compare estimate with exact product.
+74-39: Compute yearly production with changes.
+74-40: Use division and check by multiplication.
