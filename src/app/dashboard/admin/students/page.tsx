@@ -9,6 +9,7 @@ type StudentProfileRow = {
   full_name: string | null;
   email: string | null;
   created_at: string | null;
+  is_premium: boolean | null;
 };
 
 type SubscriptionRow = {
@@ -60,7 +61,9 @@ export default async function AdminStudentsPage({ searchParams }: PageProps) {
 
   const { data: studentsRaw, count } = await supabase
     .from("profiles")
-    .select("id, full_name, email, created_at", { count: "exact" })
+    .select("id, full_name, email, created_at, is_premium", {
+      count: "exact",
+    })
     .eq("role", "student")
     .order("created_at", { ascending: false })
     .range(from, to);
@@ -110,18 +113,6 @@ export default async function AdminStudentsPage({ searchParams }: PageProps) {
   const now = Date.now();
   const studentRows = students.map((student) => {
     const sub = subByUser.get(student.id) ?? null;
-    let planName = "Free";
-    if (sub?.subscription_plans) {
-      const rel = sub.subscription_plans;
-      if (Array.isArray(rel)) {
-        planName = rel[0]?.name ?? planName;
-      } else {
-        planName = rel.name ?? planName;
-      }
-    } else if (sub?.plan_id) {
-      planName = String(sub.plan_id);
-    }
-
     const endAt = sub?.end_at ?? null;
     const remainingDays = endAt
       ? Math.max(
@@ -133,10 +124,7 @@ export default async function AdminStudentsPage({ searchParams }: PageProps) {
     return {
       id: student.id,
       name: student.full_name || student.email || "Siswa",
-      email: student.email,
-      planName,
-      joinDate: formatDate(sub?.start_at ?? null),
-      endDate: formatDate(sub?.end_at ?? null),
+      isPremium: student.is_premium === true,
       remainingDays,
       subscriptionId: sub?.id ?? null,
     };

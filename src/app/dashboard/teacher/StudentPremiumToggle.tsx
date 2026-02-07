@@ -6,6 +6,7 @@ interface StudentPremiumToggleProps {
   studentId: string;
   initialIsPremium: boolean;
   studentName: string;
+  showStatus?: boolean;
 }
 
 interface PremiumToggleResponse {
@@ -20,6 +21,7 @@ export default function StudentPremiumToggle({
   studentId,
   initialIsPremium,
   studentName,
+  showStatus = true,
 }: StudentPremiumToggleProps) {
   const [isPending, startTransition] = useTransition();
   const [isPremium, setIsPremium] = useState<boolean>(initialIsPremium);
@@ -83,7 +85,7 @@ export default function StudentPremiumToggle({
         className={`rounded-xl px-3 py-1.5 font-semibold shadow-sm transition ${
           isPremium
             ? "border border-slate-500 bg-slate-800 text-slate-100 hover:bg-slate-700"
-            : "border border-amber-400/70 bg-amber-500/30 text-amber-50 shadow-amber-500/40 hover:bg-amber-500/50"
+            : "border border-amber-400/70 bg-amber-200 text-slate-900 shadow-amber-500/40 hover:bg-amber-300"
         } disabled:opacity-60 disabled:cursor-not-allowed`}
       >
         {isPending
@@ -92,14 +94,16 @@ export default function StudentPremiumToggle({
           ? "Turunkan ke Gratis"
           : "Upgrade ke Premium"}
       </button>
-      <div className="text-slate-400">
-        Status:{" "}
-        {isPremium ? (
-          <span className="font-semibold text-amber-300">Premium ⭐</span>
-        ) : (
-          <span className="font-semibold text-emerald-300">Gratis 🎁</span>
-        )}
-      </div>
+      {showStatus && (
+        <div className="text-slate-400">
+          Status:{" "}
+          {isPremium ? (
+            <span className="font-semibold text-amber-300">Premium ⭐</span>
+          ) : (
+            <span className="font-semibold text-emerald-300">Gratis 🎁</span>
+          )}
+        </div>
+      )}
       {error && (
         <div className="text-[10px] text-red-300 max-w-[180px]">{error}</div>
       )}

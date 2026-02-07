@@ -2,16 +2,14 @@
 
 import { useState } from "react";
 import { useToast } from "@/app/components/ToastProvider";
+import StudentPremiumToggle from "@/app/dashboard/teacher/StudentPremiumToggle";
 
 type StudentRow = {
   id: string;
   name: string;
-  email: string | null;
-  planName: string;
-  joinDate: string;
-  endDate: string;
   remainingDays: number | null;
   subscriptionId: string | null;
+  isPremium: boolean;
 };
 
 type Props = {
@@ -44,9 +42,6 @@ export default function StudentsTable({ rows }: Props) {
           item.id === row.id
             ? {
                 ...item,
-                planName: "Free",
-                joinDate: "-",
-                endDate: "-",
                 remainingDays: null,
                 subscriptionId: null,
               }
@@ -64,14 +59,11 @@ export default function StudentsTable({ rows }: Props) {
 
   return (
     <div className="overflow-x-auto">
-      <table className="min-w-[900px] w-full text-xs text-slate-700">
+      <table className="min-w-[640px] w-full text-xs text-slate-700">
         <thead>
           <tr className="border-b border-slate-200 text-left text-[11px] uppercase tracking-[0.2em] text-slate-500">
             <th className="py-2">Nama</th>
-            <th className="py-2">Email</th>
-            <th className="py-2">Paket</th>
-            <th className="py-2">Join</th>
-            <th className="py-2">Selesai</th>
+            <th className="py-2">Status</th>
             <th className="py-2">Sisa hari</th>
             <th className="py-2">Aksi</th>
           </tr>
@@ -80,34 +72,49 @@ export default function StudentsTable({ rows }: Props) {
           {items.map((row) => (
             <tr key={row.id}>
               <td className="py-3 font-semibold text-slate-900">{row.name}</td>
-              <td className="py-3 text-slate-600">{row.email ?? "-"}</td>
-              <td className="py-3">{row.planName}</td>
-              <td className="py-3">{row.joinDate}</td>
-              <td className="py-3">{row.endDate}</td>
+              <td className="py-3">
+                {row.isPremium ? (
+                  <span className="inline-flex items-center rounded-full border border-amber-300 bg-amber-100 px-2 py-0.5 text-[10px] font-semibold text-amber-700">
+                    Premium
+                  </span>
+                ) : (
+                  <span className="inline-flex items-center rounded-full border border-emerald-300 bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold text-emerald-700">
+                    Gratis
+                  </span>
+                )}
+              </td>
               <td className="py-3">
                 {row.remainingDays === null
                   ? "-"
                   : `${row.remainingDays} hari`}
               </td>
               <td className="py-3">
-                {row.subscriptionId ? (
-                  <button
-                    type="button"
-                    onClick={() => handleReset(row)}
-                    disabled={loadingId === row.subscriptionId}
-                    className="rounded-lg border border-rose-500/60 bg-rose-50 px-3 py-1.5 text-[11px] font-semibold text-rose-700 hover:bg-rose-100 disabled:opacity-60"
-                  >
-                    {loadingId === row.subscriptionId ? "Memproses..." : "Reset ke Free"}
-                  </button>
-                ) : (
-                  <span className="text-[11px] text-slate-500">-</span>
-                )}
+                <div className="flex flex-wrap items-center gap-2">
+                  <StudentPremiumToggle
+                    studentId={row.id}
+                    initialIsPremium={row.isPremium}
+                    studentName={row.name}
+                    showStatus={false}
+                  />
+                  {row.subscriptionId ? (
+                    <button
+                      type="button"
+                      onClick={() => handleReset(row)}
+                      disabled={loadingId === row.subscriptionId}
+                      className="rounded-lg border border-rose-500/60 bg-rose-50 px-3 py-1.5 text-[11px] font-semibold text-rose-700 hover:bg-rose-100 disabled:opacity-60"
+                    >
+                      {loadingId === row.subscriptionId
+                        ? "Memproses..."
+                        : "Reset ke Free"}
+                    </button>
+                  ) : null}
+                </div>
               </td>
             </tr>
           ))}
           {items.length === 0 && (
             <tr>
-              <td colSpan={7} className="py-6 text-center text-slate-500">
+              <td colSpan={4} className="py-6 text-center text-slate-500">
                 Belum ada siswa terdaftar.
               </td>
             </tr>
