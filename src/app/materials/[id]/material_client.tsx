@@ -101,6 +101,8 @@ export default function MaterialWithResources({
   const [mode, setMode] = useState<"practice" | "tryout" | null>(
     embedMaterial ? "practice" : null
   );
+  const [showVideo, setShowVideo] = useState(false);
+  const [showPdf, setShowPdf] = useState(false);
   const quizRef = useRef<HTMLDivElement | null>(null);
   const startRef = useRef<HTMLDivElement | null>(null);
 
@@ -193,8 +195,8 @@ export default function MaterialWithResources({
                 Siap latihan soal?
               </div>
               <div className="mt-1 text-xs text-slate-500">
-                Tonton video dan baca PDF dulu, lalu tekan tombol besar di kanan
-                untuk mulai mengerjakan.
+                Tonton video atau baca PDF dulu, lalu tekan tombol besar di
+                kanan untuk mulai mengerjakan.
               </div>
             </div>
             <div className="flex flex-wrap gap-3">
@@ -221,130 +223,6 @@ export default function MaterialWithResources({
                 </button>
               )}
             </div>
-          </div>
-        </div>
-      )}
-
-      {/* Bagian video & PDF */}
-      {!embedMaterial && (
-        <div className="mt-4 grid gap-4 md:grid-cols-3">
-          {/* Video */}
-          <div className="md:col-span-2 rounded-2xl border border-slate-200 bg-white p-3 shadow-sm">
-            <div className="mb-2 flex items-center justify-between text-xs">
-              <span className="font-semibold text-emerald-700">
-                🎥 Video penjelasan
-              </span>
-              {material.video_url && (
-                <a
-                  href={material.video_url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-[11px] text-slate-600 underline hover:text-emerald-700"
-                >
-                  Buka di tab baru ↗
-                </a>
-              )}
-            </div>
-            {material.video_url ? (
-              isYouTube ? (
-                <div className="relative w-full overflow-hidden rounded-xl border border-slate-200 bg-black pb-[56.25%]">
-                  <iframe
-                    src={material.video_url.replace("watch?v=", "embed/")}
-                    className="absolute left-0 top-0 h-full w-full"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
-                </div>
-              ) : (
-                <p className="text-[11px] text-slate-600">
-                  Video tersedia di link di atas.
-                </p>
-              )
-            ) : (
-              <p className="text-[11px] text-slate-500">
-                Belum ada video penjelasan untuk materi ini.
-              </p>
-            )}
-          </div>
-
-          {/* PDF */}
-          <div className="rounded-2xl border border-slate-200 bg-white p-3 shadow-sm text-xs">
-            <div className="mb-2 font-semibold text-emerald-700">
-              📄 Materi PDF
-            </div>
-            {material.pdf_url ? (
-              <>
-                <p className="text-slate-600 mb-2">
-                  Kamu bisa baca materi dalam bentuk PDF sebelum mengerjakan
-                  soal.
-                </p>
-                <a
-                  href={material.pdf_url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center justify-center rounded-xl border border-emerald-400/60 bg-emerald-500 px-3 py-2 text-[11px] font-semibold text-white hover:bg-emerald-600"
-                >
-                  Buka PDF 📚
-                </a>
-              </>
-            ) : (
-              <p className="text-slate-500">
-                Belum ada file PDF untuk materi ini.
-              </p>
-            )}
-          </div>
-        </div>
-      )}
-
-      {/* Ringkasan materi + contoh soal */}
-      {!embedMaterial && (
-        <div className="mt-5 grid gap-4 md:grid-cols-2">
-          <div className="rounded-2xl border border-slate-200 bg-white p-4 text-xs text-slate-700 shadow-sm">
-            <div className="mb-2 font-semibold text-emerald-700">
-              Ringkasan materi
-            </div>
-            {material.description ? (
-              <p className="text-slate-600 leading-relaxed">
-                {material.description}
-              </p>
-            ) : (
-              <p className="text-slate-500">
-                Ringkasan materi belum tersedia. Kamu bisa mulai latihan atau
-                tonton video terlebih dahulu.
-              </p>
-            )}
-          </div>
-
-          <div className="rounded-2xl border border-slate-200 bg-white p-4 text-xs text-slate-700 shadow-sm">
-            <div className="mb-2 font-semibold text-emerald-700">
-              Contoh soal
-            </div>
-            {exampleQuestions.length === 0 ? (
-              <p className="text-slate-500">Belum ada contoh soal.</p>
-            ) : (
-              <div className="space-y-3">
-                {exampleQuestions.map((q, idx) => (
-                  <div
-                    key={q.id}
-                    className="rounded-xl border border-slate-200 bg-slate-50 p-3"
-                  >
-                    <p className="text-[11px] text-slate-500">
-                      Contoh {idx + 1}
-                    </p>
-                    <p className="mt-1 text-sm font-semibold text-slate-700">
-                      {q.prompt}
-                    </p>
-                    {q.imageUrl && (
-                      <img
-                        src={q.imageUrl}
-                        alt={`Contoh soal ${idx + 1}`}
-                        className="mt-2 max-h-32 w-full rounded-xl border border-slate-200 object-contain"
-                      />
-                    )}
-                  </div>
-                ))}
-              </div>
-            )}
           </div>
         </div>
       )}
@@ -409,6 +287,147 @@ export default function MaterialWithResources({
           )}
         </div>
       )}
+
+      {/* Bagian video & PDF */}
+      {!embedMaterial && (
+        <div className="mt-4 grid gap-4 md:grid-cols-3">
+          {/* Video */}
+          <div className="md:col-span-2 rounded-2xl border border-slate-200 bg-white p-3 shadow-sm">
+            <div className="mb-2 flex items-center justify-between text-xs">
+              <span className="font-semibold text-emerald-700">
+                🎥 Video penjelasan
+              </span>
+            </div>
+            {material.video_url ? (
+              <>
+                <button
+                  type="button"
+                  onClick={() => setShowVideo((prev) => !prev)}
+                  className="inline-flex items-center justify-center rounded-xl border border-emerald-300 bg-emerald-50 px-3 py-2 text-[11px] font-semibold text-emerald-700 hover:bg-emerald-100"
+                >
+                  {showVideo ? "Tutup video" : "Buka video penjelasan"}
+                </button>
+                {showVideo && (
+                  <div className="mt-3">
+                    {isYouTube ? (
+                      <div className="relative w-full overflow-hidden rounded-xl border border-slate-200 bg-black pb-[56.25%]">
+                        <iframe
+                          src={material.video_url.replace("watch?v=", "embed/")}
+                          className="absolute left-0 top-0 h-full w-full"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        />
+                      </div>
+                    ) : (
+                      <a
+                        href={material.video_url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-[11px] text-slate-600 underline hover:text-emerald-700"
+                      >
+                        Buka video di tab baru ↗
+                      </a>
+                    )}
+                  </div>
+                )}
+              </>
+            ) : (
+              <p className="text-[11px] text-slate-500">
+                Belum ada video penjelasan untuk materi ini.
+              </p>
+            )}
+          </div>
+
+          {/* PDF */}
+          <div className="rounded-2xl border border-slate-200 bg-white p-3 shadow-sm text-xs">
+            <div className="mb-2 font-semibold text-emerald-700">
+              📄 Materi PDF
+            </div>
+            {material.pdf_url ? (
+              <>
+                <p className="text-slate-600 mb-2">
+                  Kamu bisa baca materi dalam bentuk PDF sebelum mengerjakan
+                  soal.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setShowPdf((prev) => !prev)}
+                  className="inline-flex items-center justify-center rounded-xl border border-emerald-400/60 bg-emerald-500 px-3 py-2 text-[11px] font-semibold text-white hover:bg-emerald-600"
+                >
+                  {showPdf ? "Tutup PDF" : "Buka PDF 📚"}
+                </button>
+                {showPdf && (
+                  <div className="mt-3">
+                    <iframe
+                      src={material.pdf_url}
+                      title="Materi PDF"
+                      className="h-64 w-full rounded-xl border border-slate-200"
+                    />
+                  </div>
+                )}
+              </>
+            ) : (
+              <p className="text-slate-500">
+                Belum ada file PDF untuk materi ini.
+              </p>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Ringkasan materi + contoh soal */}
+      {!embedMaterial && (
+        <div className="mt-5 grid gap-4 md:grid-cols-2">
+          <div className="rounded-2xl border border-slate-200 bg-white p-4 text-xs text-slate-700 shadow-sm">
+            <div className="mb-2 font-semibold text-emerald-700">
+              Ringkasan materi
+            </div>
+            {material.description ? (
+              <p className="text-slate-600 leading-relaxed">
+                {material.description}
+              </p>
+            ) : (
+              <p className="text-slate-500">
+                Ringkasan materi belum tersedia. Kamu bisa mulai latihan atau
+                tonton video terlebih dahulu.
+              </p>
+            )}
+          </div>
+
+          <div className="rounded-2xl border border-slate-200 bg-white p-4 text-xs text-slate-700 shadow-sm">
+            <div className="mb-2 font-semibold text-emerald-700">
+              Contoh soal
+            </div>
+            {exampleQuestions.length === 0 ? (
+              <p className="text-slate-500">Belum ada contoh soal.</p>
+            ) : (
+              <div className="space-y-3">
+                {exampleQuestions.map((q, idx) => (
+                  <div
+                    key={q.id}
+                    className="rounded-xl border border-slate-200 bg-slate-50 p-3"
+                  >
+                    <p className="text-[11px] text-slate-500">
+                      Contoh {idx + 1}
+                    </p>
+                    <p className="mt-1 text-sm font-semibold text-slate-700">
+                      {q.prompt}
+                    </p>
+                    {q.imageUrl && (
+                      <img
+                        src={q.imageUrl}
+                        alt={`Contoh soal ${idx + 1}`}
+                        className="mt-2 max-h-32 w-full rounded-xl border border-slate-200 object-contain"
+                      />
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }

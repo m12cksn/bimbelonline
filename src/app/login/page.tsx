@@ -29,31 +29,44 @@ function LoginForm() {
     const cleanedIdentifier = identifier.trim().toLowerCase();
 
     try {
-      let loginEmail = cleanedIdentifier;
-      if (!isEmail(cleanedIdentifier)) {
-        const { data: profile, error: profileError } = await supabase
-          .from("profiles")
-          .select("email")
-          .eq("username", cleanedIdentifier)
-          .maybeSingle<{ email: string | null }>();
+      let data: Awaited<ReturnType<typeof supabase.auth.signInWithPassword>>["data"];
+      let error: Awaited<ReturnType<typeof supabase.auth.signInWithPassword>>["error"];
 
-        if (profileError) {
-          setErrorMsg("Gagal menemukan username. Coba lagi ya.");
-          return;
+      if (isEmail(cleanedIdentifier)) {
+        ({ data, error } = await supabase.auth.signInWithPassword({
+          email: cleanedIdentifier,
+          password,
+        }));
+      } else {
+        const fallbackEmail = `${cleanedIdentifier}@student.bimbel.local`;
+        ({ data, error } = await supabase.auth.signInWithPassword({
+          email: fallbackEmail,
+          password,
+        }));
+
+        if (error) {
+          const { data: profile, error: profileError } = await supabase
+            .from("profiles")
+            .select("email")
+            .eq("username", cleanedIdentifier)
+            .maybeSingle<{ email: string | null }>();
+
+          if (profileError) {
+            setErrorMsg("Gagal menemukan username. Coba lagi ya.");
+            return;
+          }
+
+          if (!profile?.email) {
+            setErrorMsg("Username tidak ditemukan. Hubungi admin.");
+            return;
+          }
+
+          ({ data, error } = await supabase.auth.signInWithPassword({
+            email: profile.email,
+            password,
+          }));
         }
-
-        if (!profile?.email) {
-          setErrorMsg("Username tidak ditemukan. Hubungi admin.");
-          return;
-        }
-
-        loginEmail = profile.email;
       }
-
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: loginEmail,
-        password,
-      });
 
       if (error) {
         setErrorMsg(error.message);

@@ -217,36 +217,6 @@ const navItems: Record<Role, Array<Omit<ItemProps, "active">>> = {
       icon: <IconCalendar />,
     },
     {
-      href: "/dashboard/student/attendance",
-      label: "Kehadiran",
-      description: "Riwayat absen",
-      icon: <IconCheck />,
-    },
-    {
-      href: "/dashboard/student/tryouts",
-      label: "Tryout",
-      description: "Riwayat tryout",
-      icon: <IconTarget />,
-    },
-    {
-      href: "/dashboard/student/statistics",
-      label: "Statistik",
-      description: "Progress belajar",
-      icon: <IconChart />,
-    },
-    {
-      href: "/dashboard/student/leaderboard",
-      label: "Leaderboard",
-      description: "Peringkat global",
-      icon: <IconTrophy />,
-    },
-    {
-      href: "/dashboard/student/upgrade",
-      label: "Upgrade",
-      description: "Paket premium",
-      icon: <IconUpgrade />,
-    },
-    {
       href: "/dashboard/student/account",
       label: "Akun",
       description: "Profil & langganan",
