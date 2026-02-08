@@ -9,6 +9,7 @@ type CreateStudentPayload = {
   password?: string;
   fullName?: string;
   learningTrack?: "math" | "coding";
+  gradeIds?: number[];
 };
 
 function normalizeBase(value: string) {
@@ -63,10 +64,20 @@ export async function POST(req: Request) {
   const inputPassword = String(body.password ?? "").trim();
   const fullName = String(body.fullName ?? "").trim();
   const learningTrack = body.learningTrack ?? "math";
+  const gradeIds = Array.isArray(body.gradeIds)
+    ? body.gradeIds.filter((id) => typeof id === "number" && Number.isFinite(id))
+    : [];
 
   if (!fullName) {
     return NextResponse.json(
       { ok: false, error: "Nama siswa wajib diisi" },
+      { status: 400 }
+    );
+  }
+
+  if (gradeIds.length === 0) {
+    return NextResponse.json(
+      { ok: false, error: "Minimal satu grade wajib dipilih" },
       { status: 400 }
     );
   }
@@ -188,6 +199,25 @@ export async function POST(req: Request) {
     console.error("profile upsert error", profileError);
     return NextResponse.json(
       { ok: false, error: "Gagal menyimpan profil" },
+      { status: 500 }
+    );
+  }
+
+  const gradeRows = gradeIds.map((gradeId) => ({
+    student_id: createdUser.user.id,
+    grade_id: gradeId,
+  }));
+
+  const { error: gradeError } = await adminClient
+    .from("student_grades")
+    .upsert(gradeRows, {
+      onConflict: "student_id,grade_id",
+    });
+
+  if (gradeError) {
+    console.error("student_grades upsert error", gradeError);
+    return NextResponse.json(
+      { ok: false, error: "Gagal menyimpan grade siswa" },
       { status: 500 }
     );
   }

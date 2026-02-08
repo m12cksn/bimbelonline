@@ -105,7 +105,7 @@ export default async function MaterialPage(props: MaterialPageProps) {
   const { data: material, error: materialError } = await dbClient
     .from("materials")
     .select(
-      "id, title, description, video_url, pdf_url, tryout_duration_minutes, subject_id"
+      "id, title, description, video_url, pdf_url, tryout_duration_minutes, subject_id, grade_id"
     )
     .eq("id", materialId)
     .single();
@@ -145,8 +145,26 @@ export default async function MaterialPage(props: MaterialPageProps) {
 
   const learningTrack =
     (profile as { learning_track?: string | null })?.learning_track ?? "math";
+  const gradeIds: number[] = [];
+  if (!isGuest && user) {
+    const { data: gradeRows } = await supabase
+      .from("student_grades")
+      .select("grade_id")
+      .eq("student_id", user.id);
+    (gradeRows ?? []).forEach((row) => {
+      if (typeof row.grade_id === "number") gradeIds.push(row.grade_id);
+    });
+  }
 
   if (!isGuest && learningTrack === "coding" && material.subject_id !== 4) {
+    redirect("/materials");
+  }
+
+  if (
+    !isGuest &&
+    material.grade_id &&
+    !gradeIds.includes(material.grade_id)
+  ) {
     redirect("/materials");
   }
 

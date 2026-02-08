@@ -30,6 +30,17 @@ type PageProps = {
   searchParams?: Promise<{ page?: string }>;
 };
 
+type GradeRow = {
+  id: number;
+  name: string;
+  level: number;
+};
+
+type StudentGradeRow = {
+  student_id: string;
+  grade_id: number;
+};
+
 export default async function AdminStudentsPage({ searchParams }: PageProps) {
   const resolvedSearchParams = (await searchParams) ?? {};
   const supabase = await createSupabaseServerClient();
@@ -69,7 +80,26 @@ export default async function AdminStudentsPage({ searchParams }: PageProps) {
     .range(from, to);
 
   const students = (studentsRaw ?? []) as StudentProfileRow[];
+  const { data: gradesRaw } = await supabase
+    .from("grades")
+    .select("id, name, level")
+    .order("level", { ascending: true });
+  const grades = (gradesRaw ?? []) as GradeRow[];
   const studentIds = students.map((s) => s.id);
+  const { data: studentGradesRaw } =
+    studentIds.length > 0
+      ? await supabase
+          .from("student_grades")
+          .select("student_id, grade_id")
+          .in("student_id", studentIds)
+      : { data: [] };
+  const studentGrades = (studentGradesRaw ?? []) as StudentGradeRow[];
+  const gradeMap = new Map<string, number[]>();
+  studentGrades.forEach((row) => {
+    const list = gradeMap.get(row.student_id) ?? [];
+    list.push(row.grade_id);
+    gradeMap.set(row.student_id, list);
+  });
 
   const { data: subscriptionsRaw } =
     studentIds.length > 0
@@ -127,6 +157,7 @@ export default async function AdminStudentsPage({ searchParams }: PageProps) {
       isPremium: student.is_premium === true,
       remainingDays,
       subscriptionId: sub?.id ?? null,
+      gradeIds: gradeMap.get(student.id) ?? [],
     };
   });
 
@@ -146,7 +177,7 @@ export default async function AdminStudentsPage({ searchParams }: PageProps) {
             </p>
           </div>
         </div>
-        <CreateStudentForm />
+        <CreateStudentForm grades={grades} />
       </section>
 
       <section className="rounded-2xl border border-slate-200 bg-white p-5 text-slate-900 shadow-[0_20px_60px_-45px_rgba(0,0,0,1)]">
@@ -165,7 +196,7 @@ export default async function AdminStudentsPage({ searchParams }: PageProps) {
           </span>
         </div>
 
-        <StudentsTable rows={studentRows} />
+        <StudentsTable rows={studentRows} grades={grades} />
 
         <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-600">
           <div>

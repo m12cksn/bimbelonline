@@ -48,16 +48,32 @@ export default async function MaterialsPage() {
 
   const learningTrack =
     (profile as { learning_track?: string | null })?.learning_track ?? "math";
+  const { data: gradeRows } = await supabase
+    .from("student_grades")
+    .select("grade_id")
+    .eq("student_id", user.id);
+  const gradeIds = (gradeRows ?? [])
+    .map((row) => row.grade_id)
+    .filter((id): id is number => typeof id === "number");
 
   const materialsQuery = supabase
     .from("materials")
     .select("id, title, description, image_url, subject_id, grade_id")
     .order("id", { ascending: true });
 
-  const { data, error } =
-    learningTrack === "coding"
-      ? await materialsQuery.eq("subject_id", 4)
-      : await materialsQuery;
+  let materialsFilter = materialsQuery;
+  if (learningTrack === "coding") {
+    materialsFilter = materialsFilter.eq("subject_id", 4);
+  }
+  if (gradeIds.length > 0) {
+    materialsFilter = materialsFilter.or(
+      `grade_id.is.null,grade_id.in.(${gradeIds.join(",")})`
+    );
+  } else {
+    materialsFilter = materialsFilter.is("grade_id", null);
+  }
+
+  const { data, error } = await materialsFilter;
 
   if (error) {
     console.error("Failed to fetch materials:", error);

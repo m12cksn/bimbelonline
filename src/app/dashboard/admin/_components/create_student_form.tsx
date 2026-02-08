@@ -1,13 +1,31 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useToast } from "@/app/components/ToastProvider";
 
-export default function CreateStudentForm() {
+type GradeOption = {
+  id: number;
+  name: string;
+  level: number;
+};
+
+type CreateStudentFormProps = {
+  grades: GradeOption[];
+};
+
+export default function CreateStudentForm({ grades }: CreateStudentFormProps) {
   const toast = useToast();
   const [fullName, setFullName] = useState("");
   const [learningTrack, setLearningTrack] = useState<"math" | "coding">(
     "math"
+  );
+  const sortedGrades = useMemo(
+    () => [...grades].sort((a, b) => a.level - b.level),
+    [grades]
+  );
+  const hasGrades = sortedGrades.length > 0;
+  const [gradeIds, setGradeIds] = useState<number[]>(
+    sortedGrades.length > 0 ? [sortedGrades[0].id] : []
   );
   const [loading, setLoading] = useState(false);
   const [created, setCreated] = useState<{
@@ -22,12 +40,17 @@ export default function CreateStudentForm() {
     setLoading(true);
 
     try {
+      if (!hasGrades || gradeIds.length === 0) {
+        throw new Error("Grade belum tersedia. Tambahkan grade terlebih dulu.");
+      }
+
       const res = await fetch("/api/adm/students/create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           fullName,
           learningTrack,
+          gradeIds,
         }),
       });
       const data = await res.json();
@@ -38,6 +61,7 @@ export default function CreateStudentForm() {
       toast.success("Akun siswa berhasil dibuat.");
       setFullName("");
       setLearningTrack("math");
+      setGradeIds(sortedGrades.length > 0 ? [sortedGrades[0].id] : []);
       setCreated(data.user ?? null);
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
@@ -77,11 +101,55 @@ export default function CreateStudentForm() {
             <option value="coding">Coding</option>
           </select>
         </div>
+        <div>
+          <label className="mb-1 block text-xs font-semibold text-slate-600">
+            Grade
+          </label>
+          <div className="flex flex-wrap gap-2">
+            {sortedGrades.map((grade) => {
+              const checked = gradeIds.includes(grade.id);
+              return (
+                <label
+                  key={grade.id}
+                  className={`flex items-center gap-2 rounded-xl border px-3 py-2 text-xs font-semibold ${
+                    checked
+                      ? "border-emerald-300 bg-emerald-50 text-emerald-700"
+                      : "border-slate-200 bg-white text-slate-600"
+                  } ${!hasGrades ? "opacity-60" : ""}`}
+                >
+                  <input
+                    type="checkbox"
+                    className="accent-emerald-600"
+                    checked={checked}
+                    disabled={!hasGrades}
+                    onChange={(e) => {
+                      const isChecked = e.target.checked;
+                      setGradeIds((prev) => {
+                        if (isChecked) {
+                          return prev.includes(grade.id)
+                            ? prev
+                            : [...prev, grade.id];
+                        }
+                        return prev.filter((id) => id !== grade.id);
+                      });
+                    }}
+                  />
+                  {grade.name}
+                </label>
+              );
+            })}
+          </div>
+          {!hasGrades && (
+            <p className="mt-1 text-[11px] text-rose-600">
+              Grade belum tersedia. Tambahkan data grades terlebih dulu.
+            </p>
+          )}
+        </div>
       </div>
 
       <button
         type="submit"
-        disabled={loading}
+        disabled={loading || !hasGrades || gradeIds.length === 0}
         className="rounded-xl border border-emerald-600 bg-emerald-600 px-4 py-2 text-xs font-semibold text-white shadow hover:bg-emerald-700 disabled:opacity-60"
       >
         {loading ? "Membuat akun..." : "Buat akun siswa"}
