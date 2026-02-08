@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useToast } from "@/app/components/ToastProvider";
 import StudentPremiumToggle from "@/app/dashboard/teacher/StudentPremiumToggle";
+import { confirmAction } from "@/lib/alerts";
 
 type StudentRow = {
   id: string;
@@ -23,9 +24,12 @@ export default function StudentsTable({ rows }: Props) {
 
   async function handleReset(row: StudentRow) {
     if (!row.subscriptionId) return;
-    const ok = window.confirm(
-      `Reset subscription ${row.name} ke Free?`
-    );
+    const ok = await confirmAction({
+      title: "Reset subscription",
+      text: `Reset subscription ${row.name} ke Free?`,
+      confirmText: "Reset",
+      cancelText: "Batal",
+    });
     if (!ok) return;
     setLoadingId(row.subscriptionId);
     try {

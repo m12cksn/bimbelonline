@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useToast } from "@/app/components/ToastProvider";
+import { confirmAction } from "@/lib/alerts";
 
 type QuestionType = "mcq" | "essay" | "drag_drop" | "multipart";
 
@@ -350,7 +351,13 @@ export default function AdminQuestionsPage() {
       return;
     }
 
-    if (!confirm("Hapus materi ini? Soal terkait bisa ikut terhapus.")) {
+    const ok = await confirmAction({
+      title: "Hapus materi",
+      text: "Hapus materi ini? Soal terkait bisa ikut terhapus.",
+      confirmText: "Hapus",
+      cancelText: "Batal",
+    });
+    if (!ok) {
       return;
     }
 
@@ -556,7 +563,13 @@ export default function AdminQuestionsPage() {
 
   async function handleDelete() {
     if (!selectedId) return;
-    if (!confirm("Hapus soal ini?")) return;
+    const ok = await confirmAction({
+      title: "Hapus soal",
+      text: "Hapus soal ini?",
+      confirmText: "Hapus",
+      cancelText: "Batal",
+    });
+    if (!ok) return;
     try {
       const res = await fetch("/api/adm/questions/delete", {
         method: "POST",

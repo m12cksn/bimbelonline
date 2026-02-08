@@ -2,6 +2,7 @@
 
 import { useTransition, useState } from "react";
 import { useToast } from "@/app/components/ToastProvider";
+import { confirmAction } from "@/lib/alerts";
 
 interface ResetMaterialButtonProps {
   studentId: string;
@@ -25,12 +26,15 @@ export default function ResetMaterialButton({
   const [error, setError] = useState<string | null>(null);
   const toast = useToast();
 
-  function handleClick() {
+  async function handleClick() {
     setError(null);
 
-    const ok = window.confirm(
-      `Reset semua progres materi "${materialTitle}" untuk murid ini?`
-    );
+    const ok = await confirmAction({
+      title: "Reset progres",
+      text: `Reset semua progres materi "${materialTitle}" untuk murid ini?`,
+      confirmText: "Reset",
+      cancelText: "Batal",
+    });
     if (!ok) return;
 
     startTransition(async () => {

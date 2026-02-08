@@ -13,6 +13,12 @@ import {
 } from "react";
 import Link from "next/link";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
+import {
+  MultiBackend,
+  HTML5DragTransition,
+  TouchTransition,
+} from "react-dnd-multi-backend";
+import { TouchBackend } from "react-dnd-touch-backend";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import type Konva from "konva";
 import { Layer, Line, Stage } from "react-konva";
@@ -131,6 +137,19 @@ type DropZoneProps = {
 };
 
 const DRAG_TYPE = "answer";
+const DND_OPTIONS = {
+  backends: [
+    {
+      backend: HTML5Backend,
+      transition: HTML5DragTransition,
+    },
+    {
+      backend: TouchBackend,
+      options: { enableMouseEvents: true },
+      transition: TouchTransition,
+    },
+  ],
+};
 
 type DoodleState = { canUndo: boolean; canRedo: boolean; hasStrokes: boolean };
 type DoodleHandle = { undo: () => void; redo: () => void; clear: () => void };
@@ -2184,7 +2203,7 @@ export default function MaterialQuiz({
                               </div>
                             </div>
                           ) : (
-                            <DndProvider backend={HTML5Backend}>
+                          <DndProvider backend={MultiBackend} options={DND_OPTIONS}>
                               <div className="grid gap-4 lg:grid-cols-[1.1fr_1fr]">
                                 <div className="space-y-2">
                                   <div className="text-[11px] font-semibold text-slate-600">

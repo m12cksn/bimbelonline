@@ -1,6 +1,7 @@
 // src/app/dashboard/admin/classes/[id]/zoom/page.tsx
 "use client";
 
+import { confirmAction } from "@/lib/alerts";
 import { use, useCallback, useEffect, useState } from "react";
 import { useToast } from "@/app/components/ToastProvider";
 
@@ -108,7 +109,13 @@ export default function AdminClassZoomPage({
   }
 
   async function handleDelete(zoomId: number) {
-    if (!confirm("Hapus jadwal zoom ini?")) return;
+    const ok = await confirmAction({
+      title: "Hapus jadwal",
+      text: "Hapus jadwal zoom ini?",
+      confirmText: "Hapus",
+      cancelText: "Batal",
+    });
+    if (!ok) return;
 
     try {
       const res = await fetch(`/api/adm/classes/${classId}/zoom/${zoomId}`, {

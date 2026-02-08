@@ -1,6 +1,7 @@
 "use client";
 
 import { use, useCallback, useEffect, useState } from "react";
+import { confirmAction } from "@/lib/alerts";
 import Link from "next/link";
 import { useToast } from "@/app/components/ToastProvider";
 
@@ -63,7 +64,13 @@ export default function ClassTeachersPage({
   }, [fetchTeachers]);
 
   async function handleRemove(tid: string) {
-    if (!confirm("Hapus teacher dari kelas?")) return;
+    const ok = await confirmAction({
+      title: "Hapus teacher",
+      text: "Hapus teacher dari kelas?",
+      confirmText: "Hapus",
+      cancelText: "Batal",
+    });
+    if (!ok) return;
     try {
       const res = await fetch(`/api/adm/classes/${classId}/teachers/${tid}`, {
         method: "DELETE",

@@ -79,13 +79,13 @@ export async function POST(req: Request) {
   }
 
   // 4. update profile murid
-  const { data: updatedRows, error: updateError } = await supabase
+  const { data: updatedRow, error: updateError } = await supabase
     .from("profiles")
     .update({ is_premium: isPremium })
     .eq("id", studentId)
     .eq("role", "student")
     .select("id, full_name, is_premium")
-    .single();
+    .maybeSingle();
 
   if (updateError) {
     console.error("Update is_premium error:", updateError);
@@ -95,10 +95,17 @@ export async function POST(req: Request) {
     );
   }
 
+  if (!updatedRow) {
+    return NextResponse.json(
+      { error: "Student not found or access denied" },
+      { status: 404 }
+    );
+  }
+
   return NextResponse.json({
     success: true,
-    studentId: updatedRows.id,
-    full_name: updatedRows.full_name,
-    is_premium: updatedRows.is_premium,
+    studentId: updatedRow.id,
+    full_name: updatedRow.full_name,
+    is_premium: updatedRow.is_premium,
   });
 }

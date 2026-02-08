@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { confirmAction } from "@/lib/alerts";
 
 interface StudentPremiumToggleProps {
   studentId: string;
@@ -34,9 +35,12 @@ export default function StudentPremiumToggle({
 
     // konfirmasi kalau mau turunkan ke gratis
     if (isPremium && !targetValue) {
-      const ok = window.confirm(
-        `Turunkan ${studentName || "murid"} dari Premium ke Gratis?`
-      );
+      const ok = await confirmAction({
+        title: "Turunkan ke Gratis",
+        text: `Turunkan ${studentName || "murid"} dari Premium ke Gratis?`,
+        confirmText: "Turunkan",
+        cancelText: "Batal",
+      });
       if (!ok) return;
     }
 
