@@ -85,8 +85,15 @@ Write-Host "node_modules OK" -ForegroundColor Green
 # 3) Build
 if (-not $SkipBuild) {
   Write-Host "Running build..." -ForegroundColor Cyan
-  npm run build
-  if ($LASTEXITCODE -ne 0) {
+  # Suppress non-blocking staleness warnings emitted by browserslist/baseline-browser-mapping.
+  $env:BROWSERSLIST_IGNORE_OLD_DATA = "true"
+  $env:BASELINE_BROWSER_MAPPING_IGNORE_OLD_DATA = "true"
+  $buildOutput = & npm run build 2>&1
+  $buildExitCode = $LASTEXITCODE
+  $buildOutput |
+    Where-Object { $_.ToString() -notmatch "^\[baseline-browser-mapping\] The data in this module is over two months old\." } |
+    ForEach-Object { Write-Host $_ }
+  if ($buildExitCode -ne 0) {
     Write-Host "Build failed" -ForegroundColor Red
     exit 1
   }

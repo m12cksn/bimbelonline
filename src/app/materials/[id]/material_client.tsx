@@ -127,10 +127,33 @@ export default function MaterialWithResources({
     setMode(nextMode);
   };
 
-  const isYouTube =
-    material.video_url &&
-    (material.video_url.includes("youtube.com") ||
-      material.video_url.includes("youtu.be"));
+  const getYouTubeEmbedUrl = (rawUrl: string | null): string | null => {
+    if (!rawUrl) return null;
+    try {
+      const url = new URL(rawUrl);
+      const host = url.hostname.toLowerCase();
+      let videoId: string | null = null;
+
+      if (host.includes("youtu.be")) {
+        videoId = url.pathname.split("/").filter(Boolean)[0] ?? null;
+      } else if (host.includes("youtube.com")) {
+        const parts = url.pathname.split("/").filter(Boolean);
+        if (url.pathname === "/watch") {
+          videoId = url.searchParams.get("v");
+        } else if (parts[0] === "embed" || parts[0] === "shorts" || parts[0] === "live") {
+          videoId = parts[1] ?? null;
+        }
+      }
+
+      if (!videoId) return null;
+      return `https://www.youtube.com/embed/${videoId}`;
+    } catch {
+      return null;
+    }
+  };
+
+  const youTubeEmbedUrl = getYouTubeEmbedUrl(material.video_url);
+  const isYouTube = Boolean(youTubeEmbedUrl);
 
   const practiceQuestions = questionMeta.filter(
     (q) => q.question_mode !== "tryout"
@@ -319,7 +342,7 @@ export default function MaterialWithResources({
                     {isYouTube ? (
                       <div className="relative w-full overflow-hidden rounded-xl border border-slate-200 bg-black pb-[56.25%]">
                         <iframe
-                          src={material.video_url.replace("watch?v=", "embed/")}
+                          src={youTubeEmbedUrl ?? undefined}
                           className="absolute left-0 top-0 h-full w-full"
                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                           allowFullScreen
