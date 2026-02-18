@@ -1,41 +1,41 @@
-material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
-68,1,essay,practice,Jelaskan dua ciri yang selalu dimiliki segitiga.,,,,memiliki 3 sisi dan 3 sudut,,,,,,,,,,,,,
-68,2,essay,practice,Bangun yang memiliki tepat satu pasang sisi sejajar adalah...,,,,trapesium,,,,,,,,,,,,,
-68,3,drag_drop,practice,Pasangkan bangun dengan jumlah sisi.,,,,,,,,,,,,,,,segitiga;segiempat;segilima;segienam,"3,4,5,6",
-68,4,essay,practice,Mengapa persegi dapat disebut juga sebagai persegi panjang? Jelaskan singkat.,,,,karena semua ciri persegi panjang dimiliki persegi (sudut siku-siku dan sisi berhadapan sejajar),,,,,,,,,,,,,
-68,5,multipart,practice,Amati gambar bangun A dan B. Tentukan cirinya.,,,TODO_IMG_QUAD_AB.png,,,,,,,,,,,,,,a|Bangun A memiliki ... pasang sisi sejajar|2;b|Bangun B memiliki ... pasang sisi sejajar|1
-68,6,essay,practice,Bangun yang memiliki dua pasang sisi berdekatan sama panjang adalah...,,,,layang-layang,,,,,,,,,,,,,
-68,7,essay,practice,Sebutkan satu ciri yang membedakan belah ketupat dan layang-layang.,,,,belah ketupat memiliki 4 sisi sama panjang; layang-layang hanya 2 pasang sisi berdekatan sama panjang,,,,,,,,,,,,,
-68,8,drag_drop,practice,Pasangkan bangun dengan cirinya.,,,,,,,,,,,,,,,persegi panjang;persegi;belah ketupat;jajar genjang,"sudut siku-siku dan sisi berhadapan sejajar,semua sisi sama panjang dan sudut siku-siku,semua sisi sama panjang dan diagonal tegak lurus,dua pasang sisi berhadapan sejajar",
-68,9,essay,practice,"Bangun A memiliki 4 sisi, satu pasang sisi sejajar, dan tidak ada sisi sama panjang. Bangun apa itu?",,,,trapesium sembarang,,,,,,,,,,,,,
-68,10,mcq,practice,Segitiga dengan satu sudut siku-siku disebut...,,,,B,,,segitiga lancip,segitiga siku-siku,segitiga tumpul,segitiga sama sisi,,,,,,,
-68,11,multipart,practice,Tentukan jenis segitiga pada gambar.,,,TODO_IMG_TRIANGLE_SET.png,,,,,,,,,,,,,,a|Segitiga A berdasarkan sisi|sama kaki;b|Segitiga B berdasarkan sudut|tumpul
-68,12,essay,practice,Apakah semua jajargenjang adalah trapesium? Jelaskan singkat.,,,,tidak; trapesium hanya punya tepat satu pasang sisi sejajar,,,,,,,,,,,,,
-68,13,drag_drop,practice,Pasangkan segitiga dengan cirinya.,,,,,,,,,,,,,,,sama sisi;sama kaki;sembarang,"3 sisi sama panjang,2 sisi sama panjang,semua sisi berbeda",
-68,14,mcq,practice,Bangun yang diagonalnya saling membagi sama panjang adalah...,,,,A,,,jajar genjang,trapesium,layang-layang,segitiga,,,,,,,
-68,15,essay,practice,Sebutkan dua persamaan ciri persegi dan belah ketupat.,,,,sama-sama segiempat dan semua sisi sama panjang,,,,,,,,,,,,,
-68,16,drag_drop,practice,Tentukan benar atau salah.,,,,,,,,,,,,,,,Persegi adalah belah ketupat;Trapesium memiliki tepat satu pasang sisi sejajar;Layang-layang memiliki dua pasang sisi berhadapan sejajar;Segitiga sama sisi memiliki tiga sudut lancip,"benar,benar,salah,benar",
-68,17,essay,practice,"Sebuah bangun memiliki 4 sisi, 4 sudut siku-siku, dan semua sisi sama panjang. Bangun apakah itu?",,,,persegi,,,,,,,,,,,,,
-68,18,essay,practice,Segitiga dengan tiga sudut lancip disebut...,,,,segitiga lancip,,,,,,,,,,,,,
-68,19,multipart,practice,Lengkapi pernyataan.,,,,,,,,,,,,,,,,,a|Segilima memiliki ... sisi|5;b|Segienam memiliki ... sudut|6
-68,20,essay,practice,Berikan satu contoh benda di sekitar yang berbentuk trapesium.,,,,contoh: atap rumah,,,,,,,,,,,,,
-68,21,mcq,practice,Bangun yang memiliki dua pasang sisi berhadapan sejajar dan sudut berhadapan sama besar adalah...,,,,B,,,trapesium,jajar genjang,layang-layang,persegi,,,,,,,
-68,22,essay,practice,Jelaskan mengapa persegi juga dapat disebut belah ketupat.,,,,karena semua sisi sama panjang dan diagonalnya saling tegak lurus,,,,,,,,,,,,,
-68,23,multipart,practice,Lengkapi jumlah sudut dan sisi.,,,,,,,,,,,,,,,,,a|Segitiga memiliki ... sudut|3;b|Segilima memiliki ... sisi|5
-68,24,mcq,practice,Bangun yang memiliki tepat sepasang sisi sejajar dan dua sisi lainnya sama panjang adalah...,,,,D,,,jajar genjang,layang-layang,belah ketupat,trapesium sama kaki,,,,,,,
-68,25,essay,practice,Sebutkan satu perbedaan antara persegi panjang dan jajar genjang.,,,,persegi panjang memiliki sudut siku-siku; jajar genjang tidak selalu,,,,,,,,,,,,,
-68,26,multipart,practice,Komposisi bangun datar pada gambar.,,,TODO_IMG_COMPOSE_A.png,,,,,,,,,,,,,,a|Bangun kecil yang menyusun|2 segitiga + 1 persegi;b|Bangun hasilnya|rumah (segiempat+segitiga)
-68,27,essay,practice,Sebuah persegi dipotong diagonal menjadi dua bagian sama. Bangun apa saja yang dihasilkan?,,,,dua segitiga sama kaki,,,,,,,,,,,,,
-68,28,drag_drop,practice,Pasangkan bangun dengan contoh kegunaannya.,,,,,,,,,,,,,,,segitiga;persegi;persegi panjang;trapesium,"rambu lalu lintas,ubin lantai,layar proyektor,atap rumah",
-68,29,essay,practice,Apakah semua segitiga sama kaki termasuk segitiga lancip? Jelaskan singkat.,,,,tidak; bisa saja segitiga siku-siku atau tumpul,,,,,,,,,,,,,
-68,30,mcq,practice,Bangun yang memiliki diagonal saling tegak lurus dan satu diagonal membagi dua diagonal lain adalah...,,,,C,,,jajar genjang,persegi panjang,layang-layang,trapesium,,,,,,,
-68,31,essay,practice,Sebutkan dua ciri trapesium yang membedakannya dari jajargenjang.,,,,trapesium hanya satu pasang sisi sejajar dan sudut berhadapan tidak sama besar,,,,,,,,,,,,,
-68,32,multipart,practice,Dekomposisi bangun pada gambar.,,,TODO_IMG_DECOMPOSE_B.png,,,,,,,,,,,,,,a|Bangun dapat diurai menjadi|2 segitiga + 1 persegi panjang;b|Jumlah potongan|3
-68,33,drag_drop,practice,Tentukan benar atau salah.,,,,,,,,,,,,,,,Persegi panjang adalah jajargenjang;Semua trapesium adalah jajargenjang;Belah ketupat punya semua sisi sama panjang;Segitiga tumpul punya satu sudut tumpul,"benar,salah,benar,benar",
-68,34,essay,practice,Sebuah segiempat memiliki semua sisi sama panjang tetapi tidak memiliki sudut siku-siku. Bangun apakah itu?,,,,belah ketupat,,,,,,,,,,,,,
-68,35,mcq,practice,Bangun yang selalu memiliki empat sudut siku-siku adalah...,,,,A,,,persegi panjang,jajar genjang,belah ketupat,layang-layang,,,,,,,
-68,36,essay,practice,Mengapa segitiga tidak mungkin memiliki dua sudut tumpul? Jelaskan singkat.,,,,"jumlah sudut segitiga 180°, dua sudut tumpul sudah melebihi 180°",,,,,,,,,,,,,
-68,37,drag_drop,practice,Pasangkan bangun dengan jumlah diagonalnya.,,,,,,,,,,,,,,,segitiga;segiempat;segilima;segienam,"0,2,5,9",
-68,38,mcq,practice,Segiempat yang memiliki tepat dua pasang sisi berdekatan sama panjang adalah...,,,,B,,,belah ketupat,layang-layang,persegi panjang,trapesium,,,,,,,
-68,39,essay,practice,Sebutkan satu hubungan antara persegi dan jajargenjang.,,,,persegi adalah jajargenjang khusus dengan semua sisi sama panjang dan sudut siku-siku,,,,,,,,,,,,,
-68,40,essay,practice,Buat satu contoh komposisi bangun datar yang menghasilkan persegi panjang. Jelaskan singkat.,,,,misal dua segitiga siku-siku disusun menjadi persegi panjang,,,,,,,,,,,,,
+"material_id","question_number","question_type","question_mode","prompt","question_text","helper_text","question_image_url","correct_answer","correct_image_url","explanation","option_a","option_b","option_c","option_d","option_a_image_url","option_b_image_url","option_c_image_url","option_d_image_url","drag_items","drop_targets","multipart_items"
+"68","1","pilihan_ganda","practice","Bangun yang termasuk segi banyak adalah ...","","","","C","","","lingkaran","setengah lingkaran","segitiga","kurva terbuka","","","","","","",""
+"68","2","essay","practice","Jelaskan definisi segi banyak dengan kalimat sederhana.","","","","kurva tertutup yang dibatasi minimal tiga ruas garis lurus","","","","","","","","","","","","",""
+"68","3","multipart","practice","Lengkapi banyak sisi dan sudut.","","","","","","","","","","","","","","","","","a|Segitiga: sisi|3;b|Segiempat: sudut|4;c|Segilima: sisi|5"
+"68","4","pilihan_ganda","practice","Segi banyak beraturan memiliki ...","","","","B","","","sisi sama, sudut beda","semua sisi sama dan semua sudut sama","sudut sama, sisi beda","minimal satu sudut siku-siku","","","","","","",""
+"68","5","essay","practice","Berikan dua contoh segi banyak tak beraturan.","","","","contoh: segilima tak beraturan dan segiempat sembarang","","","","","","","","","","","","",""
+"68","6","multipart","practice","Gunakan gambar segitiga pada ilustrasi.","","","/images/kelas4-bangun-datar/k4bd-q6-triangle-set.png","","","","","","","","","","","","","","a|Segitiga A berdasarkan sisi|sama kaki;b|Segitiga B berdasarkan sudut|siku-siku;c|Segitiga C berdasarkan sudut|tumpul"
+"68","7","pilihan_ganda","practice","Segitiga yang semua sisinya sama panjang disebut ...","","","","A","","","segitiga sama sisi","segitiga sama kaki","segitiga tumpul","segitiga sembarang","","","","","","",""
+"68","8","essay","practice","Apa perbedaan utama segitiga sama kaki dan segitiga sembarang?","","","","sama kaki punya 2 sisi sama panjang, sembarang tidak ada sisi yang sama","","","","","","","","","","","","",""
+"68","9","pilihan_ganda","practice","Segitiga yang memiliki tepat satu sudut siku-siku adalah ...","","","","D","","","segitiga lancip","segitiga tumpul","segitiga sama sisi","segitiga siku-siku","","","","","","",""
+"68","10","multipart","practice","Klasifikasikan segitiga berikut.","","","","","","","","","","","","","","","","","a|3 sudut lancip|segitiga lancip;b|1 sudut tumpul|segitiga tumpul;c|1 sudut siku-siku|segitiga siku-siku"
+"68","11","essay","practice","Apakah mungkin segitiga siku-siku sekaligus sama kaki? Jelaskan singkat.","","","","mungkin, jika dua sisi kaki sama panjang","","","","","","","","","","","","",""
+"68","12","pilihan_ganda","practice","Pada gambar segiempat, bangun yang memiliki tepat satu pasang sisi sejajar adalah ...","","","/images/kelas4-bangun-datar/k4bd-q12-quad-set.png","B","","","A","B","C","semua sama","","","","","","",""
+"68","13","essay","practice","Sebutkan dua ciri jajargenjang.","","","","memiliki 2 pasang sisi berhadapan sejajar dan sisi berhadapan sama panjang","","","","","","","","","","","","",""
+"68","14","pilihan_ganda","practice","Bangun yang memiliki 4 sisi sama panjang dan 4 sudut siku-siku adalah ...","","","","C","","","belah ketupat","persegi panjang","persegi","layang-layang","","","","","","",""
+"68","15","multipart","practice","Isi pernyataan benar/salah.","","","","","","","","","","","","","","","","","a|Persegi selalu persegi panjang|benar;b|Trapesium memiliki tepat satu pasang sisi sejajar|benar;c|Segiempat sembarang punya semua sisi sama panjang|salah"
+"68","16","essay","practice","Mengapa trapesium tidak dapat disebut jajargenjang dalam definisi buku ini?","","","","karena trapesium hanya satu pasang sisi sejajar, jajargenjang dua pasang","","","","","","","","","","","","",""
+"68","17","pilihan_ganda","practice","Bangun yang punya dua pasang sisi berdekatan sama panjang adalah ...","","","","A","","","layang-layang","trapesium","persegi panjang","segiempat sembarang","","","","","","",""
+"68","18","essay","practice","Sebutkan ciri belah ketupat yang tidak dimiliki layang-layang.","","","","semua sisi sama panjang dan dua pasang sisi berhadapan sejajar","","","","","","","","","","","","",""
+"68","19","pilihan_ganda","practice","Pernyataan yang tepat tentang persegi dan belah ketupat adalah ...","","","","D","","","keduanya selalu tidak punya sudut siku-siku","keduanya hanya punya satu pasang sisi sejajar","belah ketupat pasti persegi","keduanya memiliki 4 sisi sama panjang","","","","","","",""
+"68","20","multipart","practice","Gunakan tabel relasi segiempat pada gambar.","","","/images/kelas4-bangun-datar/k4bd-q20-relasi-segiempat.png","","","","","","","","","","","","","","a|Bangun dengan 4 sisi sama dan 4 sudut siku-siku|Persegi;b|Bangun dengan 2 pasang sisi sejajar tanpa syarat siku-siku|Belah Ketupat;c|Bangun dengan tepat satu pasang sisi sejajar|Trapesium"
+"68","21","essay","practice","Tuliskan persamaan ciri persegi panjang dan jajargenjang.","","","","keduanya punya 2 pasang sisi berhadapan sejajar","","","","","","","","","","","","",""
+"68","22","pilihan_ganda","practice","Segiempat sembarang memiliki ciri utama ...","","","","B","","","dua pasang sisi sejajar","tidak ada sisi yang harus sama panjang","empat sudut siku-siku","empat sisi sama panjang","","","","","","",""
+"68","23","essay","practice","Berikan contoh alasan mengapa jajargenjang tidak selalu layang-layang.","","","","jajargenjang mensyaratkan sisi berhadapan sejajar, layang-layang fokus pada sisi berdekatan sama panjang","","","","","","","","","","","","",""
+"68","24","multipart","practice","Ciri segitiga berdasarkan sisi.","","","","","","","","","","","","","","","","","a|Sama kaki: jumlah sisi sama panjang|2;b|Sama sisi: jumlah sisi sama panjang|3;c|Sembarang: sisi sama panjang|tidak ada"
+"68","25","pilihan_ganda","practice","Jika sebuah segitiga memiliki satu sudut tumpul, maka jenisnya ...","","","","C","","","lancip","siku-siku","tumpul","sama sisi","","","","","","",""
+"68","26","essay","practice","Tuliskan dua perbedaan persegi dan persegi panjang.","","","","persegi semua sisi sama, persegi panjang hanya sisi berhadapan sama; persegi adalah kasus khusus","","","","","","","","","","","","",""
+"68","27","pilihan_ganda","practice","Komposisi bangun datar berarti ...","","","","A","","","menggabungkan beberapa bangun menjadi bangun baru","mengukur panjang sisi","menghapus salah satu sisi","membandingkan sudut","","","","","","",""
+"68","28","multipart","practice","Berdasarkan tabel tangram pada gambar.","","","/images/kelas4-bangun-datar/k4bd-q28-komposisi.png","","","","","","","","","","","","","","a|Jumlah potongan segitiga|5;b|Jumlah potongan persegi|1;c|Jumlah potongan jajargenjang|1"
+"68","29","essay","practice","Sebutkan satu contoh bentuk baru yang bisa dibuat dari tangram.","","","","contoh: burung, rumah, atau pohon","","","","","","","","","","","","",""
+"68","30","pilihan_ganda","practice","Dekomposisi bangun datar berarti ...","","","","D","","","mewarnai bangun","menggeser bangun","memperbesar bangun","mengurai satu bangun menjadi beberapa bangun penyusun","","","","","","",""
+"68","31","essay","practice","Mengapa dekomposisi membantu memahami sifat bangun?","","","","karena kita bisa melihat bagian penyusun dan ciri tiap bagian","","","","","","","","","","","","",""
+"68","32","multipart","practice","Tentukan bangun yang mungkin menyusun sebuah motif paving.","","","","","","","","","","","","","","","","","a|Bangun bersisi 3|segitiga;b|Bangun bersisi 4 dengan satu pasang sisi sejajar|trapesium;c|Bangun bersisi 4 semua sisi sama|persegi atau belah ketupat"
+"68","33","pilihan_ganda","practice","Segienam beraturan dengan sisi 50 m memiliki keliling ...","","","","B","","","250 m","300 m","350 m","400 m","","","","","","",""
+"68","34","essay","practice","Buat 1 bangun segi banyak beraturan 5 sisi dan jelaskan ciri utamanya.","","","","segilima beraturan: semua sisi sama panjang dan semua sudut sama besar","","","","","","","","","","","","",""
+"68","35","multipart","practice","Gunakan tabel dekomposisi rumah pada gambar.","","","/images/kelas4-bangun-datar/k4bd-q35-dekomposisi-rumah.png","","","","","","","","","","","","","","a|Jumlah trapesium|2;b|Jumlah segitiga|3;c|Total semua komponen|7"
+"68","36","pilihan_ganda","practice","Bangun yang termasuk segi banyak tetapi bukan segiempat adalah ...","","","","C","","","persegi","layang-layang","segilima","trapesium","","","","","","",""
+"68","37","essay","practice","Tuliskan persamaan ciri semua segiempat.","","","","memiliki 4 sisi, 4 sudut, dan 4 titik sudut","","","","","","","","","","","","",""
+"68","38","multipart","practice","Uji konsep hubungan bangun.","","","","","","","","","","","","","","","","","a|Persegi merupakan persegi panjang|ya;b|Belah ketupat merupakan jajargenjang|ya;c|Trapesium memiliki dua pasang sisi sejajar|tidak"
+"68","39","pilihan_ganda","practice","Kalimat paling tepat adalah ...","","","","A","","","Persegi panjang adalah salah satu contoh jajargenjang","Semua trapesium adalah persegi panjang","Layang-layang tidak punya sisi berdekatan sama panjang","Segitiga selalu memiliki 4 titik sudut","","","","","","",""
+"68","40","essay","practice","Buat satu soal HOTS tentang komposisi atau dekomposisi bangun datar beserta jawabannya.","","","","jawaban bervariasi, harus konsisten dengan soal","","","","","","","","","","","","",""

@@ -26,8 +26,12 @@ export async function GET() {
       .select("role")
       .eq("id", user.id)
       .single();
+    const role =
+      profile?.role ||
+      (user.user_metadata?.role as string | undefined) ||
+      ((user as any)?.app_metadata?.role as string | undefined);
 
-    if (profileErr || !profile || profile.role !== "admin") {
+    if (profileErr || role !== "admin") {
       return NextResponse.json(
         { ok: false, error: "Forbidden" },
         { status: 403 }
@@ -86,8 +90,12 @@ export async function POST(req: Request) {
       .select("role")
       .eq("id", user.id)
       .single();
+    const role =
+      profile?.role ||
+      (user.user_metadata?.role as string | undefined) ||
+      ((user as any)?.app_metadata?.role as string | undefined);
 
-    if (profileErr || !profile || profile.role !== "admin") {
+    if (profileErr || role !== "admin") {
       return NextResponse.json(
         { ok: false, error: "Forbidden" },
         { status: 403 }

@@ -101,6 +101,7 @@ interface Props {
   planLabel: string;
   planPriceLabel: string;
   upgradeOptions: Array<{ label: string; priceLabel: string }>;
+  isAdmin?: boolean;
   isTryout?: boolean;
   timerSeconds?: number;
   isGuest?: boolean;
@@ -393,11 +394,13 @@ export default function MaterialQuiz({
   planLabel,
   planPriceLabel,
   upgradeOptions,
+  isAdmin = false,
   isTryout = false,
   timerSeconds,
   isGuest = false,
   onReady,
 }: Props) {
+  const allowAllAccess = isAdmin === true;
   const [currentNumber, setCurrentNumber] = useState(
     initialLastNumber > 0 ? initialLastNumber + 1 : 1,
   );
@@ -497,6 +500,15 @@ export default function MaterialQuiz({
   // Sync posisi soal dengan progress server
   // -------------------------------
   useEffect(() => {
+    if (allowAllAccess) {
+      if (orderedMeta.length > 0) {
+        const minNumber = Math.min(...orderedMeta.map((q) => q.question_number));
+        const maxNumber = Math.max(...orderedMeta.map((q) => q.question_number));
+        setCurrentNumber(minNumber);
+        setMaxUnlockedNumber(maxNumber);
+      }
+      return;
+    }
     if (isTryout) {
       const tryoutNumbers = orderedMeta.map((q) => q.question_number);
       const startNumber =
@@ -518,7 +530,7 @@ export default function MaterialQuiz({
     const nextNumber = Math.max(startNumber, storedNumber);
     setCurrentNumber(nextNumber);
     setMaxUnlockedNumber(nextNumber);
-  }, [initialLastNumber, isTryout, orderedMeta, progressKey]);
+  }, [allowAllAccess, initialLastNumber, isTryout, orderedMeta, progressKey]);
 
   useEffect(() => {
     if (isTryout) return;
@@ -584,6 +596,13 @@ export default function MaterialQuiz({
     let isMounted = true;
 
     async function loadAttempts() {
+      if (allowAllAccess) {
+        setAttemptHistory({});
+        setAttemptNumber(1);
+        setActiveAttemptView(null);
+        setLoadingAttempts(false);
+        return;
+      }
       if (isGuest) {
         setAttemptHistory({});
         setAttemptNumber(1);
@@ -677,7 +696,15 @@ export default function MaterialQuiz({
     return () => {
       isMounted = false;
     };
-  }, [materialId, totalQuestions, isPremium, questionMeta, isGuest, isTryout]);
+  }, [
+    allowAllAccess,
+    materialId,
+    totalQuestions,
+    isPremium,
+    questionMeta,
+    isGuest,
+    isTryout,
+  ]);
 
   // reset flag penyimpanan ketika ganti percobaan
   useEffect(() => {
@@ -858,6 +885,7 @@ export default function MaterialQuiz({
   // -------------------------------
 
   useEffect(() => {
+    if (allowAllAccess) return;
     if (isGuest) return;
     // kalau masih loading attempt dari server, jangan simpan apa-apa dulu
     if (loadingAttempts) return;
@@ -1419,7 +1447,9 @@ export default function MaterialQuiz({
     (value) => value === "correct",
   ).length;
   const isLockedPremium =
-    !isTryout && currentQuestion.question_number > questionLimit;
+    !allowAllAccess &&
+    !isTryout &&
+    currentQuestion.question_number > questionLimit;
   const progressPercent = Math.min(
     100,
     Math.round((displayNumber / Math.max(displayTotal, 1)) * 100),
@@ -1569,6 +1599,8 @@ export default function MaterialQuiz({
               <div className="rounded-full border border-slate-200 bg-white px-3 py-1 text-[11px]">
                 {isTryout ? (
                   <span className="text-emerald-700">Tryout</span>
+                ) : allowAllAccess ? (
+                  <span className="text-emerald-700">Admin</span>
                 ) : displayNumber <= questionLimit ? (
                   <span className="text-emerald-700">{planLabel}</span>
                 ) : (
@@ -1609,9 +1641,11 @@ export default function MaterialQuiz({
                   ? levelStart + idx
                   : qq.question_number;
                 const isCurrent = qq.id === currentQuestion.id;
-                const unlocked = isTryout
-                  ? displayIndex <= maxUnlockedNumber
-                  : qq.question_number <= maxUnlockedNumber;
+                const unlocked = allowAllAccess
+                  ? true
+                  : isTryout
+                    ? displayIndex <= maxUnlockedNumber
+                    : qq.question_number <= maxUnlockedNumber;
                 const status = questionResults[qq.question_number];
                 const answered = !!status;
 
@@ -1638,9 +1672,9 @@ export default function MaterialQuiz({
                   <button
                     key={qq.id}
                     type="button"
-                    disabled={!unlocked || answered}
+                    disabled={!unlocked || (!allowAllAccess && answered)}
                     onClick={() => {
-                      if (!unlocked || answered) return;
+                      if (!unlocked || (!allowAllAccess && answered)) return;
                       setCurrentNumber(qq.question_number);
                     }}
                     className={cls}

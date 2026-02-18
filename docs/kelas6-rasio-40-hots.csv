@@ -1,41 +1,41 @@
-material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
-49,1,essay,practice,"Rasio bibit A : bibit B = 3:2. Jika bibit A ada 45, berapa bibit B?",,,,30,,,,,,,,,,,,,
-49,2,mcq,practice,Rasio 12:18 disederhanakan menjadi...,,,,B,,,2:3,3:2,4:6,6:12,,,,,,,
-49,3,drag_drop,practice,Pasangkan rasio dengan bentuk sederhana.,,,,,,,,,,,,,,,8:12;15:20;24:30;18:27,"2:3,3:4,4:5,2:3",
-49,4,essay,practice,"Perbandingan siswa laki-laki dan perempuan 5:7. Jika total siswa 36, berapa siswa perempuan?",,,,21,,,,,,,,,,,,,
-49,5,essay,practice,"Rasio gula : air = 2:5. Jika air 2.5 liter, berapa liter gula?",,,,1,,,,,,,,,,,,,
-49,6,mcq,practice,Rasio satuan dari 600 m dalam 20 menit adalah...,,,,C,,,20 m/menit,25 m/menit,30 m/menit,40 m/menit,,,,,,,
-49,7,essay,practice,Paket A berisi 4 bibit seharga 50.000. Paket B berisi 3 bibit seharga 40.000. Paket mana lebih murah per bibit?,,,,paket A,,,,,,,,,,,,,
-49,8,drag_drop,practice,Pasangkan rasio dengan nilai yang sesuai jika total 60.,,,,,,,,,,,,,,,1:2;2:3;3:7;4:1,"20:40,24:36,18:42,48:12",
-49,9,multipart,practice,Rasio bagian terhadap keseluruhan.,,,,,,,,,,,,,,,,,"a|Rasio merah:biru:kuning = 2:3:5. Rasio merah terhadap total?|2/10;b|Jika total 100, banyak warna biru?|30"
-49,10,essay,practice,"Rasio apel:jeruk = 3:5. Jika jeruk 40, berapa apel?",,,,24,,,,,,,,,,,,,
-49,11,mcq,practice,Rasio bagian terhadap keseluruhan dari 3:7 adalah...,,,,A,,,3/10,7/10,3/7,7/3,,,,,,,
-49,12,essay,practice,Dua rasio setara: 4:6 = x:15. Tentukan x.,,,,10,,,,,,,,,,,,,
-49,13,drag_drop,practice,Pasangkan pernyataan dengan jenis perbandingan.,,,TODO_IMG_ADITIF_MUL.png,,,,,,,,,,,,selisih 5;sama 2 kali;selisih 3;sama 3 kali,"aditif,multiplikatif,aditif,multiplikatif",
-49,14,essay,practice,"Rasio kopi:gula = 1:4. Jika gula 12 sdt, berapa sdt kopi?",,,,3,,,,,,,,,,,,,
-49,15,multipart,practice,Tabel rasio.,,,TODO_IMG_TABEL_RASIO.png,,,,,,,,,,,,,,"a|Jika 3 bibit = 37.500, harga 1 bibit?|12.500;b|Jika 5 bibit = 58.000, harga 1 bibit?|11.600"
-49,16,essay,practice,"Rasio merah:biru = 2:3. Jika merah 28, biru?",,,,42,,,,,,,,,,,,,
-49,17,mcq,practice,Rasio 6:9 setara dengan...,,,,B,,,1:2,2:3,3:4,4:5,,,,,,,
-49,18,essay,practice,"Jika rasio A:B = 5:8 dan total 78, berapa A?",,,,30,,,,,,,,,,,,,
-49,19,drag_drop,practice,Pasangkan rasio dengan pecahan bagian terhadap keseluruhan.,,,,,,,,,,,,,,,1:4;2:3;3:5;4:1,"1/5,2/5,3/8,4/5",
-49,20,essay,practice,"Di toko herbal, rasio tanaman hias:obat = 3:2. Jika total 250 tanaman, berapa tanaman hias?",,,,150,,,,,,,,,,,,,
-49,21,mcq,practice,"Jika 2 kg pupuk untuk 5 bibit, pupuk untuk 11 bibit (rasio setara) adalah...",,,,C,,,4.4 kg,4.2 kg,4.4 kg,5.5 kg,,,,,,,
-49,22,essay,practice,"Rasio 7:9. Jika bagian pertama bertambah 14 dan bagian kedua bertambah 18, apakah rasio tetap?",,,,ya,,,,,,,,,,,,,
-49,23,drag_drop,practice,Pasangkan rasio dengan pasangan nilainya.,,,,,,,,,,,,,,,2:5;3:4;1:3;5:6,"8:20,9:12,4:12,25:30",
-49,24,essay,practice,Rasio bagian terhadap keseluruhan dari 5:7 adalah...,,,,5/12,,,,,,,,,,,,,
-49,25,mcq,practice,Perbandingan aditif dari 8 dan 13 adalah...,,,,A,,,selisih 5,selisih 21,rasio 8:13,rasio 13:8,,,,,,,
-49,26,essay,practice,"Resep A membutuhkan 2 cangkir tepung dan 5 cangkir air. Jika tepung 6 cangkir, air?",,,,49,,,,,,,,,,,,,
-49,27,multipart,practice,Rasio satuan.,,,,,,,,,,,,,,,,,a|120 km dalam 3 jam = ... km/jam|40;b|45 bibit per 3 rak = ... bibit per rak|15
-49,28,essay,practice,Dua rasio setara: 6:10 = 15:x. Tentukan x.,,,,25,,,,,,,,,,,,,
-49,29,drag_drop,practice,Pasangkan rasio dengan hasil jika total 80.,,,,,,,,,,,,,,,1:1;1:3;3:5;2:6,"40:40,20:60,30:50,20:60",
-49,30,essay,practice,"Rasio laki-laki:perempuan = 4:6. Jika laki-laki 28, total siswa?",,,,70,,,,,,,,,,,,,
-49,31,drag_drop,practice,Pasangkan rasio dengan operasi untuk mencari nilai per unit.,,,,,,,,,,,,,,,harga 50.000 untuk 4;jarak 240 km dalam 6 jam;40 bibit untuk 5 rak;20 liter untuk 8 botol,"÷,÷,÷,÷",
-49,32,mcq,practice,Rasio bagian terhadap keseluruhan dari 2:5 adalah...,,,,B,,,2/7,5/7,2/5,5/2,,,,,,,
-49,33,essay,practice,"Jika rasio A:B:C = 1:2:3 dan total 72, berapa B?",,,,24,,,,,,,,,,,,,
-49,34,multipart,practice,Bandingkan paket.,,,TODO_IMG_PAKET_BIBIT.png,,,,,,,,,,,,,,"a|Paket A 4 bibit 50.000, harga per bibit?|12.500;b|Paket B 3 bibit 40.000, harga per bibit?|13.333;c|Paket mana lebih murah per bibit?|A"
-49,35,essay,practice,"Rasio sirup:air = 1:6. Jika total minuman 2.1 liter, berapa liter sirup?",,,,0.3,,,,,,,,,,,,,
-49,36,mcq,practice,"Jika rasio 9:12, rasio setara adalah...",,,,A,,,3:4,4:3,2:3,6:10,,,,,,,
-49,37,essay,practice,"Dua kelas memiliki rasio siswa 5:7. Jika kelas pertama 25 siswa, kelas kedua?",,,,35,,,,,,,,,,,,,
-49,38,multipart,practice,Rasio bagian-keseluruhan.,,,,,,,,,,,,,,,,,"a|Rasio 3:2, bagian pertama terhadap total|3/5;b|Total 250, bagian kedua|100"
-49,39,mcq,practice,Rasio 0.4:0.6 disederhanakan menjadi...,,,,C,,,2:5,3:4,2:3,4:5,,,,,,,
-49,40,essay,practice,"Buat satu soal cerita tentang rasio bagian terhadap keseluruhan, lalu tulis jawabannya.",,,,contoh soal; jawaban sesuai,,,,,,,,,,,,,
+"material_id","question_number","question_type","question_mode","prompt","question_text","helper_text","question_image_url","correct_answer","correct_image_url","explanation","option_a","option_b","option_c","option_d","option_a_image_url","option_b_image_url","option_c_image_url","option_d_image_url","drag_items","drop_targets","multipart_items"
+"49","1","essay","practice","Rasio bibit pucuk merah : cemara = 2:3. Jika pucuk merah 18 batang, berapa cemara?","","","","27","","","","","","","","","","","","",""
+"49","2","pilihan_ganda","practice","Rasio 18:24 dalam bentuk paling sederhana adalah ...","","","","B","","","2:3","3:4","4:3","6:8","","","","","","",""
+"49","3","multiple","practice","Pilih semua rasio yang senilai dengan 4:6.","","","","A,B,D","","","2:3","8:12","12:16","20:30","","","","","","",""
+"49","4","essay","practice","Rasio laki-laki : perempuan = 5:7. Jika total siswa 48, berapa siswa perempuan?","","","","28","","","","","","","","","","","","",""
+"49","5","pilihan_ganda","practice","Untuk lahan 10 m² dibutuhkan 12 bibit. Jika lahan 25 m², jumlah bibit yang diperlukan adalah ...","","","","C","","","24","28","30","36","","","","","","",""
+"49","6","essay","practice","Jika 12 bibit memerlukan lahan 10 m², berapa m² lahan untuk 54 bibit?","","","","45","","","","","","","","","","","","",""
+"49","7","multiple","practice","Pilih semua pernyataan yang benar.","","","","A,C,D","","","Rasio a:b berbeda arti dengan b:a","Rasio 3:6 sudah paling sederhana","Kesamaan rasio diperoleh dengan mengalikan kedua suku oleh bilangan sama","Rasio satuan membantu memilih paket paling hemat","","","","","","",""
+"49","8","pilihan_ganda","practice","Paket A: 6 bibit Rp18.000. Paket B: 10 bibit Rp27.000. Yang lebih murah per bibit adalah ...","","","","A","","","Paket A","Paket B","Sama","Tidak bisa dibandingkan","","","","","","",""
+"49","9","essay","practice","Harga 15 pena Rp36.000. Berapa harga 7 pena?","","","","16800","","","","","","","","","","","","",""
+"49","10","pilihan_ganda","practice","Rasio satuan dari 1.200 kata per 1 jam adalah ...","","","","D","","","12 kata/menit","18 kata/menit","22 kata/menit","20 kata/menit","","","","","","",""
+"49","11","essay","practice","Penulis mengetik 1.200 kata/jam. Berapa kata dalam 2,5 jam?","","","","3000","","","","","","","","","","","","",""
+"49","12","multiple","practice","Pilih semua rasio yang menyatakan hubungan sama dengan 3:5.","","","","A,C","","","9:15","15:9","18:30","21:30","","","","","","",""
+"49","13","pilihan_ganda","practice","Rasio 0,8:1,2 disederhanakan menjadi ...","","","","C","","","8:12","4:7","2:3","3:2","","","","","","",""
+"49","14","essay","practice","Rasio jahe merah : lengkuas = 3 bulan : 1,5 tahun. Tulis rasio dalam bulan bentuk sederhana.","","","","1:6","","","","","","","","","","","","",""
+"49","15","pilihan_ganda","practice","Kemangi 30 hari dan kumis kucing 12 minggu. Rasio kemangi : kumis kucing (dalam hari) adalah ...","","","","A","","","5:14","14:5","1:4","4:1","","","","","","",""
+"49","16","essay","practice","Dalam satu kali masa panen buah merah (3 tahun), kencur panen tiap 6 bulan. Berapa kali kencur bisa dipanen?","","","","6","","","","","","","","","","","","",""
+"49","17","multiple","practice","Pilih semua pernyataan yang merupakan perbandingan aditif.","","","","A,D","","","8 dan 13 berselisih 5","8 adalah 13/8 kali dari 13","20 adalah 4 kali dari 5","45 dan 30 berselisih 15","","","","","","",""
+"49","18","pilihan_ganda","practice","Rasio novel : komik = 11:4. Jika total 120 buku, banyak komik adalah ...","","","","B","","","24","32","36","40","","","","","","",""
+"49","19","essay","practice","Jika rasio A:B:C = 2:3:5 dan total 200, tentukan nilai B.","","","","60","","","","","","","","","","","","",""
+"49","20","pilihan_ganda","practice","Rasio bagian pertama terhadap total dari 7:9 adalah ...","","","","D","","","7/9","9/16","9/7","7/16","","","","","","",""
+"49","21","essay","practice","Rasio kopi:gula resep I = 1:2. Dona membuat 4 sdt kopi dan 10 sdt gula. Apakah lebih manis, lebih pahit, atau pas dibanding resep I?","","","","lebih manis","","","","","","","","","","","","",""
+"49","22","multiple","practice","Pilih semua rasio yang setara dengan 5:8.","","","","A,B","","","10:16","15:24","20:30","25:32","","","","","","",""
+"49","23","pilihan_ganda","practice","Diketahui 6:10 = 15:x, maka x = ...","","","","C","","","20","22","25","30","","","","","","",""
+"49","24","essay","practice","Rasio A:B = 3:7. Jika selisih B dan A adalah 48, tentukan A.","","","","36","","","","","","","","","","","","",""
+"49","25","pilihan_ganda","practice","Paket C: 8 bibit Rp32.000, Paket D: 10 bibit Rp41.000. Paket lebih hemat per bibit adalah ...","","","","A","","","Paket C","Paket D","Sama","Tidak bisa ditentukan","","","","","","",""
+"49","26","essay","practice","Jika 2 kg pupuk cukup untuk 5 bibit, berapa kg pupuk untuk 17 bibit?","","","","6,8","","","","","","","","","","","","",""
+"49","27","multiple","practice","Pilih semua pernyataan yang benar tentang rasio satuan.","","","","A,C,D","","","Rasio satuan berarti nilai per 1 unit","Rasio satuan hanya dipakai untuk harga","Kecepatan km/jam adalah contoh rasio satuan","Bibit per m² adalah contoh rasio satuan","","","","","","",""
+"49","28","pilihan_ganda","practice","Rasio 12:28 memiliki rasio senilai berikut, kecuali ...","","","","C","","","3:7","24:56","6:11","36:84","","","","","","",""
+"49","29","essay","practice","Rasio bibit A:B = 4:9. Jika A bertambah 12 dan B bertambah 27, apakah rasio tetap? (jawab ya/tidak)","","","","ya","","","","","","","","","","","","",""
+"49","30","pilihan_ganda","practice","Jika rasio 3:5 dan jumlah kedua bilangan 64, bilangan yang kecil adalah ...","","","","A","","","24","40","32","16","","","","","","",""
+"49","31","essay","practice","Rasio jarak:waktu = 240 km : 6 jam. Berapa km yang ditempuh dalam 2,5 jam dengan kecepatan sama?","","","","100","","","","","","","","","","","","",""
+"49","32","multiple","practice","Pilih semua pasangan rasio yang ekuivalen.","","","","A,C","","","2:6 dan 1:3","3:8 dan 6:15","9:12 dan 3:4","7:10 dan 21:40","","","","","","",""
+"49","33","pilihan_ganda","practice","Rasio panen jahe merah : kencur = 3 bulan : 6 bulan. Bentuk sederhana adalah ...","","","","B","","","3:6","1:2","2:1","6:3","","","","","","",""
+"49","34","essay","practice","Rasio R:S = 7:11. Jika R = 63, tentukan S.","","","","99","","","","","","","","","","","","",""
+"49","35","pilihan_ganda","practice","Dalam campuran, rasio dijaga sama terutama untuk ...","","","","D","","","membuat angka lebih kecil","menghindari pembagian","mempercepat hitung","menjaga kualitas hasil","","","","","","",""
+"49","36","essay","practice","Rasio buku fiksi:nonfiksi = 5:3. Jika total buku 96, berapa buku fiksi?","","","","60","","","","","","","","","","","","",""
+"49","37","multiple","practice","Pilih semua rasio bagian pertama terhadap total yang benar.","","","","A,B,D","","","2:3 -> 2/5","4:1 -> 4/5","3:7 -> 3/7","5:4 -> 5/9","","","","","","",""
+"49","38","pilihan_ganda","practice","Jika 45 bibit disusun merata pada 9 rak, rasio satuan bibit per rak adalah ...","","","","A","","","5 bibit/rak","4 bibit/rak","6 bibit/rak","9 bibit/rak","","","","","","",""
+"49","39","essay","practice","Rasio M:N = 9:12. Jika N = 84, tentukan M.","","","","63","","","","","","","","","","","","",""
+"49","40","pilihan_ganda","practice","Rasio yang tidak setara dengan 2:5 adalah ...","","","","D","","","4:10","10:25","14:35","12:25","","","","","","",""

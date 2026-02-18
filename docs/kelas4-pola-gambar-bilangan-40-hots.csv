@@ -1,41 +1,41 @@
-material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
-66,1,essay,practice,"Tentukan angka berikutnya pada pola bilangan: 7, 19, 31, 43, ...",,,,55,,,,,,,,,,,,,
-66,2,essay,practice,"Pola bilangan: 96, 85, 74, 63, ... Tentukan angka berikutnya.",,,,52,,,,,,,,,,,,,
-66,3,mcq,practice,"Pola 5, 9, 13, 17, 21, ... Berikutnya adalah...",,,,A,,,25,24,26,23,,,,,,,
-66,4,drag_drop,practice,Pasangkan aturan dengan pola bilangan yang sesuai.,,,,,,,,,,,,,,,tambah 4;kurang 6;tambah 3;kurang 5,"2-6-10-14,40-34-28-22,7-10-13-16,36-31-26-21",
-66,5,multipart,practice,"Pola: 13, 22, 31, 40, ...",,,,,,,,,,,,,,,,,,a|Angka ke-5|49;b|Angka ke-6|58
-66,6,essay,practice,"Deret jumlah buku di rak: 5, 9, 13, 17, 21. Berapa buku di rak ke-6?",,,,25,,,,,,,,,,,,,
-66,7,mcq,practice,Manakah yang merupakan pola mengecil?,,,,B,,,"6, 9, 12, 15","30, 27, 24, 21","4, 8, 12, 16","5, 10, 15, 20",,,,,,,
-66,8,drag_drop,practice,Tentukan pola membesar atau mengecil untuk setiap barisan.,,,,,,,,,,,,,,,3-6-9-12;25-20-15-10;7-9-11-13;18-15-12-9,"membesar,mengecil,membesar,mengecil",
-66,9,essay,practice,"Sebutkan aturan pola bilangan 3, 7, 11, 15, ...",,,,tambah 4,,,,,,,,,,,,,
-66,10,multipart,practice,Lihat pola kotak pada gambar.,,,TODO_IMG_PATTERN_SQUARES.png,,,,,,,,,,,,,,,a|Banyak kotak pada pola ke-4|16;b|Banyak kotak pada pola ke-5|25
-66,11,mcq,practice,"Pola 20, 23, 26, 29, ... Berikutnya adalah...",,,,A,,,32,31,33,34,,,,,,,
-66,12,essay,practice,"Lengkapi barisan: 50, 47, 44, __, 38.",,,,41,,,,,,,,,,,,,
-66,13,drag_drop,practice,Pasangkan barisan dengan aturan yang tepat.,,,,,,,,,,,,,,,5-10-15-20;30-25-20-15;4-7-10-13;18-16-14-12,"tambah 5,kurang 5,tambah 3,kurang 2",
-66,14,essay,practice,Baris kursi mulai 20 dan bertambah 3 tiap baris. Berapa kursi di baris ke-7?,,,,38,,,,,,,,,,,,,
-66,15,mcq,practice,"Pola mengecil berkurang 2 benda tiap langkah. Jika pola pertama 15 benda, banyak benda di pola ke-4 adalah...",,,,D,,,11,7,13,9,,,,,,,
-66,16,multipart,practice,Produksi TV turun 6 tiap bulan mulai 70 di Januari. Berapa bulan Juni dan Agustus?,,,,,,,,,,,,,,,,,,a|Jumlah di bulan Juni|40;b|Jumlah di bulan Agustus|28
-66,17,essay,practice,"Pola 6, 12, 18, 24, ... Berapa angka ke-6?",,,,36,,,,,,,,,,,,,
-66,18,drag_drop,practice,Pasangkan barisan dengan angka berikutnya.,,,,,,,,,,,,,,,10-14-18-22;9-7-5-3;2-5-8-11;50-45-40-35,"26,1,14,30",
-66,19,essay,practice,"Sebutkan aturan pola 1, 4, 9, 16, 25, ...",,,,bilangan kuadrat,,,,,,,,,,,,,
-66,20,mcq,practice,"Pola 1, 2, 4, 7, 11, 16, ... Berikutnya adalah...",,,,A,,,22,20,21,23,,,,,,,
-66,21,multipart,practice,Lihat pola segitiga pada gambar.,,,TODO_IMG_PATTERN_TRIANGLES.png,,,,,,,,,,,,,,,a|Banyak segitiga berikutnya|9;b|Aturan pola|tambah 2
-66,22,essay,practice,Pola mengecil dimulai dari 30 dan berkurang 4 setiap langkah. Berapa pada langkah ke-5?,,,,14,,,,,,,,,,,,,
-66,23,drag_drop,practice,Tentukan pola membesar atau mengecil untuk setiap barisan.,,,,,,,,,,,,,,,5-8-11-14;20-18-16-14;7-12-17-22;60-54-48-42,"membesar,mengecil,membesar,mengecil",
-66,24,essay,practice,"Lengkapi barisan: 2, 5, 9, 14, 20, __.",,,,27,,,,,,,,,,,,,
-66,25,mcq,practice,"Pola 12, 27, 42, 57, 72, ... Berikutnya adalah...",,,,A,,,87,82,90,84,,,,,,,
-66,26,multipart,practice,"Deret buku di rak: 5, 9, 13, 17, 21.",,,,,,,,,,,,,,,,,,a|Jumlah buku di rak ke-5|21;b|Jumlah buku dari rak 1-5|65
-66,27,essay,practice,"Pola 10, 14, 18, 22, ... Berapa angka ke-7?",,,,34,,,,,,,,,,,,,
-66,28,drag_drop,practice,Pasangkan istilah dengan contohnya.,,,,,,,,,,,,,,,pola gambar membesar;pola gambar mengecil;pola bilangan membesar;pola bilangan mengecil,"gambar bertambah 1 tiap langkah,gambar berkurang 1 tiap langkah,angka bertambah 4 tiap langkah,angka berkurang 3 tiap langkah",
-66,29,essay,practice,"Lengkapi barisan: 36, 31, 26, 21, 16, __.",,,,11,,,,,,,,,,,,,
-66,30,multipart,practice,Lihat pola titik pada gambar.,,,TODO_IMG_PATTERN_GRID_A.png,,,,,,,,,,,,,,,a|Banyak titik pada pola ke-4|8;b|Selisih tiap langkah|2
-66,31,essay,practice,"Jelaskan aturan pola bilangan 9, 18, 27, 36, 45.",,,,tambah 9,,,,,,,,,,,,,
-66,32,essay,practice,"Lanjutkan dua angka berikut: 4, 7, 11, 16, ...",,,,"22, 29",,,,,,,,,,,,,
-66,33,essay,practice,"Seorang petani mencatat panen kelapa: 36, 31, 26, 21, ... Berapa banyak kelapa pada hari ke-7?",,,,6,,,,,,,,,,,,,
-66,34,essay,practice,"Lengkapi pola 2, 6, 12, 20, ...",,,,30,,,,,,,,,,,,,
-66,35,mcq,practice,"Pola 100, 95, 90, 85, ... Berikutnya adalah...",,,,A,,,80,75,78,82,,,,,,,
-66,36,essay,practice,"Pola A: 3, 6, 9, ... dan Pola B: 40, 34, 28, ... Tentukan angka berikutnya untuk masing-masing.",,,,12 dan 22,,,,,,,,,,,,,,a|Angka berikutnya pada Pola A|12;b|Angka berikutnya pada Pola B|22
-66,37,essay,practice,Baris kursi mulai 10 dan bertambah 4 tiap baris. Berapa kursi di baris ke-8?,,,,38,,,,,,,,,,,,,
-66,38,drag_drop,practice,Pasangkan barisan dengan angka berikutnya.,,,,,,,,,,,,,,,1-3-6-10-15;2-4-8-16;30-27-24-21;5-10-20-40,"21,32,18,80",
-66,39,essay,practice,"Apakah pola 5, 8, 11, 14 dan 9, 12, 15, 18 sama? Jelaskan singkat.",,,,"ya, keduanya bertambah 3",,,,,,,,,,,,,
-66,40,essay,practice,"Pola gambar membesar bertambah 3 tiap langkah. Jika pola pertama 4 gambar, berapa gambar pada pola ke-5?",,,,16,,,,,,,,,,,,,
+"material_id","question_number","question_type","question_mode","prompt","question_text","helper_text","question_image_url","correct_answer","correct_image_url","explanation","option_a","option_b","option_c","option_d","option_a_image_url","option_b_image_url","option_c_image_url","option_d_image_url","drag_items","drop_targets","multipart_items"
+"66","1","pilihan_ganda","practice","Bilangan berikutnya dari pola 7, 19, 31, 43, ... adalah ...","","","","D","","","49","51","53","55","","","","","","",""
+"66","2","essay","practice","Lanjutkan pola 96, 85, 74, 63, ... sampai dua suku berikutnya.","","","","52, 41","","","","","","","","","","","","",""
+"66","3","multipart","practice","Lengkapi pola bilangan membesar.","","","","","","","","","","","","","","","","","a|5, 9, 13, 17, ...|21;b|12, 27, 42, ...|57;c|1, 4, 7, 10, ...|13"
+"66","4","pilihan_ganda","practice","Berdasarkan gambar pola kotak, banyak kotak pola ke-4 adalah ...","","","/images/kelas4-pola-gambar-bilangan/k4pb-q4-pola-kotak.png","A","","","16","12","15","20","","","","","","",""
+"66","5","essay","practice","Tentukan aturan pola dari 13, 22, 31, 40, ... lalu tentukan suku ke-6.","","","","aturan +9, suku ke-6 = 58","","","","","","","","","","","","",""
+"66","6","pilihan_ganda","practice","Barisan yang merupakan pola mengecil adalah ...","","","","B","","","6, 9, 12, 15","30, 27, 24, 21","4, 8, 12, 16","5, 10, 15, 20","","","","","","",""
+"66","7","essay","practice","Ali menata buku: 5, 9, 13, ... Berapa buku pada rak ke-5?","","","","21","","","","","","","","","","","","",""
+"66","8","multipart","practice","Tentukan jenis pola berikut.","","","","","","","","","","","","","","","","","a|3, 6, 9, 12|membesar;b|25, 20, 15, 10|mengecil;c|18, 15, 12, 9|mengecil"
+"66","9","pilihan_ganda","practice","Jika pola bertambah 3 dan suku pertama 20, suku ke-5 adalah ...","","","","C","","","29","30","32","35","","","","","","",""
+"66","10","essay","practice","Selesaikan: 91, 77, 63, ... , ...","","","","49, 35","","","","","","","","","","","","",""
+"66","11","pilihan_ganda","practice","Pola 20, 23, 26, 29, ... memiliki beda ...","","","","A","","","+3","+2","-3","-2","","","","","","",""
+"66","12","multipart","practice","Gunakan garis bilangan pada gambar.","","","/images/kelas4-pola-gambar-bilangan/k4pb-q12-garis-bilangan.png","","","","","","","","","","","","","","a|Beda tetap antar bilangan|4;b|Suku ke-6|25;c|Jenis pola|membesar"
+"66","13","essay","practice","Pola 34, 27, 20, 13, ... Berapa suku ke-6?","","","","-1","","","","","","","","","","","","",""
+"66","14","pilihan_ganda","practice","Pola mengecil berkurang 2 tiap langkah. Jika suku pertama 15, suku ke-4 adalah ...","","","","D","","","11","7","13","9","","","","","","",""
+"66","15","essay","practice","Buat satu pola bilangan mengecil dengan beda -6 yang terdiri dari 5 suku.","","","","contoh: 50, 44, 38, 32, 26","","","","","","","","","","","","",""
+"66","16","multipart","practice","Lengkapi pola campuran berikut.","","","","","","","","","","","","","","","","","a|22, 40, 34, 28, ...|22;b|6, 12, 24, ...|48;c|3, 7, 11, 15, ...|19"
+"66","17","pilihan_ganda","practice","Jika pola 2, 4, 6, 8, ... mewakili banyak jeruk tiap kumpulan, kumpulan ke-7 berisi ...","","","","C","","","12","13","14","16","","","","","","",""
+"66","18","essay","practice","Jelaskan mengapa pola 23, 18, 13, 8, ... disebut pola mengecil.","","","","karena setiap suku berkurang 5 sehingga nilainya makin kecil","","","","","","","","","","","","",""
+"66","19","pilihan_ganda","practice","Pola bilangan adalah ...","","","","B","","","susunan bilangan acak","susunan bilangan dengan aturan tertentu","bilangan genap saja","bilangan ganjil saja","","","","","","",""
+"66","20","multipart","practice","Gunakan data panen kelapa pada gambar.","","","/images/kelas4-pola-gambar-bilangan/k4pb-q20-panenkelapa.png","","","","","","","","","","","","","","a|Beda tetap tiap hari|-5;b|Hari ke-7|6;c|Jenis pola|mengecil"
+"66","21","essay","practice","Dalam pola 3, 5, 7, 9, 11, tentukan suku ke-8.","","","","17","","","","","","","","","","","","",""
+"66","22","pilihan_ganda","practice","Dari pola 1, 4, 7, 10, 13, ... suku ke-10 adalah ...","","","","A","","","28","27","30","31","","","","","","",""
+"66","23","essay","practice","Sebuah pola mengecil dimulai dari 70 dan berkurang 6 tiap suku. Tentukan 6 suku pertama.","","","","70, 64, 58, 52, 46, 40","","","","","","","","","","","","",""
+"66","24","pilihan_ganda","practice","Pola 12, 27, 42, ... memiliki beda ...","","","","C","","","+12","+13","+15","+17","","","","","","",""
+"66","25","multipart","practice","Tentukan suku yang hilang.","","","","","","","","","","","","","","","","","a|7, 19, 31, __, 55|43;b|96, 85, __, 63|74;c|13, 22, __, 40|31"
+"66","26","essay","practice","Buat pola gambar membesar dengan aturan tambah 4 benda setiap langkah, mulai dari 3 benda (5 langkah).","","","","3, 7, 11, 15, 19","","","","","","","","","","","","",""
+"66","27","pilihan_ganda","practice","Jika suatu pola: 50, 47, 44, 41, ... maka suku ke-8 adalah ...","","","","D","","","28","30","31","29","","","","","","",""
+"66","28","essay","practice","Perbaiki jawaban siswa: pola 6, 12, 24, ... lalu siswa menulis berikutnya 30. Jawaban benar dan alasannya?","","","","48, karena tiap suku dikali 2","","","","","","","","","","","","",""
+"66","29","multipart","practice","Selesaikan soal cerita pola kursi: baris 1 ada 20 kursi, bertambah 3 tiap baris.","","","","","","","","","","","","","","","","","a|Baris ke-5|32;b|Baris ke-7|38;c|Baris ke-10|47"
+"66","30","multipart","practice","Gunakan tabel pada gambar kursi bioskop.","","","/images/kelas4-pola-gambar-bilangan/k4pb-q30-kursi-bioskop.png","","","","","","","","","","","","","","a|Beda tetap|4;b|Baris ke-5|26;c|Baris ke-10|46"
+"66","31","pilihan_ganda","practice","Pola yang benar untuk 5 suku pertama dengan aturan +8 mulai dari 20 adalah ...","","","","B","","","20, 26, 34, 42, 50","20, 28, 36, 44, 52","20, 27, 35, 43, 51","20, 30, 40, 50, 60","","","","","","",""
+"66","32","essay","practice","Tentukan 3 suku berikutnya dari 91, 77, 63.","","","","49, 35, 21","","","","","","","","","","","","",""
+"66","33","pilihan_ganda","practice","Jika pola menurun dengan beda -11 dimulai dari 96, maka suku ke-4 adalah ...","","","","A","","","63","65","66","62","","","","","","",""
+"66","34","multipart","practice","Uji kompetensi mini pola bilangan.","","","","","","","","","","","","","","","","","a|5, 9, 13, 17, ...|21;b|34, 27, 20, 13, ...|6;c|22, 40, 34, 16, ... (aturannya tidak konsisten?)|tidak konsisten"
+"66","35","essay","practice","Buat satu soal cerita pola bilangan membesar (beda tetap), lalu jawab sendiri.","","","","jawaban bervariasi, konsisten dengan pola","","","","","","","","","","","","",""
+"66","36","multipart","practice","Gunakan tabel produksi TV pada gambar.","","","/images/kelas4-pola-gambar-bilangan/k4pb-q36-produksi-tv.png","","","","","","","","","","","","","","a|Beda tetap tiap bulan|-6;b|Produksi bulan Juni|40;c|Produksi bulan Agustus|28"
+"66","37","pilihan_ganda","practice","Yang termasuk pola membesar adalah ...","","","","C","","","32, 28, 24, 20","23, 18, 13, 8","3, 5, 7, 9","90, 80, 70, 60","","","","","","",""
+"66","38","essay","practice","Jelaskan langkah umum menyelesaikan soal pola bilangan.","","","","tulis data, cari beda tetap, tentukan aturan, lanjutkan suku sesuai aturan","","","","","","","","","","","","",""
+"66","39","multipart","practice","Lengkapi pernyataan refleksi konsep.","","","","","","","","","","","","","","","","","a|Jika beda positif maka pola|membesar;b|Jika beda negatif maka pola|mengecil;c|Pola 1,4,7,10 beda tetap|3"
+"66","40","pilihan_ganda","practice","Kesimpulan paling tepat tentang pola gambar dan pola bilangan adalah ...","","","","B","","","selalu naik","mengikuti aturan tetap bisa naik atau turun","hanya berlaku pada gambar","hanya berlaku pada angka genap","","","","","","",""

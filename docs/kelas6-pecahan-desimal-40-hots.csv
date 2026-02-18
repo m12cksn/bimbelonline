@@ -1,41 +1,41 @@
-material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
-48,1,essay,practice,"Sebuah resep membutuhkan 3/4 gelas gula untuk 1 loyang. Jika membuat 4 loyang, berapa gelas gula yang dibutuhkan?",,,,3,,,,,,,,,,,,,
-48,2,essay,practice,Sebuah pita 2 meter dipotong menjadi bagian-bagian 1/4 meter. Ada berapa potong?,,,,8,,,,,,,,,,,,,
-48,3,mcq,practice,Nilai 5 x 2/3 adalah...,,,,B,,,10/3,3 1/3,7/3,2/15,,,,,,,
-48,4,mcq,practice,Nilai 3 : 3/4 adalah...,,,,C,,,4,3 3/4,4,2 1/4,,,,,,,
-48,5,drag_drop,practice,Pasangkan pecahan dengan desimal yang setara.,,,TODO_IMG_FRAC_DEC_01.png,,,,,,,,,,,,1/2;3/4;1/5;2/5,"0.5,0.75,0.2,0.4",
-48,6,essay,practice,Mana yang lebih besar: 0.6 atau 0.58? Jelaskan singkat.,,,,0.6 lebih besar,,,,,,,,,,,,,
-48,7,essay,practice,Ubah 7/10 menjadi desimal.,,,,0.7,,,,,,,,,,,,,
-48,8,essay,practice,Ubah 0.25 menjadi pecahan paling sederhana.,,,,1/4,,,,,,,,,,,,,
-48,9,drag_drop,practice,Urutkan dari terkecil ke terbesar.,,,,,,,,,,,,,,,0.3;0.03;0.33;0.303,"terkecil,kedua,ketiga,terbesar",
-48,10,multipart,practice,Hitung.,,,,,,,,,,,,,,,,,a|4 x 3/5|12/5;b|2 : 1/4|8
-48,11,essay,practice,Sebuah botol berisi 3 liter. Setiap gelas menampung 3/4 liter. Berapa gelas yang dapat diisi penuh?,,,,4,,,,,,,,,,,,,
-48,12,mcq,practice,0.5 sama dengan...,,,,A,,,1/2,1/5,2/5,5/10,,,,,,,
-48,13,essay,practice,Jelaskan mengapa 0.5 sama dengan 0.50.,,,,nilai tempat sama,,,,,,,,,,,,,
-48,14,drag_drop,practice,Pasangkan cerita dengan operasi yang tepat.,,,TODO_IMG_WORD_OPS_01.png,,,,,,,,,,,,3 porsi masing-masing 2/3;4 liter dibagi gelas 1/2;2 kue dibagi 4;5 kelompok masing-masing 3/4,"x,÷,÷,x",
-48,15,essay,practice,Sebuah kebun 1/2 hektar disiram 3/5 bagiannya. Berapa hektar yang disiram?,,,,3/10,,,,,,,,,,,,,
-48,16,essay,practice,"Urutkan dari terbesar: 0.7, 0.65, 0.705.",,,,0.705>0.7>0.65,,,,,,,,,,,,,
-48,17,multipart,practice,Bandingkan.,,,,,,,,,,,,,,,,,"a|0.48 ... 0.5 (>,<,=)|<;b|3/4 ... 0.7 (>,<,=)|>"
-48,18,essay,practice,Sebuah kue dipotong menjadi 8 bagian. Andi makan 3 bagian. Berapa desimal bagian kue yang dimakan?,,,,0.375,,,,,,,,,,,,,
-48,19,mcq,practice,Nilai 2 1/2 jika ditulis desimal adalah...,,,,B,,,2.05,2.5,2.25,2.15,,,,,,,
-48,20,essay,practice,Sebuah tali 5 meter dipotong menjadi 1/3 meter. Ada berapa potong?,,,,15,,,,,,,,,,,,,
-48,21,drag_drop,practice,Pasangkan bilangan dengan bentuk pecahan yang setara.,,,TODO_IMG_DEC_FRAC_01.png,,,,,,,,,,,,0.2;0.4;0.6;0.8,"1/5,2/5,3/5,4/5",
-48,22,essay,practice,Apakah 3/4 lebih besar dari 0.73? Jelaskan singkat.,,,,ya,,,,,,,,,,,,,
-48,23,multipart,practice,Konversi.,,,,,,,,,,,,,,,,,a|0.125 menjadi pecahan|1/8;b|5/8 menjadi desimal|0.625
-48,24,mcq,practice,Bilangan desimal yang paling kecil adalah...,,,,C,,,0.51,0.59,0.509,0.5,,,,,,,
-48,25,essay,practice,Rina minum 2/3 botol dari 1.5 liter. Berapa liter yang diminum?,,,,1,,,,,,,,,,,,,
-48,26,drag_drop,practice,Pasangkan pecahan dengan posisi pada garis bilangan.,,,TODO_IMG_NUMBERLINE_01.png,,,,,,,,,,,,1/4;1/2;3/4;1,"A,B,C,D",
-48,27,essay,practice,Sebuah kelas berisi 36 siswa. Sebanyak 5/9 ikut klub. Berapa siswa yang ikut?,,,,20,,,,,,,,,,,,,
-48,28,multipart,practice,Pecahan dan desimal.,,,,,,,,,,,,,,,,,a|0.36 dalam pecahan sederhana|9/25;b|2/5 dalam desimal|0.4
-48,29,essay,practice,Mana yang lebih besar: 4/5 atau 0.78? Jelaskan singkat.,,,,4/5 lebih besar,,,,,,,,,,,,,
-48,30,essay,practice,"Sebuah toko memberi diskon 1/4 dari harga. Jika harga awal 120.000, berapa harga setelah diskon?",,,,90.000,,,,,,,,,,,,,
-48,31,drag_drop,practice,Pasangkan operasi dengan hasilnya.,,,,,,,,,,,,,,,3 x 1/4;5 x 2/5;2 : 1/2;4 : 2/3,"3/4,2,4,6",
-48,32,mcq,practice,Hasil 1/2 + 0.25 adalah...,,,,D,,,0.6,0.65,0.7,0.75,,,,,,,
-48,33,essay,practice,"Sebuah tangki terisi 0.6 bagian. Jika kapasitas 250 liter, berapa liter air di dalamnya?",,,,150,,,,,,,,,,,,,
-48,34,multipart,practice,Urutkan dan bandingkan.,,,,,,,,,,,,,,,,,"a|Urutkan 0.2, 0.02, 0.22 dari terkecil|0.02<0.2<0.22;b|0.2 ... 1/5 (>,<,=)|="
-48,35,essay,practice,Seorang anak memakan 3/10 bagian kue di hari pertama dan 0.4 di hari kedua. Bagian mana yang lebih banyak?,,,,0.4 lebih banyak,,,,,,,,,,,,,
-48,36,drag_drop,practice,Pasangkan soal dengan jenis operasi.,,,TODO_IMG_WORD_OPS_02.png,,,,,,,,,,,,membagi 3 liter ke gelas 1/2;mengambil 2/3 dari 9;mengalikan 4 dengan 3/5;mengubah 1/4 ke desimal,"÷,x,x,konversi",
-48,37,essay,practice,Ubah 7/8 menjadi desimal.,,,,0.875,,,,,,,,,,,,,
-48,38,multipart,practice,Hitung dan simpulkan.,,,,,,,,,,,,,,,,,a|6 x 1/6|1;b|Apakah hasilnya bilangan bulat?|ya
-48,39,mcq,practice,Bilangan desimal yang setara dengan 3/20 adalah...,,,,A,,,0.15,0.3,0.25,0.05,,,,,,,
-48,40,essay,practice,"Buat satu contoh soal cerita yang melibatkan pembagian pecahan 3 : 1/2, lalu tulis jawabannya.",,,,contoh soal; jawaban 6,,,,,,,,,,,,,
+"material_id","question_number","question_type","question_mode","prompt","question_text","helper_text","question_image_url","correct_answer","correct_image_url","explanation","option_a","option_b","option_c","option_d","option_a_image_url","option_b_image_url","option_c_image_url","option_d_image_url","drag_items","drop_targets","multipart_items"
+"48","1","essay","practice","Untuk 1 paket minuman diperlukan 3/4 kg gula. Jika dibuat 6 paket dan 1/3 dari total gula dipakai hari ini, berapa kg gula yang tersisa?","","","","3","","","","","","","","","","","","",""
+"48","2","pilihan_ganda","practice","Tali 5 m dipotong-potong masing-masing 2/3 m. Banyak potongan penuh yang bisa dibuat adalah ...","","","","C","","","6","6,5","7","8","","","","","","",""
+"48","3","multiple","practice","Pilih semua pernyataan yang benar.","","","","A,C","","","0,5 = 0,50","3/4 lebih kecil dari 0,7","2 : 1/4 = 8","4 x 3/5 = 12/20","","","","","","",""
+"48","4","essay","practice","Lahan 3/5 ha ditanami, lalu 2/3 bagiannya disiram. Berapa ha bagian yang disiram?","","","","2/5","","","","","","","","","","","","",""
+"48","5","pilihan_ganda","practice","Bilangan yang lebih besar adalah ...","","","","B","","","2,49","2,9","sama besar","tidak dapat dibandingkan","","","","","","",""
+"48","6","essay","practice","Pita 2 1/2 m dipakai 0,75 m untuk hiasan A dan 3/5 m untuk hiasan B. Berapa sisa pita (meter)?","","","","1,15","","","","","","","","","","","","",""
+"48","7","multiple","practice","Pilih semua yang setara dengan 0,125.","","","","A,B,C","","","1/8","12,5/100","5/40","1/4","","","","","","",""
+"48","8","pilihan_ganda","practice","Air 3 liter akan dimasukkan ke gelas 3/8 liter. Banyak gelas penuh yang terisi adalah ...","","","","D","","","6","7","7,5","8","","","","","","",""
+"48","9","essay","practice","Di kelas ada 45 siswa. Sebanyak 4/9 ikut musik. Dari peserta musik, 3/5 juga ikut melukis. Berapa siswa yang hanya ikut musik?","","","","8","","","","","","","","","","","","",""
+"48","10","pilihan_ganda","practice","Harga buku Rp120.000 mendapat diskon 1/4 lalu tambahan diskon Rp6.000. Harga akhir adalah ...","","","","A","","","Rp84.000","Rp90.000","Rp96.000","Rp78.000","","","","","","",""
+"48","11","essay","practice","Urutkan dari terbesar ke terkecil: 0,705 ; 0,75 ; 7/10 ; 0,695.","","","","0,75 > 0,705 > 0,7 > 0,695","","","","","","","","","","","","",""
+"48","12","pilihan_ganda","practice","Nilai dari 3 x 5/8 + 1/4 adalah ...","","","","C","","","13/8","7/8","17/8","15/8","","","","","","",""
+"48","13","multiple","practice","Pilih semua hasil yang bernilai lebih dari 1.","","","","B,C,D","","","2/3 x 3/4","5/4","3 : 1/2","7/8 + 3/8","","","","","","",""
+"48","14","essay","practice","Sebuah bak 2 m³ terisi 0,65 bagian. Berapa m³ volume air di dalam bak?","","","","1,3","","","","","","","","","","","","",""
+"48","15","pilihan_ganda","practice","Jika 2/5 = 0,4, maka 4/25 sama dengan ...","","","","B","","","0,04","0,16","0,25","0,2","","","","","","",""
+"48","16","essay","practice","Ibu punya 4 1/2 liter sirup. Tiap botol kecil berisi 3/10 liter. Berapa botol kecil penuh yang dapat diisi?","","","","15","","","","","","","","","","","","",""
+"48","17","pilihan_ganda","practice","Pernyataan yang benar adalah ...","","","","D","","","0,36 paling sederhana = 36/100","3/20 = 0,3","0,08 = 8/10","0,36 = 9/25","","","","","","",""
+"48","18","essay","practice","Luas taman 2 1/4 m². Sebesar 2/3 bagian ditanami bunga merah. Berapa m² luas bunga merah?","","","","1,5","","","","","","","","","","","","",""
+"48","19","multiple","practice","Pilih semua yang setara dengan 3/5.","","","","A,C","","","0,6","0,06","30/50","3/50","","","","","","",""
+"48","20","pilihan_ganda","practice","Hasil dari 5 : 2/3 adalah ...","","","","B","","","6 1/2","7 1/2","8","7","","","","","","",""
+"48","21","essay","practice","Dari 1 meter kain, 0,35 m dipakai baju A dan 1/4 m untuk baju B. Berapa meter kain tersisa?","","","","0,4","","","","","","","","","","","","",""
+"48","22","pilihan_ganda","practice","Mana yang lebih besar?","","","","A","","","7/8","0,86","sama besar","tidak bisa dibandingkan","","","","","","",""
+"48","23","essay","practice","Seorang penulis menulis 1.200 kata per jam. Dalam 3/4 jam ia menulis berapa kata?","","","","900","","","","","","","","","","","","",""
+"48","24","multiple","practice","Pilih semua operasi yang hasilnya 0,75.","","","","A,B,D","","","1/2 + 1/4","3/4","3/10 + 3/10","3 : 4","","","","","","",""
+"48","25","pilihan_ganda","practice","Nilai 2,49 + 0,51 - 3/5 adalah ...","","","","C","","","2,0","2,2","2,4","2,6","","","","","","",""
+"48","26","essay","practice","Di toples ada 3 liter jus. Jika setiap gelas berisi 0,2 liter, berapa gelas penuh yang dapat diisi?","","","","15","","","","","","","","","","","","",""
+"48","27","pilihan_ganda","practice","Dari bilangan berikut, yang paling kecil adalah ...","","","","B","","","0,303","0,03","0,3","0,033","","","","","","",""
+"48","28","essay","practice","Seutas tali 6 m dipotong masing-masing 1/8 m. Berapa banyak potongan yang dihasilkan?","","","","48","","","","","","","","","","","","",""
+"48","29","multiple","practice","Pilih semua pernyataan yang benar tentang membandingkan desimal.","","","","A,C,D","","","2,9 = 2,90","2,49 > 2,9","0,5 = 0,50","Untuk membandingkan, nilai tempat harus diperhatikan","","","","","","",""
+"48","30","pilihan_ganda","practice","Harga 1 kotak pena Rp36.000 berisi 15 pena. Harga 1 pena adalah ...","","","","A","","","Rp2.400","Rp2.500","Rp2.600","Rp2.300","","","","","","",""
+"48","31","essay","practice","Jika harga 1 pena Rp2.400, berapa biaya untuk 9 pena?","","","","21600","","","","","","","","","","","","",""
+"48","32","pilihan_ganda","practice","Hasil 1/2 + 0,25 + 1/8 adalah ...","","","","D","","","0,8","0,825","0,75","0,875","","","","","","",""
+"48","33","essay","practice","Urutkan dari terkecil: 0,2 ; 0,02 ; 0,22 ; 2/10.","","","","0,02 < 0,2 = 2/10 < 0,22","","","","","","","","","","","","",""
+"48","34","multiple","practice","Pilih semua hasil yang merupakan bilangan bulat.","","","","B,C,D","","","5/6 x 6","6 x 1/6","4 : 1/2","3 : 1/3","","","","","","",""
+"48","35","pilihan_ganda","practice","Nilai 3/20 dalam desimal adalah ...","","","","A","","","0,15","0,3","0,05","0,25","","","","","","",""
+"48","36","essay","practice","Sebuah tangki 250 liter terisi 0,6 bagian. Lalu dipakai 1/5 dari air yang ada. Berapa liter sisa air?","","","","120","","","","","","","","","","","","",""
+"48","37","pilihan_ganda","practice","Mana operasi yang tepat untuk soal: ""Ada 4 liter air, tiap gelas 1/2 liter, berapa gelas terisi?""","","","","C","","","4 x 1/2","1/2 : 4","4 : 1/2","4 + 1/2","","","","","","",""
+"48","38","essay","practice","Dari 0,84 meter pita, 3/7 meter dipakai. Berapa meter pita sisa? (tulis dalam pecahan sederhana)","","","","72/175","","","","","","","","","","","","",""
+"48","39","multiple","practice","Pilih semua yang nilainya sama dengan 2,5.","","","","A,C,D","","","2 1/2","25/100","5/2","10/4","","","","","","",""
+"48","40","pilihan_ganda","practice","Sebuah kelas memakai 3/4 jam untuk latihan A dan 0,2 jam untuk latihan B. Total waktu dalam jam adalah ...","","","","B","","","0,9","0,95","1,05","0,85","","","","","","",""

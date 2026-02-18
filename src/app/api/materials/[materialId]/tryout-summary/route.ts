@@ -22,6 +22,16 @@ export async function GET(_req: Request, props: Params) {
     return NextResponse.json({ error: "Unauthenticated" }, { status: 401 });
   }
 
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("role")
+    .eq("id", user.id)
+    .single();
+  const isAdmin = profile?.role === "admin";
+  if (isAdmin) {
+    return NextResponse.json({ attempts: [] });
+  }
+
   const { data, error } = await supabase
     .from("material_tryout_attempts")
     .select("attempt_number, correct_count, wrong_count, total_questions, score")
@@ -64,6 +74,16 @@ export async function POST(req: Request, props: Params) {
 
   if (!user) {
     return NextResponse.json({ error: "Unauthenticated" }, { status: 401 });
+  }
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("role")
+    .eq("id", user.id)
+    .single();
+  const isAdmin = profile?.role === "admin";
+  if (isAdmin) {
+    return NextResponse.json({ ok: true, skipped: true });
   }
 
   const body = (await req.json()) as {

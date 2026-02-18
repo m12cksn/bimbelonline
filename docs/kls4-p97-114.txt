@@ -1,0 +1,419 @@
+
+
+===== PAGE 97 =====
+Bab
+3
+Pola gambar dan pola bilangan menggunakan operasi bilangan cacah 
+banyak kebermanfaatannya dalam kehidupan sehari-hari, seperti kita 
+lihat pada gambar.  Pada contoh tersebut kita akan mencari pola bilangan 
+yang melibatkan operasi penjumlahan maupun pengurangan pada 
+bilangan. Dapatkah kalian menentukan banyak kartu yang dibutuhkan 
+untuk setiap tingkat berdasarkan pola yang sudah ada? Dapatkah kalian 
+menentukan pola bilangan tersebut? Agar dapat mengerjakan tantangan 
+tersebut, ayo ingat kembali operasi penjumlahan dan pengurangan pada 
+bilangan.
+=÷Pola Gamb ar dan  Pola Gambar dan 
+Pola Bil ang an Pola Bilangan3KEMENTERIAN PENDIDIKAN, KEBUDAYAAN,
+RISET, DAN TEKNOLOGI REPUBLIK INDONESIA, 2022
+Matematika untuk SD/MI Kelas IV
+Penulis : Hobri, dkk.
+ISBN : 978-602-244-908-9 (jil.4)
+
+===== PAGE 98 =====
+= =
+÷ ÷
+86 Matematika untuk SD/MI Kelas IVTujuan Pembelajaran
+Setelah mempelajari bab ini kalian mampu:
+Peta Konsep
+Pola BilanganPola gambar 
+membesar
+Pola bilangan 
+membesarPola gambar 
+mengecil
+Pola bilangan 
+mengecilPola GambarKata Kunci
+Pola Gambar, 
+Pola Bilangan
+• menemukan pola gambar membesar 
+dan mengecil
+• membuat pola gambar membesar dan 
+mengecil
+• menemukan pola bilangan membesar 
+dan mengecil
+• membuat pola bilangan membesar dan 
+mengecil
+
+
+===== PAGE 99 =====
+= =
+÷ ÷
+87 Bab 3 | Pola Gambar dan Pola BilanganA. Pola Gambar
+Ayo Mengamati
+1. Pola Gambar Membesar
+Ayo Beraktivitas
+Aktivitas 1
+Alat dan Bahan: Kelereng/batu kerikil, alat tulis, kertas
+Langkah kegiatan:
+1. Buatlah 4 kelompok beranggotakan 5-6 orang.
+2. Susunlah kelereng/batu kerikil menjadi 3 kumpulan sesuai tabel berikut.
+Kelompok Banyak Benda 
+Kumpulan-1Banyak Benda 
+Kumpulan-2Banyak Benda 
+Kumpulan-3
+1
+2
+Tahukah kalian? Susunan gambar yang ditata 
+dapat membentuk sebuah pola tertentu
+
+===== PAGE 100 =====
+= =
+÷ ÷
+88 Matematika untuk SD/MI Kelas IVKelompok Banyak Benda 
+Kumpulan-1Banyak Benda 
+Kumpulan-2Banyak Benda 
+Kumpulan-3
+3
+4
+3. Setiap kelompok menghitung banyaknya benda serta selisihnya dari setiap 
+kumpulan, dan mencatatnya ke dalam tabel berikut.
+Kumpulan Banyak Benda Selisih/beda dengan 
+kumpulan sebelumnya
+Kumpulan-1
+Kumpulan-2
+Kumpulan-3
+4. Temukan pola gambar masing-masing dengan berdiskusi sesama anggota 
+kelompok. Mintalah bantuan guru jika dibutuhkan. 
+5. Diskusikan hal berikut bersama anggota kelompok. 
+a. Bagaimana pola yang terbentuk dari pola gambar yang diberikan? 
+b. Bagaimana selisih/perbedaan banyaknya benda pada kumpulan ke-1 
+dan ke-2, kumpulan ke-2 dan ke-3? apakah sama atau berbeda? 
+c. Berapa benda yang dibutuhkan untuk kumpulan ke-4 yang sesuai pola 
+gambar yang diberikan? 
+d. Berdasarkan kegiatan yang sudah dilakukan, bagaimana perbandingan 
+banyak benda yang muncul pada kumpulan setelahnya dibandingkan 
+sebelumnya? Semakin banyak atau semakin sedikit?
+e. Apa yang kalian dapat simpulkan?
+6. Presentasikan hasil diskusi kelompok di depan kelas. 
+
+
+===== PAGE 101 =====
+= =
+÷ ÷
+89 Bab 3 | Pola Gambar dan Pola BilanganAyo Mengamati
+Agar dapat menjawab pertanyaan tersebut, ingatlah kembali materi 
+penjumlahan dan pengurangan bilangan cacah yang sudah kalian pelajari 
+sebelumnya. Ayo cermati penjelasan berikut!
+ 
+Dapatkah kalian menentukan banyak 
+jeruk selanjutnya sesuai pola tersebut?
+Kumpulan 1 Kumpulan 3
+ Kumpulan 2
+Di dalam gambar hanya ada 3 kumpulan jeruk, Tahukah kalian, 
+bagaimana bentuk kumpulan yang ke 7? Bagaimana cara 
+menentukannya?
+
+
+===== PAGE 102 =====
+= =
+÷ ÷
+90 Matematika untuk SD/MI Kelas IVBaik kalau begitu perhatikan penjelasan berikut !
++ + +
+Pada gambar terlihat jelas, kelompok pertama berisi 
+2 buah jeruk, kelompok kedua berisi 4 buah jeruk, 
+sedangkan kelompok 3 terdiri atas 6 buah jeruk, jadi 
+untuk menentukan selanjutnya tinggal menambahkan 
+2 buah jeruk sesuai pola tersebut. 
+Betul sekali, bisa menggunakan 
+tabel seperti berikut : 
+Kumpulan 1 2 2
+Kumpulan 2 4 2 + 2
+Kumpulan 3 6 4 + 2
+Kumpulan 4 8 6 + 2
+Kumpulan 5 10 8 + 2
+Kumpulan 6 12 10 + 2
+Kumpulan 7 14 12 + 2Jadi banyak jeruk pada kumpulan ke 7 adalah 
+2 + 2 + 2 + 2 + 2 + 2 + 2 atau 14 ya Bu??
+
+
+===== PAGE 103 =====
+= =
+÷ ÷
+91 Bab 3 | Pola Gambar dan Pola Bilangan2. Pola Gambar Mengecil  
+Ayo Beraktivitas
+Aktivitas 2
+Alat dan Bahan: Kelereng/batu kerikil, pensil, kertas
+Langkah kegiatan:
+1. Buatlah 4 kelompok beranggotakan 5-6 orang. 
+2. Susunlah kelereng/batu kerikil menjadi 3 kumpulan sesuai tabel berikut.
+Kelompok Banyak Benda 
+Kumpulan-1Banyak Benda 
+Kumpulan-2Banyak Benda 
+Kumpulan-3
+1
+2
+3
+4
+Pada materi sebelumnya, kita sudah mempelajari materi pola 
+gambar membesar, artinya semakin ke kanan maka jumlah 
+benda akan semakin banyak.
+Tahukah kalian bahwa pola gambar juga ada yang mengecil? 
+
+
+===== PAGE 104 =====
+= =
+÷ ÷
+92 Matematika untuk SD/MI Kelas IV3. Setiap kelompok menghitung banyaknya benda serta selisihnya, dari setiap 
+kumpulan, dan mencatatnya ke dalam tabel berikut.
+Kumpulan Banyak Benda Selisih/beda dengan 
+kumpulan sebelumnya
+Kumpulan-1
+Kumpulan-2
+Kumpulan-3
+4. Temukan pola gambar masing-masing dengan berdiskusi sesama anggota 
+kelompok. Mintalah bantuan guru jika dibutuhkan 
+5. Diskusikan hal berikut bersama anggota kelompok.
+a. Bagaimana pola yang terbentuk dari pola gambar yang diberikan? 
+b. Bagaimana selisih/perbedaan banyaknya benda pada kumpulan ke-1 
+dan ke-2, kumpulan ke-2 dan ke-3? apakah sama atau berbeda? 
+c. Berapa benda yang dibutuhkan untuk kumpulan ke-4 yang sesuai pola 
+gambar yang diberikan? 
+d. Berdasarkan kegiatan yang sudah dilakukan, bagaimana perbandingan 
+banyak benda yang muncul pada kumpulan setelahnya dibandingkan 
+sebelumnya? Semakin banyak atau semakin sedikit?
+e. Apa yang dapat kalian simpulkan?
+6. Presentasikan hasil diskusi kelompok didepan kelas. 
+Ayo Mengamati
+Kumpulan 1 Kumpulan 3 Kumpulan 2
+
+
+===== PAGE 105 =====
+= =
+÷ ÷
+93 Bab 3 | Pola Gambar dan Pola BilanganKumpulan Banyak Permen Uraian
+1 9 9
+2 7 9 −2
+3 5 7 −2
+4 3 5 −2
+5 1 3 −2
+Berdasarkan hasil analisis pada tabel tersebut, tampak terlihat bahwa banyak 
+permen yang ada pada kumpulan ke-5 ada sebanyak 1 buah. Jumlah permen 
+pada setiap kumpulan ini semakin lama semakin sedikit atau mengecil.
+Ayo Berlatih
+Latihan 1
+Tentukan banyak benda selanjutnya sesuai pola gambar yang diberikan !
+1. 
+2. Di dalam gambar hanya ada 3 kumpulan permen yang semakin 
+sedikit. Tahukah kalian, bagaimana bentuk kumpulan yang ke-5 ? 
+Bagaimana cara menentukannya?
+
+
+===== PAGE 106 =====
+= =
+÷ ÷
+94 Matematika untuk SD/MI Kelas IV3. 
+4. 
+5. Pilihlah salah satu gambar di kotak sebelah kanan untuk melengkapi kotak 
+yang kosong di sebelah kiri, sesuai pola gambar yang diberikan.
+
+
+===== PAGE 107 =====
+= =
+÷ ÷
+95 Bab 3 | Pola Gambar dan Pola BilanganB. Pola Bilangan
+ 
+Ayo Mengamati
+Untuk bisa menjawab permasalah tersebut, ingatlah kembali materi pola 
+gambar yang sudah kalian pelajari. Ayo, cermati penjelasan berikut!
+Setelah mempelajari materi 
+pola gambar, dapatkah 
+kalian menentukan pola 
+bilangan tersebut?
+Dapatkah kalian 
+mengisi angka 
+berikutnya?
+
+===== PAGE 108 =====
+= =
+÷ ÷
+96 Matematika untuk SD/MI Kelas IVAyo Berpikir
+ 
+Untuk mengetahui pola penyusunannya adalah dengan cara mengamati 
+hubungan bilangan yang satu dengan yang lainnya. Pada pola bilangan 3, 5, 7, 
+9, 11, ... dapat diamati dalam tabel berikut :
+Ada berapa bilangan yang terdapat di 
+sana? Apakah kalian dapat menentukan 
+bilangan ke-6 ?
+12 ibu
+Jawaban kamu kurang tepat, ayo 
+perhatikan penjelasan berikut !
+Urutan Bilangan Uraian
+1 3 3
+2 5 3 +2
+3 7 5 +2
+4 9 7 +2
+5 11 9 +2
+
+===== PAGE 109 =====
+= =
+÷ ÷
+97 Bab 3 | Pola Gambar dan Pola BilanganPerhatikan berbagai macam kasus pola bilangan berikut. 
+Kasus 1 :
+1, 4, 7, 10, …Penjelasan :
+Pada pola bilangan tersebut dapat diketahui 
+bahwa selisih antarbilangan selalu sama yaitu + 3, 
+perhatikan penjelasan berikut :
+     1          4           7         10
+       
+          +3        +3         +3
+Jadi untuk bilangan selanjutnya yang tepat sesuai 
+pola bilangan tersebut adalah 10 + 3 = 13. 
+Jika diperhatikan tampak bahwa bilangan yang 
+muncul setelahnya selalu lebih besar  daripada 
+bilangan yang ada sebelumnya.
+Jadi, pada pola tersebut bilangan semakin 
+membesar
+Berarti untuk menentukan bilangan 
+selanjutnya dengan cara menambahkan 
+bilangan sebelumnya dengan 2, ibu?
+Betul sekali, dengan memperhatikan tabel 
+tersebut maka bilangan yang tepat untuk 
+selanjutnya adalah 13 (11 + 2).
+
+
+===== PAGE 110 =====
+= =
+÷ ÷
+98 Matematika untuk SD/MI Kelas IVKasus 2 :
+23, 18, 13, 8, ...Pada pola bilangan tersebut dapat diketahui 
+bahwa selisih antar bilangan selalu sama yaitu -5, 
+perhatikan penjelasan berikut :                
+      23      18         13         8
+                
+          -5          -5         -5
+Jadi untuk bilangan selanjutnya yang tepat sesuai 
+pola bilangan tersebut adalah 8 - 5 = 3
+Jika diperhatikan tampak bahwa bilangan yang 
+muncul setelahnya selalu lebih kecil  daripada 
+bilangan yang ada sebelumnya
+Jadi, pada pola tersebut bilangan semakin 
+mengecil
+Ingat!
+Pola bilangan  adalah suatu susunan bilangan yang mempunyai aturan dalam 
+proses penyusunannya sehingga akan mempunyai suatu pola tertentu. Pola 
+bilangan ini dapat membesar maupun mengecil menyesuaikan aturan dalam 
+proses penyusunannya.
+Pada pola bilangan berikut : 3, 5, 7, 9, 11, ... disebut pola bilangan membesar  
+karena susunan bilangan tersebut mempunyai nilai semakin besar .
+Pada pola bilangan berikut : 32, 28, 24, 20, 16, ... disebut pola bilangan mengecil  
+karena susunan bilangan tersebut mempunyai nilai semakin kecil .
+Contoh :
+Seorang peternak telur ayam mencatat hasil panen selama 5 hari berturut-
+turut. Pada hari pertama tercatat 20 buah telur, pada hari kedua 28 buah telur 
+dan pada hari ketiga tercatat sebanyak 36 buah butir telur, dan seterusnya 
+sampai hari kelima dengan pola yang sama. Banyak telur yang dipanen pada 
+hari kelima adalah ...
+
+===== PAGE 111 =====
+= =
+÷ ÷
+99 Bab 3 | Pola Gambar dan Pola BilanganPenyelesaian  :
+Hari Hasil Panen Uraian Beda dengan 
+sebelumnya
+Hari 1 20 20 20
+Hari 2 28 20 +8 28 − 20 = 8
+Hari 3 36 20 +8 +8 36 − 28 = 8
+Hari 4 44 20 +8 +8 +8 44 − 36 = 8
+Hari 5 52 20 +8 +8 +8 +8 52 − 44 = 8
+Dengan memperhatikan pola bilangan tersebut dapat diketahui bahwa banyak 
+telur yang dipanen pada hari setelahnya adalah lebih banyak 8 butir dari hari 
+sebelumnya, sehingga untuk hari selanjutnya didapatkan :
+20 , 28 , 36 , 44 , 52
+Jadi banyak telur yang dipanen pada hari kelima adalah 52 butir.
+Ayo Berlatih
+Latihan 2
+Tentukan bilangan yang tepat sesuai pola bilangan yang diberikan !
+1. 
+2. 
+3. 
+7 19 31 43
+12 27 42
+96 85 74 63
+
+===== PAGE 112 =====
+= =
+÷ ÷
+100 Matematika untuk SD/MI Kelas IV4. 
+5. 
+6. Ali diberi tugas oleh guru untuk menata buku pada rak di perpustakaan. 
+Pada rak pertama, Ali menata 5 buku, pada rak kedua menata 9 buku, pada 
+rak ketiga menata 13 buku. Tentukan banyak buku yang ditata oleh Ali pada 
+rak kelima !
+7. Di suatu gedung pertemuan terdapat 10 baris kursi, pada baris paling 
+depan terdapat 20 kursi, sedangkan pada baris kedua terdapat 23 kursi, 
+baris ketiga terdapat 26 kursi, demikian seterusnya sehingga mempunyai 
+pola tertentu. Tentukan :
+a. Banyak kursi pada baris kelima
+b. Banyak kursi pada baris ketujuh
+8. Suatu pabrik elektronik memproduksi televisi selama setahun penuh dan 
+memiliki pola tertentu dengan data sebagai berikut :
+Bulan Banyak Televisi
+Januari 70 buah
+Februari 64 buah
+Maret 58 buah
+April 52 buah
+ Tentukan :
+a. Banyak televisi yang diproduksi pada bulan Juni !
+b. Banyak televisi yang diproduksi pada bulan Agustus !91 77 63
+13 22 31 49
+
+===== PAGE 113 =====
+= =
+÷ ÷
+101 Bab 3 | Pola Gambar dan Pola BilanganUji Kompetensi
+Tentukan banyak benda yang sesuai dengan pola gambar yang diberikan!
+1. 
+       
+                                                                                                       
+2. 
+                                                                                                     
+3. 
+                                                                                                     
+4.                                                                                                        
+Tentukan bilangan yang tepat sesuai pola bilangan yang diberikan!
+5. 
+6.  ...
+ ...
+ ...
+ ...
+5 9 13 17
+6 12 24
+
+===== PAGE 114 =====
+= =
+÷ ÷
+102 Matematika untuk SD/MI Kelas IV7. 
+8. 
+9. Seorang petani sedang mencatat penjualan buah kelapa yang mengalami 
+penurunan selama 7 hari berturut-turut dan memiliki pola tertentu. 
+Hari Banyak Kelapa
+Hari Pertama 36 buah
+Hari Kedua 31 buah
+Hari Ketiga 26 buah
+Hari Keempat 21 buah
+ Tentukan banyak kelapa yang dipanen pada hari ke 7 !
+10. Di suatu gedung bioskop terdapat 10 baris kursi. Banyak kursi yang tersedia 
+pada baris pertama adalah 10 buah kursi, pada baris kedua tersedia 14 buah 
+kursi, pada baris ketiga tersedia 18 buah kursi dan seterusnya sehingga 
+memenuhi pola bilangan tertentu. Tentukan banyak kursi yang tersedia 
+pada baris terakhir.
+Refleksi
+Pada bab ini, kalian sudah mempelajari materi pola gambar dan pola bilangan. 
+Apakah kalian masih ingat? Masih adakah bagian yang terasa sulit? Jika masih 
+ada bagian yang sulit, diskusikanlah dengan temanmu. Kalian juga dapat 
+meminta guru untuk membantu.
+Dengan mempelajari materi ini kalian dapat menentukan banyak benda 
+sesuai pola yang sudah ada. Kalian juga dapat menentukan bilangan yang 
+mengikuti pola tertentu. Ajarkanlah materi ini kepada orang lain, agar 
+kalian semakin paham. Tentunya, pengetahuan kalian akan bertambah jika 
+mempelajari materi ini dari sumber lain.34 27 20 13
+22 40 34 16

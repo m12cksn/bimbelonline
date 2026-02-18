@@ -1,41 +1,41 @@
-material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
-59,1,essay,practice,,Tuliskan lambang bilangan: tujuh ratus tiga.,,,703,,,,,,,,,,,,,
-59,2,essay,practice,,Bilangan 634 dibaca ...,,,enam ratus tiga puluh empat,,,,,,,,,,,,,
-59,3,essay,practice,,Nilai tempat angka 8 pada bilangan 845 adalah ...,,,800,,,,,,,,,,,,,
-59,4,essay,practice,,Jarak rumah ke sekolah 671 m. Tuliskan bentuk ratusan puluhan satuannya.,,,6 ratusan 7 puluhan 1 satuan,,,,,,,,,,,,,
-59,5,essay,practice,,"Urutkan 720, 639, 709 dari yang terkecil.",,,639 709 720,,,,,,,,,,,,,
-59,6,essay,practice,,"Siapkan bilangan terbesar dari angka 3, 5, 0 (tanpa nol di depan).",,,530,,,,,,,,,,,,,
-59,7,essay,practice,,"Siapkan bilangan terkecil dari angka 4, 1, 9.",,,149,,,,,,,,,,,,,
-59,8,essay,practice,,"Ari memiliki 58 kelereng, kemudian membeli 27. Berapa jumlah kelereng Ari sekarang?",,,85,,,,,,,,,,,,,
-59,9,essay,practice,,Di toko ada 96 pensil. Terjual 38 pensil. Sisa pensil adalah ...,,,58,,,,,,,,,,,,,
-59,10,essay,practice,,Satu kotak berisi 6 biskuit. Ada 8 kotak. Jumlah biskuit seluruhnya ...,,,48,,,,,,,,,,,,,
-59,11,essay,practice,,Terdapat 72 apel dibagi rata ke 9 kantong. Setiap kantong berisi ...,,,8,,,,,,,,,,,,,
-59,12,essay,practice,,Tuliskan bentuk uraian bilangan 572.,,,500 + 70 + 2,,,,,,,,,,,,,
-59,13,essay,practice,,"Bilangan 804 terdiri atas ... ratusan, ... puluhan, ... satuan.",,,8 ratusan 0 puluhan 4 satuan,,,,,,,,,,,,,
-59,14,essay,practice,,Dina punya 120 permen. Ia memberi 45 permen dan membeli 30 permen lagi. Sisa permen Dina sekarang ...,,,105,,,,,,,,,,,,,
-59,15,essay,practice,,Bandingkan 583 dan 529. Tuliskan tanda yang benar.,,,583 > 529,,,,,,,,,,,,,
-59,16,essay,practice,,Bilangan yang 2 lebihnya dari 76 adalah ...,,,78,,,,,,,,,,,,,
-59,17,mcq,practice,,"Bilangan dengan 9 ratusan, 0 puluhan, 7 satuan adalah ...",,,B,,,970,907,709,790,,,,,,,
-59,18,mcq,practice,,Bilangan yang lebih kecil adalah ...,,,A,,,339,421,512,650,,,,,,,
-59,19,mcq,practice,,Hasil 46 + 27 adalah ...,,,C,,,63,72,73,74,,,,,,,
-59,20,mcq,practice,,Hasil 90 - 35 adalah ...,,,B,,,45,55,65,75,,,,,,,
-59,21,mcq,practice,,Hasil 7 x 8 adalah ...,,,D,,,42,54,56,56,,,,,,,
-59,22,mcq,practice,,Hasil 81 : 9 adalah ...,,,A,,,9,8,7,6,,,,,,,
-59,23,mcq,practice,,Bilangan yang tepat untuk “sembilan ratus lima puluh” adalah ...,,,C,,,905,950,950,590,,,,,,,
-59,24,mcq,practice,,Nilai tempat angka 5 pada bilangan 752 adalah ...,,,A,,,700,50,5,500,,,,,,,
-59,25,mcq,practice,,Yang menunjukkan 3 ratusan 5 puluhan 4 satuan adalah ...,,,D,,,534,345,354,354,,,,,,,
-59,26,mcq,practice,,Urutan yang benar dari besar ke kecil adalah ...,,,B,,,639 709 720,720 709 639,709 720 639,639 720 709,,,,,,,
-59,27,mcq,practice,,"Jika bilangan 769 dibandingkan 761, maka ...",,,A,,,769 > 761,769 < 761,769 = 761,tidak bisa dibandingkan,,,,,,,
-59,28,mcq,practice,,Bilangan yang nilainya sama dengan 600 + 20 + 5 adalah ...,,,C,,,625,605,625,652,,,,,,,
-59,29,drag_drop,practice,,Pasangkan bilangan dengan cara membacanya.,,,,,,,,,,,,,,703;900;634;572,tujuh ratus tiga;sembilan ratus;enam ratus tiga puluh empat;lima ratus tujuh puluh dua,
-59,30,drag_drop,practice,,Pasangkan bilangan dengan uraian nilai tempatnya.,,,,,,,,,,,,,,251;602;804;721,200+50+1;600+0+2;800+0+4;700+20+1,
-59,31,drag_drop,practice,,Pasangkan perbandingan dengan tanda.,,,,,,,,,,,,,,339 ? 421;583 ? 529;804 ? 804;769 ? 761,<;> ;=;>,
-59,32,drag_drop,practice,,Pasangkan cerita dengan operasi.,,,,,,,,,,,,,,Memiliki 58 lalu membeli 27;Memiliki 96 terjual 38;Ada 6 kotak isi 8;72 dibagi 9,58+27;96-38;6x8;72:9,
-59,33,drag_drop,practice,,Pasangkan bilangan dengan ratusan puluhan satuannya.,,,,,,,,,,,,,,634;907;350;418,6 ratusan 3 puluhan 4 satuan;9 ratusan 0 puluhan 7 satuan;3 ratusan 5 puluhan 0 satuan;4 ratusan 1 puluhan 8 satuan,
-59,34,drag_drop,practice,,Pasangkan hasil dengan operasi.,,,,,,,,,,,,,,46+27;90-35;7x8;81:9,73;55;56;9,
-59,35,multipart,practice,,Lengkapi nilai tempat.,,,,,,,,,,,,,,,,a|845|8 ratusan;b|218|1 ratusan;c|390|9 puluhan
-59,36,multipart,practice,,Bandingkan bilangan.,,,,,,,,,,,,,,,,a|421 ? 339|>;b|529 ? 583|<;c|804 ? 804|=
-59,37,multipart,practice,,Susun dan urutkan.,,,,,,,,,,,,,,,,a|urutan naik 65 56 74|56 65 74;b|urutan turun 77 86 79|86 79 77;c|urutan naik 720 639 709|639 709 720
-59,38,multipart,practice,,Hitung operasi bilangan cacah.,,,,,,,,,,,,,,,,a|58+27|85;b|96-38|58;c|7x8|56
-59,39,multipart,practice,,Baca bilangan sesuai lambang.,,,,,,,,,,,,,,,,a|572|lima ratus tujuh puluh dua;b|703|tujuh ratus tiga;c|900|sembilan ratus
-59,40,multipart,practice,,Soal cerita bilangan.,,,,,,,,,,,,,,,,a|Jarum ukur menunjukkan 160 cm|seratus enam puluh;b|Jarak 339 dan 421 bandingkan|421 lebih jauh;c|Aku 1 kurangnya dari 67|66
+"material_id","question_number","question_type","question_mode","prompt","question_text","helper_text","question_image_url","correct_answer","correct_image_url","explanation","option_a","option_b","option_c","option_d","option_a_image_url","option_b_image_url","option_c_image_url","option_d_image_url","drag_items","drop_targets","multipart_items"
+"59","1","pilihan_ganda","practice","Bilangan ""enam ratus tiga puluh empat"" ditulis sebagai ...","","","","C","","","643","624","634","664","","","","","","",""
+"59","2","essay","practice","Tulis lambang bilangan: ""tujuh ratus tiga"" dan ""sembilan ratus"".","","","","703 dan 900","","","","","","","","","","","","",""
+"59","3","multipart","practice","Gunakan tabel nilai tempat pada gambar.","","","/images/math3-bab1-bilangan/q3-nilai-tempat.png","","","","","","","","","","","","","","a|Nilai angka 5 pada 251|50;b|Bilangan yang punya 0 puluhan dan 2 satuan|602;c|Nilai angka 9 pada 907|900"
+"59","4","pilihan_ganda","practice","Jika 10 satuan = 1 puluhan, maka 34 satuan sama dengan ...","","","","B","","","3 puluhan 5 satuan","3 puluhan 4 satuan","4 puluhan 3 satuan","34 puluhan","","","","","","",""
+"59","5","essay","practice","Uraikan bilangan 572 ke bentuk nilai tempat.","","","","500 + 70 + 2","","","","","","","","","","","","",""
+"59","6","multipart","practice","Lengkapi bentuk nilai tempat berikut.","","","","","","","","","","","","","","","","","a|602 = ... ratusan + ... puluhan + ... satuan|6,0,2;b|930 = ... + ... + ...|900,30,0;c|845 nilai angka 8|800"
+"59","7","pilihan_ganda","practice","Bilangan terbesar dari digit 3, 5, 0 (tanpa nol di depan) adalah ...","","","","A","","","530","503","350","305","","","","","","",""
+"59","8","essay","practice","Buat bilangan 3 angka terkecil dari digit 4, 1, 9 tanpa pengulangan.","","","","149","","","","","","","","","","","","",""
+"59","9","pilihan_ganda","practice","Dari data pada gambar, urutan dari terkecil ke terbesar yang benar adalah ...","","","/images/math3-bab1-bilangan/q9-urut-bilangan.png","D","","","720, 709, 701, 698, 639","639, 698, 720, 701, 709","639, 709, 701, 698, 720","639, 698, 701, 709, 720","","","","","","",""
+"59","10","essay","practice","Bandingkan dengan tanda yang tepat: 339 ... 421 dan 583 ... 529.","","","","339 < 421 dan 583 > 529","","","","","","","","","","","","",""
+"59","11","multipart","practice","Tentukan hasil dan jelaskan singkat strategi nilai tempat.","","","","","","","","","","","","","","","","","a|28 + 57|85;b|32 + 49|81;c|67 + 7|74"
+"59","12","pilihan_ganda","practice","Pada 48 + 16, alasan menyimpan 1 puluhan adalah ...","","","","C","","","karena 4 + 1 = 5","karena 48 lebih besar dari 16","karena 8 + 6 = 14, jadi 10 disimpan ke puluhan","karena 1 harus selalu disimpan","","","","","","",""
+"59","13","essay","practice","Hitung dengan cara bersusun: 64 + 29 dan 83 + 54.","","","","93 dan 137","","","","","","","","","","","","",""
+"59","14","pilihan_ganda","practice","Hasil 72 - 29 adalah ...","","","","B","","","47","43","53","39","","","","","","",""
+"59","15","essay","practice","Hitung: 60 - 35. Tulis alasan mengapa perlu meminjam.","","","","25; karena 0 < 5, pinjam 1 puluhan menjadi 10 satuan","","","","","","","","","","","","",""
+"59","16","multipart","practice","Lengkapi pengurangan berikut.","","","","","","","","","","","","","","","","","a|45 - 19|26;b|93 - 28|65;c|87 - 9|78"
+"59","17","pilihan_ganda","practice","Perkalian sebagai penjumlahan berulang yang benar untuk 5 x 3 adalah ...","","","","A","","","3 + 3 + 3 + 3 + 3","5 + 5 + 5","3 + 5","15 + 3","","","","","","",""
+"59","18","essay","practice","Jika ada 6 kotak, tiap kotak berisi 5 biskuit, berapa total biskuit?","","","","30","","","","","","","","","","","","",""
+"59","19","multipart","practice","Gunakan data pada gambar penjumlahan bersusun.","","","/images/math3-bab1-bilangan/q19-penjumlahan-susun.png","","","","","","","","","","","","","","a|48 + 16|64;b|67 + 25|92;c|39 + 47|86"
+"59","20","pilihan_ganda","practice","Pembagian 28 : 7 bermakna ...","","","","D","","","28 dikali 7","7 dikurangi 28 berulang","28 ditambah 7 berulang","28 dikurangi 7 berulang hingga 0, banyak pengurangan = 4","","","","","","",""
+"59","21","essay","practice","Hitung: 36 : 4, 48 : 6, dan 45 : 9.","","","","9, 8, 5","","","","","","","","","","","","",""
+"59","22","multipart","practice","Gunakan hubungan kebalikan perkalian-pembagian.","","","","","","","","","","","","","","","","","a|Jika 15 : 3 = 5 maka 5 x 3|15;b|Jika 24 : 6 = 4 maka 4 x 6|24;c|Jika 32 : 4 = 8 maka 8 x 4|32"
+"59","23","pilihan_ganda","practice","Soal cerita: 22 siswa perempuan dan 19 laki-laki ikut lomba. Jumlah peserta adalah ...","","","","C","","","39","40","41","42","","","","","","",""
+"59","24","essay","practice","Kakak membeli 36 apel dibagi rata ke 6 teman. Tiap teman dapat berapa?","","","","6","","","","","","","","","","","","",""
+"59","25","pilihan_ganda","practice","Data tinggi: 123, 139, 115, 109, 127, 120. Nilai tertinggi adalah ...","","","","B","","","127","139","123","120","","","","","","",""
+"59","26","essay","practice","Urutkan tinggi 123, 139, 115 dari tertinggi ke terendah.","","","","139, 123, 115","","","","","","","","","","","","",""
+"59","27","multipart","practice","Dari data tinggi 123, 139, 115, 109, 127, 120.","","","","","","","","","","","","","","","","","a|Banyak data dengan puluhan < 3|5;b|Apakah 115 > 127?|tidak;c|Jangkauan data|30"
+"59","28","pilihan_ganda","practice","Nilai tempat angka 3 pada bilangan 231 adalah ...","","","","A","","","30","300","3","203","","","","","","",""
+"59","29","essay","practice","Tuliskan bacaan bilangan 602 dan 930.","","","","enam ratus dua; sembilan ratus tiga puluh","","","","","","","","","","","","",""
+"59","30","multipart","practice","Gunakan konteks pada gambar untuk menjawab.","","","/images/math3-bab1-bilangan/q30-soal-cerita.png","","","","","","","","","","","","","","a|Jumlah buku perpustakaan (23+16)|39;b|Telur per kotak (24:3)|8;c|Balon per hari (63:7)|9"
+"59","31","pilihan_ganda","practice","Bilangan yang tepat untuk 8 ratusan, 0 puluhan, 4 satuan adalah ...","","","","D","","","840","8004","8040","804","","","","","","",""
+"59","32","essay","practice","Buat dua bilangan 3 angka berbeda yang memiliki nilai tempat puluhan = 0.","","","","contoh: 703 dan 902","","","","","","","","","","","","",""
+"59","33","pilihan_ganda","practice","Mana pernyataan yang benar?","","","","C","","","Angka 2 pada 251 bernilai 2","Angka 5 pada 251 bernilai 5","Angka 1 pada 251 bernilai 1 satuan","Angka 6 pada 602 bernilai 60","","","","","","",""
+"59","34","essay","practice","Dina punya 120 permen, memberi 45, lalu membeli 30. Berapa permen Dina sekarang?","","","","105","","","","","","","","","","","","",""
+"59","35","multipart","practice","Selesaikan operasi campuran berikut.","","","","","","","","","","","","","","","","","a|93 - 28|65;b|9 x 4|36;c|30 : 5|6"
+"59","36","pilihan_ganda","practice","Berdasarkan data asesmen pada gambar, operasi yang termasuk pembagian adalah ...","","","/images/math3-bab1-bilangan/q36-refleksi-data.png","C","","","72 - 29","9 x 4","28 : 7","28 + 57","","","","","","",""
+"59","37","essay","practice","Jelaskan satu alasan mengapa pembagian dapat dipahami sebagai pengurangan berulang.","","","","karena bilangan dibagi dikurangi pembagi berulang sampai 0, jumlah pengurangan adalah hasil bagi","","","","","","","","","","","","",""
+"59","38","pilihan_ganda","practice","Jika 5 x 6 = 30, maka 30 : 5 = ...","","","","B","","","5","6","30","25","","","","","","",""
+"59","39","multipart","practice","Lengkapi soal refleksi kemampuan.","","","","","","","","","","","","","","","","","a|Membaca bilangan 703|tujuh ratus tiga;b|Menulis lambang tiga ratus lima puluh empat|354;c|Membandingkan 189 dan 198|189 < 198"
+"59","40","essay","practice","Buat satu soal HOTS gabungan bab 1 (nilai tempat + operasi hitung), lalu tulis jawabannya.","","","","jawaban bervariasi, harus konsisten dengan soal yang dibuat","","","","","","","","","","","","",""

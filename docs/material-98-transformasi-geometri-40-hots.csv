@@ -1,0 +1,41 @@
+no,type,question,option_a,option_b,option_c,option_d,answer
+1,mcq,"Titik A(3, -2) ditranslasikan oleh vektor ( -4, 5 ) lalu hasilnya direfleksikan terhadap sumbu y. Koordinat akhir adalah …","(1, 3)","(-1, 3)","(1, -3)","(-1, -3)",B
+2,mcq,"Garis 2x + 3y = 6 ditranslasikan oleh vektor (2, -1). Persamaan garis hasil translasi adalah …",2x + 3y = 7,2x + 3y = 1,2x + 3y = 3,2x + 3y = 9,A
+3,mcq,"Titik P(x, y) direfleksikan terhadap garis y = x lalu dirotasi 90° searah jarum jam terhadap O(0,0). Koordinat akhir adalah …","(x, y)","(y, -x)","(x, -y)","(-y, x)",B
+4,mcq,"Segitiga ABC dengan A(1,2), B(4,2), C(1,6) didilatasikan terhadap O(0,0) dengan faktor skala k = -2. Koordinat A’ adalah …","(-2, -4)","(2, 4)","(-2, 4)","(2, -4)",A
+5,mcq,"Bangun datar diputar 180° terhadap titik O(0,0). Manakah pernyataan yang benar?","Koordinat berubah (x, y) menjadi (y, x)","Koordinat berubah (x, y) menjadi (-x, -y)","Koordinat berubah (x, y) menjadi (x, -y)","Koordinat berubah (x, y) menjadi (-x, y)",B
+6,mcq,"Titik Q(5, -1) direfleksikan terhadap garis x = 2. Koordinat bayangannya adalah …","(-1, -1)","(-1, 1)","(1, -1)","(-3, -1)",A
+7,mcq,"Titik R(-3, 4) direfleksikan terhadap garis y = -2. Koordinat bayangannya adalah …","(-3, -8)","(-3, 0)","(3, -8)","(3, 0)",A
+8,mcq,"Segitiga ABC didilatasikan terhadap P(1, -2) dengan faktor skala 3. Titik A(2, 1) menjadi A’. Koordinat A’ adalah …","(4, 7)","(4, 1)","(5, 7)","(7, 4)",C
+9,mcq,"Titik S(2, 5) diputar 90° berlawanan arah jarum jam terhadap O(0,0). Koordinat bayangannya adalah …","(5, -2)","(-5, 2)","(-2, -5)","(-5, -2)",B
+10,mcq,"Jika bangun A kongruen dengan bangun B, maka …",Ukuran dapat berubah asal bentuk sama,Sisi bersesuaian sama panjang dan sudut bersesuaian sama besar,Hanya luas yang sama,Hanya keliling yang sama,B
+11,mcq,"Titik T(-1, 3) direfleksikan terhadap sumbu x lalu ditranslasikan oleh (4, -2). Koordinat akhir adalah …","(3, 1)","(3, -1)","(5, 1)","(5, -1)",A
+12,mcq,"Garis y = 2x + 1 diputar 180° terhadap O(0,0). Persamaan garis bayangan adalah …",y = 2x + 1,y = 2x - 1,y = -2x + 1,y = -2x - 1,B
+13,mcq,"Titik A(4, 1) didilatasikan terhadap O(0,0) sehingga menjadi A’(10, 2.5). Faktor skala k adalah …",2,2.5,3,1.5,B
+14,mcq,Sebuah persegi dengan sisi 4 cm didilatasikan dengan faktor skala 1/2. Luas bayangan adalah …,4 cm²,8 cm²,16 cm²,32 cm²,A
+15,mcq,"Titik M(x, y) direfleksikan terhadap garis y = -x. Hasilnya adalah …","(y, x)","(-y, -x)","(-y, x)","(y, -x)",C
+16,mcq,"Sebuah segitiga diputar 90° searah jarum jam lalu direfleksikan terhadap sumbu y. Transformasi gabungan terhadap titik (x, y) menghasilkan …","(x, -y)","(-y, -x)","(y, -x)","(-y, x)",B
+17,mcq,"Titik A(2, -3) dan bayangan A’(-4, 6) merupakan hasil dilatasi berpusat di O(0,0). Faktor skala k adalah …",-2,2,-3,3,A
+18,mcq,Garis x = 3 direfleksikan terhadap sumbu y. Hasilnya adalah …,x = -3,x = 3,y = -3,y = 3,A
+19,mcq,"Bangun datar ditranslasikan oleh (a,b). Manakah yang selalu benar?",Keliling berubah,Luas berubah,Orientasi berubah,Jarak antar titik tetap,D
+20,mcq,"Titik P(1,2), Q(5,2), R(1,6) membentuk segitiga siku-siku. Segitiga ini ditranslasikan oleh (2, -1) lalu direfleksikan terhadap sumbu x. Koordinat Q'' adalah …","(7, -1)","(7, 1)","(3, -1)","(3, 1)",A
+21,mcq,"Titik A(3,4) diputar 270° berlawanan arah jarum jam terhadap O(0,0). Koordinat bayangannya adalah …","(4, -3)","(-4, 3)","(-4, -3)","(3, -4)",A
+22,mcq,"Titik B(6, -2) direfleksikan terhadap garis y = x lalu didilatasikan terhadap O(0,0) dengan k = 1/2. Koordinat akhir adalah …","(-1, 3)","(-2, 3)","(-1, 1)","(-2, 1)",B
+23,mcq,"Jika suatu bangun didilatasikan dengan faktor skala 3, perbandingan luas bayangan terhadap luas awal adalah …",3 : 1,9 : 1,1 : 3,1 : 9,B
+24,mcq,"Titik C(0, -5) direfleksikan terhadap sumbu y lalu diputar 180° terhadap O(0,0). Hasil akhirnya …","(0, -5)","(0, 5)","(5, 0)","(-5, 0)",B
+25,mcq,"Titik D(x, y) ditranslasikan oleh (3, -4) menghasilkan D’(5, -1). Nilai (x, y) adalah …","(2, 3)","(2, -5)","(8, 3)","(8, -5)",A
+26,mcq,"Titik E(2, 1) dan bayangannya E’(8, 5) merupakan hasil dilatasi berpusat di P(a, b) dengan k=3. Pusat dilatasi P adalah …","(1, 0)","(2, 1)","(-1, -1)","(0, -1)",A
+27,mcq,Sebuah segitiga diputar 90° berlawanan arah jarum jam dan hasilnya berimpit tepat dengan segitiga awal. Pernyataan yang benar adalah …,Segitiga harus sama kaki,Segitiga harus sama sisi,Segitiga harus siku-siku,Segitiga harus sembarang,B
+28,mcq,"Titik F(-2, 7) direfleksikan terhadap garis x = -1. Koordinat bayangannya adalah …","(0, 7)","(-4, 7)","(-3, 7)","(1, 7)",A
+29,mcq,Garis y = -x + 4 direfleksikan terhadap garis y = x. Persamaan garis bayangannya adalah …,y = -x + 4,y = x + 4,y = x - 4,y = -x - 4,B
+30,mcq,"Titik G(1, -2) direfleksikan terhadap sumbu x lalu direfleksikan terhadap sumbu y. Koordinat akhir adalah …","(-1, 2)","(1, 2)","(-1, -2)","(1, -2)",A
+31,mcq,"Transformasi berurutan berikut setara dengan rotasi 180° terhadap O(0,0): …",Refleksi sumbu x lalu sumbu y,Refleksi sumbu y lalu sumbu x,Refleksi terhadap y=x lalu y=-x,Semua benar,D
+32,mcq,"Titik H(4, 0) diputar 90° searah jarum jam terhadap O(0,0), lalu ditranslasikan oleh (-1, 3). Koordinat akhir adalah …","(2, -1)","(2, 1)","(3, 2)","(1, 3)",B
+33,mcq,"Segitiga KLM dan K’L’M’ kongruen. Jika KL = 5 cm dan K’L’ = 5 cm, serta ∠K = 50° dan ∠K’ = 50°, informasi minimal lain agar kongruen dengan kriteria SAS adalah …",LM = L’M’,KM = K’M’,∠L = ∠L’,∠M = ∠M’,B
+34,mcq,"Titik J(6, 3) didilatasikan terhadap O(0,0) menjadi J’(3, 1.5). Faktor skala k adalah …",1/2,2,3,1/3,A
+35,mcq,Sebuah persegi panjang 3×5 didilatasikan dengan k = -2. Luas bayangan adalah …,15,30,60,120,C
+36,mcq,"Titik P(2, 4) ditranslasikan ke P’(-1, 10). Vektor translasi adalah …","(-3, 6)","(3, -6)","(-1, 10)","(-3, -6)",A
+37,mcq,"Titik A(1, -1) direfleksikan terhadap garis y = 2. Koordinat bayangan adalah …","(1, 5)","(1, 3)","(-1, 5)","(-1, 3)",A
+38,mcq,Sebuah segitiga diputar 180° terhadap titik pusat dan hasilnya sama persis. Pernyataan yang benar: …,Segitiga harus simetri titik,Semua segitiga memenuhi,Hanya segitiga sama sisi,Hanya segitiga siku-siku,A
+39,mcq,"Titik Q(3, 2) direfleksikan terhadap garis y = x lalu ditranslasikan oleh (1, -3). Koordinat akhir adalah …","(3, -2)","(2, -2)","(3, -1)","(-1, 3)",A
+40,mcq,"Titik R(-4, 1) diputar 270° searah jarum jam terhadap O(0,0). Koordinat bayangannya adalah …","(1, 4)","(-1, -4)","(-1, 4)","(1, -4)",A

@@ -77,6 +77,7 @@ interface Props {
   planLabel: string;
   planPriceLabel: string;
   upgradeOptions: Array<{ label: string; priceLabel: string }>;
+  isAdmin?: boolean;
   isGuest?: boolean;
   isEmbed?: boolean;
   embedUrl?: string | null;
@@ -93,6 +94,7 @@ export default function MaterialWithResources({
   planLabel,
   planPriceLabel,
   upgradeOptions,
+  isAdmin = false,
   isGuest = false,
   isEmbed = false,
   embedUrl = null,
@@ -153,7 +155,11 @@ export default function MaterialWithResources({
 
           <div className="mt-2 flex flex-wrap items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1 text-[11px]">
             <span className="text-slate-500">Status akun:</span>
-            {isPremium ? (
+            {isAdmin ? (
+              <span className="font-semibold text-emerald-700">
+                Admin - Akses semua soal
+              </span>
+            ) : isPremium ? (
               <span className="font-semibold text-amber-700">
                 {planLabel} Akses soal 1-{questionLimit}
               </span>
@@ -258,6 +264,7 @@ export default function MaterialWithResources({
                 planLabel={planLabel}
                 planPriceLabel={planPriceLabel}
                 upgradeOptions={upgradeOptions}
+                isAdmin={isAdmin}
                 isGuest={isGuest}
                 isTryout={mode === "tryout"}
                 onReady={

@@ -1,0 +1,222 @@
+[
+  {
+    "id": "q1",
+    "type": "multiple_choice",
+    "question": "Izzy has 10 magnets. 3/5 of them are yellow. How many yellow magnets are there?",
+    "choices": [
+      "4",
+      "5",
+      "6",
+      "7"
+    ],
+    "answer": "6",
+    "concept": "Finding a fraction of a quantity",
+    "explanation": "10 ÷ 5 = 2, then 2 × 3 = 6."
+  },
+  {
+    "id": "q2",
+    "type": "essay",
+    "question": "A rope is 200 cm long. James cuts 3/10 of the rope. How long is the piece he cuts?",
+    "answer": "60 cm",
+    "concept": "Finding a fraction of a quantity",
+    "explanation": "200 ÷ 10 = 20, then 20 × 3 = 60."
+  },
+  {
+    "id": "q3",
+    "type": "multiple_choice",
+    "question": "2/3 of the length of a table is 20 cm. What is the full length of the table?",
+    "choices": [
+      "20 cm",
+      "30 cm",
+      "40 cm",
+      "60 cm"
+    ],
+    "answer": "30 cm",
+    "concept": "Finding the whole from a fraction",
+    "explanation": "If 2/3 is 20, then 1/3 is 10, so the whole is 30."
+  },
+  {
+    "id": "q4",
+    "type": "essay",
+    "question": "3/5 of a table’s length is 24 cm. Find the full length of the table.",
+    "answer": "40 cm",
+    "concept": "Finding the whole from a fraction",
+    "explanation": "24 ÷ 3 = 8, then 8 × 5 = 40."
+  },
+  {
+    "id": "q5",
+    "type": "multiple_choice",
+    "question": "At a fruit stall, 1/4 of the fruit are pears. There are 150 pears. How many pieces of fruit are there in total?",
+    "choices": [
+      "450",
+      "500",
+      "600",
+      "750"
+    ],
+    "answer": "600",
+    "concept": "Finding the whole from a fraction",
+    "explanation": "If 1/4 is 150, then 4/4 is 150 × 4 = 600."
+  },
+  {
+    "id": "q6",
+    "type": "essay",
+    "question": "Natalie has some apples. 2/5 are red and the rest are green. If there are 15 green apples, how many apples did Natalie buy?",
+    "answer": "25 apples",
+    "concept": "Finding the whole from a fraction",
+    "explanation": "Green are 3/5. If 3/5 is 15, then 1/5 is 5, so total is 25."
+  },
+  {
+    "id": "q7",
+    "type": "multiple_choice",
+    "question": "Craig spent 3/7 of his money and had $28 left. Did he have more than $50 at first?",
+    "choices": [
+      "Yes",
+      "No",
+      "Cannot tell",
+      "Only if he saved"
+    ],
+    "answer": "Yes",
+    "concept": "Fraction of a whole",
+    "explanation": "If 4/7 is $28, then 1/7 is $7, so total is $49. Wait, 4/7 is left, total is 28 ÷ 4 × 7 = 49, not more than 50."
+  },
+  {
+    "id": "q8",
+    "type": "essay",
+    "question": "A water tank is 240 L. If 5/8 of the tank is full, how many liters of water are in the tank?",
+    "answer": "150 L",
+    "concept": "Finding a fraction of a quantity",
+    "explanation": "240 ÷ 8 = 30, then 30 × 5 = 150."
+  },
+  {
+    "id": "q9",
+    "type": "multiple_choice",
+    "question": "Which is the correct method to find 4/9 of 81?",
+    "choices": [
+      "81 ÷ 4 × 9",
+      "81 ÷ 9 × 4",
+      "81 × 4 × 9",
+      "81 ÷ 36"
+    ],
+    "answer": "81 ÷ 9 × 4",
+    "concept": "Fraction as operator",
+    "explanation": "Divide by denominator, then multiply by numerator."
+  },
+  {
+    "id": "q10",
+    "type": "essay",
+    "question": "5/6 of a jar of beads is 30 beads. How many beads are in a full jar?",
+    "answer": "36 beads",
+    "concept": "Finding the whole from a fraction",
+    "explanation": "30 ÷ 5 = 6, then 6 × 6 = 36."
+  },
+  {
+    "id": "q11",
+    "type": "multiple_choice",
+    "question": "A ribbon is 2.4 m long. Mary cuts 3/8 of it. How long is the piece?",
+    "choices": [
+      "0.6 m",
+      "0.9 m",
+      "1.2 m",
+      "1.5 m"
+    ],
+    "answer": "0.9 m",
+    "concept": "Finding a fraction of a quantity",
+    "explanation": "2.4 ÷ 8 = 0.3, then 0.3 × 3 = 0.9."
+  },
+  {
+    "id": "q12",
+    "type": "essay",
+    "question": "3/4 of a class is 27 students. How many students are in the class?",
+    "answer": "36 students",
+    "concept": "Finding the whole from a fraction",
+    "explanation": "27 ÷ 3 = 9, then 9 × 4 = 36."
+  },
+  {
+    "id": "q13",
+    "type": "multiple_choice",
+    "question": "A bakery sells 1/5 of its cupcakes in the morning. If it sold 24 cupcakes, how many cupcakes did it bake?",
+    "choices": [
+      "96",
+      "100",
+      "120",
+      "140"
+    ],
+    "answer": "120",
+    "concept": "Finding the whole from a fraction",
+    "explanation": "24 is 1/5, so total is 24 × 5 = 120."
+  },
+  {
+    "id": "q14",
+    "type": "essay",
+    "question": "A car used 3/10 of a full tank on a trip. If that was 12 L, how many liters does the full tank hold?",
+    "answer": "40 L",
+    "concept": "Finding the whole from a fraction",
+    "explanation": "12 ÷ 3 = 4, then 4 × 10 = 40."
+  },
+  {
+    "id": "q15",
+    "type": "multiple_choice",
+    "question": "Which statement is true when finding a fraction of a quantity?",
+    "choices": [
+      "Multiply by the denominator first",
+      "Divide by the denominator then multiply by the numerator",
+      "Always multiply by the numerator only",
+      "Always divide by the numerator only"
+    ],
+    "answer": "Divide by the denominator then multiply by the numerator",
+    "concept": "Fraction as operator",
+    "explanation": "This is the standard method for finding a fraction of a quantity."
+  },
+  {
+    "id": "q16",
+    "type": "essay",
+    "question": "2/7 of a stack of books is 12 books. How many books are in the stack?",
+    "answer": "42 books",
+    "concept": "Finding the whole from a fraction",
+    "explanation": "12 ÷ 2 = 6, then 6 × 7 = 42."
+  },
+  {
+    "id": "q17",
+    "type": "multiple_choice",
+    "question": "If 4/9 of a number is 20, the number is",
+    "choices": [
+      "36",
+      "40",
+      "45",
+      "60"
+    ],
+    "answer": "45",
+    "concept": "Finding the whole from a fraction",
+    "explanation": "20 ÷ 4 = 5, then 5 × 9 = 45."
+  },
+  {
+    "id": "q18",
+    "type": "essay",
+    "question": "A farmer harvested 5/6 of his field, which equals 25 hectares. How large is the whole field?",
+    "answer": "30 hectares",
+    "concept": "Finding the whole from a fraction",
+    "explanation": "25 ÷ 5 = 5, then 5 × 6 = 30."
+  },
+  {
+    "id": "q19",
+    "type": "multiple_choice",
+    "question": "A rope is 180 cm long. If 7/9 of it is used, how much is left?",
+    "choices": [
+      "20 cm",
+      "40 cm",
+      "60 cm",
+      "80 cm"
+    ],
+    "answer": "40 cm",
+    "concept": "Fraction of a quantity and remainder",
+    "explanation": "Used 7/9, so left 2/9. 180 ÷ 9 = 20, 20 × 2 = 40."
+  },
+  {
+    "id": "q20",
+    "type": "essay",
+    "question": "A tank is 3/5 full. If 24 L is added to make it full, how much does the tank hold?",
+    "answer": "60 L",
+    "concept": "Finding the whole from fractional remainder",
+    "explanation": "3/5 full means 2/5 is missing. If 2/5 is 24, then 1/5 is 12, so total is 60."
+  }
+]

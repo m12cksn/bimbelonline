@@ -1,41 +1,41 @@
-material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
-65,1,essay,practice,Bandingkan 1/3 dan 1/5. Mana yang lebih besar? Jelaskan singkat.,,,,1/3 lebih besar,,,,,,,,,,,,,
-65,2,mcq,practice,Pecahan senilai dengan 2/4 adalah...,,,,B,,,1/4,1/2,3/4,4/8,,,,,,,
-65,3,essay,practice,Urutan dari terbesar ke terkecil adalah...,,,,"1/4, 1/6, 1/8",,,,,,,,,,,,,
-65,4,mcq,practice,Pecahan yang lebih besar adalah...,,,,D,,,1/9,1/10,1/12,1/8,,,,,,,
-65,5,essay,practice,"Dari angka 1 sampai 6, buat pecahan berpenyebut sama yang nilainya paling besar dan paling kecil (pembilang berbeda). Tulis dua pecahan.",,,,6/6 dan 1/6,,,,,,,,,,,,,
-65,6,mcq,practice,Desimal 0.25 setara dengan pecahan...,,,,C,,,2/5,1/3,1/4,3/8,,,,,,,
-65,7,essay,practice,Mana yang lebih besar: 3/8 atau 5/8? Jelaskan singkat.,,,,5/8,,,,,,,,,,,,,
-65,8,mcq,practice,Pecahan yang paling besar nilainya adalah...,,,,B,,,3/8,5/12,1/2,7/16,,,,,,,
-65,9,essay,practice,Tuliskan dua pecahan senilai dengan 3/5.,,,,6/10 dan 9/15,,,,,,,,,,,,,
-65,10,mcq,practice,Nilai 0.6 sama dengan...,,,,A,,,6/10,6/100,3/5,60/100,,,,,,,
-65,11,essay,practice,Sebuah kue dibagi 6 sama besar. Dimas makan 2 bagian. Berapa pecahan kue yang dimakan?,,,,2/6,,,,,,,,,,,,,
-65,12,mcq,practice,Pecahan yang sama nilainya dengan 0.4 adalah...,,,,D,,,1/5,2/5,4/100,2/5,,,,,,,
-65,13,essay,practice,Urutan pecahan berpenyebut sama dari kecil ke besar adalah...,,,,"1/9, 4/9, 7/9",,,,,,,,,,,,,
-65,14,mcq,practice,Yang setara dengan 125% adalah...,,,,B,,,1/4,1.25,0.125,2/5,,,,,,,
-65,15,essay,practice,Dua pecahan 4/7 dan 5/7. Selisih keduanya adalah...,,,,1/7,,,,,,,,,,,,,
-65,16,drag_drop,practice,Pasangkan pecahan dengan artinya.,,,,,,,,,,,,,,,1/10;3/10;7/10;9/10,"satu dari sepuluh,tiga dari sepuluh,tujuh dari sepuluh,sembilan dari sepuluh",
-65,17,essay,practice,Sebuah tali 1 meter dipotong menjadi 8 bagian sama. Berapa panjang 3 bagian?,,,,3/8 meter,,,,,,,,,,,,,
-65,18,drag_drop,practice,Pasangkan pecahan senilai.,,,,,,,,,,,,,,,1/2;2/3;3/4;1/5,"2/4,4/6,6/8,2/10",
-65,19,essay,practice,Ubah 7/10 menjadi desimal.,,,,0.7,,,,,,,,,,,,,
-65,20,drag_drop,practice,Pasangkan pecahan dengan bentuk desimalnya.,,,,,,,,,,,,,,,1/10;3/10;5/10;7/10,"0.1,0.3,0.5,0.7",
-65,21,essay,practice,Ubah 12/100 menjadi persen.,,,,12%,,,,,,,,,,,,,
-65,22,drag_drop,practice,Pasangkan desimal dengan persen.,,,,,,,,,,,,,,,0.2;0.35;0.75;1.25,"20%,35%,75%,125%",
-65,23,essay,practice,Dalam kelas ada 40 siswa. 10 siswa ikut klub sains. Berapa persen yang ikut klub?,,,,25%,,,,,,,,,,,,,
-65,24,drag_drop,practice,Pasangkan cerita dengan pecahan yang benar.,,,,,,,,,,,,,,,2 dari 8 potong pizza;3 dari 5 gelas terisi;7 dari 10 kursi terpakai;1 dari 4 bagian diarsir,"2/8,3/5,7/10,1/4",
-65,25,essay,practice,Siti menabung 3/4 dari uangnya. Ia punya Rp 40.000. Berapa yang ditabung?,,,,30000,,,,,,,,,,,,,
-65,26,drag_drop,practice,Cocokkan pecahan dan posisi terdekat pada garis bilangan 0-1.,,,,,,,,,,,,,,,1/10;1/2;3/4;9/10,"dekat 0,dekat 0.5,dekat 0.75,dekat 1",
-65,27,essay,practice,Buat pecahan senilai dengan 4/6 yang paling sederhana.,,,,2/3,,,,,,,,,,,,,
-65,28,drag_drop,practice,Pasangkan pecahan dengan penyebut sama yang lebih besar.,,,,,,,,,,,,,,,2/9 vs 5/9;4/7 vs 3/7;6/8 vs 1/8;7/10 vs 9/10,"5/9,4/7,6/8,9/10",
-65,29,essay,practice,"Dari tiga pecahan 2/5, 3/10, 4/8, urutkan dari kecil ke besar.",,,,"3/10, 2/5, 4/8",,,,,,,,,,,,,
-65,30,multipart,practice,Lihat gambar pecahan berikut.,,,TODO_IMG_FRACTION_BAR_A.png,,,,,,,,,,,,,,a|Pecahan yang diarsir|3/8;b|Pecahan yang tidak diarsir|5/8
-65,31,essay,practice,"Sebuah resep butuh 3/5 gelas gula. Jika membuat 2 kali resep, berapa gelas gula?",,,,6/5 atau 1 1/5,,,,,,,,,,,,,
-65,32,multipart,practice,"Bandingkan pecahan berikut. Isi tanda >, <, atau =.",,,,,,,,,,,,,,,,,a|1/4 __ 1/6|>;b|3/5 __ 3/7|>;c|2/9 __ 4/18|=
-65,33,essay,practice,"Di sebuah lomba, 18 dari 24 siswa lulus. Berapa persen yang lulus?",,,,75%,,,,,,,,,,,,,
-65,34,multipart,practice,Perhatikan garis bilangan pecahan.,,,TODO_IMG_NUMBERLINE_FRACTION.png,,,,,,,,,,,,,,a|Titik A menunjukkan pecahan|1/4;b|Titik B menunjukkan pecahan|3/4
-65,35,essay,practice,Seorang pedagang memberi diskon 10% dari Rp 50.000. Berapa harga setelah diskon?,,,,45000,,,,,,,,,,,,,
-65,36,multipart,practice,Lihat gambar kisi 10x10.,,,TODO_IMG_GRID_10x10.png,,,,,,,,,,,,,,"a|Jika 35 kotak diarsir, pecahannya|35/100;b|Persennya|35%"
-65,37,essay,practice,Sebuah botol berisi 1 liter. Tersisa 3/8 liter. Berapa liter yang sudah dipakai?,,,,5/8 liter,,,,,,,,,,,,,
-65,38,multipart,practice,Lihat gambar diskon.,,,TODO_IMG_DISCOUNT_25.png,,,,,,,,,,,,,,"a|Diskon 25% setara pecahan|25/100;b|Jika harga Rp 80.000, besar diskon|20000"
-65,39,essay,practice,Ibu membeli 2 1/2 meter kain. Dipakai 1 3/4 meter. Berapa sisa kain?,,,,3/4 meter,,,,,,,,,,,,,
-65,40,multipart,practice,Lihat gambar pecahan berikut.,,,TODO_IMG_FRACTION_BAR_B.png,,,,,,,,,,,,,,a|Pecahan diarsir|2/6;b|Pecahan senilai paling sederhana|1/3
+"material_id","question_number","question_type","question_mode","prompt","question_text","helper_text","question_image_url","correct_answer","correct_image_url","explanation","option_a","option_b","option_c","option_d","option_a_image_url","option_b_image_url","option_c_image_url","option_d_image_url","drag_items","drop_targets","multipart_items"
+"65","1","pilihan_ganda","practice","Manakah yang lebih besar antara 1/3 dan 1/5?","","","","A","","","1/3","1/5","Sama besar","Tidak bisa dibandingkan","","","","","","",""
+"65","2","essay","practice","Jelaskan alasan mengapa 1/2 lebih besar dari 1/4 dengan kalimat sendiri.","","","","karena satu benda dibagi 2 menghasilkan bagian lebih besar daripada dibagi 4","","","","","","","","","","","","",""
+"65","3","multipart","practice","Bandingkan pecahan pembilang satu berikut.","","","","","","","","","","","","","","","","","a|1/8 ... 1/10|>;b|1/11 ... 1/5|<;c|1/7 ... 1/7|="
+"65","4","pilihan_ganda","practice","Jika pembilang sama-sama 1, maka pecahan yang penyebutnya lebih kecil akan bernilai ...","","","","B","","","lebih kecil","lebih besar","sama","acak","","","","","","",""
+"65","5","essay","practice","Urutkan dari terkecil ke terbesar: 1/6, 1/2, 1/4, 1/8.","","","","1/8, 1/6, 1/4, 1/2","","","","","","","","","","","","",""
+"65","6","pilihan_ganda","practice","Dari gambar, pecahan yang diarsir adalah ...","","","/images/kelas4-pecahan/k4p-q6-bar-3of10.png","C","","","1/10","2/10","3/10","4/10","","","","","","",""
+"65","7","multipart","practice","Bandingkan pecahan berpenyebut sama.","","","","","","","","","","","","","","","","","a|3/5 ... 4/5|<;b|7/9 ... 5/9|>;c|2/8 ... 2/8|="
+"65","8","pilihan_ganda","practice","Mana yang paling besar?","","","","D","","","2/7","3/7","5/7","6/7","","","","","","",""
+"65","9","essay","practice","Urutkan dari terbesar ke terkecil: 2/6, 5/6, 1/6, 4/6.","","","","5/6, 4/6, 2/6, 1/6","","","","","","","","","","","","",""
+"65","10","pilihan_ganda","practice","Pecahan mana yang nilainya paling kecil?","","","","A","","","1/9","3/9","5/9","7/9","","","","","","",""
+"65","11","essay","practice","Tulis dua pecahan senilai dari 1/2.","","","","2/4 dan 3/6","","","","","","","","","","","","",""
+"65","12","multipart","practice","Lengkapi pecahan senilai berikut.","","","","","","","","","","","","","","","","","a|1/3 = .../6|2/6;b|2/5 = .../10|4/10;c|6/8 = .../4|3/4"
+"65","13","pilihan_ganda","practice","Pecahan senilai dengan 3/4 adalah ...","","","","C","","","6/10","9/16","6/8","12/20","","","","","","",""
+"65","14","essay","practice","Dari gambar, jelaskan kenapa 2/6 senilai dengan 1/3.","","","/images/kelas4-pecahan/k4p-q14-bar-2of6.png","karena bagian diarsir mewakili luas yang sama, 2/6 disederhanakan menjadi 1/3","","","","","","","","","","","","",""
+"65","15","pilihan_ganda","practice","Jika pembilang dan penyebut dibagi bilangan yang sama, maka nilai pecahan akan ...","","","","B","","","berubah","tetap","menjadi nol","selalu membesar","","","","","","",""
+"65","16","multipart","practice","Tentukan pecahan yang senilai.","","","","","","","","","","","","","","","","","a|4/12 disederhanakan|1/3;b|5/10 disederhanakan|1/2;c|3/9 disederhanakan|1/3"
+"65","17","pilihan_ganda","practice","Ubah 7/10 ke desimal persepuluhan.","","","","A","","","0,7","0,07","7,0","70","","","","","","",""
+"65","18","essay","practice","Ubah 9/10 dan 5/10 menjadi desimal.","","","","0,9 dan 0,5","","","","","","","","","","","","",""
+"65","19","pilihan_ganda","practice","Ubah 25/100 menjadi desimal perseratusan.","","","","C","","","0,025","2,5","0,25","25,0","","","","","","",""
+"65","20","multipart","practice","Dari garis bilangan, tentukan posisi titik merah.","","","/images/kelas4-pecahan/k4p-q20-numberline-1-8.png","","","","","","","","","","","","","","a|Pecahan titik merah|3/8;b|Desimal dari 3/8 (aproksimasi 2 desimal)|0,38;c|3/8 ... 1/2|<"
+"65","21","essay","practice","Ubah 15/100, 62/100, dan 81/100 ke desimal.","","","","0,15; 0,62; 0,81","","","","","","","","","","","","",""
+"65","22","pilihan_ganda","practice","Desimal 0,4 setara dengan pecahan ...","","","","D","","","4/100","1/4","2/8","4/10","","","","","","",""
+"65","23","multipart","practice","Konversi pecahan ke desimal.","","","","","","","","","","","","","","","","","a|3/10|0,3;b|1/100|0,01;c|7/100|0,07"
+"65","24","essay","practice","Jelaskan perbedaan desimal persepuluhan dan perseratusan dari jumlah angka di belakang koma.","","","","persepuluhan 1 angka di belakang koma, perseratusan 2 angka","","","","","","","","","","","","",""
+"65","25","pilihan_ganda","practice","Ubah 0,75 ke persen.","","","","B","","","7,5%","75%","750%","0,75%","","","","","","",""
+"65","26","essay","practice","Ubah 0,35 dan 2,46 ke persen.","","","","35% dan 246%","","","","","","","","","","","","",""
+"65","27","multipart","practice","Gunakan kisi 10x10 pada gambar.","","","/images/kelas4-pecahan/k4p-q27-grid-35.png","","","","","","","","","","","","","","a|Pecahan diarsir|35/100;b|Desimal|0,35;c|Persen|35%"
+"65","28","pilihan_ganda","practice","Cara cepat mengubah desimal perseratusan ke persen adalah ...","","","","A","","","kali 100%","bagi 100%","tambah 100%","kurang 100%","","","","","","",""
+"65","29","essay","practice","Ubah 18%, 65%, 123% menjadi desimal perseratusan.","","","","0,18; 0,65; 1,23","","","","","","","","","","","","",""
+"65","30","multipart","practice","Konversi persen ke desimal.","","","","","","","","","","","","","","","","","a|5%|0,05;b|56%|0,56;c|455%|4,55"
+"65","31","pilihan_ganda","practice","Dari 100 siswa, 30 siswa ikut lomba lari. Persentasenya ...","","","","C","","","3%","13%","30%","300%","","","","","","",""
+"65","32","essay","practice","Nazilla menjawab benar 6 dari 10 soal. Berapa persen jawaban benarnya?","","","","60%","","","","","","","","","","","","",""
+"65","33","pilihan_ganda","practice","Berdasarkan tabel pada gambar, persentase siswa yang olahraga adalah ...","","","/images/kelas4-pecahan/k4p-q33-tabel-kelas.png","D","","","20%","30%","50%","40%","","","","","","",""
+"65","34","multipart","practice","Selesaikan soal cerita pecahan.","","","","","","","","","","","","","","","","","a|Semangka 1 utuh, Helen mendapat 1/4, Putu mendapat sisa|3/4;b|Siapa mendapat bagian lebih besar|Putu;c|Bandingkan 1/4 dan 3/4|1/4 < 3/4"
+"65","35","pilihan_ganda","practice","Wiwin mendapat 1/5 roti dan Tomas 2/5 roti. Yang paling sedikit adalah ...","","","","A","","","Wiwin","Tomas","Sama","Tidak diketahui","","","","","","",""
+"65","36","essay","practice","Buat satu soal cerita yang modelnya membandingkan 2/6 dan 1/3, lalu tulis kesimpulannya.","","","","keduanya sama besar (senilai)","","","","","","","","","","","","",""
+"65","37","pilihan_ganda","practice","Urutan dari kecil ke besar untuk 0,12; 0,05; 0,25 adalah ...","","","","B","","","0,25; 0,12; 0,05","0,05; 0,12; 0,25","0,12; 0,05; 0,25","0,12; 0,25; 0,05","","","","","","",""
+"65","38","multipart","practice","Latihan campuran akhir.","","","","","","","","","","","","","","","","","a|1/2 ... 1/3|>;b|3/8 ... 5/8|<;c|0,36 menjadi persen|36%"
+"65","39","essay","practice","Ubah 0,05; 1,38; dan 20,05 menjadi persen.","","","","5%; 138%; 2005%","","","","","","","","","","","","",""
+"65","40","pilihan_ganda","practice","Kesimpulan paling tepat tentang persen adalah ...","","","","C","","","persen selalu kurang dari 100","persen tidak terkait pecahan","persen adalah bentuk pecahan berpenyebut 100","persen hanya dipakai saat diskon","","","","","","",""

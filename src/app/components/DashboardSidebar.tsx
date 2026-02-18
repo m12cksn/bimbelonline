@@ -165,6 +165,12 @@ const navItems: Record<Role, Array<Omit<ItemProps, "active">>> = {
       icon: <IconClipboard />,
     },
     {
+      href: "/materials",
+      label: "Materi & Soal",
+      description: "Akses materi untuk admin",
+      icon: <IconBook />,
+    },
+    {
       href: "/dashboard/admin/finance",
       label: "Finance",
       description: "Pendapatan & biaya",

@@ -1,41 +1,41 @@
-material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
-61,1,essay,practice,,Satuan baku panjang yang biasa dipakai pada penggaris adalah ...,,,cm,,,,,,,,,,,,,
-61,2,essay,practice,,Ubah 250 cm ke meter.,,,2.5 m,,,,,,,,,,,,,
-61,3,essay,practice,,Tinggi pintu 210 cm. Tinggi pintu dalam meter adalah ...,,,2.1 m,,,,,,,,,,,,,
-61,4,essay,practice,,Pita 4 m 37 cm disambung dengan pita 7 m 43 cm. Panjang total pita adalah ...,,,11 m 80 cm,,,,,,,,,,,,,
-61,5,essay,practice,,Kain 75 m 80 cm dijual 38 m 45 cm. Sisa kain adalah ...,,,37 m 35 cm,,,,,,,,,,,,,
-61,6,essay,practice,,Kebun panjangnya 5.000 cm. Panjang kebun dalam meter adalah ...,,,50 m,,,,,,,,,,,,,
-61,7,essay,practice,,Satuan baku berat untuk benda ringan seperti pensil adalah ...,,,gram,,,,,,,,,,,,,
-61,8,essay,practice,,Satuan baku berat untuk karung beras adalah ...,,,kg,,,,,,,,,,,,,
-61,9,essay,practice,,Ubah 1.753 gram ke kilogram dan gram.,,,1 kg 753 gram,,,,,,,,,,,,,
-61,10,essay,practice,,1 kilogram sama dengan ... gram.,,,1000,,,,,,,,,,,,,
-61,11,essay,practice,,Meutia punya 8.000 gram mangga dan menjual 4 kg. Sisa mangga adalah ... gram.,,,4000 gram,,,,,,,,,,,,,
-61,12,essay,practice,,Sebuah buku beratnya 500 gram. Dua buku beratnya ... gram.,,,1000,,,,,,,,,,,,,
-61,13,essay,practice,,Ubah 3 kg 200 gram ke gram.,,,3200,,,,,,,,,,,,,
-61,14,essay,practice,,Ubah 4.500 gram ke kilogram.,,,4.5 kg,,,,,,,,,,,,,
-61,15,essay,practice,,Alat ukur paling tepat untuk panjang meja kelas adalah ...,,,meteran,,,,,,,,,,,,,
-61,16,essay,practice,,1 ons sama dengan ... gram.,,,100,,,,,,,,,,,,,
-61,17,mcq,practice,,Alat ukur yang tepat untuk mengukur tinggi badan adalah ...,,,B,,,penggaris,meteran,pensil,jengkal,,,,,,,
-61,18,mcq,practice,,Satuan baku panjang yang lebih besar dari cm adalah ...,,,A,,,meter,milimeter,inci,jengkal,,,,,,,
-61,19,mcq,practice,,200 cm sama dengan ...,,,C,,,2 cm,20 cm,2 m,20 m,,,,,,,
-61,20,mcq,practice,,Berat 1 kg sama dengan ...,,,D,,,10 g,100 g,500 g,1.000 g,,,,,,,
-61,21,mcq,practice,,Benda paling tepat diukur dengan gram adalah ...,,,A,,,pensil,sepeda,lemari,karung beras,,,,,,,
-61,22,mcq,practice,,Benda paling tepat diukur dengan kilogram adalah ...,,,C,,,penghapus,koin,buah semangka,kertas,,,,,,,
-61,23,mcq,practice,,3 m 45 cm sama dengan ... cm.,,,B,,,3450,345,3045,450,,,,,,,
-61,24,mcq,practice,,Satuan baku untuk panjang pensil adalah ...,,,A,,,cm,m,kg,g,,,,,,,
-61,25,mcq,practice,,Alat ukur yang tepat untuk panjang buku tulis adalah ...,,,D,,,meteran,timbangan,jam,penggaris,,,,,,,
-61,26,mcq,practice,,5.000 gram sama dengan ...,,,B,,,0.5 kg,5 kg,50 kg,500 kg,,,,,,,
-61,27,mcq,practice,,Panjang 1 meter sama dengan ... cm.,,,C,,,10,50,100,1000,,,,,,,
-61,28,mcq,practice,,Berat 2 kg 300 g sama dengan ... g.,,,A,,,2300,2030,2003,230,,,,,,,
-61,29,drag_drop,practice,,Pasangkan benda dengan alat ukurnya.,,,,,,,,,,,,,,pintu;pulpen;tinggi badan;meja;lemari;sendok,meteran;penggaris;meteran;meteran;meteran;penggaris,
-61,30,drag_drop,practice,,Pasangkan satuan dengan kegunaan.,,,,,,,,,,,,,,cm;meter;gram;kilogram,benda kecil panjang;benda panjang besar;benda ringan;benda berat,
-61,31,drag_drop,practice,,Pasangkan nilai dengan satuan.,,,,,,,,,,,,,,1 m;100 cm;1 kg;1000 g,setara;setara;setara;setara,
-61,32,drag_drop,practice,,Pasangkan hasil konversi.,,,,,,,,,,,,,,250 cm;3 m 20 cm;4 kg 150 g;1.200 g,2.5 m;320 cm;4150 g;1.2 kg,
-61,33,drag_drop,practice,,Pasangkan berat dengan jumlah.,,,,,,,,,,,,,,2 kg;500 g;3.000 g;1 ons,2.000 g;0.5 kg;3 kg;100 g,
-61,34,drag_drop,practice,,Pasangkan pernyataan dengan benar/salah.,,,,,,,,,,,,,,1 m = 10 cm;1 kg = 1000 g;1 ons = 100 g;200 cm = 2 m,salah;benar;benar;benar,
-61,35,multipart,practice,,Ubah satuan panjang.,,,,,,,,,,,,,,,,a|450 cm|4.5 m;b|2 m 30 cm|230 cm;c|1.250 cm|12.5 m
-61,36,multipart,practice,,Ubah satuan berat.,,,,,,,,,,,,,,,,a|3 kg 40 g|3040 g;b|950 g|0.95 kg;c|6.500 g|6.5 kg
-61,37,multipart,practice,,Pilih alat ukur yang tepat.,,,,,,,,,,,,,,,,a|ukur panjang buku|penggaris;b|ukur tinggi badan|meteran;c|ukur berat mangga|timbangan
-61,38,multipart,practice,,Hitung panjang total.,,,,,,,,,,,,,,,,a|1 m 20 cm + 80 cm|2 m;b|2 m 50 cm - 70 cm|1 m 80 cm;c|5 m 10 cm + 3 m 90 cm|9 m
-61,39,multipart,practice,,Hitung berat total.,,,,,,,,,,,,,,,,a|1 kg 200 g + 800 g|2 kg;b|3 kg 500 g - 750 g|2 kg 750 g;c|2 kg + 450 g|2 kg 450 g
-61,40,multipart,practice,,Soal cerita singkat.,,,,,,,,,,,,,,,,a|Panjang pita 4 m 37 cm + 7 m 43 cm|11 m 80 cm;b|Kain 75 m 80 cm - 38 m 45 cm|37 m 35 cm;c|8.000 g - 4 kg|4.000 g
+"material_id","question_number","question_type","question_mode","prompt","question_text","helper_text","question_image_url","correct_answer","correct_image_url","explanation","option_a","option_b","option_c","option_d","option_a_image_url","option_b_image_url","option_c_image_url","option_d_image_url","drag_items","drop_targets","multipart_items"
+"61","1","pilihan_ganda","practice","Alat ukur paling tepat untuk mengukur panjang pensil adalah ...","","","","A","","","penggaris","meteran gulung","timbangan dapur","stopwatch","","","","","","",""
+"61","2","essay","practice","Konversi 275 cm ke meter dan sentimeter.","","","","2 m 75 cm","","","","","","","","","","","","",""
+"61","3","multipart","practice","Selesaikan konversi berikut.","","","","","","","","","","","","","","","","","a|1 m 35 cm dalam cm|135;b|480 cm dalam m|4,8;c|7 m dalam cm|700"
+"61","4","pilihan_ganda","practice","Dari tabel pada gambar, benda terpanjang adalah ...","","","/images/math3-bab3-pengukuran/q4-panjang-objek.png","D","","","Pensil A","Penghapus","Buku","Meja mini","","","","","","",""
+"61","5","essay","practice","Pita 4 m 37 cm disambung dengan 7 m 43 cm. Berapa panjang totalnya?","","","","11 m 80 cm","","","","","","","","","","","","",""
+"61","6","pilihan_ganda","practice","Kain 75 m 80 cm dijual 38 m 45 cm. Sisanya adalah ...","","","","C","","","36 m 35 cm","37 m 25 cm","37 m 35 cm","38 m 35 cm","","","","","","",""
+"61","7","multipart","practice","Jawab soal panjang kebun.","","","","","","","","","","","","","","","","","a|5000 cm dalam meter|50;b|Jika ditambah 250 cm, panjang baru (m)|52,5;c|Selisih 52 m dengan panjang awal (cm)|200"
+"61","8","essay","practice","Seorang siswa mengukur buku tapi mulai dari angka 1 cm dan ujung akhir di 23 cm. Berapa panjang buku sebenarnya?","","","","22 cm","","","","","","","","","","","","",""
+"61","9","pilihan_ganda","practice","Pernyataan yang benar adalah ...","","","","B","","","1 cm = 100 mm","1 cm = 10 mm","10 cm = 1 mm","100 cm = 10 m","","","","","","",""
+"61","10","multipart","practice","Gunakan data pada gambar.","","","/images/math3-bab3-pengukuran/q10-konversi-cm-m.png","","","","","","","","","","","","","","a|Pita 2 dalam m|2,3;b|Pita mana yang < 1 m|Pita 3;c|Jumlah Pita 1 dan Pita 3 (cm)|240"
+"61","11","pilihan_ganda","practice","Untuk mengukur tinggi pintu kelas, alat paling tepat adalah ...","","","","D","","","penggaris 15 cm","jangka","busur derajat","meteran","","","","","","",""
+"61","12","essay","practice","Tinggi badan Rina 1 m 32 cm dan Sinta 1 m 25 cm. Berapa selisih tinggi mereka?","","","","7 cm","","","","","","","","","","","","",""
+"61","13","multipart","practice","Data tinggi (cm): 132, 128, 135, 130, 128, 140.","","","","","","","","","","","","","","","","","a|Data tertinggi|140;b|Data terendah|128;c|Jangkauan|12"
+"61","14","pilihan_ganda","practice","Jika 100 cm = 1 m, maka 2,5 m sama dengan ... cm","","","","A","","","250","205","25","2500","","","","","","",""
+"61","15","essay","practice","Ubah 3 m 8 cm menjadi sentimeter.","","","","308 cm","","","","","","","","","","","","",""
+"61","16","pilihan_ganda","practice","Pernyataan paling tepat tentang satuan baku berat adalah ...","","","","C","","","pensil sebaiknya ditimbang dengan ton","karung beras sebaiknya dalam gram","g digunakan benda ringan, kg untuk lebih berat","kg lebih kecil dari g","","","","","","",""
+"61","17","essay","practice","Konversi 1.753 gram menjadi kg dan gram.","","","","1 kg 753 g","","","","","","","","","","","","",""
+"61","18","multipart","practice","Berdasarkan tabel pada gambar, jawab berikut.","","","/images/math3-bab3-pengukuran/q18-berat-bahan.png","","","","","","","","","","","","","","a|Total berat gula + mentega (g)|1250;b|Tepung dalam gram|1250;c|Bahan terberat|Tepung"
+"61","19","pilihan_ganda","practice","1 kg sama dengan ... gram","","","","D","","","10","100","500","1000","","","","","","",""
+"61","20","essay","practice","Ubah 4 kg 150 g menjadi gram.","","","","4150 g","","","","","","","","","","","","",""
+"61","21","pilihan_ganda","practice","Jika berat beras 2 kg 300 g, maka dalam gram adalah ...","","","","B","","","2030","2300","3002","230","","","","","","",""
+"61","22","essay","practice","Meutia punya 8000 g mangga, terjual 4 kg. Berapa sisa mangga (gram)?","","","","4000 g","","","","","","","","","","","","",""
+"61","23","multipart","practice","Lengkapi hubungan satuan berat.","","","","","","","","","","","","","","","","","a|3 kg dalam gram|3000;b|2500 g dalam kg dan g|2 kg 500 g;c|1 kg dalam ons|10"
+"61","24","pilihan_ganda","practice","Yang termasuk contoh hasil timbangan yang masuk akal adalah ...","","","","A","","","1 kg 250 g tepung","1 cm gula","30 derajat beras","4 liter pensil","","","","","","",""
+"61","25","essay","practice","Dua buku masing-masing 500 g. Berapa berat total dalam kg?","","","","1 kg","","","","","","","","","","","","",""
+"61","26","pilihan_ganda","practice","Berat buah di keranjang 3 kg 200 g. Jika berkurang 750 g, sisa beratnya ...","","","","C","","","1 kg 950 g","2 kg 550 g","2 kg 450 g","2 kg 650 g","","","","","","",""
+"61","27","essay","practice","Beras A 90 kg 460 g dan beras B 25 kg 380 g. Berapa total berat keduanya?","","","","115 kg 840 g","","","","","","","","","","","","",""
+"61","28","multipart","practice","Gunakan tabel proyek pada gambar.","","","/images/math3-bab3-pengukuran/q28-tabel-rentang.png","","","","","","","","","","","","","","a|Rentang dengan benda terbanyak|11-20 cm;b|Total seluruh benda|24;c|Selisih banyak benda rentang 11-20 dan 31-40|5"
+"61","29","pilihan_ganda","practice","Mana yang menunjukkan pengukuran panjang dengan satuan baku yang benar?","","","","B","","","meja = 6 jengkal","pensil = 17 cm","pintu = 8 langkah","buku = 2 telapak tangan","","","","","","",""
+"61","30","essay","practice","Lintasan lomba 900 cm dan peserta harus pergi-pulang. Berapa total lintasan dalam meter?","","","","18 m","","","","","","","","","","","","",""
+"61","31","pilihan_ganda","practice","Jika 1 ons = 100 g, maka 25 ons sama dengan ...","","","","A","","","2500 g","250 g","25 g","25000 g","","","","","","",""
+"61","32","essay","practice","Sebuah resep butuh 1 kg gula. Di dapur hanya ada 750 g. Berapa gram lagi yang dibutuhkan?","","","","250 g","","","","","","","","","","","","",""
+"61","33","multipart","practice","Data berat tas (kg): 2, 3, 2,5, 4, 3,5.","","","","","","","","","","","","","","","","","a|Berat terberat|4 kg;b|Berat teringan|2 kg;c|Jangkauan (kg)|2"
+"61","34","pilihan_ganda","practice","Pernyataan yang benar tentang memilih alat ukur adalah ...","","","","D","","","mengukur meja dengan busur derajat","mengukur berat apel dengan penggaris","mengukur panjang kain dengan timbangan","mengukur panjang pagar dengan meteran","","","","","","",""
+"61","35","multipart","practice","Gunakan tabel buah pada gambar.","","","/images/math3-bab3-pengukuran/q35-tabel-berat.png","","","","","","","","","","","","","","a|Buah terberat|Mangga;b|Selisih berat mangga dan jeruk|1 kg 350 g;c|Total berat apel + pisang|4 kg 450 g"
+"61","36","essay","practice","Dua kain masing-masing 2 m 45 cm dan 1 m 80 cm. Jika digabung, berapa panjang total dalam cm?","","","","425 cm","","","","","","","","","","","","",""
+"61","37","pilihan_ganda","practice","Urutan dari paling ringan ke paling berat yang benar adalah ...","","","","C","","","3 kg, 450 g, 2 kg","1 kg 200 g, 900 g, 2 kg","750 g, 1 kg, 1 kg 250 g","2 kg, 500 g, 1500 g","","","","","","",""
+"61","38","essay","practice","Seorang siswa menulis 130 cm = 130 m. Jelaskan kesalahan dan tulis konversi yang benar.","","","","salah satuan; 130 cm = 1 m 30 cm","","","","","","","","","","","","",""
+"61","39","multipart","practice","Selesaikan soal campuran panjang.","","","","","","","","","","","","","","","","","a|2 m 75 cm dalam cm|275;b|525 cm dalam m dan cm|5 m 25 cm;c|Selisih 6 m dan 425 cm|1 m 75 cm"
+"61","40","pilihan_ganda","practice","Kesimpulan paling tepat dari proyek pengukuran panjang kelas adalah ...","","","","B","","","semua benda pasti > 50 cm","hasil lebih rapi jika dikelompokkan per rentang panjang","pengukuran tidak perlu satuan baku","rentang data tidak membantu analisis","","","","","","",""

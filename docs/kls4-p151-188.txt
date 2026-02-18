@@ -1,0 +1,953 @@
+
+
+===== PAGE 151 =====
+Bab
+5
+Apakah ciri-ciri yang dimiliki setiap bangun datar segitiga dan 
+segiempat? Bagaimanakah keterkaitan antar bangun datar baik antar 
+segitiga maupun antar segiempat? Bagaimanakah menyusun pengertian 
+bangun datar berdasarkan ciri-ciri yang dimiliki (bila mungkin lebih 
+dari satu)? Apa arti menyusun (komposisi) bangun datar? Bagaimana 
+cara menyusun bangun datar? Apa arti mengurai (dekomposisi) bangun 
+datar? Bagaimana cara mengurai suatu bangun datar?
+=÷Bang un D atar Bangun Datar5KEMENTERIAN PENDIDIKAN, KEBUDAYAAN,
+RISET, DAN TEKNOLOGI REPUBLIK INDONESIA, 2022
+Matematika untuk SD/MI Kelas IV
+Penulis : Hobri, dkk.
+ISBN : 978-602-244-908-9 (jil.4)
+
+===== PAGE 152 =====
+= =
+÷ ÷
+140 Matematika untuk SD/MI Kelas IVTujuan Pembelajaran
+Setelah mempelajari bab ini kalian mampu:
+Kata Kunci
+Segibanyak, 
+segitiga, 
+segiempat 
+• menuliskan ciri-ciri segitiga (sama kaki, 
+sama sisi, sembarang, lancip, tumpul 
+dan siku-siku)
+• menuliskan ciri-ciri segiempat 
+(jajargenjang, trapesium, layang-layang, 
+belah ketupat, persegi, persegipanjang 
+dan segiempat sembarang)
+• menyusun beberapa bangun datar 
+dengan berbagai cara yang mungkin
+• mengurai satu bangun datar dengan 
+berbagai cara yang mungkin
+
+
+===== PAGE 153 =====
+= =
+÷ ÷
+141 Bab 5 | Bangun DatarPeta Konsep
+SegitigaBerdasarkan 
+SisinyaSegitiga 
+Sama Kaki
+Segitiga 
+Sama Sisi
+Segitiga 
+Sembarang
+Segitiga 
+Lancip
+Segitiga 
+Siku-siku
+Segitiga 
+Tumpul
+Belah 
+Ketupat
+Persegi 
+Panjang
+Trapesium 
+Sama Kaki
+Trapesium 
+Siku-Siku
+Trapesium 
+SembarangBerdasarkan 
+Sudutnya
+Layang-layang
+Jajargenjang
+Trapesium
+Segiempat 
+SembarangSegiempatPersegiSegibanyak
+
+===== PAGE 154 =====
+= =
+÷ ÷
+142 Matematika untuk SD/MI Kelas IVA. Ciri-Ciri Bangun Datar
+1. Segi Banyak
+A. Pengertian Segi Banyak
+Banyak benda di sekitar kita yang berbentuk bangun datar. Diantara benda 
+tersebut ada yang termasuk segi banyak dan ada juga yang tidak. Berikut 
+beberapa contohnya:
+Gambar 5.1 Segi banyak Gambar 5.2 Bukan segi banyak
+Untuk memahami jenis dan ciri segi banyak tersebut perhatikan penjelasan 
+berikut:
+- Mempunyai 3 sisi berbentuk garis lurus
+- Antarsisi membentuk kurva tertutup
+- Mempunyai 4 sisi berbentuk garis lurus
+- Antar sisi membentuk kurva tertutup
+Jika diperhatikan pada contoh tersebut, dapat diketahui bangun datar tersebut 
+mempunyai sisi berbentuk garis lurus paling sedikit 3 buah dan antarsisi 
+tersebut membentuk sebuah bentuk kurva yang tertutup.
+
+
+===== PAGE 155 =====
+= =
+÷ ÷
+143 Bab 5 | Bangun Datar- Mempunyai 1 sisi tidak berbentuk garis lurus dan 
+2 sisi berbentuk garis lurus
+- Antarsisi membentuk kurva tertutup
+- Mempunyai 1 sisi tidak berbentuk garis lurus
+- Antarsisi membentuk kurva terbuka
+Pada contoh tersebut, diketahui bahwa bangun tersebut mempunyai sisi yang 
+berbentuk garis lurus sebanyak dua buah dan ada juga yang tidak punya 
+sama sekali sedangkan antarsisi membentuk kurva tertutup dan terbuka.
+Berdasarkan penjelasan tersebut dapat disebutkan bahwa segi banyak adalah 
+suatu kurva tertutup yang dibatasi paling sedikit tiga buah ruas garis.
+Ayo Beraktivitas
+Aktivitas 1. Jenis segi banyak
+Alat dan bahan:
+- Sedotan/lidi
+- Gunting
+- Lem dan kertas
+Langkah Kerja:
+1. Potong sedotan/lidi menjadi 3 bagian
+2. Hubungkan ujung masing-masing secara sambung-menyambung dan 
+ditempel di kertas
+3. Amatilah bangun apa yang terbentuk? Gambarkan di buku.
+4. Lakukan hal serupa dengan memotong sedotan/lidi menjadi 4, 5, dan
+
+
+===== PAGE 156 =====
+= =
+÷ ÷
+144 Matematika untuk SD/MI Kelas IV5. Diskusikan bersama anggota kelompok dan catatlah hasil pengamatan 
+seperti pada tabel berikut.
+No Gambar bangun Nama 
+bangunBanyak sudut Banyak sisi
+1
+... ... ...
+2
+... ... ... ...
+3
+... ... ... ...
+4
+... ... ... ...
+6. Presentasikan hasil diskusi kelompok di depan kelas dengan rasa percaya 
+diri!
+7. Berdasarkan kegiatan tersebut, buatlah kesimpulan dengan menjawab 
+pertanyaan berikut.
+a. Apa yang kamu ketahui tentang segitiga ? 
+b. Apa yang kamu ketahui tentang segiempat ? 
+c. Apa yang kamu ketahui tentang segilima ? 
+d. Apa yang kamu ketahui tentang segienam ?
+Pemberian nama pada segi banyak ini disesuaikan dengan banyaknya sisi yang 
+dimiliki oleh bangun datar tersebut.
+
+===== PAGE 157 =====
+= =
+÷ ÷
+145 Bab 5 | Bangun DatarSegitiga 
+- Jumlah sudut yang dimiliki 3 
+- Jumlah sisi yang dimililiki 3
+Segiempat 
+- Jumlah sudut yang dimiliki 4 
+- Jumlah sisi yang dimililiki 4
+Segilima
+- Jumlah sudut yang dimiliki 5 
+- Jumlah sisi yang dimililiki 5
+Segienam
+- Jumlah sudut yang dimiliki 6 
+- Jumlah sisi yang dimililiki 6
+A. Jenis Bangun Segi Banyak
+Berdasarkan besar sudut dan panjang sisinya, bangun segi banyak dibedakan 
+menjadi dua jenis, yaitu :
+1) Bangun segi banyak beraturan
+Bangun segi banyak beraturan adalah bangun segi banyak yang mempunyai 
+ciri sebagai berikut :
+a. Besarnya sudut-sudut dari segi banyak beraturan adalah sama
+b. Panjangnya sisi-sisi segi banyak beraturan adalah sama
+c. Segi banyak beraturan mempunyai simetri lipat yang sama dengan jumlah 
+sudutnya.
+d. Segi banyak beraturan mempunyai simetri putar yang sama dengan jumlah 
+sudutnya.
+ 
+Segitiga 
+beraturanSegiempat 
+beraturanSegilima 
+beraturanSegienam 
+beraturanSegidelapan 
+beraturan
+
+===== PAGE 158 =====
+= =
+÷ ÷
+146 Matematika untuk SD/MI Kelas IV
+2) Bangun segi banyak tak beraturan
+Bangun segi banyak tak beraturan adalah bangun segi banyak yang mempunyai 
+ciri sebagai berikut:
+a. Besarnya sudut-sudut dari segi banyak beraturan adalah tidak sama
+b. Panjangnya sisi-sisi segi banyak beraturan adalah tidak sama
+c. Segi banyak tak beraturan mempunyai simetri lipat yang tidak sama dengan 
+jumlah sudutnya.
+d. Segi banyak tidak beraturan mempunyai simetri putar yang tidak sama 
+dengan jumlah sudutnya.
+Ayo Berlatih
+Petunjuk:  Kerjakan semua soal pada buku tulis dan cermati soalnya sebelum 
+menulis jawaban!
+1. Perhatikan gambar dibawah. Bangun datar yang bukan merupakan segi 
+banyak adalah…
+a.       c. 
+b.       d. 
+2. Perhatikan gambar dibawah ini :
+1.       3. 
+2.       4.
+
+
+===== PAGE 159 =====
+= =
+÷ ÷
+147 Bab 5 | Bangun Datar
+Bangun segibanyak beraturan, ditunjukkan oleh nomor …
+a. 1 dan 3 b. 1 dan 4  c. 2 dan 3  d. 2 dan 4
+3. Perhatikan gambar dibawah ini :
+1.       3. 
+2.       4.
+Bangun segibanyak tak beraturan, ditunjukkan oleh nomor …
+a. 1 dan 3 b. 1 dan 4  c. 2 dan 3  d. 2 dan 4
+4. Gambarkan tiga bangun segi banyak beraturan yang berbeda pada kotak 
+yang disediakan !
+5. Gambarkan tiga bangun segi banyak tak beraturan yang berbeda pada 
+kotak yang disediakan !
+2. Segitiga
+Banyak benda di sekitar kita yang berbentuk segitiga seperti penggaris 
+segitiga, rambu lalu lintas dan lain-lain. Bangun segitiga ini memiliki beberapa 
+jenis yang berbeda bentuk dan ciri-cirinya.
+Perhatikan, segitiga di bawah ini. Misalkan nama segitiga tersebut adalah 
+segitiga ABC.
+A
+CB
+
+===== PAGE 160 =====
+= =
+÷ ÷
+148 Matematika untuk SD/MI Kelas IV Jika kita memperhatikan segitiga di atas, maka kita dapat mengetahui bahwa 
+dalam segitiga terdapat 3 ruas garis yaitu ruas garis AB, BC, dan AC. 
+Selanjutnya 3 ruas garis tersebut masing-masing dinamakan dengan sisi; 
+sehingga segitiga memiliki 3 sisi, yakni sisi AB, sisi BC, dan sisi AC.
+Dalam segitiga itu juga terdapat 3 sudut, yakni sudut A, sudut B, dan sudut C.
+Terdapat juga 3 titik sudut, yakni titik A, titik B, dan titik C.
+Jelas bahwa dalam segitiga terdapat sifat-sifat (ciri-ciri) sebagai berikut : 
+memiliki 3 sisi, memiliki 3 sudut, dan memiliki 3 titik sudut.
+1. Segitiga adalah bangun datar yang memiliki 3 sudut. 
+2. Segitiga adalah segi banyak yang memiliki 3 sisi.A
+AB
+C
+CB
+A
+CB
+A
+CB
+
+
+===== PAGE 161 =====
+= =
+÷ ÷
+149 Bab 5 | Bangun Datara. Pengelompokan Segitiga Berdasarkan Sisinya
+Ayo Beraktivitas
+Aktivitas 2. Pengelompokan segitiga berdasarkan sisinya
+Alat dan bahan:
+- Sedotan/lidi  - Benang/tali  - Gunting
+Langkah Kerja:
+1. Potong sedotan/lidi menjadi 3 bagian sama panjang
+2. Hubungkan ujung masing-masing secara sambung-menyambung
+3. Kaitkan dengan benang atau tali
+4. Amatilah bidang apa yang terbentuk? Gambarkan di buku.
+5. Potong sedotan dengan menjadi 3 bagian dengan 2 bagian yang sama 
+panjang.
+6. Sambungkan dengan benang atau tali di setiap ujungnya.
+7. Amatilah bidang apa yang terbentuk? Gambarkan di buku.
+8. Lakukan hal serupa dengan panjang bagian yang berbeda panjangnya.
+9. Diskusikan bersama anggota kelompok hal-hal berikut ini. 
+a. Apakah sama gambar yang terbentuk dari ketiga bangun datar tersebut?
+b. Tuliskan ciri-ciri yang kalian temukan di ketiga bangun datar tersebut?
+Ciri-ciri 
+SegitigaSegitiga Sama 
+kakiSegitiga Sama 
+sisiSegitiga 
+Sembarang
+Memiliki 3 sisi ... ... ...
+Memiliki 2 sisi 
+sama panjang... ... ...
+Memiliki 3 sisi 
+sama panjang... ... ...
+10. Presentasikan hasil diskusi kelompok di depan kelas dengan percaya diri!
+
+
+===== PAGE 162 =====
+= =
+÷ ÷
+150 Matematika untuk SD/MI Kelas IVa) Ciri apa saja yang dimiliki segitiga sama kaki?
+b) Ciri apa saja yang dimiliki segitiga sama sisi?
+c) Apakah ada ciri segitiga sama kaki yang tidak dimiliki segitiga sama sisi?
+d) Apakah ada ciri segitiga sama sisi yang tidak dimiliki segitiga sama kaki?
+e) Apakah yang kalian simpulkan berdasarkan hasil pengamatan kalian?
+11. Berdasarkan kegiatan tersebut, dapatkah kalian menyimpulkannya?
+a. Apakah segitiga samakaki?
+b. Apakah segitiga samasisi adalah?
+c. Apakah segitiga sembarang adalah?
+Ayo Mengamati
+Perhatikan beberapa gambar berikut.
+ 
+Berdasarkan gambar di atas terdapat 3 jenis segitiga, yaitu segitiga sama kaki, 
+segitiga sama sisi, dan segitiga sembarang. Untuk mengetahui sifat-sifat dari 
+ketiga jenis segitiga tersebut perhatikan penjelasan berikut. 
+Segitiga Sama Kaki
+ Segitiga Sama Sisi Segitiga Sembarang
+
+===== PAGE 163 =====
+= =
+÷ ÷
+151 Bab 5 | Bangun Datar1) Segitiga Sama Kaki
+Amati segitiga sama kaki tersebut. Segitiga sama kaki memiliki 2 sisi yang 
+panjangnya sama. Misalnya segitiga sama kaki tersebut adalah segitiga ABC 
+seperti di bawah ini.
+Terlihat bahwa panjang AC sama dengan panjang BC, ditulis AC = BC.
+Segitiga sama kaki adalah segitiga yang memiliki 2 sisi sama panjang
+2) Segitiga Sama Sisi
+Anak-anak, tahukah kalian nama segitiga tersebut?
+Segitiga sama kaki
+Ya, benar...
+C
+A B
+segitiga sama sisi, BuApakah kalian tahu nama segitiga disamping?
+Ya, benar...
+
+===== PAGE 164 =====
+= =
+÷ ÷
+152 Matematika untuk SD/MI Kelas IVMisalnya segitiga tersebut dinamakan segitiga PQR.
+Terlihat panjang PQ sama dengan panjang QR sama dengan panjang PR. 
+Selanjutnya ditulis PQ = QR = PR.
+Segitiga sama sisi adalah segitiga yang semua sisinya sama panjang
+3) Segitiga Sembarang
+Misalkan segitiga sembarang tersebut segitiga DEF seperti di bawah ini.
+Setelah diamati terlihat panjang DE tidak sama dengan panjang EF dan juga 
+tidak sama dengan panjang DF; atau ditulis DE ≠ EF ≠ DF.R
+P Q
+Perhatikan segitiga di samping. Apakah 
+ketiga sisinya tidak ada yang sama panjang?
+tidak Bu..
+F
+D E
+
+===== PAGE 165 =====
+= =
+÷ ÷
+153 Bab 5 | Bangun DatarSegitiga sembarang adalah segitiga yang sisi-sisinya tidak ada yang sama 
+panjang.
+Setelah mempelajari sifat-sifat segitiga berdasarakan sisinya tersebut, dapat 
+dituliskan sebagai berikut :
+Ciri-ciriSegitiga 
+Sama KakiSegitiga 
+Sama SisiSegitiga 
+Sembarang
+1. Memiliki 3 sisi ✓ ✓ ✓
+2. Memiliki 2 sisi sama panjang ✓ ✓ −
+3. Memiliki 3 sisi sama panjang − ✓ −
+d. Pengelompokan segitiga berdasarkan Sudutnya
+Ayo Beraktivitas
+Aktivitas 3. Pengelompokan segitiga berdasarkan sudutnya
+Alat dan Bahan:
+- Busur derajat
+- Alat tulis
+Langkah Kegiatan:
+1. Mintalah pada guru bentuk-bentuk segitiga yang terbuat dari kertas lipat
+2. Tandai segitiga yang diberikan guru dengan : Nomor kelompok_1 untuk 
+segitiga pertama dan seterusnya
+l_1 l_2 l_3
+
+===== PAGE 166 =====
+= =
+÷ ÷
+154 Matematika untuk SD/MI Kelas IV3. Berikanlah nama titik sudut setiap segitiga, misalkan :
+4. Ukurlah masing-masing besar sudut setiap segitiga menggunakan busur 
+derajat, kemudian buat dan isilah tabel seperti berikut
+No Kode segitiga Segitiga Titik Sudut Besar Sudut
+1 l_1 ABCA ...
+B ...
+C ...
+2 l_2 ...... ...
+... ...
+... ...
+3 l_3 ...... ...
+... ...
+... ...
+ 
+5. Sambil mengingat materi macam-macam sudut, buatlah dan isilah tabel 
+berikut!
+No Kode segitiga Segitiga Titik Sudut Besar Sudut Jenis Sudut
+1 l_1 ABCA ... ...
+B ... ...
+C ... ...
+2 l_2 ...... ... ...
+... ... ...
+... ... ...
+3 l_3 ...... ... ...
+... ... ...
+... ... ...l_1A
+B C
+
+===== PAGE 167 =====
+= =
+÷ ÷
+155 Bab 5 | Bangun Datar6. Perhatikan jenis sudut untuk setiap segitiga, Adakah sudut lancip? sudut 
+siku-siku? atau sudut tumpul?
+No Kode segitiga SegitigaBanyaknya 
+sudut lancipBanyaknya 
+sudut siku-
+sikuBanyaknya 
+sudut 
+tumpul
+1 l_1 ABC ... ... ...
+2 l_2 ... ... ... ...
+3 l_3 ... ... ... ...
+7. Diskusikan bersama anggota kelompok, hal-hal berikut ini.
+a. Ciri apa saja yang dimiliki segitiga lancip?
+b. Ciri apa saja yang dimiliki segitiga siku-siku?
+c. Ciri apa saja yang dimiliki segitiga tumpul?
+d. Apakah ada ciri segitiga lancip yang tidak dimiliki segitiga siku-siku? atau 
+sebaliknya?
+e. Apakah ada ciri segitiga lancip yang tidak dimiliki segitiga tumpul? atau 
+sebaliknya?
+f. Apakah ada ciri segitiga siku-siku yang tidak dimiliki segitiga tumpul? 
+atau sebaliknya?
+g. Apakah yang kalian simpulkan berdasarkan hasil pengamatan kalian?
+8. Presentasikan hasil diskusi kelompok di depan kelas dengan percaya diri!
+9. Berdasarkan kegiatan tersebut, dapatkah kalian menyimpulkan:
+a. Apakah segitiga lancip?
+b. Apakah segitiga siku-siku?
+c. Apakah segitiga tumpul?
+
+===== PAGE 168 =====
+= =
+÷ ÷
+156 Matematika untuk SD/MI Kelas IV1) Segitiga Lancip
+Misalkan segitiga tersebut dinamakan segitiga KLM.
+Terlihat bahwa sudut K, sudut L, dan sudut M merupakan sudut lancip.
+2) Segitiga Siku-sikuAnak-anak, amati sudut-sudut pada segitiga di 
+samping ini. Apakah ketiga sudutnya lancip?
+Betul Bu
+M
+K L
+Sekarang tahukah kalian nama segitiga ini?
+Segitiga siku-siku, Bu…
+
+===== PAGE 169 =====
+= =
+÷ ÷
+157 Bab 5 | Bangun DatarMisalkan kita memiliki segitiga siku-siku KLM berikut ini.
+Segitiga KLM memiliki 1 sudut siku-siku yaitu sudut K.
+3) Segitiga Tumpul
+Misalkan kita memiliki segitiga PQR seperti di bawah ini.
+Setelah diamati terlihat ada salah satu sudut yang tumpul yaitu sudut PM
+K L
+R
+P QAnak-anak, Tahukah kalian nama segitiga ini ?
+Segitiga tumpul, Bu
+
+===== PAGE 170 =====
+= =
+÷ ÷
+158 Matematika untuk SD/MI Kelas IV3. Segiempat
+a. Jajargenjang
+Ayo Beraktivitas
+Aktivitas 4. Sifat-Sifat Jajargenjang
+Alat dan bahan:
+- Penggaris, Pensil, dan Kertas
+Langkah Kerja:
+1. Bentuk kelompok yang beranggotakan 3-4 orang.
+2. Buatlah gambar jajargenjang pada selembar kertas seperti gambar 
+dibawah ini :
+3. Hitunglah ada berapa sudut !
+4. Hitunglah ada berapa titik sudut !
+5. Hitunglah ada berapa sisi!
+6. Ukurlah masing-masing panjang sisi tersebut ! Sebutkan sisi yang sama 
+panjang !
+7. Sebutkan nama sisi-sisi yang sejajar !
+8. Diskusi bersama anggota kelompok, hal-hal berikut ini.
+a. Pada jajargenjang ada berapa pasang sisi yang sejajar?
+b. Apa yang kalian ketahui tentang jajargenjang?
+9. Presentasikan hasil aktivitas di depan kelas dengan percaya diri !
+10. Berdasarkan kegiatan tersebut, dapat kalian menyimpulkan, apakah 
+jajargenjang itu?
+DA B
+C
+
+===== PAGE 171 =====
+= =
+÷ ÷
+159 Bab 5 | Bangun Datarc. Persegi Panjang
+Ayo Mengamati
+Perhatikan persegi panjang berikut ini. Misalnya nama persegi panjang 
+tersebut adalah persegi panjang ABCD.
+Jika memperhatikan bangun persegi panjang di atas, maka kita dapat 
+mengetahui bahwa dalam persegi panjang memiliki 4 sisi, yakni sisi AB, sisi BC, 
+sisi CD, dan sisi AD.
+Dalam persegi panjang itu juga terdapat 4 sudut, yakni sudut A, sudut B, sudut 
+C, dan sudut D.
+Terdapat juga 4 titik sudut, yakni titik A, titik B, titik C, dan titik D.
+Dalam persegi panjang juga terdapat dua pasang sisi yang sejajar, yakni AB//
+CD dan BC//AD.
+Selanjutnya perhatikan semua sudut pada persegi panjang ABCD, terlihat 
+bahwa sudut A, sudut B, sudut C, dan sudut D memiliki ukuran yang sama dan 
+merupakan sudut siku-siku.
+d. Belah Ketupat
+Perhatikan belah ketupat berikut. Misalnya nama belah ketupat tersebut 
+adalah belah ketupat ABCD.
+AD
+BC
+AD
+BC
+BC
+AD
+
+===== PAGE 172 =====
+= =
+÷ ÷
+160 Matematika untuk SD/MI Kelas IVJika diperhatikan bangun datar belah ketupat, maka kita dapat mengetahui 
+bahwa dalam belah ketupat juga memiliki 4 sisi, yakni sisi AB, sisi BC, CD, dan 
+sisi AD.
+Dalam belah ketupat itu juga terdapat 4 sudut, yakni sudut A, sudut B, sudut C, 
+dan sudut D.
+Terdapat juga 4 titik sudut, yakni titik A, titik B, titik C, dan titik D.
+Dalam belah ketupat juga terdapat dua pasang sisi yang sejajar sebagaimana 
+yang dimiliki jajargenjang, yakni AB//CD dan BC//AD.
+Selanjutnya perhatikan semua sisi pada belah ketupat ABCD, terlihat bahwa 
+sisi-sisi AB, BC, CD, dan AD memiliki panjang yang sama.
+e. Persegi
+Perhatikan persegi berikut. Misalnya nama persegi tersebut adalah persegi 
+ABCD.
+Jika diperhatikan persegi di atas, maka kita dapat mengetahui bahwa dalam 
+persegi juga memiliki 4 sisi, yakni sisi AB, sisi BC, CD, dan sisi AD.
+Dalam persegi itu juga terdapat 4 sudut, yakni sudut A, sudut B, sudut C, dan 
+sudut D.
+Terdapat juga 4 titik sudut, yakni titik A, titik B, titik C, dan titik D.
+Dalam persegi juga terdapat dua pasang sisi yang sejajar, yakni AB//CD dan 
+BC//AD.
+Semua sudut pada persegi ABCD, terlihat bahwa sudut A, sudut B, sudut C, dan 
+sudut D memiliki ukuran yang sama.
+Sudut A, sudut B, sudut C, dan sudut D semuanya merupakan sudut siku-siku.
+Selanjutnya perhatikan semua sisi pada persegi ABCD, terlihat bahwa sisi-sisi 
+AB, BC, CD, dan AD memiliki panjang yang sama.AD
+BC
+AD
+BC
+
+===== PAGE 173 =====
+= =
+÷ ÷
+161 Bab 5 | Bangun Datarf. Layang-layang
+Ayo Beraktivitas
+Aktivitas 5. Sifat-sifat Layang-layang
+Alat dan bahan:
+- Penggaris
+- Pensil
+- Kertas
+Langkah Kerja:
+1. Bentuk kelompok yang beranggotakan 3-4 orang.
+2. Buatlah gambar jajargenjang pada selembar kertas seperti gambar 
+dibawah ini :
+3. Hitunglah ada berapa sudut .
+4. Hitunglah ada berapa titik sudut .
+5. Hitunglah ada berapa sisi.
+6. Ukurlah masing-masing panjang sisi tersebut. Sebutkan sisi yang sama 
+panjang.
+7. Tarik garis pada kedua diagonal layang-layang sampai berpotongan di titik 
+O.
+8. Ukur sudut hasil perpotongan kedua diagonal tersebut.
+9. Ukur panjang OB dan OD.
+C
+AD Bo
+
+===== PAGE 174 =====
+= =
+÷ ÷
+162 Matematika untuk SD/MI Kelas IV10. Diskusi bersama anggota kelompok, hal-hal berikut ini.
+a. Berapa pasang sisi yang berdekatan sama panjang? Tuliskan.
+b. Berapa besar sudut yang terbentuk dari hasil perpotongan kedua 
+diagonal tersebut ?
+c. Apakah panjang OB dan OD sama?
+d. Apakah yang dapat kalian simpulkan?
+11. Presentasikan hasil aktivitas di depan kelas dengan percaya diri.
+12. Berdasarkan kegiatan tersebut, dapatkah kalian menyimpulkan apakah 
+layang-layang itu?
+e. Trapesium
+Perhatikan trapesium berikut. Misalnya nama bangun trapesium tersebut 
+adalah trapesium ABCD.
+Jika diperhatikan bangun trapesium di atas, maka kita dapat mengetahui 
+bahwa dalam trapesium juga memiliki 4 sisi, yakni sisi AB, sisi BC, CD, dan sisi 
+AD.
+Dalam trapesium itu juga terdapat 4 sudut, yakni sudut A, sudut B, sudut C, dan 
+sudut D.
+Terdapat juga 4 titik sudut, yakni titik A, titik B, titik C, dan titik D.
+Dalam trapesium terdapat tepat dua sisi yang sejajar atau tepat sepasang sisi 
+sejajar, yakni AB//CD.C D
+A B
+
+===== PAGE 175 =====
+= =
+÷ ÷
+163 Bab 5 | Bangun Datarf. Segiempat Sembarang
+Perhatikan segiempat sembarang berikut. Misalnya nama bangun segiempat 
+sembarang tersebut adalah segiempat sembarang ABCD.
+Jika diperhatikan bangun segiempat sembarang di atas, maka kita dapat 
+mengetahui bahwa dalam segiempat sembarang juga memiliki 4 sisi, yakni sisi 
+AB, sisi BC, sisi CD, dan sisi AD.
+Dalam segiempat sembarang itu juga terdapat 4 sudut, yakni sudut A, sudut B, 
+sudut C, dan sudut D.
+Terdapat juga 4 titik sudut, yakni titik A, titik B, titik C, dan titik D.
+Dalam segiempat sembarang tidak terdapat pasangan sisi yang sama panjang. 
+Kata lain dalam segiempat sembarang tidak ada sisi yang sama panjang.
+g. Hubungan Bangun Datar
+Jika telah memperhatikan ciri-ciri setiap bangun datar segiempat, dapat dibuat 
+perbandingan sifat-sifat bangun datar dalam bentuk tabel sebagai berikut :
+Ciri-ciri BangunNama Segiempat
+Jajar 
+GenjangPersegi 
+PanjangBelah 
+KetupatPersegiLayang-
+layangTrapesiumSegiempat 
+Sembarang
+Memiliki 4 sisi ... ... ... ... ... ... ...
+Keempat 
+sisinya memilki 
+Panjang yang 
+sama− − ✓ ✓ − − −
+Memiliki 4 
+sudut... ... ... ... ... ... ...
+Keempat 
+sudutnya 
+merupakan 
+sudut siku-siku... ... ... ... ... ... ...BCD
+A
+
+===== PAGE 176 =====
+= =
+÷ ÷
+164 Matematika untuk SD/MI Kelas IVCiri-ciri BangunNama Segiempat
+Jajar 
+GenjangPersegi 
+PanjangBelah 
+KetupatPersegiLayang-
+layangTrapesiumSegiempat 
+Sembarang
+Memiliki 4 titik 
+sudut... ... ... ... ... ... ...
+Memiliki 
+2 pasang 
+sisi yang 
+berhadapan 
+sejajar... ... ... ... ... ... ...
+Memiliki 1 
+pasang sisi 
+sejajar... ... ... ... ... ... ...
+Memiliki 2 
+diagonal 
+berpotongan 
+dan 
+membentuk 
+sudut siku-siku... ... ... ... ... ... ...
+Memiliki 2 
+diagonal saling 
+membagi 
+sama panjang... ... ... ... ... ... ...
+Memiliki 2 
+pasang sisi 
+berdekatan 
+sama panjang... ... ... ... ... ... ...
+Berdasarkan tabel di atas, kalian dapat menentukan hubungan setiap dua 
+bangun datar segiempat.
+1. Persegi panjang pasti merupakan Jajargenjang.
+2. Persegi panjang dapat juga disebut Jajargenjang.
+3. Persegi panjang merupakan salah satu contoh Jajargenjang
+4. Belah ketupat merupakan layang-layang
+5. Persegi merupakan persegi panjang
+6. Belah ketupat merupakan jajargenjang yang sisi-sisinya sama panjang.
+
+===== PAGE 177 =====
+= =
+÷ ÷
+165 Bab 5 | Bangun DatarAyo Berpikir
+1. Bolehkah belah ketupat disebut juga sebagai layang-layang? Jelaskan!
+2. Mengapa trapesium tidak boleh disebut sebagai jajargenjang? Jelaskan!
+3. Perhatikan kalimat berikut: “Diagonal-diagonalnya berpotongan tegak 
+lurus”. Apakah ciri-ciri tersebut dimiliki oleh trapesium? Jelaskan!
+4. Mengapa jajargenjang tidak boleh disebut layang-layang? Jelaskan!
+Ayo Berlatih
+Petunjuk: Kerjakan semua soal; cermati soalnya sebelum menulis jawaban! 
+Salinlah jawaban kalian pada buku tulis.
+1. Lengkapi kalimat berikut sehingga menjadi kalimat yang benar!
+a. Segitiga yang memiliki 2 sisi sama panjang dinamakan segitiga ….
+b. Segitiga yang memiliki satu sudut siku-siku dinamakan segitiga ….
+c. Segitiga yang ketiga sisinya tidak ada yang sama panjang dinamakan 
+segitiga ….
+d. Segitiga yang memiliki 1 sudut tumpul dinamakan segitiga ….
+e. Segitiga yang 3 sudutnya lancip dinamakan segitiga ….
+f. Segiempat yang memiliki 2 pasang sisi sejajar dinamakan ….
+g. Segiempat yang tepat memiliki sepasang sisi sejajar dinamakan ….
+2. Sebutkan ciri-ciri dari jajargenjang !
+3. Sebutkan ciri-ciri dari trapesium?
+4. 
+ 
+ Sebutkan persamaan ciri-ciri yang dimiliki oleh kedua bangun tersebut !
+5. Sebutkan perbedaan ciri-ciri yang dimiliki oleh bangun A dan bangun B !
+A B
+
+===== PAGE 178 =====
+= =
+÷ ÷
+166 Matematika untuk SD/MI Kelas IV6. 
+   
+ Sebutkan persamaan ciri-ciri yang dimiliki oleh kedua bangun tersebut !
+8. Sebutkan ciri-ciri yang dimiliki oleh belah ketupat tapi tidak dimiliki oleh 
+layang-layang !
+9. Sebutkan ciri-ciri yang dimiliki oleh persegi tapi tidak dimiliki oleh 
+persegipanjang !
+ 
+B. Komposisi dan Dekomposisi Bangun Datar
+1. Komposisi Bangun Datar
+Banyak benda-benda di sekitar kita yang berbentuk 
+gabungan dari bangun datar. Salah satu benda 
+yang sering digunakan oleh kita yaitu permainan 
+tangram. Tangram merupakan permainan yang 
+paling tua yang dikenal dalam matematika, yang 
+sering disebut puzzle  china. Tangram merupakan 
+puzzle  yang terdiri dari 5 segitiga, 1 persegi dan 
+1 jajargenjang. Dari tangram ini dapat dibentuk 
+menjadi berbagai macam bentuk yang lain seperti 
+hewan, pohon, orang dan benda lainnya.
+Agar kamu paham bagaimana cara mengkomposisi (menggabungkan) 
+berbagai macam bentuk bangun datar menjadi bentuk yang baru, ikutilah 
+prosedur aktivitas berikut ini.1 2 3
+Gambar 5.1 Tangram
+
+===== PAGE 179 =====
+= =
+÷ ÷
+167 Bab 5 | Bangun DatarAyo Beraktivitas
+Aktivitas 6. Komposisi Bangun Datar
+Alat dan Bahan :
+- Kertas lipat warna-warni
+- Gunting dan lem
+- Alat tulis
+Langkah-langkah :
+1. Bentuk kelompok yang terdiri dari 3-4 orang.
+2. Potonglah kertas lipat warna-warni menggunakan gunting menjadi 
+beberapa bagian dan dinomori seperti dibawah ini.
+3. Rangkai bangun datar 1 dan 2.
+1
+7
+234
+6
+5
+1
+2
+
+===== PAGE 180 =====
+= =
+÷ ÷
+168 Matematika untuk SD/MI Kelas IV4. Rangkai bangun datar 4 dan 5 dengan bangun datar yang terbentuk pada 
+langkah pertama
+5. Rangkai bangun datar 3 dan 6 dengan bangun datar yang terbentuk pada 
+langkah ketiga
+6. Lengkapi bangun datar yang terbentuk pada langkah ketiga dengan 
+merangkai bangun datar 7
+7. Diskusi bersama anggota kelompok, hal-hal berikut ini.
+a. Nama bangun datar apa yang terbentuk?
+b. Dapatkah kalian membangun bentuk yang lain dari bangun datar yang 
+sudah ada?
+8. Berdasarkan aktivitas yang sudah dilakukan, dapatkah kalian menyimpulkan 
+apakah komposisi bangun datar itu?4
+51
+2
+6
+4
+51
+23
+76
+4
+51
+23
+
+===== PAGE 181 =====
+= =
+÷ ÷
+169 Bab 5 | Bangun DatarAyo Berpikir Kreatif
+Ayo siapkan secarik kertas, pensil dan gunting. Jiplak gambar masing-masing 
+bangun datar tersebut dan potong-potong hasil jiplakan sesuai bangun 
+datarnya.
+Langkah pertama: rangkai bangun datar 2 dan bangun datar 4
+Langkah kedua: rangkai bangun datar 3 dan bangun datar 8 dengan bangun 
+datar hasil dari langkah pertama
+Langkah ketiga: rangkai bangun datar 1 dengan bangun datar hasil dari 
+langkah 2
+Langkah berikutnya silahkan kalian berpikir kreatif . Rangkai bangun datar 
+yang tersisa dengan bangun datar hasil dari langkah ketiga.
+21
+3
+4
+65
+78243
+82413
+824
+
+===== PAGE 182 =====
+= =
+÷ ÷
+170 Matematika untuk SD/MI Kelas IV2. Dekomposisi Bangun Datar
+Ayo Mengamati
+Indonesia memiliki banyak suku dan kebudayaan yang beragam. Salah satu 
+kebudayaan tersebut yaitu rumah adat.
+Utari sedang mengamati rumah adat  masyarakat jawa.
+Ayo Beraktivitas
+Aktivitas 7. Dekomposisi Bangun Datar
+Alat dan Bahan :
+- Alat tulis
+- penggaris
+Apakah kalian bisa menunjukkan bentuk-bentuk 
+bangun datar pada rumah adat Jawa?
+Bisa Bapak.
+
+
+===== PAGE 183 =====
+= =
+÷ ÷
+171 Bab 5 | Bangun DatarLangkah-langkah :
+1. Buatlah kelompok dengan anggota 3-4 orang.
+2. Perhatikan rumah adat masyarakat jawa dengan atap “KAMPUNG”.
+3. Carilah jenis bangun datar yang ada pada gambar rumah tersebut dan 
+catatlah  pada buku tulis kalian seperti pada tabel berikut.
+Bentuk Bangun Datar Nama Banyaknya
+Trapesium 2
+... ... ...
+... ... ...
+... ... ...
+... ... ...
+
+
+===== PAGE 184 =====
+= =
+÷ ÷
+172 Matematika untuk SD/MI Kelas IV4. Diskusi bersama anggota kelompok, ada berapa jenis bangun datar yang 
+kalian peroleh? Sebutkan.
+5. Presentasikan hasilnya di depan kelas dengan percaya diri.
+6. Berdasarkan aktivitas yang sudah diakukan, dapatkah kalian menyimpulkan 
+apakah dekomposisi bangun datar itu?
+Ayo Berlatih
+Kerjakan soal berikut pada buku tulis kalian.
+1. Lakukan dekomposisi berbagai macam bangun datar yang ada pada 
+gambar berikut :
+ 
+No Nama Bangun Datar Gambar Banyaknya
+1 Segitiga
+...
+2
+... ... ...
+
+
+===== PAGE 185 =====
+= =
+÷ ÷
+173 Bab 5 | Bangun DatarNo Nama Bangun Datar Gambar Banyaknya
+3
+... ... ...
+2. Lakukan dekomposisi berbagai macam bangun datar yang ada pada 
+gambar berikut :
+Setelah kalian mengamati gambar di atas, apa saja bangun datar yang 
+menyusun motif paving di atas? Lingkari setiap bangun berikut yang menyusun 
+motif paving pada gambar 1.
+
+===== PAGE 186 =====
+= =
+÷ ÷
+174 Matematika untuk SD/MI Kelas IVUji Kompetensi
+Kerjakan soal berikut dengan cermat dan salin jawaban pada buku kalian.
+1. Perhatikan gambar berikut :
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Tentukan mana yang termasuk bangun segi banyak dan bukan segi 
+banyak
+  
+2. Berdasarkan gambar sebelumnya tentukan mana yang termasuk bangun 
+segi banyak beraturan dan bangun segi banyak tidak beraturan.
+3. Sebutkan ciri-ciri dari bangun segi banyak beraturan.
+4. 
+ 
+ Hitunglah jumlah sudut lancip dan sudut tumpul pada bangun segi 
+banyak tak beraturan tersebut.
+  (a)
+(d)
+(g)(b)
+(e)
+(h)(c)
+(f)
+(i)
+
+===== PAGE 187 =====
+= =
+÷ ÷
+175 Bab 5 | Bangun Datar5. Buatlah bangun segi banyak dengan ketentuan sebagai berikut :
+a. Bangun segi banyak beraturan dengan 10 sisi
+b. Bangun segi banyak tak beraturan dengan 5 sisi
+c. Bangun segi banyak beraturan dengan 5 sudut lancip
+d. Bangun segi banyak tak beraturan dengan 3 sudut lancip dan 3 sudut 
+tumpul
+6. Budi setiap pagi hari berolahraga lari mengelilingi taman kota yang 
+berbentuk segienam beraturan. Jika panjang salah satu sisi taman kota 
+tersebut adalah 50 meter, maka berapa jarak yang ditempuh oleh Budi 
+untuk mengelilingi taman kota tersebut?
+7. 
+ Sebutkan persamaan dan perbedaan ciri-ciri bangun A dan B tersebut !
+  
+8. Dapatkah dibuat segitiga siku-siku sekaligus sama kaki? Jelaskan pendapat 
+kalian.
+9. Dapatkah segitiga tumpul sekaligus merupakan segitiga siku-siku? 
+Jelaskan pendapat kalian.
+10. Mengapa jajargenjang tidak bisa dinamakan trapesium, padahal 
+trapesium hanya memiliki sepasang sisi sejajar, sementara itu jajar 
+genjang memiliki dua pasang sisi sejajar? Jelaskan.
+11. Ciri apa apa saja yang menyebabkan belah ketupat tidak bisa dinamakan 
+trapesium?
+12. Buatlah minimal 4 bangun datar berbeda bentuknya kemudian susun 
+menjadi satu bangun datar dengan berbagai cara yang mungkin.
+13. Buatlah suatu bangun datar tertentu yang dapat diuraikan menjadi 
+minimal 4 bangun datar berbeda.A B
+
+===== PAGE 188 =====
+= =
+÷ ÷
+176 Matematika untuk SD/MI Kelas IV14. Perhatikan penyusunan beberapa bangun datar sehingga menjadi satu 
+bangun berikut.
+ Susun beberapa bangun datar tersebut sehingga menjadi satu bangun 
+datar yang berbeda dengan gambar tersebut.
+  
+15. Perhatikan bangun datar yang telah diuraikan menjadi beberapa bangun 
+datar berikut.
+ 
+ Uraikan bangun datar tersebut sehingga menjadi beberapa bangun datar 
+yang berbeda dengan gambar tersebut.
+Refleksi
+Pada bab ini, kalian sudah mempelajari materi bangun datar meliputi segitiga, 
+segiempat dan beberapa segibanyak lainnya. Apakah kalian masih ingat? 
+Masih adakah bagian yang terasa sulit? Jika masih ada bagian yang sulit, 
+diskusikanlah dengan temanmu. Kalian juga bisa meminta bantuan guru agar 
+materi yang sulit dapat kamu pahami. Apakah manfaat yang kalian peroleh 
+setelah mempelajari tentang bangun datar?

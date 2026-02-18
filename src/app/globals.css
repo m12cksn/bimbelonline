@@ -24,6 +24,34 @@ body {
   font-family: var(--font-sans), system-ui, sans-serif;
 }
 
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.7),
+    transparent
+  );
+  animation: shimmer 1.6s infinite;
+}
+
 /* Dark mode overrides for dashboard student palette */
 html.dark .bg-white\/80 {
   background-color: rgb(15 23 42 / 0.8);

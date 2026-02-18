@@ -1,41 +1,41 @@
-material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
-64,1,essay,practice,Tuliskan bentuk penjumlahan nilai tempat dari 7.306.,,,,7000+300+6,,,,,,,,,,,,,
-64,2,essay,practice,"Susun bilangan terbesar dari digit 2, 0, 5, 8 tanpa pengulangan.",,,,8520,,,,,,,,,,,,,
-64,3,mcq,practice,Bilangan manakah yang paling besar?,,,,B,,,4.309,4.390,4.093,4.039,,,,,,,
-64,4,drag_drop,practice,Pasangkan bilangan dengan cara membacanya.,,,,,,,,,,,,,,,4.215;8.030;6.507;9.100,"empat ribu dua ratus lima belas,delapan ribu tiga puluh,enam ribu lima ratus tujuh,sembilan ribu seratus",
-64,5,essay,practice,Rani punya Rp 8.750. Ia membeli barang Rp 3.460. Berapa sisa uang Rani?,,,,5290,,,,,,,,,,,,,
-64,6,multipart,practice,Lihat tabel nilai tempat pada gambar. Tentukan nilai tempat dari 9.507.,,,/images/kelas4-bilangan-10000/placevalue_9507.png,,,,,,,,,,,,,,a|Nilai tempat ribuan|9;b|Nilai tempat ratusan|5;c|Nilai tempat puluhan|0;d|Nilai tempat satuan|7
-64,7,mcq,practice,Urutan dari yang terkecil ke terbesar adalah...,,,,A,,,"3.204, 3.240, 3.402, 3.420","3.402, 3.240, 3.204, 3.420","3.240, 3.204, 3.420, 3.402","3.420, 3.402, 3.240, 3.204",,,,,,,
-64,8,essay,practice,"Bilangan 4 angka dengan ratusan 0, puluhan 5, ribuan dua lebih besar dari satuan, dan jumlah digit 15. Tentukan bilangannya.",,,,6054,,,,,,,,,,,,,
-64,9,drag_drop,practice,"Untuk bilangan 7.209, pasangkan nilai tempat dengan digitnya.",,,,,,,,,,,,,,,ribuan;ratusan;puluhan;satuan,"7,2,0,9",
-64,10,essay,practice,Mana lebih besar: 4.080 atau 4.800? Jelaskan singkat.,,,,4.800,,,,,,,,,,,,,
-64,11,mcq,practice,Bentuk penjumlahan nilai tempat yang benar untuk 3.205 adalah...,,,,B,,,3000+20+5,3000+200+5,300+20+5,3200+5,,,,,,,
-64,12,essay,practice,"Urutkan 7.570, 5.240, 3.041, 9.941 dari yang terkecil ke terbesar.",,,,"3041, 5240, 7570, 9941",,,,,,,,,,,,,
-64,13,multipart,practice,Hitung hasil operasi berikut.,,,,,,,,,,,,,,,,,a|768 + 457|1225;b|900 - 468|432
-64,14,mcq,practice,Perhatikan susunan kursi pada gambar. Berapa jumlah kursi?,,,/images/kelas4-bilangan-10000/array_6x7.png,C,,,13,36,42,47,,,,,,,
-64,15,essay,practice,"Ada 3 rak, tiap rak berisi 12 buku. Terjual 17 buku. Berapa buku tersisa?",,,,19,,,,,,,,,,,,,
-64,16,drag_drop,practice,Pasangkan perkalian dengan hasilnya.,,,,,,,,,,,,,,,4x6;3x7;5x8;6x9,"24,21,40,54",
-64,17,essay,practice,Ada 68 kelereng dibagi rata ke 5 anak. Berapa tiap anak dan sisa?,,,,13 sisa 3,,,,,,,,,,,,,
-64,18,multipart,practice,Hitung dan cek hasil pembagian.,,,,,,,,,,,,,,,,,a|72 ÷ 8|9;b|8 x 9|72
-64,19,mcq,practice,Yang merupakan faktor dari 36 adalah...,,,,B,,,5,9,14,15,,,,,,,
-64,20,essay,practice,Kelipatan 6 yang juga kelipatan 4 paling kecil selain 0 adalah...,,,,12,,,,,,,,,,,,,
-64,21,drag_drop,practice,Tentukan benar atau salah.,,,,,,,,,,,,,,,2.405 lebih besar dari 2.450;4.090 memiliki 9 puluhan;5.600 memiliki 6 ratusan;7.018 lebih kecil dari 7.081,"salah,benar,benar,benar",
-64,22,essay,practice,"Susun bilangan terkecil dari digit 0, 3, 4, 9 tanpa pengulangan dan tidak boleh diawali 0.",,,,3049,,,,,,,,,,,,,
-64,23,essay,practice,Hitung 405 + 389.,,,,794,,,,,,,,,,,,,
-64,24,multipart,practice,"Berdasarkan nilai tempat berikut, jawab pertanyaan.",,,,,,,,,,,,,,,,,"a|Ribuan 5, ratusan 0, puluhan 8, satuan 2. Bilangannya|5082;b|Nama bilangannya|lima ribu delapan puluh dua"
-64,25,essay,practice,Hitung 5.432 - 1.975.,,,,3457,,,,,,,,,,,,,
-64,26,drag_drop,practice,Pasangkan cerita dengan persamaan yang tepat.,,,,,,,,,,,,,,,24 permen dibagi 6 anak;35 kue dibagi 5 kotak;48 buku disusun ke 6 rak;63 kelereng dibagi 9 anak,"24÷6=4,35÷5=7,48÷6=8,63÷9=7",
-64,27,essay,practice,"Ada 4 kelas, tiap kelas 25 siswa. Jika 18 siswa tidak hadir, berapa siswa yang hadir?",,,,82,,,,,,,,,,,,,
-64,28,essay,practice,Toko menjual 275 buku di hari pertama dan 318 buku di hari kedua. Berapa total buku terjual?,,,,593,,,,,,,,,,,,,
-64,29,multipart,practice,Isi tanda perbandingan yang tepat.,,,,,,,,,,,,,,,,,a|4.308 __ 4.380|<;b|7.005 __ 7.050|<;c|9.999 __ 9.990|>
-64,30,essay,practice,Bilangan A lebih besar dari 3.900 tetapi lebih kecil dari 4.000 dan jumlah digitnya 16. Berikan satu contoh.,,,,3904,,,,,,,,,,,,,
-64,31,drag_drop,practice,Pasangkan bilangan dengan bentuk penjumlahan nilainya.,,,,,,,,,,,,,,,4.507;6.030;2.415;9.200,"4000+500+7,6000+30,2000+400+10+5,9000+200",
-64,32,essay,practice,Jelaskan mengapa 4.050 lebih kecil dari 4.500.,,,,karena ratusannya 0 lebih kecil dari 5,,,,,,,,,,,,,
-64,33,mcq,practice,Yang merupakan kelipatan 8 adalah...,,,,B,,,54,56,58,62,,,,,,,
-64,34,multipart,practice,Perhatikan tabel nilai tempat pada gambar.,,,/images/kelas4-bilangan-10000/placevalue_7209.png,,,,,,,,,,,,,,a|Bilangan yang terbentuk|7209;b|Nilai digit 2|200
-64,35,essay,practice,"Dari digit 1, 4, 6, 9, bilangan 4 angka terkecil yang lebih besar dari 6000 adalah...",,,,6149,,,,,,,,,,,,,
-64,36,drag_drop,practice,Tentukan benar atau salah.,,,,,,,,,,,,,,,24 adalah kelipatan 6;35 adalah kelipatan 5;41 adalah faktor dari 123;12 adalah faktor dari 50,"benar,benar,benar,salah",
-64,37,essay,practice,Skor awal 9.875. Dikurangi 2.690 lalu ditambah 415. Berapa skor akhir?,,,,7600,,,,,,,,,,,,,
-64,38,mcq,practice,Bentuk penjumlahan nilai tempat dari 8.046 adalah...,,,,A,,,8000+40+6,8000+400+6,8000+400+40+6,8000+4+6,,,,,,,
-64,39,essay,practice,Hitung 125 + 375 - 268.,,,,232,,,,,,,,,,,,,
-64,40,essay,practice,"Ada 4 kantong, tiap kantong berisi 25 kelereng. Diberikan 37 kelereng. Sisa dibagi rata ke 4 anak. Berapa tiap anak dan sisanya?",,,,15 sisa 3,,,,,,,,,,,,,
+"material_id","question_number","question_type","question_mode","prompt","question_text","helper_text","question_image_url","correct_answer","correct_image_url","explanation","option_a","option_b","option_c","option_d","option_a_image_url","option_b_image_url","option_c_image_url","option_d_image_url","drag_items","drop_targets","multipart_items"
+"64","1","pilihan_ganda","practice","Bilangan ""empat ribu tiga ratus dua puluh tujuh"" ditulis ...","","","","B","","","4.237","4.327","4.723","4.372","","","","","","",""
+"64","2","essay","practice","Tuliskan nama bilangan dari 8.110.","","","","delapan ribu seratus sepuluh","","","","","","","","","","","","",""
+"64","3","multipart","practice","Lengkapi nilai tempat untuk 6.354.","","","","","","","","","","","","","","","","","a|Nilai angka 6|6.000;b|Nilai angka 3|300;c|Nilai angka 5|50"
+"64","4","pilihan_ganda","practice","Berdasarkan tabel pada gambar, bilangan yang memiliki 0 ratusan adalah ...","","","/images/kelas4-bilangan-10000/k4-q4-placevalue.png","A","","","7.034","8.120","4.905","tidak ada","","","","","","",""
+"64","5","essay","practice","Uraikan 7.025 ke bentuk komposisi nilai tempat.","","","","7.000 + 20 + 5","","","","","","","","","","","","",""
+"64","6","pilihan_ganda","practice","Bilangan terbesar yang dapat dibuat dari digit 2, 0, 5, 8 tanpa pengulangan adalah ...","","","","D","","","8.250","8.205","8.025","8.520","","","","","","",""
+"64","7","essay","practice","Buat bilangan 4 digit terkecil dari digit 9, 4, 1, 7 tanpa pengulangan.","","","","1.479","","","","","","","","","","","","",""
+"64","8","multipart","practice","Tentukan hasil perbandingan.","","","","","","","","","","","","","","","","","a|4.352 ... 4.365|<;b|7.090 ... 7.009|>;c|3.500 ... 3.500|="
+"64","9","pilihan_ganda","practice","Urutan dari terkecil ke terbesar yang benar untuk 3.726, 2.460, 3.676 adalah ...","","","","C","","","3.726, 3.676, 2.460","2.460, 3.726, 3.676","2.460, 3.676, 3.726","3.676, 2.460, 3.726","","","","","","",""
+"64","10","multipart","practice","Gunakan data pada gambar untuk menentukan mana lebih besar.","","","/images/kelas4-bilangan-10000/k4-q10-compare.png","","","","","","","","","","","","","","a|4.080 dan 4.800|4.800;b|3.209 dan 3.290|3.290;c|7.450 dan 7.405|7.450"
+"64","11","essay","practice","Hitung 134 + 764.","","","","898","","","","","","","","","","","","",""
+"64","12","pilihan_ganda","practice","Hasil 345 + 491 adalah ...","","","","B","","","826","836","846","856","","","","","","",""
+"64","13","essay","practice","Hitung 674 + 142 + 213.","","","","1.029","","","","","","","","","","","","",""
+"64","14","pilihan_ganda","practice","Hasil 712 - 324 adalah ...","","","","A","","","388","398","408","418","","","","","","",""
+"64","15","essay","practice","Hitung 612 - 389 dengan metode meminjam.","","","","223","","","","","","","","","","","","",""
+"64","16","multipart","practice","Lengkapi operasi pada gambar.","","","/images/kelas4-bilangan-10000/k4-q16-addsub.png","","","","","","","","","","","","","","a|768 + 457|1.225;b|900 - 468|432;c|1.000 - 245|755"
+"64","17","pilihan_ganda","practice","Makna 32 x 3 adalah ...","","","","C","","","3 + 2","32 + 3","32 dijumlahkan 3 kali","3 dijumlahkan 32 kali","","","","","","",""
+"64","18","essay","practice","Tentukan hasil 45 x 5.","","","","225","","","","","","","","","","","","",""
+"64","19","pilihan_ganda","practice","Tentukan hasil 96 : 3.","","","","D","","","31","30","33","32","","","","","","",""
+"64","20","essay","practice","Tentukan hasil 70 : 5.","","","","14","","","","","","","","","","","","",""
+"64","21","multipart","practice","Hubungan kebalikan perkalian-pembagian.","","","","","","","","","","","","","","","","","a|Jika 8 x 6 = 48 maka 48 : 6|8;b|Jika 21 x 4 = 84 maka 84 : 4|21;c|Jika 9 x 7 = 63 maka 63 : 9|7"
+"64","22","pilihan_ganda","practice","Faktor dari 12 adalah ...","","","","A","","","1,2,3,4,6,12","1,2,5,6,12","2,3,4,5,6","1,3,6,9,12","","","","","","",""
+"64","23","essay","practice","Tuliskan semua faktor dari 25.","","","","1, 5, 25","","","","","","","","","","","","",""
+"64","24","pilihan_ganda","practice","Mengapa 5 bukan faktor dari 12?","","","","C","","","karena 12 lebih besar dari 5","karena 5 bilangan ganjil","karena 12 : 5 bersisa","karena 5 bukan bilangan prima","","","","","","",""
+"64","25","multipart","practice","Gunakan tabel faktor pada gambar.","","","/images/kelas4-bilangan-10000/k4-q25-factors.png","","","","","","","","","","","","","","a|Faktor terbesar dari 20|20;b|Faktor persekutuan 12 dan 20 (selain 1)|2,4;c|Apakah 8 faktor dari 24|ya"
+"64","26","pilihan_ganda","practice","Kelipatan 3 yang kurang dari 20 adalah ...","","","","B","","","3,6,9,12,15,19","3,6,9,12,15,18","3,6,9,12,15,20","3,5,7,9,11,13","","","","","","",""
+"64","27","essay","practice","Tuliskan kelipatan 6 yang kurang dari 40.","","","","6, 12, 18, 24, 30, 36","","","","","","","","","","","","",""
+"64","28","pilihan_ganda","practice","Kelipatan 5 yang lebih dari 17 dan kurang dari 35 adalah ...","","","","C","","","15,20,25,30,35","18,23,28,33","20,25,30","19,24,29,34","","","","","","",""
+"64","29","essay","practice","Setiap 2 hari Andi membeli 4 kartu. Berapa kartu setelah 6 hari?","","","","12","","","","","","","","","","","","",""
+"64","30","multipart","practice","Gunakan data soal cerita pada gambar.","","","/images/kelas4-bilangan-10000/k4-q30-soal-cerita.png","","","","","","","","","","","","","","a|Jumlah buku perpustakaan|39;b|Telur per kotak|8;c|Balon per hari|9"
+"64","31","pilihan_ganda","practice","Total siswa lomba 256, laki-laki 179. Jumlah perempuan adalah ...","","","","A","","","77","67","87","97","","","","","","",""
+"64","32","essay","practice","Slamet punya 111 kelereng, mendapat 36 lalu memberi 54. Berapa sisa kelereng Slamet?","","","","93","","","","","","","","","","","","",""
+"64","33","pilihan_ganda","practice","Azizah punya 128 gantungan kunci dan mendapat 76 lagi. Dibagi rata untuk 6 orang (Azizah + 5 teman). Tiap orang mendapat ...","","","","D","","","24","30","32","34","","","","","","",""
+"64","34","multipart","practice","Gunakan tabel kelipatan pada gambar.","","","/images/kelas4-bilangan-10000/k4-q34-multiples.png","","","","","","","","","","","","","","a|Kelipatan ke-4 dari 3|12;b|Kelipatan 4 antara 7 dan 25|8,12,16,20,24;c|Kelipatan 2 yang juga kelipatan 4 (<=20)|4,8,12,16,20"
+"64","35","essay","practice","Dalam 1 karton ada 24 botol. Berapa botol dalam 8 karton?","","","","192","","","","","","","","","","","","",""
+"64","36","pilihan_ganda","practice","Pak guru membeli 3 pak permen, tiap pak 30 permen. Jika dibagi rata ke 5 siswa, tiap siswa mendapat ...","","","","B","","","16","18","20","22","","","","","","",""
+"64","37","essay","practice","Lampu merah berkedip tiap 2 menit. Jika diamati pukul 18.10, sebutkan 4 waktu kedip berikutnya.","","","","18.12, 18.14, 18.16, 18.18","","","","","","","","","","","","",""
+"64","38","pilihan_ganda","practice","Nilai tempat angka 5 pada 4.253 adalah ...","","","","C","","","5","5000","50","500","","","","","","",""
+"64","39","multipart","practice","Lengkapi asesmen campuran.","","","","","","","","","","","","","","","","","a|7034 dibaca|tujuh ribu tiga puluh empat;b|7905 = ... + ... + ... + ...|7.000,900,0,5;c|8.032 nilai angka 8|8.000"
+"64","40","essay","practice","Buat 1 soal HOTS gabungan (nilai tempat + operasi hitung + faktor/kelipatan) dan tulis jawabannya.","","","","jawaban bervariasi, harus konsisten","","","","","","","","","","","","",""

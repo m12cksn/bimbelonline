@@ -1,0 +1,41 @@
+material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
+76,1,mcq,practice,Nilai k sehingga (-7)+k+(-5)=2 adalah ...,,,,14,,"-7-5=-12, k-12=2 => k=14.",14,-14,10,-10,,,,,,,
+76,2,essay,practice,Selesaikan: 3 + (x - 8) = -5,,,,0,,"x-8=-8, x=0.",,,,,,,,,,,
+76,3,mcq,practice,"Jika a=-4 dan b=9, nilai (a-b) + (b-a) adalah ...",,,,0,,(a-b)+(b-a)=0.,0,-8,8,-2,,,,,,,
+76,4,essay,practice,Nilai x jika (-2)x + 5 = -9,,,,7,,"-2x=-14, x=7.",,,,,,,,,,,
+76,5,mcq,practice,Bilangan p memenuhi p-(-6)= -1. Nilai p adalah ...,,,,-7,,p+6=-1 => p=-7.,-7,7,-5,5,,,,,,,
+76,6,essay,practice,Sederhanakan: (12-(-4)) - (5-(-3)),,,,14,,(12+4)-(5+3)=16-8=8? cek: 16-8=8.,,,,,,,,,,,
+76,7,mcq,practice,Hasil ekspresi: -3 + 4 - 7 + 8 - 5 adalah ...,,,,-3,,"Gabung: (-3+4)=1, 1-7=-6, -6+8=2, 2-5=-3.",-3,3,-1,1,,,,,,,
+76,8,essay,practice,Cari x: 2x - 3 = -11,,,,-4,,"2x=-8, x=-4.",,,,,,,,,,,
+76,9,mcq,practice,"Jika |x|=5 dan x<0, maka 3x+2 = ...",,,,-13,,x=-5 => 3x+2=-15+2=-13.,-13,13,-7,7,,,,,,,
+76,10,essay,practice,Tentukan nilai x agar 4 - x = -6,,,,10,,"-x=-10, x=10.",,,,,,,,,,,
+76,11,mcq,practice,Nilai x yang membuat 5 + x lebih kecil dari -2 adalah ...,,,,x < -7,,5+x<-2 => x<-7.,x < -7,x > -7,x = -7,x > 7,,,,,,,
+76,12,essay,practice,Hitung: (-18) + (+7) + (+4) + (-3),,,,-10,,"-18+7=-11, -11+4=-7, -7-3=-10.",,,,,,,,,,,
+76,13,mcq,practice,"Jika a=-2, b=3, c=-5 maka a+b+c = ...",,,,-4,,-2+3-5=-4.,-4,4,-10,10,,,,,,,
+76,14,essay,practice,Hitung: (0-(-12))-(+5),,,,7,,12-5=7.,,,,,,,,,,,
+76,15,mcq,practice,Pernyataan yang benar adalah ...,,,,(-8) < (-3),,"Pada bilangan negatif, yang lebih kanan lebih besar.",(-8) < (-3),(-8) > (-3),(-8) = (-3),Tidak bisa dibandingkan,,,,,,,
+76,16,essay,practice,Nilai x jika 3(x-2) = -12,,,,-2,,"x-2=-4, x=-2.",,,,,,,,,,,
+76,17,mcq,practice,"Jika x=-6, maka x-(-2)+3 = ...",,,,-1,,-6+2+3=-1.,-1,1,-5,5,,,,,,,
+76,18,essay,practice,Selesaikan: (-5) - (x+2) = -12,,,,5,,-5-x-2=-12 => -x-7=-12 => -x=-5 => x=5.,,,,,,,,,,,
+76,19,mcq,practice,Hasil dari ( -7 ) - ( +9 ) + ( -4 ) adalah ...,,,,-20,,-7-9-4=-20.,-20,20,-2,2,,,,,,,
+76,20,essay,practice,Hitung: (+15) + (-4) - (-9),,,,20,,15-4+9=20.,,,,,,,,,,,
+76,21,mcq,practice,"Jika x lebih besar dari -3 dan lebih kecil dari 1, manakah nilai yang mungkin?",,,,0,,0 berada di antara -3 dan 1.,0,-4,2,-5,,,,,,,
+76,22,essay,practice,Tentukan nilai x: -2x + 1 = 9,,,,-4,,"-2x=8, x=-4.",,,,,,,,,,,
+76,23,mcq,practice,Bilangan yang hasil jumlahnya 0 dengan +11 adalah ...,,,,-11,,Pasangan lawan.,-11,11,0,22,,,,,,,
+76,24,essay,practice,Nilai x pada 7 - (x - 5) = 3,,,,9,,7-x+5=3 => 12-x=3 => x=9.,,,,,,,,,,,
+76,25,multipart,practice,Jawab tiap bagian berikut.,,,,,,,,,,,,,,,,,a|Hitung: (-12)+(+5)+(-3)|-10;b|Hitung: 8-(-7)-6|9;c|Nilai mutlak dari -14|14
+76,26,multipart,practice,Jawab tiap bagian berikut.,,,,,,,,,,,,,,,,,a|x+(-4)=9|13;b|x-(-6)=1|-5;c|x+5=-2|-7
+76,27,multipart,practice,Jawab tiap bagian berikut.,,,,,,,,,,,,,,,,,a|Bandingkan: (-9) __ (-2)|<;b|Bandingkan: 0 __ (-1)|>;c|Bandingkan: (+3) __ (-3)|>
+76,28,multipart,practice,Jawab tiap bagian berikut.,,,,,,,,,,,,,,,,,a|Sederhanakan: (5-(-8))-(3-(-2))|6;b|Hitung: (-6)-(-10)+2|6;c|Hitung: 4-(-3)-(-2)|9
+76,29,multipart,practice,Jawab tiap bagian berikut.,,,,,,,,,,,,,,,,,"a|Jika |x|=6 dan x<0, maka x+8 =|2;b|Jika |y|=4 dan y>0, maka 2y-3 =|5;c|Jika |z|=7 dan z<0, maka z+7 =|0"
+76,30,multipart,practice,Jawab tiap bagian berikut.,,,,,,,,,,,,,,,,,a|Nilai x: 2x+3=-9|-6;b|Nilai x: -3x-1=8|-3;c|Nilai x: 5-x=-4|9
+76,31,multipart,practice,Jawab tiap bagian berikut.,,,,,,,,,,,,,,,,,a|Hitung: (-2)+(-2)+(-2)+(-2)|-8;b|Hitung: 10+(-3)+(-4)|3;c|Hitung: (-15)+(+6)+(+5)|-4
+76,32,multipart,practice,Jawab tiap bagian berikut.,,,,,,,,,,,,,,,,,a|Kalimat setara: 6-8|6+(-8);b|Kalimat setara: -4-(-9)|-4+9;c|Kalimat setara: 0-(-5)|0+5
+76,33,multipart,practice,Jawab tiap bagian berikut.,,,,,,,,,,,,,,,,,a|Hasil: (-7)+x=0|7;b|Hasil: x-3=0|3;c|Hasil: 0-x=-9|9
+76,34,multipart,practice,Jawab tiap bagian berikut.,,,,,,,,,,,,,,,,,a|Posisi akhir: mulai -3 naik 4 turun 8|-7;b|mulai 5 turun 9 naik 2|-2;c|mulai 0 turun 6 naik 1|-5
+76,35,mcq,practice,"Jika a=-3, b=-7, c=5 maka a-b+c = ...",,,,9,,-3-(-7)+5 = 4+5=9.,9,-9,1,-1,,,,,,,
+76,36,essay,practice,Hitung: (-20) - ( -7 ) + ( -4 ),,,,-17,,-20+7-4=-17.,,,,,,,,,,,
+76,37,mcq,practice,Nilai x jika 4x + 2 = -14 adalah ...,,,,-4,,4x=-16 => x=-4.,-4,4,-3,3,,,,,,,
+76,38,essay,practice,Tentukan nilai x: 2 - (x+5) = -6,,,,3,,2-x-5=-6 => -x-3=-6 => x=3.,,,,,,,,,,,
+76,39,mcq,practice,Ekspresi yang bernilai 0 adalah ...,,,,(-6)+(+6),,Pasangan lawan menghasilkan 0.,(-6)+(+6),(-6)+(-6),(+6)+(+6),(+6)-(+2),,,,,,,
+76,40,essay,practice,Hitung: 7 - ( -3 ) - ( -4 ),,,,14,,7+3+4=14.,,,,,,,,,,,

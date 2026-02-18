@@ -60,6 +60,13 @@ export async function GET(_: Request, props: Params) {
     return NextResponse.json({ error: "Unauthenticated" }, { status: 401 });
   }
 
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("role")
+    .eq("id", user.id)
+    .single();
+  const isAdmin = profile?.role === "admin";
+
   const { data, error } = await supabase
     .from("material_attempts")
     .select(
@@ -127,7 +134,9 @@ export async function GET(_: Request, props: Params) {
     attempts,
     bestScore,
     attemptsUsed: attempts.length,
-    attemptsLeft: Math.max(0, MAX_MATERIAL_ATTEMPTS - attempts.length),
+    attemptsLeft: isAdmin
+      ? 9999
+      : Math.max(0, MAX_MATERIAL_ATTEMPTS - attempts.length),
   });
 }
 
@@ -160,6 +169,13 @@ export async function POST(req: Request, props: Params) {
     return NextResponse.json({ error: "Unauthenticated" }, { status: 401 });
   }
 
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("role")
+    .eq("id", user.id)
+    .single();
+  const isAdmin = profile?.role === "admin";
+
   const { data: existingAttempts, error: attemptsError } = await supabase
     .from("material_attempts")
     .select("attempt_number, score")
@@ -182,6 +198,7 @@ export async function POST(req: Request, props: Params) {
   }
 
   if (
+    !isAdmin &&
     !isMissingMaterialAttemptsTable(attemptsError) &&
     existingAttempts &&
     existingAttempts.length >= MAX_MATERIAL_ATTEMPTS
@@ -203,6 +220,15 @@ export async function POST(req: Request, props: Params) {
   const computedTotal = Math.max(totalQuestions, clampedCorrect + wrongCount);
   const score =
     computedTotal > 0 ? Math.round((clampedCorrect / computedTotal) * 100) : 0;
+
+  if (isAdmin) {
+    return NextResponse.json({
+      ok: true,
+      skipped: true,
+      attempt_number: nextAttemptNumber,
+      score,
+    });
+  }
 
   if (!isMissingMaterialAttemptsTable(attemptsError)) {
     const { error: insertError } = await supabase

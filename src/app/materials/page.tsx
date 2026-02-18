@@ -42,9 +42,15 @@ export default async function MaterialsPage() {
   // --- 1. Ambil semua materi seperti sebelumnya ---
   const { data: profile } = await supabase
     .from("profiles")
-    .select("learning_track")
+    .select("learning_track, role")
     .eq("id", user.id)
     .maybeSingle();
+
+  const role =
+    (profile as { role?: string | null })?.role ??
+    (user.user_metadata?.role as string | undefined) ??
+    ((user as any)?.app_metadata?.role as string | undefined);
+  const isAdmin = role === "admin";
 
   const learningTrack =
     (profile as { learning_track?: string | null })?.learning_track ?? "math";
@@ -62,15 +68,17 @@ export default async function MaterialsPage() {
     .order("id", { ascending: true });
 
   let materialsFilter = materialsQuery;
-  if (learningTrack === "coding") {
-    materialsFilter = materialsFilter.eq("subject_id", 4);
-  }
-  if (gradeIds.length > 0) {
-    materialsFilter = materialsFilter.or(
-      `grade_id.is.null,grade_id.in.(${gradeIds.join(",")})`
-    );
-  } else {
-    materialsFilter = materialsFilter.is("grade_id", null);
+  if (!isAdmin) {
+    if (learningTrack === "coding") {
+      materialsFilter = materialsFilter.eq("subject_id", 4);
+    }
+    if (gradeIds.length > 0) {
+      materialsFilter = materialsFilter.or(
+        `grade_id.is.null,grade_id.in.(${gradeIds.join(",")})`
+      );
+    } else {
+      materialsFilter = materialsFilter.is("grade_id", null);
+    }
   }
 
   const { data, error } = await materialsFilter;
@@ -189,7 +197,7 @@ export default async function MaterialsPage() {
       <div className="mx-auto max-w-6xl space-y-8">
         <div className="flex items-center justify-between rounded-2xl border border-emerald-200 bg-white px-4 py-3">
           <Link
-            href="/dashboard/student"
+            href={isAdmin ? "/dashboard/admin" : "/dashboard/student"}
             className="
       inline-flex items-center gap-2 rounded-xl
       bg-emerald-50 hover:bg-emerald-100

@@ -1,0 +1,995 @@
+
+
+===== PAGE 153 =====
+143
+Bab 4 | Unsur-Unsur Bangun Datar
+Pada bab ini kalian akan mempelajari tentang garis, sudut, garis-
+garis tegak lurus, dan garis-garis sejajar.Bab
+4Bab
+Unsur-Unsur 
+Bangun DatarUnsur-Unsur Unsur-Unsur 
+Bangun DatarBangun Datar
+KEMENTERIAN PENDIDIKAN, KEBUDAYAAN,
+RISET, DAN TEKNOLOGI REPUBLIK INDONESIA, 2022
+Matematika untuk SD/MI Kelas III
+Penulis : Susanto, dkk.
+ISBN : 978-602-427-935-6 (jil.3)
+
+===== PAGE 154 =====
+144
+Matematika untuk SD/MI Kelas IIIPETA KONSEP
+ 
+• Sisi • Sudut • Garis-Garis Tegak Lurus • Garis-Garis SejajarKata Kunci:
+Sisi pada 
+Bangun Datar
+Sudut pada 
+Bangun Datar
+Garis-Garis 
+Tegak Lurus 
+dan Garis-Garis 
+SejajarTitik, Sinar 
+Garis, dan Ruas 
+Garis
+Sisi
+Membanding -
+kan Sudut
+Membentuk 
+Sudut Siku-Siku
+Mengukur 
+Sudut
+Menggambar 
+Sudut
+Jenis-Jenis 
+Sudut
+Garis-Garis 
+Tegak Lurus
+Garis-Garis 
+Sejajar
+Bangun Datar 
+SederhanaUnsur-unsur 
+Bangun 
+Datar
+
+===== PAGE 155 =====
+145
+Bab 4 | Unsur-Unsur Bangun DatarRuang Tamu
+Di ruang tamu banyak benda yang menyerupai bangun datar.
+Ada yang menyerupai bangun segitiga, persegi, persegi panjang, 
+atau lingkaran. 
+Bangun-bangun tersebut mungkin memiliki sisi dan sudut.
+Apakah kalian mengetahui tentang 
+sisi dan sudut? Dapatkah kalian me-
+nunjukkan berapa panjang sisinya? 
+Berapakah besar sudutnya?
+
+
+===== PAGE 156 =====
+146
+Matematika untuk SD/MI Kelas IIIA. Sisi Pada Bangun Datar
+Titik dan Garis
+Ayo Mengingat
+Sebelum mempelajari unsur-unsur bangun datar, masih ingatkah 
+kalian dengan garis lurus dan garis lengkung atau kurva yang 
+dipelajari di kelas II? Apakah kalian telah mengetahui tentang sinar 
+garis, ruas garis, kurva, dan sisi bangun datar?
+Perhatikan penjelasan berikut ini. 
+Sinar Garis
+Gambar di samping adalah gambar 
+sinar garis AB, selanjutnya disimbolkan 
+dengan AB. Sinar garis hanya dapat 
+diperpanjang satu sisi.
+Garis
+Gambar di samping adalah gambar 
+garis CD, selanjutnya disimbolkan 
+dengan CD. Garis dapat diperpanjang 
+ke kedua sisi.
+Ruas garis
+Gambar di samping adalah gambar 
+ruas garis KL, selanjutnya disimbolkan 
+dengan KL. Ruas garis memiliki panjang 
+tertentu/tetap. A B
+C D
+
+
+===== PAGE 157 =====
+147
+Bab 4 | Unsur-Unsur Bangun DatarDua titik berbeda, yaitu P dan Q, hanya 
+dapat dilukis dengan satu ruas garis 
+lurus. Ruas garis pada gambar di 
+samping adalah PQ.
+Dua titik berbeda, yaitu titik E dan F, 
+dapat dilukis dengan berbagai garis 
+lengkung. Terdapat 3 garis lengkung 
+pada gambar di samping, yaitu 
+berwarna hijau, merah, dan biru; serta 
+bisa diperbanyak sampai tak terhingga.
+Gambar di samping bukan garis 
+lengkung melainkan gabungan dari 
+empat ruas garis, yaitu PK, KL, LM dan 
+MQ.
+Skala atau penggaris digunakan untuk 
+menggambar ruas garis lurus dengan 
+panjang tertentu. Panjang ruas garis di 
+samping adalah 7 cm.
+
+
+===== PAGE 158 =====
+148
+Matematika untuk SD/MI Kelas IIIAyo Beraktivitas
+Aktivitas 1: Mengukur Panjang Ruas Garis dengan Ukuran 
+Tertentu
+Lakukan kegiatan berikut.
+A. Siapkan penggaris, pensil/pulpen, dan buku tulis.
+B. Perhatikan penjelasan berikut ini.
+Untuk mengukur panjang suatu benda dapat menggunakan 
+penggaris atau meteran baju/meteran gulung.
+Penggaris Meteran Baju dan Meteran Gulung
+Saat mengukur panjang benda, kita harus memperhatikan satuan 
+yang digunakan. 
+Penggaris pendek ini memiliki satuan sentimeter (cm) pada satu 
+sisi dan satuan inci pada sisi lainnya. 
+Pada bagian satuan sentimeter terdapat garis-garis yang membagi 
+panjang 1 cm menjadi 10 bagian kecil. 
+Setiap bagian kecil tersebut memiliki satuan milimeter (mm). 
+Jadi, 1 sentimeter sama dengan 10 milimeter.
+ 
+10 mm = 1 cm Sentimeter
+1 cm = 10 mm
+
+
+===== PAGE 159 =====
+149
+Bab 4 | Unsur-Unsur Bangun DatarCara menggunakan penggaris untuk mengukur panjang ruas garis.
+C. Ukurlah panjang ruas garis berikut dan tentukan panjangnya!
+1. Berapakah panjang AB ?1. Tempatkan titik 0 (nol) penggaris 
+tepat di bawah titik A sebagai 
+titik awal ruas garis. Selanjutnya, 
+perhatikan angka pada penggaris 
+yang sejajar/tepat di bawah titik 
+B sebagai titik akhir. Ternyata 
+menunjukkan angka 5. Jadi, 
+panjang ruas garis AB adalah 5 cm. 
+Dapat ditulis AB = 5 cm.
+2. Panjang ruas garis MN adalah 5 
+cm dan 5 mm. Dapat ditulis = 5 cm 
+dan 5 mm. Kemudian satuan mm 
+diubah ke dalam cm, sehingga 5 
+mm = 0,5 cm. Jadi, panjang ruas 
+garis MN = 5 cm dan 0,5 cm = 5,5 
+cm.
+3. Panjang ruas garis PQ adalah 3 
+cm dan 7 mm. Dapat ditulis PQ = 3 
+cm dan 7 mm. Setelah satuan mm 
+diubah ke dalam cm menjadi 3 cm 
+dan 0,7 cm = 3,7 cm. 
+A B
+M N
+P Q
+
+
+===== PAGE 160 =====
+150
+Matematika untuk SD/MI Kelas III2. Berapakah panjang PQ ?
+3. Berapakah panjang GH ?
+4. Berapakah panjang CD ?
+5. Ukurlah ruas garis berikut dan tuliskan panjangnya.
+ a) AB = _____ cm b) PQ = _____ cm
+ c) DE = _____ cm d) MN = _____ cm
+ e) GH = _____ cm f) CD = _____ cm
+A B
+G H C DM NP Q
+D E
+
+===== PAGE 161 =====
+151
+Bab 4 | Unsur-Unsur Bangun Datar6. Gambarlah ruas-ruas garis dari ukuran-ukuran berikut di 
+buku latihan kalian!
+a)  3 cm b)  7 cm c)  9 cm
+d)  8 cm e)  2 cm 9 mm f)  11,5 cm
+7. Hubungkan pasangan titik yang diberikan dengan 
+menggunakan penggaris, lalu tulis panjangnya!
+8. Ukur dan tulis hasil pengukurannya!
+a. Berapa panjang buku Matematika kalian?
+b. Berapa panjang pensil kalian?
+c. Berapa panjang meja kalian?
+d. Berapa panjang penghapus kalian?AB =
+PQ =MN =
+XY =AB
+NM
+Y
+X PQ
+
+===== PAGE 162 =====
+152
+Matematika untuk SD/MI Kelas IIIAyo Berlatih
+ 
+A. Pilih jawaban yang benar.
+1. 
+KL adalah ….
+a. Garis  b. Ruas garis  c. Sinar garis  d. Kurva/garis lengkung
+2. 
+PQ adalah ….
+a. Garis  b. Ruas garis  c. Sinar garis  d. Kurva/garis lengkung
+3. 
+MN adalah ….
+a. Garis  b. Ruas garis  c. Sinar garis  d. Kurva/garis lengkung
+4. 
+RS adalah ….
+a. Garis  b. Ruas garis  c. Sinar garis  d. Kurva/garis lengkung
+K L
+P Q
+M N
+R S
+
+===== PAGE 163 =====
+153
+Bab 4 | Unsur-Unsur Bangun DatarB. Jawablah setiap pertanyaan berikut!
+C D1. Jika titik C dihubungkan dengan 
+titik D, maka terbentuk ruas garis. 
+Tulis simbol ruas garis tersebut!
+A B2. AB adalah ruas garis. Berapakah 
+panjangnya?
+E
+G F3. Perhatikan gambar di samping. 
+Ruas  garis EF, FG, dan EG yang me-
+rupakan batas dari bangun tersebut 
+masing-masing dinamakan sisi.
+a. Tulislah sisi-sisi pada gambar 
+tersebut.
+b. Tentukan panjang setiap sisi.
+H
+GI
+J4. Perhatikan gambar di samping. 
+Ruas garis GH, HI, IJ, dan GJ 
+yang merupakan batas dari 
+bangun tersebut masing-masing 
+dinamakan sisi.
+a. Tulislah sisi-sisi pada gambar 
+tersebut.
+b. Tentukan panjang setiap sisi.
+
+===== PAGE 164 =====
+154
+Matematika untuk SD/MI Kelas IIIB. Sudut Pada Bidang Datar
+1. Membandingkan Sudut
+Ayo Mengamati
+                                       
+Bandingkan enam gambar di atas.
+Manakah sudut yang paling besar?
+Manakah sudut yang paling kecil?Sudut dapat terbentuk ketika 
+dua garis berpotongan pada 
+satu titik.
+Garis
+GarisSudutGaris
+GarisSudut
+a.
+d.b.
+e.c.
+f.Sudut
+
+===== PAGE 165 =====
+155
+Bab 4 | Unsur-Unsur Bangun DatarAyo Beraktivitas
+Aktivitas 2: Membandingkan Sudut
+Lakukan kegiatan berikut.
+1. Bentuklah kelompok yang beranggotakan 4 orang.
+2. Potong dua lembar kertas karton. 
+3. Gabungkan dengan pengait untuk membentuk sepasang strip 
+sudut.
+ 
+4. Selanjutnya, kalian dapat membentuk sudut yang berbeda 
+dengan memutar salah satu potongan karton.
+Pengait
+
+
+===== PAGE 166 =====
+156
+Matematika untuk SD/MI Kelas III5. Membentuk sudut dengan sepasang strip.
+Bagaimana caranya agar terbentuk sudut yang lebih besar?
+Bagaimana caranya agar terbentuk sudut yang lebih kecil?
+6. Gunakan sepasang strip sudut untuk mengukur sudut yang 
+terbentuk pada gambar a, b, c, d, e, dan f.
+7. Urutkan sudut-sudut pada gambar a, b, c, d, e, dan f tersebut 
+dari yang terkecil.
+Ayo Berpikir
+1. Gambar di atas berbentuk segitiga. Memiliki 3 sisi dan 3 sudut. 
+Tentukan dua sudut lainnya!
+Sudut
+
+===== PAGE 167 =====
+157
+Bab 4 | Unsur-Unsur Bangun Datar2. Berikut adalah beberapa contoh sudut yang ada di sekitar 
+kalian.
+         
+a. Carilah tiga sudut lagi di sekitar kalian.
+b. Gunakan strip sudut kalian untuk membandingkan sudut.
+3. Berapa banyak sisi dan sudut yang dimiliki masing-masing 
+bangun?
+Gambar
+Banyaknya sisi …. …. …. ….
+Banyaknya 
+sudut…. …. …. ….
+4. Alfa menggunakan karet gelang untuk membentuk bangun di 
+papan paku (geoboard).
+Berapa banyak sisi dan sudut yang dimiliki masing-masing 
+bangun tersebut?
+
+
+===== PAGE 168 =====
+158
+Matematika untuk SD/MI Kelas III5. Gunakan karet gelang untuk membentuk bangun dengan 
+hanya 5 sudut pada papan paku (geoboard).
+2. Membentuk Sudut Siku-siku
+Ayo Beraktivitas
+Aktivitas 3: Membentuk Sudut Siku-siku
+Lakukan kegiatan berikut.
+1. Siapkan secarik kertas/kertas origami, sepasang strip sudut.
+2. Lipat secarik kertas seperti gambar di bawah ini.
+Sudut ini adalah sudut istimewa. Selanjutnya dinamakan sudut 
+siku-siku.
+           
+Ayo Berpikir
+                                                                                             
+1. Lihat sekeliling kalian.
+a. Dapatkah kalian menemukan sudut siku-siku di sekitar 
+kalian?
+b. Bagaimanakah cara kalian memeriksa bahwa yang kalian 
+temukan itu sudut siku-siku?
+Sudut
+
+
+===== PAGE 169 =====
+159
+Bab 4 | Unsur-Unsur Bangun Datar2. Gunakan                               untuk membentuk:
+a. Sudut yang lebih kecil dari sudut siku-siku.
+b. Sudut yang lebih besar dari sudut siku-siku.
+c. Bagaimanakah cara kalian memeriksa bahwa kalian telah 
+membentuk sudut dengan benar?
+ 
+3. Temukan benda-benda berikut di rumah kalian.
+Berapa banyak sudut siku-siku yang dapat kalian temukan 
+pada setiap benda ini?
+4. Perhatikan bentuk-bentuk di bawah ini.
+
+
+===== PAGE 170 =====
+160
+Matematika untuk SD/MI Kelas IIIa. Berapa banyak sudut siku-siku yang dapat kalian temukan 
+pada setiap bentuk? 
+Gunakan sudut siku-siku yang telah kalian buat 
+untuk memeriksa jawaban kalian.
+b. Manakah dari bentuk-bentuk di atas yang memiliki sudut 
+lebih besar dari sudut siku-siku?
+c. Manakah dari bentuk-bentuk di atas yang hanya memiliki 
+satu sudut yang lebih kecil dari sudut siku-siku?
+5. Jawablah pertanyaan berikut.
+a. Alen menggunakan karet gelang untuk membentuk 
+berbagai bentuk pada papan paku ( geoboard).
+                               
+               
+ 
+Berapa banyak sudut yang dimiliki setiap bentuk?
+Berapakah jumlah sudut yang merupakan sudut siku-siku?
+b. Dapatkah kalian membentuk bangun yang tepat memiliki 3 
+sisi dan 3 sudut siku-siku?
+GH
+IJ
+
+===== PAGE 171 =====
+161
+Bab 4 | Unsur-Unsur Bangun DatarJika kalian bisa, tunjukkan bagaimana cara melakukannya.
+                                               
+Catatan:
+• Sudut terbentuk ketika dua garis berpotongan pada satu titik.
+• Kita dapat membandingkan ukuran sudut dengan meng-
+gunakan strip sudut.
+ 
+• Kita dapat menggunakan kertas yang dilipat untuk memeriksa 
+sudut siku-siku.
+
+
+===== PAGE 172 =====
+162
+Matematika untuk SD/MI Kelas IIIAyo Beraktivitas
+Aktivitas 4: Ayo Bermain Teka-Teki
+Lakukan kegiatan berikut.
+1. Bentuk kelompok yang beranggotakan 2 orang.
+2. Gambarlah persegi di atas kertas berpetak dan guntinglah 
+persegi tersebut.
+3. Potong persegi menjadi empat segitiga. Tandai sudut siku-siku 
+di setiap segitiga.
+4. Gunakan dua segitiga untuk membuat:
+a. Sebuah persegi. Ada berapa sudut siku-siku pada persegi?
+b. Segitiga yang lain.
+c. Bangun datar dengan 4 sisi, tetapi tidak terdapat sudut 
+siku-siku.
+5. Gunakan tiga segitiga untuk membuat bentuk dengan ciri-ciri 
+berikut.
+a. Empat sisi, tetapi tidak terdapat sudut siku-siku.
+b. Empat sisi dan 2 sudut siku-siku.
+c. Lima sisi dan 2 sudut siku-siku.
+
+
+===== PAGE 173 =====
+163
+Bab 4 | Unsur-Unsur Bangun Datar6. Gunakan 4 segitiga untuk membuat:
+a. Sebuah segitiga dengan 1 sudut siku-siku.
+b. Bangun datar dengan 4 sisi dan 4 sudut siku-siku. Bangun 
+apakah yang terbentuk?
+c. Dua bangun berbeda, masing-masing 4 sisi dan tidak 
+terdapat sudut siku-siku.
+d. Bangun datar dengan 6 sisi dan 3 sudut siku-siku.
+3. Mengukur Sudut
+Ayo Mengamati
+a. Mengukur Sudut dengan Ukuran Tidak Baku
+Pada gambar di samping, dua sinar OA 
+dan OB bertemu di titik O.
+Jadi, sebuah sudut terbentuk di O. 
+Sudut tersebut dinamakan sebagai 
+AOB atau ∠BOA. Titik O disebut titik 
+sudut dan sinar-sinar OA dan OB 
+disebut kaki. Simbol ∠ menunjukkan 
+sudut. Untuk memberi nama sudut, 
+menggunakan huruf kapital digunakan 
+dengan simpul di tengah.
+
+
+===== PAGE 174 =====
+164
+Matematika untuk SD/MI Kelas IIIPerhatikan kembali ∠AOB di atas, yaitu 
+Misalnya kita memiliki satuan sudut yang tidak baku seperti di 
+bawah ini. 
+Untuk menentukan banyaknya satuan sudut pada  ∠AOB di atas 
+dapat dilakukan dengan menempatkan satuan sudut pada ∠AOB 
+sebagai berikut.
+Berdasarkan gambar di atas dapat dikatakan ukuran ∠AOB = 3 
+satuan sudut, karena banyaknya satuan sudut pada ∠AOB sama 
+dengan 3 satuan sudut.
+Perhatikan jika satuan sudut yang digunakan seperti di bawah ini. 
+
+
+===== PAGE 175 =====
+165
+Bab 4 | Unsur-Unsur Bangun DatarUntuk menentukan banyaknya satuan sudut pada ∠AOB  dapat 
+dilakukan dengan menempatkan satuan sudut pada ∠AOB sebagai 
+berikut.
+Berdasarkan gambar di atas dapat dikatakan ukuran ∠AOB = 6 
+satuan sudut, karena banyaknya satuan sudut pada ∠AOB sama 
+dengan 6 satuan sudut.
+Sudut yang sama, yaitu ∠AOB, ukurannya menjadi berbeda jika 
+diukur dengan satuan sudut yang berbeda.
+Jadi, sudut yang sama ukurannya menjadi berbeda jika diukur 
+menggunakan satuan sudut yang berbeda.
+b. Mengukur Sudut dengan Ukuran Baku
+Pada gambar di bawah terdapat sudut AOB dengan 3 macam 
+ukuran. 
+OA dan OB berimpit satu 
+sama lain. Ada sudut 
+yang terbentuk, yaitu 
+∠AOB dengan ukuran 
+0o. Selanjutnya ditulis: 
+ukuran ∠AOB = 00.OB diputar sedikit 
+dan sudut ∠AOB 
+terbentuk.OB diputar sedikit 
+lagi dan sudut 
+∠AOB yang lebih 
+besar terbentuk.
+
+
+===== PAGE 176 =====
+166
+Matematika untuk SD/MI Kelas IIIMengukur sudut adalah ukuran sebanyak rotasi OB terhadap OA. 
+Kita dapat menggunakan busur derajat untuk mengukur sudut.
+Cara Mengukur Sudut
+• Letakkan bagian tengah busur derajat di titik O.
+• Sesuaikan salah satu kaki sudut, misalnya OA, pada garis nol 
+atau garis dasar busur derajat.
+• Baca sudut yang ditunjukkan oleh kaki sudut lainnya, yaitu OB.
+Pada gambar di atas terlihat, ukuran ∠AOB = 30°.
+Jika lingkaran dibagi menjadi 360 bagian 
+yang sama, maka besarnya sudut 
+yang diwakili oleh setiap bagian di 
+tengah adalah 1º.
+
+
+===== PAGE 177 =====
+167
+Bab 4 | Unsur-Unsur Bangun Datarc. Menggambar Sudut dengan Ukuran Tertentu
+d. Jenis-jenis Sudut
+Sudut diklasifikasikan berdasarkan ukurannya, membandingkan 
+dengan 90º dan 180º.Contoh: 
+Menggambar sudut dengan ukuran 
+50º.
+Langkah-langkahnya sebagai berikut.
+• Gambarlah sebuah ruas garis, 
+katakanlah AB.
+• Sesuaikan busur derajat dengan 
+titik sudutnya pada salah satu 
+ujung A dan garis nolnya pada AB.
+• Tandai titik C yang sesuai dengan 
+50º dari busur derajat.
+• Lepas busur derajat dan hubung-
+kan A dan C dengan menggunakan 
+penggaris.
+• Jadi,  ukuran ∠BAC = 50º terbentuk.
+1) Sudut Siku-siku
+Sudut yang ukurannya tepat 90º 
+disebut sudut siku-siku. Pada gambar 
+di samping ukuran ∠ AOB = 90º, 
+sehingga ∠AOB adalah sudut siku-
+siku. Kaki sudut OA dan OB saling 
+tegak lurus.
+
+
+===== PAGE 178 =====
+168
+Matematika untuk SD/MI Kelas III3) Sudut Lancip
+Sudut yang ukurannya lebih dari 0º dan kurang dari 90º disebut 
+sudut lancip.  Pada gambar di bawah, ukuran ∠AOB, ∠PQR, dan 
+∠XYZ semuanya kurang dari 90º. Tiga sudut tersebut masing-
+masing adalah sudut lancip.
+4) Sudut Tumpul
+Sudut yang ukurannya lebih dari 90º dan kurang dari 180º disebut 
+sudut tumpul. Pada gambar di bawah, ∠AOB dan ∠PQR adalah 
+sudut tumpul.2) Sudut Lurus
+Sudut yang ukurannya tepat 180º (dua 
+kali sudut siku-siku) disebut sudut 
+lurus. Pada gambar di samping ukuran 
+∠AOB = 180º, sehingga ∠AOB adalah 
+sudut lurus. Kaki sudut OA dan OB 
+membentuk garis (lurus).
+
+
+===== PAGE 179 =====
+169
+Bab 4 | Unsur-Unsur Bangun Datar5)	 Sudut	Refleks
+Sudut yang ukurannya lebih dari 180º dan kurang dari 360o disebut 
+sudut refleks. Gambar di bawah menunjukkan sudut 300º, lebih dari 
+180º dan kurang dari 360o. Sudut ini disebut sudut refleks. 
+Cara	Menggambar	Sudut	Refleks
+Busur derajat digunakan untuk mengukur dan menggambar sudut 
+berukuran 0o hingga 180º. 
+Busur derajat juga dapat digunakan untuk mengukur dan 
+menggambar sudut refleks. Caranya dengan menggambar atau 
+mengukur terlebih dahulu sudut lancip atau tumpul yang sesuai 
+dan sudut yang tersisa adalah sudut refleksnya.  Jika ∠AOB adalah 
+sudut refleks, ukuran sudut lancip atau tumpul yang bersesuaian = 
+360º - ukuran sudut refleks ∠AOB.
+Jika ∠AOB adalah sudut lancip atau sudut tumpul, maka ukuran 
+sudut refleks yang bersesuaian = 360º – ukuran sudut lancip atau 
+sudut tumpul ∠AOB.
+Contoh:
+1) Diketahui ukuran sudut refleks adalah 300º. Tentukan ukuran 
+sudut lancip atau sudut tumpulnya.
+ Jawab: 360º – 300º = 60º.
+2) Diketahui ukuran sudut tumpul adalah 130º. Tentukan ukuran 
+sudut refleksnya.
+ Jawab: 360º – 130º = 230º.
+Lebih jelas bila dilihat pada gambar di bawah ini.
+
+
+===== PAGE 180 =====
+170
+Matematika untuk SD/MI Kelas IIIAyo Berlatih
+ 
+1. Nyatakan besar sudut yang ditunjukkan busur derajat.
+a. 
+         ∠AOB = .........
+b.  
+∠XOY = .........
+atau ∠YOX = .........c.  
+∠XOW = .........
+atau ∠WOX = .........
+d. 
+∠MON = .........
+atau ∠NOM = .........e.  
+∠POR = .........
+atau ∠ROP = .........
+
+
+===== PAGE 181 =====
+171
+Bab 4 | Unsur-Unsur Bangun Datar2. Sebutkan sudut-sudutnya. Tuliskan titik sudut dan kakinya.
+a. 
+....................................................b. 
+....................................................
+c. 
+....................................................d. 
+....................................................
+e. 
+....................................................f. 
+....................................................M
+O NYX
+Z
+A
+B COL
+K
+o
+CD
+PQ R
+
+===== PAGE 182 =====
+172
+Matematika untuk SD/MI Kelas III3. Sebutkan nama sudut-sudut berikut. Tuliskan ukuran dan 
+jenisnya.
+a. 
+....................................................b. 
+....................................................
+c. 
+....................................................d. 
+....................................................
+e. 
+....................................................f. 
+....................................................
+4. Gambarlah sudut-sudut berikut menggunakan busur derajat 
+di buku latihan kalian. 
+a. 30° b. 70° c. 90° d. 135° e. 45°
+f. 80° g. 100° h. 120° i. 150° j. 165°RQPR
+S T
+OM
+NA B O
+M
+LK
+EF G
+
+===== PAGE 183 =====
+173
+Bab 4 | Unsur-Unsur Bangun Datar5. Kelompokkan sudut-sudut berikut ini sebagai sudut siku-siku, 
+sudut lancip, sudut tumpul, sudut lurus, dan sudut refleks.
+a. 120° b. 90° c. 180° d. 270°
+e. 70° f. 100° g. 90° h. 130° 
+i. 200° j. 89° k. 150° l. 225°
+Sudut siku-siku : …………………………………………………………………………
+Sudut lancip : …………………………………………………………………………
+Sudut tumpul : …………………………………………………………………………
+Sudut lurus : …………………………………………………………………………
+Sudut refleks : …………………………………………………………………………
+C. Garis-Garis Tegak Lurus dan Garis-Garis 
+Sejajar  
+Ayo Mengamati
+                                                                                                                                              
+                                                                                                                              
+        
+
+
+===== PAGE 184 =====
+174
+Matematika untuk SD/MI Kelas III                                                                                                                          
+Garis-garis putih tidak bertemu/berpotongan. Dapatkah kalian 
+menemukan garis-garis lain yang seperti itu?
+Garis kuning bertemu/berpotongan dengan garis biru. Dapat-kah 
+kalian menemukan garis-garis lain yang seperti itu?
+1. Garis-garis Tegak Lurus
+Untuk setiap pasangan garis di bawah ini, perhatikan bagaimana 
+garis-garis tersebut di kertas berpetak?
+                     
+                    
+                                                                                                                                                                                                   
+   Garis-garis putih yang tidak bertemu/
+berpotongan adalah garis sejajar.Garis kuning dan garis biru yang 
+bertemu/berpotongan membentuk 
+sudut siku-siku adalah garis tegak 
+lurus.
+
+
+===== PAGE 185 =====
+175
+Bab 4 | Unsur-Unsur Bangun Datar  
+                
+Garis-garis bertemu/berpotongan membentuk sudut siku-siku 
+adalah garis-garis tegak lurus.
+                     
+
+
+===== PAGE 186 =====
+176
+Matematika untuk SD/MI Kelas IIIPasangan garis di atas tidak tegak lurus. Mengapa?
+ 
+ 
+Kita beri tanda untuk sudut siku-siku seperti di bawah ini.
+                    
+Carilah contoh garis tegak lurus di sekitar kalian. 
+AB bertemu BC pada sudut siku-siku.
+AB dan BC adalah garis tegak lurus.
+AB tegak lurus BC.
+Kita tulis AB      BC.
+DE bertemu FG pada sudut siku-siku.
+DE dan FG adalah garis tegak lurus.
+DE tegak lurus FG.
+Kita tulis DE      FG.
+
+
+===== PAGE 187 =====
+177
+Bab 4 | Unsur-Unsur Bangun DatarAyo Beraktivitas
+Aktivitas 5: Membuat Garis Sejajar dan Tegak Lurus dengan 
+Melipat
+Lakukan kegiatan berikut.
+1. Siapkan pensil/pulpen, penggaris, dan kertas berpetak.
+2. Lipat ujung kertas pada bagian dari Q hingga bertemu di sisi SR 
+seperti yang ditunjukkan pada gambar berikut.
+3. Buka lipatan dan gambarlah bekas lipatan dengan warna 
+merah. Kemudian lipat sudut R hingga bertemu dengan sisi PQ 
+seperti pada gambar berikut.
+ 
+1
+2
+
+===== PAGE 188 =====
+178
+Matematika untuk SD/MI Kelas III4. Buka lipatan dan gambarlah bekas lipatan dengan warna biru.
+a. Apa yang kalian lihat tentang kedua garis lipatan?
+b. Di mana kedua garis bertemu?
+c. Sudut apa yang terbentuk dari kedua garis lipatan itu?
+d. Bagaimana cara memastikan kebenaran jawaban kalian?
+ 
+5. Lipat ujung kertas bagian P hingga bertemu di sisi SR seperti 
+yang ditunjukkan pada gambar berikut. 
+
+
+===== PAGE 189 =====
+179
+Bab 4 | Unsur-Unsur Bangun Datar6. Buka lipatan dan gambarlah bekas lipatan dengan warna hijau.
+a. Manakah yang merupakan garis-garis sejajar?
+b. Apakah garis-garis sejajar bertemu?
+7. Lipat ujung kertas bagian S hingga bertemu di sisi PQ seperti 
+yang ditunjukkan pada gambar berikut.
+8. Buka lipatan dan gambarlah bekas lipatan dengan warna 
+kuning.
+
+
+===== PAGE 190 =====
+180
+Matematika untuk SD/MI Kelas IIIa. Apa yang kalian lihat tentang kedua gambar garis lipatan?
+b. Berapa pasang garis sejajar yang terbentuk dari garis-garis 
+bekas lipatan tersebut?
+c. Pasangan-pasangan garis sejajar bertemu membentuk 
+bangun di tengah kertas berpetak. Apa nama bangun yang 
+terbentuk?
+Ayo Mengamati
+1. Manakah dari pasangan garis berikut yang tegak lurus? 
+Gunakan kertas terlipat untuk memeriksa garis tegak lurus.
+        
+            
+a. b.
+c. d.
+
+===== PAGE 191 =====
+181
+Bab 4 | Unsur-Unsur Bangun Datar                                         
+                  
+2. Beri nama pasangan garis tegak lurus untuk gambar berikut 
+ini. Gunakan selembar kertas terlipat untuk memeriksa garis 
+tegak lurus tersebut.
+                    
+e. f.
+g. h.
+a. b.
+
+===== PAGE 192 =====
+182
+Matematika untuk SD/MI Kelas III2. Garis-Garis Sejajar
+Perhatikan gambar pasangan garis pada kertas berpetak berikut.
+Periksa dengan menghitung petak persegi untuk melihat bahwa 
+setiap pasang garis ditarik pada jarak yang sama.
+Dua garis yang ditarik pada jarak yang sama (tidak berpotongan) 
+adalah garis sejajar.
+c. d.
+
+
+===== PAGE 193 =====
+183
+Bab 4 | Unsur-Unsur Bangun DatarDua pasang garis di atas bukanlah garis sejajar. Mengapa?
+ 
+Anak panah digunakan untuk menunjukkan bahwa garis-garisnya 
+sejajar.
+Selanjutnya, cari contoh garis paralel di sekitar kalian.
+AB sejajar CD.
+Ditulis AB // CD.EF sejajar GH.
+Ditulis EF // GH.
+
+===== PAGE 194 =====
+184
+Matematika untuk SD/MI Kelas IIICatatan:
+ 
+• Ketika dua garis berpotongan atau bertemu satu sama lain 
+membentuk sudut siku-siku, dinamakan garis tegak lurus. 
+Kita dapat menggunakan selembar kertas yang dilipat untuk 
+mencari garis tegak lurus.
+ 
+ PQ dan RS adalah garis tegak 
+lurus, dapat ditulis PQ      RS.KL dan MN adalah garis tegak 
+lurus, dapat ditulis KL      MN.
+AB dan CD adalah garis tidak 
+tegak lurus. XY dan YZ adalah garis tegak 
+lurus, dapat ditulis XY      YZ
+
+
+===== PAGE 195 =====
+185
+Bab 4 | Unsur-Unsur Bangun DatarGaris-garis sejajar tidak akan pernah bertemu satu sama lain.
+ 
+ 
+ E dan G terpisah 1 persegi/petak.
+F dan H juga terpisah 1 persegi/petak.
+EF dan GH adalah garis sejajar.
+EF // GH.
+K dan M terpisah 2 persegi/petak.
+L dan N juga terpisah 2 persegi/petak
+KL dan MN adalah garis sejajar.
+KL // MN.
+P dan R terpisah 2 persegi/petak.
+Q dan S terpisah 4 persegi/petak
+PQ dan RS bukan garis-garis sejajar.
+
+
+===== PAGE 196 =====
+186
+Matematika untuk SD/MI Kelas IIIAyo Berlatih
+1. Manakah dari pasangan garis berikut yang sejajar?
+a. b.
+c. d.
+e. f.
+
+===== PAGE 197 =====
+187
+Bab 4 | Unsur-Unsur Bangun Datar2. Beri nama pasangan garis sejajar pada gambar berikut.
+a.
+c.b.
+d.
+
+
+===== PAGE 198 =====
+188
+Matematika untuk SD/MI Kelas III3. Perhatikan huruf-huruf berikut ini.
+a. Huruf manakah yang memiliki ruas garis tegak lurus?
+b. Huruf manakah yang hanya memiliki sepasang garis sejajar?
+c. Huruf manakah yang hanya memiliki satu pasang garis 
+sejajar dan dua pasang garis tegak lurus?
+d. Huruf manakah yang memiliki garis tegak lurus, tetapi tidak 
+memiliki garis sejajar?
+e. Gunakan panah untuk menandai garis sejajar yang terdapat 
+pada huruf E.
+Tandai pasangan garis sejajar yang berbeda menggunakan:
+           atau 
+
+
+===== PAGE 199 =====
+189
+Bab 4 | Unsur-Unsur Bangun Datar3. Bangun Datar Sederhana
+Ayo Mengingat
+ 
+Suatu bangun datar yang dibatasi oleh tiga sisi disebut segitiga.
+Tiga batang pensil yang dihubungkan 
+setiap ujungnya akan membentuk 
+segitiga.
+Segitiga dibatasi oleh tiga ruas garis 
+atau tiga sisi. Ruas garis AB, BC, dan 
+AC adalah tiga sisi segitiga, yaitu sisi 
+AB, BC, dan AC. Segitiga memiliki tiga 
+sudut, yaitu sudut A, sudut B, dan sudut 
+C. Titik-titik A, B, dan C adalah tiga titik 
+sudut.
+A
+B C
+Setidaknya diperlukan tiga ruas 
+garis untuk membentuk suatu 
+daerah tertutup.
+
+
+===== PAGE 200 =====
+190
+Matematika untuk SD/MI Kelas IIIEmpat batang pensil yang dihubungkan setiap ujungnya dapat 
+membentuk persegi panjang.
+Gambar segi empat ABCD memiliki 4 sudut, yaitu sudut A, sudut B, 
+sudut C, dan sudut D serta memiliki 4 sisi, yaitu AB, BC, CD, dan AD. 
+Gambar ABCD adalah persegi panjang.
+Empat batang korek api yang sama panjang yang dihubungkan 
+setiap ujungnya dapat membentuk gambar berikut. 
+Gambar segi empat PQRS memiliki 4 sudut, yaitu sudut P, sudut Q, 
+sudut R, dan sudut S serta memiliki 4 sisi, yaitu sisi PQ, sisi QR, sisi 
+RS, dan sisi PS.
+Gambar PQRS adalah perseg i.
+A B
+D C
+P
+SQ
+R
+
+
+===== PAGE 201 =====
+191
+Bab 4 | Unsur-Unsur Bangun DatarAyo Berlatih
+ 
+A. Tulislah banyaknya sudut, sisi, serta nama sudut, nama sisi, dan 
+nama bangun.Gambar ini dibatasi oleh garis lengkung.
+Gambar ini tidak memiliki sudut.
+Gambar lengkung tersebut adalah 
+lingkaran.
+1. Perhatikan gambar di samping.
+a. Berapakah banyaknya sisi? 
+Sebutkan sisi-sisinya!
+b. Berapakah banyaknya sudut? 
+Sebutkan sudut-sudutnya!
+c. Apakah nama bangun di 
+samping?
+A
+B C
+2. Perhatikan gambar di samping.
+a. Berapakah banyaknya sisi? 
+Sebutkan sisi-sisinya!
+b. Berapakah banyaknya sudut? 
+Sebutkan sudut-sudutnya!
+c. Apakah nama bangun di 
+samping?
+P Q
+S R
+
+===== PAGE 202 =====
+192
+Matematika untuk SD/MI Kelas IIIB. Tarik garis yang menghubungkan bangun datar dan ciri-cirinya. 3. Perhatikan gambar di samping.
+a. Berapakah banyaknya sisi? 
+Sebutkan sisi-sisinya!
+b. Berapakah banyaknya sudut? 
+Sebutkan sudut-sudutnya!
+c. Apakah nama bangun di 
+samping?K
+NL
+M
+4.  Perhatikan gambar di samping.
+a. Berapakah banyaknya sisi? 
+Sebutkan sisi-sisinya!
+b. Apakah memiliki sudut? Sebut-
+kan bila ada!
+c. Apakah nama bangun di 
+samping?
+Tidak memiliki  sudut.
+Memiliki 5 sudut, 5 sisi.
+Memiliki 3 sudut, 3 sisi.
+Memiliki 4 sudut,     
+4 sisi sama panjang.
+Memiliki 4 sudut, 4 sisi.
+
+===== PAGE 203 =====
+193
+Bab 4 | Unsur-Unsur Bangun DatarASESMEN
+Tunjukkan kreativitas kalian untuk menyelesaikan masalah berikut.
+1. Perhatikan dengan cermat tangram yang dibentuk dari 7 
+bagian seperti gambar di bawah ini.
+Gambarlah tangram yang dibentuk dari 7 bagian bangun yang 
+berbeda. 
+2. Bangun datar di samping memiliki 
+2 sudut siku-siku, 1 sudut lancip, 
+dan 1 sudut tumpul. Selanjutnya 
+bentuklah bangun tersebut menjadi 
+3, 4, dan 5 bagian berbeda.
+3. Perhatikan hiasan berikut.
+Tangram adalah teka-teki 
+cina dari tujuh bagian yang 
+dapat digabung menjadi 
+sebuah persegi.
+
+
+===== PAGE 204 =====
+194
+Matematika untuk SD/MI Kelas IIIa. Temukan garis-garis sejajar dan garis-garis tegak lurus pada 
+ornamen tersebut dengan cara menebalkan garis-garisnya 
+dengan bolpoin. 
+b. Tentukan  ukuran sudut-sudut segi empat berwarna putih 
+pada ornamen tersebut.
+Berilah tanda ( ✓) pada gambar yang mewakili perasaan kalian 
+setelah mempelajari materi ini!
+Nomor Pernyataan 
+Ya 
+Tidak
+1. Saya bisa  mengukur panjang sisi
+2. Saya bisa mengukur sudut
+3. Saya mengetahui jenis-jenis sudut
+4. Saya bisa membuat garis-garis sejajar 
+5.Saya bisa membuat garis-garis saling 
+tegak lurus
+Manfaat apa yang kalian peroleh dari materi ini untuk kegiatan 
+sehari-hari?
+………………………………………………………………………………………………………
+………………………………………………………………………………………………………
+………………………………………………………………………………………………………REFLEKSI

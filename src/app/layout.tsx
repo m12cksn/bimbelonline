@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Nunito, Geist_Mono } from "next/font/google";
 import Script from "next/script";
+import { Suspense } from "react";
 import "./globals.css";
 import { ToastProvider } from "@/app/components/ToastProvider";
+import RouteLoader from "@/app/components/RouteLoader";
 
 const nunito = Nunito({
   variable: "--font-nunito",
@@ -92,6 +94,9 @@ export default function RootLayout({
             />
           </noscript>
         ) : null}
+        <Suspense fallback={null}>
+          <RouteLoader />
+        </Suspense>
         <ToastProvider>{children}</ToastProvider>
       </body>
     </html>

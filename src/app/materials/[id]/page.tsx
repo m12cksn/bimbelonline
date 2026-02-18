@@ -40,6 +40,8 @@ export default async function MaterialPage(props: MaterialPageProps) {
     is_premium?: boolean | null;
     learning_track?: string | null;
   } | null = null;
+  let role: UserRole = "student";
+  let isAdmin = false;
 
   if (!isGuest && user) {
     // 2. cek role + is_premium dari profiles
@@ -55,15 +57,15 @@ export default async function MaterialPage(props: MaterialPageProps) {
       console.warn("profiles fetch error", profileError);
     }
 
-    const role: UserRole =
+    role =
       (profile?.role as UserRole | undefined) ||
       (user.user_metadata?.role as UserRole | undefined) ||
       ((user as any)?.app_metadata?.role as UserRole | undefined) ||
       "student";
 
-    if (role !== "student") {
+    isAdmin = role === "admin";
+    if (role !== "student" && role !== "admin") {
       if (role === "teacher") redirect("/dashboard/teacher");
-      if (role === "admin") redirect("/dashboard/admin");
       redirect("/login");
     }
   }
@@ -88,11 +90,11 @@ export default async function MaterialPage(props: MaterialPageProps) {
   }
 
   const planAccess = resolvePlanAccess(planCode, planName, isPremium);
-  const questionLimit = planAccess.questionLimit;
-  const planLabel = planAccess.label;
-  const isPremiumPlan = planAccess.isPremium;
-  const planPriceLabel = planAccess.priceLabel;
-  const upgradeOptions = planAccess.upgradeOptions;
+  let questionLimit = planAccess.questionLimit;
+  let planLabel = planAccess.label;
+  let isPremiumPlan = planAccess.isPremium;
+  let planPriceLabel = planAccess.priceLabel;
+  let upgradeOptions = planAccess.upgradeOptions;
 
   const dbClient =
     isGuest && serviceKey
@@ -156,12 +158,13 @@ export default async function MaterialPage(props: MaterialPageProps) {
     });
   }
 
-  if (!isGuest && learningTrack === "coding" && material.subject_id !== 4) {
+  if (!isGuest && !isAdmin && learningTrack === "coding" && material.subject_id !== 4) {
     redirect("/materials");
   }
 
   if (
     !isGuest &&
+    !isAdmin &&
     material.grade_id &&
     !gradeIds.includes(material.grade_id)
   ) {
@@ -181,6 +184,13 @@ export default async function MaterialPage(props: MaterialPageProps) {
 
   const questionMetaList = questionMeta || [];
   const questionCount = questionMetaList.length;
+  if (isAdmin) {
+    questionLimit = questionCount;
+    planLabel = "Admin";
+    planPriceLabel = "Akses penuh";
+    isPremiumPlan = true;
+    upgradeOptions = [];
+  }
   const embedUrl =
     material.video_url && material.video_url.includes("phet.colorado.edu")
       ? material.video_url
@@ -232,6 +242,7 @@ export default async function MaterialPage(props: MaterialPageProps) {
           planLabel={planLabel}
           planPriceLabel={planPriceLabel}
           upgradeOptions={upgradeOptions}
+          isAdmin={isAdmin}
           isGuest={isGuest}
           isEmbed
           embedUrl={embedUrl}
@@ -384,6 +395,7 @@ export default async function MaterialPage(props: MaterialPageProps) {
               planLabel={planLabel}
               planPriceLabel={planPriceLabel}
               upgradeOptions={upgradeOptions}
+              isAdmin={isAdmin}
               isGuest={isGuest}
               isEmbed={false}
               embedUrl={embedUrl}

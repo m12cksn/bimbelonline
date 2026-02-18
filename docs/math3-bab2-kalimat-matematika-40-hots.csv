@@ -1,41 +1,41 @@
-material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
-60,1,essay,practice,,"Galih memiliki sejumlah kelereng. Setelah membeli 5 kelereng, jumlahnya 17. Banyak kelereng Galih mula-mula adalah ...",,,12,,,,,,,,,,,,,
-60,2,essay,practice,,"Pak Budi panen 78 manggis, sisa 42. Banyak yang dibagikan adalah ...",,,36,,,,,,,,,,,,,
-60,3,essay,practice,,"Jumlah tiket terjual 95. Jika 47 tiket laki-laki, maka tiket perempuan adalah ...",,,48,,,,,,,,,,,,,
-60,4,essay,practice,,"Sisa buku di perpustakaan 48, jumlah awal 96. Buku yang dipinjam adalah ...",,,48,,,,,,,,,,,,,
-60,5,essay,practice,,Diketahui 32 - x = 15. Nilai x adalah ...,,,17,,,,,,,,,,,,,
-60,6,essay,practice,,Diketahui x + 36 = 68. Nilai x adalah ...,,,32,,,,,,,,,,,,,
-60,7,essay,practice,,Jumlah dua bilangan adalah 50. Salah satu bilangan 30. Bilangan lainnya adalah ...,,,20,,,,,,,,,,,,,
-60,8,essay,practice,,Pak Slamet punya 80 ayam. Sisa 45. Ayam yang dijual adalah ...,,,35,,,,,,,,,,,,,
-60,9,essay,practice,,"Hari ini dijual 45 ayam, sisa 27. Banyak ayam mula-mula adalah ...",,,72,,,,,,,,,,,,,
-60,10,essay,practice,,Lengkapi: 8 + x = 19. Nilai x = ...,,,11,,,,,,,,,,,,,
-60,11,essay,practice,,Lengkapi: x - 12 = 26. Nilai x = ...,,,38,,,,,,,,,,,,,
-60,12,essay,practice,,Andi dan Galih memiliki 50 kelereng. Andi 30. Galih ...,,,20,,,,,,,,,,,,,
-60,13,essay,practice,,"Di toko ada 40 TV, terjual 28. Sisa TV adalah ...",,,12,,,,,,,,,,,,,
-60,14,essay,practice,,"Jika 83 - x = 38, maka x adalah ...",,,45,,,,,,,,,,,,,
-60,15,essay,practice,,Jumlah dua bilangan adalah 100. Salah satunya 65. Bilangan lainnya ...,,,35,,,,,,,,,,,,,
-60,16,essay,practice,,"Sebuah bioskop menjual 95 tiket. Jika 53 tiket terjual pada pagi hari, maka sisa tiket adalah ...",,,42,,,,,,,,,,,,,
-60,17,mcq,practice,,Nilai yang tepat untuk x pada 23 + x = 45 adalah ...,,,B,,,18,22,24,26,,,,,,,
-60,18,mcq,practice,,Nilai x pada x + 16 = 54 adalah ...,,,C,,,32,36,38,40,,,,,,,
-60,19,mcq,practice,,Nilai x pada 56 - x = 24 adalah ...,,,A,,,32,34,36,38,,,,,,,
-60,20,mcq,practice,,Nilai x pada x - 23 = 42 adalah ...,,,D,,,60,62,64,65,,,,,,,
-60,21,mcq,practice,,Kalimat matematika yang benar untuk “jumlah 30 dan x adalah 50” adalah ...,,,B,,,30 - x = 50,30 + x = 50,x - 30 = 50,50 - x = 30,,,,,,,
-60,22,mcq,practice,,Kalimat matematika untuk “selisih x dan 17 adalah 9” adalah ...,,,A,,,x - 17 = 9,17 - x = 9,x + 17 = 9,9 - x = 17,,,,,,,
-60,23,mcq,practice,,"Jika x + 48 = 84, maka x = ...",,,C,,,26,32,36,40,,,,,,,
-60,24,mcq,practice,,"Jika x - 31 = 19, maka x = ...",,,D,,,40,46,48,50,,,,,,,
-60,25,mcq,practice,,"Jika 37 - x = 24, maka x = ...",,,B,,,11,13,15,17,,,,,,,
-60,26,mcq,practice,,"Jika x + 52 = 98, maka x = ...",,,A,,,46,44,42,40,,,,,,,
-60,27,mcq,practice,,Kalimat matematika untuk “sisa ayam 45 dari total 80” adalah ...,,,C,,,45 + x = 80,80 - 45 = x,80 - x = 45,x - 45 = 80,,,,,,,
-60,28,mcq,practice,,"Jika x - 45 = 26, maka x = ...",,,B,,,61,71,81,91,,,,,,,
-60,29,drag_drop,practice,,Pasangkan cerita dengan kalimat matematika.,,,,,,,,,,,,,,jumlah 50 dan 30;selisih x dan 17 adalah 9;jumlah 72 dan 18;selisih 80 dan 45,30 + x = 50;x - 17 = 9;72 + 18 = 90;80 - 45 = 35,
-60,30,drag_drop,practice,,Pasangkan persamaan dengan nilai x.,,,,,,,,,,,,,,8 + x = 19;23 + x = 45;x + 16 = 54;x - 12 = 26,11;22;38;38,
-60,31,drag_drop,practice,,Pasangkan persamaan dengan operasi untuk mencari x.,,,,,,,,,,,,,,x + 36 = 68;32 - x = 15;x - 45 = 26;83 - x = 38,68 - 36;32 - 15;26 + 45;83 - 38,
-60,32,drag_drop,practice,,Pasangkan soal cerita dengan langkah pertama.,,,,,,,,,,,,,,80 ayam sisa 45;45 ayam sisa 27;jumlah 95 tiket;jumlah 100 buku,80 - 45;45 + 27;95 - diketahui;100 - diketahui,
-60,33,drag_drop,practice,,Pasangkan kalimat dengan hasilnya.,,,,,,,,,,,,,,x + 36 = 68;56 - x = 24;x - 23 = 42;8 + x = 19,x=32;x=32;x=65;x=11,
-60,34,drag_drop,practice,,Pasangkan bentuk cerita dengan tanda operasi.,,,,,,,,,,,,,,jumlah;selisih;sisa;bertambah,+;-;-;+,
-60,35,multipart,practice,,Isi nilai yang belum diketahui.,,,,,,,,,,,,,,,,a|7 + x = 15|8;b|18 + x = 39|21;c|x + 36 = 62|26
-60,36,multipart,practice,,Isi nilai yang belum diketahui.,,,,,,,,,,,,,,,,a|15 - x = 6|9;b|37 - x = 24|13;c|x - 45 = 26|71
-60,37,multipart,practice,,Soal cerita: tentukan nilai yang hilang.,,,,,,,,,,,,,,,,"a|Jumlah 95, salah satu 47|48;b|Sisa 42 dari 78|36;c|Jumlah 50, salah satu 30|20"
-60,38,multipart,practice,,Kalimat matematika dari cerita.,,,,,,,,,,,,,,,,a|Jumlah 17 setelah tambah 5|x+5=17;b|Sisa 45 dari 80|80-x=45;c|Jumlah 96 sisa 48|96-x=48
-60,39,multipart,practice,,Selesaikan nilai yang hilang.,,,,,,,,,,,,,,,,a|x + 48 = 84|36;b|x + 52 = 98|46;c|83 - x = 38|45
-60,40,multipart,practice,,"Soal HOTS: Cari dua bilangan yang jumlahnya 95, jika salah satunya 5 lebih besar dari yang lain.",,,,,,,,,,,,,,,,a|bilangan kecil|45;b|bilangan besar|50;c|cek|45+50=95
+"material_id","question_number","question_type","question_mode","prompt","question_text","helper_text","question_image_url","correct_answer","correct_image_url","explanation","option_a","option_b","option_c","option_d","option_a_image_url","option_b_image_url","option_c_image_url","option_d_image_url","drag_items","drop_targets","multipart_items"
+"60","1","pilihan_ganda","practice","Kalimat matematika dari cerita: ""Andi punya 28 kelereng, Beni punya 17, jumlah bersama ..."" adalah ...","","","","A","","","28 + 17 = ...","28 - 17 = ...","... - 17 = 28","17 - 28 = ...","","","","","","",""
+"60","2","essay","practice","Lengkapi: 24 + ... = 57. Jelaskan langkah singkatnya.","","","","33","","","","","","","","","","","","",""
+"60","3","multipart","practice","Selesaikan tiga kalimat berikut.","","","","","","","","","","","","","","","","","a|8 + ... = 19|11;b|23 + ... = 45|22;c|... + 36 = 68|32"
+"60","4","pilihan_ganda","practice","Berdasarkan model pada gambar, nilai yang hilang pada baris kedua adalah ...","","","/images/math3-bab2-kalimat/q4-model-penjumlahan.png","C","","","19","20","21","22","","","","","","",""
+"60","5","essay","practice","Di kelas ada 52 buku bacaan. Sebanyak 19 dipinjam. Tulis kalimat matematika dan tentukan sisa buku.","","","","52 - 19 = 33, sisa 33","","","","","","","","","","","","",""
+"60","6","pilihan_ganda","practice","Jika x + 27 = 63, maka x adalah ...","","","","B","","","34","36","37","40","","","","","","",""
+"60","7","multipart","practice","Tentukan nilai yang belum diketahui.","","","","","","","","","","","","","","","","","a|45 - ... = 26|19;b|... - 12 = 26|38;c|37 - ... = 24|13"
+"60","8","essay","practice","Total tiket terjual 95. Jika tiket perempuan 48, berapa tiket laki-laki?","","","","47","","","","","","","","","","","","",""
+"60","9","pilihan_ganda","practice","Kalimat yang tepat untuk ""jumlah permen Rani dan Sinta 60, permen Rani 26"" adalah ...","","","","D","","","26 - ... = 60","... - 26 = 60","60 + 26 = ...","26 + ... = 60","","","","","","",""
+"60","10","essay","practice","Selesaikan: ... + 52 = 98.","","","","46","","","","","","","","","","","","",""
+"60","11","pilihan_ganda","practice","Jika 83 - x = 38, maka x = ...","","","","A","","","45","35","41","48","","","","","","",""
+"60","12","multipart","practice","Gunakan model pengurangan pada gambar.","","","/images/math3-bab2-kalimat/q12-model-pengurangan.png","","","","","","","","","","","","","","a|Baris 1: banyak terjual|35;b|Baris 2: mula-mula|72;c|Baris 3: banyak terjual|36"
+"60","13","essay","practice","Pak Budi panen 78 manggis, sisa 42. Berapa manggis yang dibagikan?","","","","36","","","","","","","","","","","","",""
+"60","14","pilihan_ganda","practice","Untuk bentuk ... - 45 = 27, nilai ... diperoleh dengan operasi ...","","","","C","","","27 - 45","45 - 27","27 + 45","45 + 45","","","","","","",""
+"60","15","essay","practice","Buat satu contoh soal cerita yang modelnya x + 16 = 54, lalu jawab nilainya.","","","","x = 38","","","","","","","","","","","","",""
+"60","16","pilihan_ganda","practice","Pernyataan benar tentang kalimat matematika adalah ...","","","","B","","","Nilai hilang selalu dicari dengan penjumlahan","Model operasi harus sesuai cerita","Kalimat matematika tidak perlu dicek balik","Satuan tidak penting","","","","","","",""
+"60","17","multipart","practice","Tentukan semua nilai x.","","","","","","","","","","","","","","","","","a|x + 48 = 84|36;b|x - 31 = 19|50;c|67 - x = 25|42"
+"60","18","essay","practice","Jumlah dua bilangan 100. Salah satunya 65. Bilangan lainnya berapa?","","","","35","","","","","","","","","","","","",""
+"60","19","pilihan_ganda","practice","Jika di perpustakaan total 96 buku dan tersisa 48, maka buku dipinjam ...","","","","D","","","24","36","42","48","","","","","","",""
+"60","20","essay","practice","Ubah cerita ini ke kalimat matematika: ""Dari 80 ayam, 45 ayam masih di kandang"".","","","","80 - x = 45","","","","","","","","","","","","",""
+"60","21","pilihan_ganda","practice","Dari beberapa kemungkinan pasangan yang jumlahnya 95, pasangan valid adalah ...","","","","A","","","41 dan 54","39 dan 55","52 dan 42","40 dan 54","","","","","","",""
+"60","22","multipart","practice","Gunakan tabel pada gambar untuk menjawab.","","","/images/math3-bab2-kalimat/q22-kemungkinan-tiket.png","","","","","","","","","","","","","","a|Jika laki-laki 43, perempuan|52;b|Jika perempuan 51, laki-laki|44;c|Jumlah tiap baris|95"
+"60","23","essay","practice","Buat 3 kemungkinan pasangan bilangan berbeda yang jumlahnya 84.","","","","contoh: 40+44, 41+43, 50+34","","","","","","","","","","","","",""
+"60","24","pilihan_ganda","practice","Kalimat ... + 36 = 62, nilai ... adalah ...","","","","B","","","24","26","28","30","","","","","","",""
+"60","25","essay","practice","Selesaikan dan cek balik: 15 - x = 6.","","","","x = 9; cek 15-9=6","","","","","","","","","","","","",""
+"60","26","pilihan_ganda","practice","Model yang tepat untuk soal: ""Sisa kertas 27, yang dibagikan 45, kertas mula-mula ..."" adalah ...","","","","C","","","45 - 27 = ...","27 - 45 = ...","... - 45 = 27","45 + ... = 27","","","","","","",""
+"60","27","multipart","practice","Selesaikan operasi campuran konteks.","","","","","","","","","","","","","","","","","a|Buku awal 120, dipinjam 35, sisa|85;b|Kelereng awal ?, beli 12 jadi 40|28;c|Ayam awal 95, dijual ?, sisa 58|37"
+"60","28","essay","practice","Diketahui x + y = 95 dan x = 47. Tentukan y lalu jelaskan maknanya pada konteks tiket.","","","","y = 48","","","","","","","","","","","","",""
+"60","29","pilihan_ganda","practice","Soal mana yang memiliki lebih dari satu jawaban benar?","","","","D","","","8 + ... = 19","83 - ... = 38","... - 31 = 19","a + b = 95","","","","","","",""
+"60","30","essay","practice","Jelaskan mengapa pada bentuk a - x = c, nilai x dicari dengan a - c.","","","","karena x adalah bagian yang diambil dari a sehingga sisa c","","","","","","","","","","","","",""
+"60","31","pilihan_ganda","practice","Jika sebuah kelas mengumpulkan 64 lembar daun, tiap kelompok 4 siswa dan tiap siswa bawa 5 daun, jumlah siswa minimal yang masuk hitungan benar adalah ...","","","","B","","","10","13","14","16","","","","","","",""
+"60","32","essay","practice","Alfa punya 72 kelereng, Galih 36. Alfa memberi 18 ke Galih. Berapa kelereng masing-masing sekarang?","","","","Alfa 54, Galih 54","","","","","","","","","","","","",""
+"60","33","multipart","practice","Isi nilai yang hilang.","","","","","","","","","","","","","","","","","a|38 + ... = 67|29;b|... - 45 = 26|71;c|56 - ... = 24|32"
+"60","34","pilihan_ganda","practice","Pada gambar asesmen, nilai yang hilang untuk ... - 31 = 19 adalah ...","","","/images/math3-bab2-kalimat/q34-asesmen-campuran.png","A","","","50","48","52","54","","","","","","",""
+"60","35","essay","practice","Buat tabel 5 kemungkinan pasangan (laki-laki, perempuan) dengan total 95.","","","","contoh: 40-55, 41-54, 42-53, 43-52, 44-51","","","","","","","","","","","","",""
+"60","36","pilihan_ganda","practice","Jika 32 - x = 15 dan y + 16 = 54, maka x + y = ...","","","","C","","","49","51","55","57","","","","","","",""
+"60","37","essay","practice","Seseorang menulis jawaban untuk x + 36 = 68 adalah 34. Benarkan atau perbaiki dengan alasan.","","","","salah, benar 32 karena 68-36","","","","","","","","","","","","",""
+"60","38","multipart","practice","Tentukan mana yang benar (isi hasilnya).","","","","","","","","","","","","","","","","","a|21 : model kalimat 21 + ... = 50, nilai ...|29;b|22 : model ... - 67 = 24, nilai ...|91;c|23 : model 60 - ... = 35, nilai ...|25"
+"60","39","pilihan_ganda","practice","Langkah terakhir setelah menemukan nilai hilang adalah ...","","","","D","","","langsung pindah soal","mengganti operasi","menghapus model","cek balik ke kalimat awal","","","","","","",""
+"60","40","essay","practice","Rancang 1 soal HOTS cerita campuran (penjumlahan/pengurangan nilai hilang) dan tulis jawabannya.","","","","jawaban bervariasi, harus konsisten dengan model","","","","","","","","","","","","",""

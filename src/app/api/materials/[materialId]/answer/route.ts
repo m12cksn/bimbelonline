@@ -118,11 +118,12 @@ export async function POST(req: Request, props: MaterialParams) {
 
   let planAccess = resolvePlanAccess(null, null, false);
 
+  let isAdmin = false;
   if (!isGuest && user) {
     // 2. ambil status langganan untuk limit soal
     const { data: profile } = await supabase
       .from("profiles")
-      .select("is_premium")
+      .select("is_premium, role")
       .eq("id", user.id)
       .single();
 
@@ -165,6 +166,7 @@ export async function POST(req: Request, props: MaterialParams) {
       planName,
       profile?.is_premium === true
     );
+    isAdmin = profile?.role === "admin";
   }
 
   // 3. validasi questionId
@@ -197,6 +199,7 @@ export async function POST(req: Request, props: MaterialParams) {
   }
 
   const shouldLock =
+    !isAdmin &&
     question.question_mode !== "tryout" &&
     question.question_number > planAccess.questionLimit;
 
@@ -328,7 +331,7 @@ export async function POST(req: Request, props: MaterialParams) {
   }
 
   // 6. simpan attempt per soal (PASTI ada attempt_number)
-  if (!isGuest && user) {
+  if (!isGuest && user && !isAdmin) {
     const { error: attemptError } = await supabase
       .from("question_attempts")
       .insert({

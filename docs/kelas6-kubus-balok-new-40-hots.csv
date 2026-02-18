@@ -1,41 +1,41 @@
-material_id,question_number,question_type,question_mode,prompt,question_text,helper_text,question_image_url,correct_answer,correct_image_url,explanation,option_a,option_b,option_c,option_d,option_a_image_url,option_b_image_url,option_c_image_url,option_d_image_url,drag_items,drop_targets,multipart_items
-50,1,essay,practice,Hitung jumlah kubus pada Susunan A.,,,TODO_IMG_STACK_A.png,5,,,,,,,,,,,,,
-50,2,essay,practice,"Pada Susunan A, berapa banyak kubus di lapisan dasar?",,,TODO_IMG_STACK_A.png,4,,,,,,,,,,,,,
-50,3,mcq,practice,Jumlah kubus pada Susunan B adalah...,,,TODO_IMG_STACK_B.png,B,,,4,5,6,7,,,,,,,
-50,4,multipart,practice,Susunan B.,,,TODO_IMG_STACK_B.png,,,,,,,,,,,,,,a|Jumlah kubus|6;b|Jumlah kubus di lapisan atas|2
-50,5,essay,practice,"Sebuah susunan terdiri dari 2 lapisan: lapisan bawah 3x2 kubus, lapisan atas 2x1 kubus. Berapa jumlah kubus seluruhnya?",,,,8,,,,,,,,,,,,,
-50,6,mcq,practice,"Jika sebuah balok memiliki panjang 6, lebar 4, tinggi 4, apakah itu kubus?",,,,C,,,Ya,Tidak,Hanya jika semua sama,Tidak bisa ditentukan,,,,,,,
-50,7,drag_drop,practice,Pasangkan bangun ruang dengan cirinya.,,,,,,,,,,,,,,,kubus;balok;prisma segitiga;limas segiempat,"6 sisi persegi,6 sisi persegi panjang,2 segitiga + 3 persegi panjang,alas persegi + 4 segitiga",
-50,8,essay,practice,"Bangun tersusun dari 3 balok identik. Jika dilihat dari depan tampak 3 balok sejajar, apakah tampak atas selalu 3 balok sejajar? Jelaskan singkat.",,,,tidak,,,,,,,,,,,,,
-50,9,multipart,practice,Tampak Susunan A.,,,TODO_IMG_VIEWS_ABC.png,,,,,,,,,,,,,,a|Panel A adalah tampak apa?|atas;b|Panel B adalah tampak apa?|depan;c|Panel C adalah tampak apa?|kanan
-50,10,essay,practice,Gunakan gambar Tampak Depan & Atas. Berapa jumlah kubus minimal yang mungkin?,,,TODO_IMG_VIEWS_FRONT_TOP.png,4,,,,,,,,,,,,,
-50,11,mcq,practice,Jumlah rusuk pada kubus adalah...,,,,B,,,8,12,6,10,,,,,,,
-50,12,essay,practice,Jelaskan perbedaan kubus dan balok dalam satu kalimat.,,,,kubus semua sisi persegi; balok sisi persegi panjang,,,,,,,,,,,,,
-50,13,drag_drop,practice,Pasangkan istilah dengan artinya.,,,,,,,,,,,,,,,komposisi;dekomposisi;sisi;rusuk,"menyusun,mengurai,bidang,pertemuan sisi",
-50,14,essay,practice,Sebuah susunan kubus terlihat sama dari depan dan belakang. Apa artinya tentang susunan tersebut?,,,,simetris,,,,,,,,,,,,,
-50,15,mcq,practice,"Jika tampak atas menunjukkan 4 kubus (2x2), jumlah kubus minimal adalah...",,,,A,,,4,5,6,8,,,,,,,
-50,16,essay,practice,"Sebuah bangun disusun dari kubus satuan. Tampak depan 2x2, tampak atas 2x2. Berapa jumlah kubus minimal?",,,,4,,,,,,,,,,,,,
-50,17,drag_drop,practice,Pasangkan tampak dengan susunan yang cocok.,,,TODO_IMG_VIEWS_ABC.png,,,,,,,,,,,,A;B;C,"atas,depan,kanan",
-50,18,essay,practice,"Pada grid lokasi, titik X berada di petak mana?",,,TODO_IMG_GRID_LOC.png,C-4,,,,,,,,,,,,,
-50,19,multipart,practice,Grid lokasi.,,,TODO_IMG_GRID_LOC.png,,,,,,,,,,,,,,a|Titik X berada di baris?|C;b|Titik X berada di kolom?|4
-50,20,essay,practice,"Pada grid, berapa jarak horizontal dari S ke T?",,,TODO_IMG_GRID_PATH.png,2,,,,,,,,,,,,,
-50,21,multipart,practice,Grid rute.,,,TODO_IMG_GRID_PATH.png,,,,,,,,,,,,,,a|Jarak vertikal S ke T|3;b|Jarak horizontal S ke T|2;c|Jarak total manhattan|5
-50,22,essay,practice,Sebuah balok memiliki ukuran 2x3x4. Berapa banyak kubus satuan 1x1x1 yang membentuknya?,,,,24,,,,,,,,,,,,,
-50,23,mcq,practice,"Jika kubus satuan disusun menjadi balok 3x4x5, jumlah kubus satuan adalah...",,,,C,,,60,12,60,15,,,,,,,
-50,24,essay,practice,"Susunan kubus 2x2x2. Jika satu kubus diambil dari sudut atas, berapa sisa kubus?",,,,7,,,,,,,,,,,,,
-50,25,drag_drop,practice,Pasangkan ukuran balok dengan jumlah kubus satuannya.,,,,,,,,,,,,,,,2x2x3;1x4x5;3x3x2;2x3x4,"12,20,18,24",
-50,26,essay,practice,Apakah dua susunan kubus yang tampak atasnya sama pasti jumlah kubusnya sama? Jelaskan singkat.,,,,tidak,,,,,,,,,,,,,
-50,27,mcq,practice,"Tampak depan berupa 3 kolom dengan tinggi 2-1-2. Jika tampak atas menunjukkan 3 posisi, jumlah kubus minimal adalah...",,,,B,,,5,6,5,7,,,,,,,
-50,28,essay,practice,Sebuah susunan terdiri dari 3 kubus pada dasar dan 2 kubus di atasnya (menutupi 2 kubus dasar). Berapa banyak kubus yang terlihat dari depan?,,,,3,,,,,,,,,,,,,
-50,29,multipart,practice,Komposisi kubus.,,,,,,,,,,,,,,,,,"a|Jika dasar 3x2 dan tinggi 2, jumlah kubus|12;b|Jika ditambah 2 kubus di atas, jumlah total|14"
-50,30,essay,practice,"Pada tampak atas terlihat 4 posisi, namun tampak depan menunjukkan hanya 3 kolom. Berikan satu kemungkinan susunan.",,,,contoh susunan 2-1-1,,,,,,,,,,,,,
-50,31,drag_drop,practice,Pasangkan tampak dengan istilahnya.,,,,,,,,,,,,,,,depan;atas;samping,"front view,top view,side view",
-50,32,essay,practice,"Sebuah balok disusun dari 48 kubus satuan. Jika panjang 4 dan lebar 3, berapa tinggi?",,,,4,,,,,,,,,,,,,
-50,33,mcq,practice,Jumlah titik sudut pada balok adalah...,,,,B,,,6,8,10,12,,,,,,,
-50,34,essay,practice,Sebuah rute dari A-1 ke D-4 bergerak hanya horizontal dan vertikal. Berapa langkah minimum?,,,,6,,,,,,,,,,,,,
-50,35,multipart,practice,Bandingkan tampak.,,,TODO_IMG_VIEWS_ABC.png,,,,,,,,,,,,,,a|Panel B menunjukkan tinggi maksimum berapa kubus?|2;b|Panel C menunjukkan jumlah kolom|2
-50,36,essay,practice,"Susunan kubus 1x3x4. Jika dipotong menjadi 3 bagian sama besar, berapa kubus tiap bagian?",,,,4,,,,,,,,,,,,,
-50,37,drag_drop,practice,Pasangkan pernyataan benar/salah.,,,,,,,,,,,,,,,"Tampak atas selalu menunjukkan jumlah kubus;Tampak depan bisa sama walau susunan berbeda;Jika tampak depan 2 kolom maka kubus pasti 2;Jika tampak atas 4 posisi maka jumlah kubus minimal 4","benar;benar;salah;benar",
-50,38,essay,practice,"Bangun dari kubus tampak atas 2x2, tampak depan 2x1. Berikan jumlah kubus maksimal yang mungkin.",,,,4,,,,,,,,,,,,,
-50,39,mcq,practice,"Jika kubus satuan disusun 3x3x1, tampak atas menunjukkan...",,,,A,,,9 persegi,6 persegi,3 persegi,1 persegi,,,,,,,
-50,40,essay,practice,Tuliskan satu contoh susunan kubus yang jika dilihat dari samping tampak 3 kolom dengan tinggi 1-2-1.,,,,contoh susunan valid,,,,,,,,,,,,,
+"material_id","question_number","question_type","question_mode","prompt","question_text","helper_text","question_image_url","correct_answer","correct_image_url","explanation","option_a","option_b","option_c","option_d","option_a_image_url","option_b_image_url","option_c_image_url","option_d_image_url","drag_items","drop_targets","multipart_items"
+"50","1","essay","practice","Sebuah bangun tersusun dari 3 lapisan: lapis bawah 3x2 kubus, lapis tengah 2x2 kubus, lapis atas 2 kubus. Berapa jumlah kubus seluruhnya?","","","","12","","","","","","","","","","","","",""
+"50","2","pilihan_ganda","practice","Susunan A dan B memiliki tinggi kolom sama (2,1,2), tetapi Susunan B diputar 180 derajat. Kesimpulan yang tepat adalah ...","","","","A","","","Kedua susunan sama, hanya berbeda orientasi","Kedua susunan pasti berbeda","Tidak bisa dibandingkan tanpa menghitung volume","Susunan B memiliki lebih banyak kubus","","","","","","",""
+"50","3","multiple","practice","Pilih semua informasi yang paling kuat untuk memastikan bentuk bangun ruang secara unik.","","","","B,C","","","Tampak atas saja","Tampak depan dan tampak atas","Tampak depan, kanan, dan atas","Jumlah kubus total saja","","","","","","",""
+"50","4","essay","practice","Suatu susunan memiliki 2 lapis: lapis bawah 5 kubus dan lapis atas 3 kubus (semua tepat di atas lapis bawah). Berapa total kubus?","","","","8","","","","","","","","","","","","",""
+"50","5","pilihan_ganda","practice","Ada 12 kubus identik yang akan disusun dengan tinggi maksimal 3 lapis. Banyak petak lantai minimum yang dibutuhkan adalah ...","","","","B","","","3","4","5","6","","","","","","",""
+"50","6","essay","practice","Bangun berbentuk huruf L pada lapis bawah terdiri dari 4 kubus. Di atas dua kubus sudut, masing-masing ditambah 1 kubus. Berapa total kubus?","","","","6","","","","","","","","","","","","",""
+"50","7","multiple","practice","Pilih semua pernyataan yang benar tentang konstruksi kubus/balok.","","","","A,C","","","Menghitung per lapis membantu mencegah kubus terlewat","Jumlah kubus sama selalu berarti bentuk sama","Satu tampak saja belum cukup memastikan bentuk","Memutar bangun mengubah jumlah kubus","","","","","","",""
+"50","8","pilihan_ganda","practice","Dua balok identik dapat disusun menjadi bentuk berbeda. Jika perbedaan hanya karena diputar dianggap sama, banyak bentuk dasar dari 2 balok adalah ...","","","","B","","","1","2","3","4","","","","","","",""
+"50","9","essay","practice","Lapis bawah susunan adalah kisi 3x3 penuh, lalu lapis atas hanya 1 kubus di tengah. Berapa jumlah kubus penyusun?","","","","10","","","","","","","","","","","","",""
+"50","10","pilihan_ganda","practice","Tersedia 18 kubus dan tinggi susunan dibatasi paling banyak 3 lapis. Luas lantai minimum (dalam petak kubus) adalah ...","","","","A","","","6","7","8","9","","","","","","",""
+"50","11","essay","practice","Tampak depan menunjukkan tinggi kolom berturut-turut 2, 1, dan 3. Jika setiap kolom memiliki kedalaman minimal 1, berapa jumlah kubus minimum yang mungkin?","","Catatan gambar: dapat ditambahkan diagram tinggi kolom.","/images/kelas6-kubus-balok/q11-tampak-depan-2-1-3.png","6","","","","","","","","","","","","",""
+"50","12","pilihan_ganda","practice","Tampak atas menunjukkan tepat 5 petak terisi. Jumlah kubus minimum yang mungkin adalah ...","","","","C","","","3","4","5","6","","","","","","",""
+"50","13","multiple","practice","Sebuah bangun memiliki 4 petak pada tampak atas. Tinggi tiap petak minimal 1 dan maksimal 3 kubus. Pilih semua jumlah kubus yang mungkin.","","","","B,C","","","3","4","10","13","","","","","","",""
+"50","14","essay","practice","Tampak atas berbentuk L dengan 4 petak. Dua petak tingginya 2 kubus dan dua petak tingginya 1 kubus. Berapa total kubus?","","","","6","","","","","","","","","","","","",""
+"50","15","pilihan_ganda","practice","Tampak depan memiliki dua kolom dengan tinggi 3 dan 1. Tampak atas menunjukkan ada tepat 3 petak terisi: dua petak pada kolom tinggi 3 dan satu petak pada kolom tinggi 1. Jumlah kubus minimum adalah ...","","Catatan gambar: gunakan grid 2 kolom untuk memvisualkan petak.","/images/kelas6-kubus-balok/q15-tampak-depan-atas.png","B","","","4","5","6","7","","","","","","",""
+"50","16","multiple","practice","Pilih semua pernyataan yang benar tentang tampak bangun ruang.","","","","B,C","","","Tampak atas langsung menunjukkan tinggi tiap kolom","Dua bangun berbeda bisa memiliki tampak depan yang sama","Tiga tampak (depan, kanan, atas) memberi informasi lebih lengkap","Tampak kanan selalu sama dengan tampak depan","","","","","","",""
+"50","17","pilihan_ganda","practice","Susunan terdiri dari 3 kubus berjajar di bawah dan 1 kubus di atas kubus tengah. Bentuk tampak atasnya adalah ...","","","/images/kelas6-kubus-balok/q17-susunan-3plus1.png","B","","","4 petak membentuk persegi","3 petak berjajar lurus","2 petak sejajar","Bentuk L 3 petak","","","","","","",""
+"50","18","essay","practice","Untuk susunan: 3 kubus berjajar di bawah dan 1 kubus di atas kubus tengah, berapa banyak persegi satuan pada tampak depan?","","","/images/kelas6-kubus-balok/q17-susunan-3plus1.png","4","","","","","","","","","","","","",""
+"50","19","pilihan_ganda","practice","Jika dua bangun memiliki tampak depan dan tampak atas yang sama, maka ...","","","","B","","","Pasti bangunnya sama","Masih mungkin berbeda, perlu cek tampak samping","Pasti volumenya berbeda","Tidak dapat ditentukan sama sekali","","","","","","",""
+"50","20","essay","practice","Pada tampak atas 2x2, tinggi tiap petak berturut-turut adalah 2, 1, 1, dan 3 kubus. Berapa total kubus penyusun?","","","","7","","","","","","","","","","","","",""
+"50","21","pilihan_ganda","practice","Dari titik (B,3), bergerak 2 kolom ke kanan dan 1 baris ke atas. Koordinat akhir adalah ...","","","/images/kelas6-kubus-balok/q21-grid-b3-to-d4.png","C","","","(C,4)","(D,3)","(D,4)","(E,4)","","","","","","",""
+"50","22","essay","practice","Hitung jarak minimum dari (C,2) ke (F,6) pada grid (langkah horizontal + vertikal).","","","/images/kelas6-kubus-balok/q22-grid-c2-to-f6.png","7","","","","","","","","","","","","",""
+"50","23","multiple","practice","Dari titik (B,2), pilih semua titik yang berjarak minimum 5 langkah.","","","/images/kelas6-kubus-balok/q23-grid-distance5.png","A,C,D","","","(E,4)","(D,1)","(A,6)","(G,2)","","","","","","",""
+"50","24","pilihan_ganda","practice","Jarak minimum dari (E,5) ke (B,1) adalah ... langkah.","","","/images/kelas6-kubus-balok/q24-grid-e5-to-b1.png","C","","","5","6","7","8","","","","","","",""
+"50","25","essay","practice","Rina berada di (B,3). Dodi 2 kolom di kanan dan 1 baris di atas Rina. Tulis koordinat Dodi.","","","","(D,4)","","","","","","","","","","","","",""
+"50","26","pilihan_ganda","practice","Format penulisan koordinat yang benar pada sistem berpetak materi ini adalah ...","","","","A","","","(huruf, angka)","(angka, huruf)","huruf-angka tanpa kurung","angka saja","","","","","","",""
+"50","27","multiple","practice","Pilih semua pernyataan yang benar tentang koordinat pada grid.","","","","A,C","","","Lokasi titik adalah perpotongan kolom dan baris","(3,C) sama dengan (C,3)","Geser 1 kolom ke kanan mengubah huruf kolom","Geser 1 baris ke atas selalu mengubah huruf","","","","","","",""
+"50","28","essay","practice","Dari (A,1) ke (D,3), berapa langkah minimum yang diperlukan?","","","","5","","","","","","","","","","","","",""
+"50","29","pilihan_ganda","practice","Jarak minimum dari (F,4) ke (C,4) adalah ...","","","","B","","","2","3","4","5","","","","","","",""
+"50","30","essay","practice","Titik X berada 2 kolom ke kanan dan 3 baris ke bawah dari (B,7). Tulis koordinat X.","","","","(D,4)","","","","","","","","","","","","",""
+"50","31","pilihan_ganda","practice","Dari (A,1) ke (C,3), jika hanya boleh bergerak ke kanan atau ke atas, banyak rute terpendek adalah ...","","","/images/kelas6-kubus-balok/q31-grid-a1-to-c3.png","D","","","3","4","5","6","","","","","","",""
+"50","32","essay","practice","Dari (A,1) ke (D,5), hanya boleh kanan/atas. Berapa banyak rute terpendek?","","","","35","","","","","","","","","","","","",""
+"50","33","multiple","practice","Dari (B,2) ke (E,4), pilih semua urutan langkah yang merupakan rute terpendek (R=kanan, U=atas).","","","","A,B,D","","","R,R,R,U,U","R,U,R,U,R","R,R,U,U,U","U,U,R,R,R","","","","","","",""
+"50","34","pilihan_ganda","practice","Sebuah rute minimum panjangnya 8 langkah. Jika ditambah 1 langkah bolak-balik (pergi-lalu-kembali), panjang rute menjadi ...","","","","B","","","9","10","11","12","","","","","","",""
+"50","35","essay","practice","Dari (C,1) ke (F,3), hanya boleh kanan/atas. Berapa banyak rute terpendek?","","","","10","","","","","","","","","","","","",""
+"50","36","pilihan_ganda","practice","Dari (A,1) ke (E,2), hanya boleh kanan/atas. Banyak rute terpendek adalah ...","","","","A","","","5","6","7","8","","","","","","",""
+"50","37","multiple","practice","Pilih semua pernyataan yang benar tentang jalur minimum.","","","","A,C,D","","","Semua jalur minimum memiliki panjang sama","Jalur minimum selalu hanya satu","Menambah langkah yang kembali ke posisi awal membuat jalur lebih panjang","Banyak rute minimum dapat dihitung dengan kombinasi urutan langkah","","","","","","",""
+"50","38","essay","practice","Dari (B,3) ke (G,5), hanya boleh kanan/atas. Berapa banyak rute terpendek?","","","","21","","","","","","","","","","","","",""
+"50","39","pilihan_ganda","practice","Dari (A,1) ke (D,4), hanya boleh kanan/atas. Jika titik (B,2) tidak boleh dilalui, banyak rute terpendek yang mungkin adalah ...","","","/images/kelas6-kubus-balok/q39-grid-a1-d4-block-b2.png","D","","","6","7","5","8","","","","","","",""
+"50","40","essay","practice","Dari (A,1) ke (E,4), hanya boleh kanan/atas dan harus singgah di (C,2). Berapa banyak rute terpendek?","","","/images/kelas6-kubus-balok/q40-grid-a1-e4-via-c2.png","18","","","","","","","","","","","","",""
