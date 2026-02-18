@@ -104,7 +104,6 @@ export default function MaterialWithResources({
     embedMaterial ? "practice" : null
   );
   const [showVideo, setShowVideo] = useState(false);
-  const [showPdf, setShowPdf] = useState(false);
   const quizRef = useRef<HTMLDivElement | null>(null);
   const startRef = useRef<HTMLDivElement | null>(null);
 
@@ -390,22 +389,14 @@ export default function MaterialWithResources({
                   Kamu bisa baca materi dalam bentuk PDF sebelum mengerjakan
                   soal.
                 </p>
-                <button
-                  type="button"
-                  onClick={() => setShowPdf((prev) => !prev)}
+                <a
+                  href={material.pdf_url}
+                  target="_blank"
+                  rel="noreferrer"
                   className="inline-flex items-center justify-center rounded-xl border border-emerald-400/60 bg-emerald-500 px-3 py-2 text-[11px] font-semibold text-white hover:bg-emerald-600"
                 >
-                  {showPdf ? "Tutup PDF" : "Buka PDF 📚"}
-                </button>
-                {showPdf && (
-                  <div className="mt-3">
-                    <iframe
-                      src={material.pdf_url}
-                      title="Materi PDF"
-                      className="h-64 w-full rounded-xl border border-slate-200"
-                    />
-                  </div>
-                )}
+                  Buka di Google Drive ↗
+                </a>
               </>
             ) : (
               <p className="text-slate-500">
