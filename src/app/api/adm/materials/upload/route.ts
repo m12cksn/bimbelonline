@@ -3,6 +3,7 @@ import { createClient } from "@supabase/supabase-js";
 import { createSupabaseServerClient } from "@/lib/supabaseServer";
 
 const MAX_FILE_SIZE_MB = 5;
+const ALLOWED_RESOURCE_EXTENSIONS = [".pdf", ".md"];
 
 function getBucketName() {
   return (
@@ -49,6 +50,8 @@ export async function POST(req: Request) {
   const formData = await req.formData();
   const file = formData.get("file");
   const materialId = String(formData.get("materialId") ?? "").trim();
+  const { searchParams } = new URL(req.url);
+  const kind = searchParams.get("kind") === "resource" ? "resource" : "image";
 
   if (!(file instanceof File)) {
     return NextResponse.json(
@@ -64,9 +67,23 @@ export async function POST(req: Request) {
     );
   }
 
+  const lowerName = file.name.toLowerCase();
+  if (kind === "resource") {
+    const isAllowed = ALLOWED_RESOURCE_EXTENSIONS.some((ext) =>
+      lowerName.endsWith(ext)
+    );
+    if (!isAllowed) {
+      return NextResponse.json(
+        { ok: false, error: "File ringkasan harus .md atau .pdf" },
+        { status: 400 }
+      );
+    }
+  }
+
   const safeName = file.name.replace(/[^a-zA-Z0-9_.-]/g, "_");
   const prefix = materialId ? `materials/${materialId}` : "materials/draft";
-  const path = `${prefix}/cover-${Date.now()}-${safeName}`;
+  const filePrefix = kind === "resource" ? "resource" : "cover";
+  const path = `${prefix}/${filePrefix}-${Date.now()}-${safeName}`;
 
   const serviceClient = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,

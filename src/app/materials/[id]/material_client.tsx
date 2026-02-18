@@ -153,6 +153,20 @@ export default function MaterialWithResources({
 
   const youTubeEmbedUrl = getYouTubeEmbedUrl(material.video_url);
   const isYouTube = Boolean(youTubeEmbedUrl);
+  const getResourceHref = (rawUrl: string | null): string | null => {
+    if (!rawUrl) return null;
+    try {
+      const parsed = new URL(rawUrl);
+      const isMarkdown = parsed.pathname.toLowerCase().endsWith(".md");
+      if (isMarkdown) {
+        return `/materials/${material.id}/summary`;
+      }
+      return rawUrl;
+    } catch {
+      return rawUrl;
+    }
+  };
+  const resourceHref = getResourceHref(material.pdf_url);
 
   const practiceQuestions = questionMeta.filter(
     (q) => q.question_mode !== "tryout"
@@ -394,12 +408,14 @@ export default function MaterialWithResources({
                   soal.
                 </p>
                 <a
-                  href={material.pdf_url}
+                  href={resourceHref ?? material.pdf_url ?? "#"}
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex items-center justify-center rounded-xl border border-emerald-400/60 bg-emerald-500 px-3 py-2 text-[11px] font-semibold text-white hover:bg-emerald-600"
                 >
-                  Buka di Google Drive ↗
+                  {resourceHref?.includes("/summary")
+                    ? "Baca Ringkasan ↗"
+                    : "Buka Materi ↗"}
                 </a>
               </>
             ) : (

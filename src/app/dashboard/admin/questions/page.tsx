@@ -137,6 +137,8 @@ export default function AdminQuestionsPage() {
   const [creatingMaterial, setCreatingMaterial] = useState(false);
   const [uploading, setUploading] = useState<UploadKind | null>(null);
   const [uploadingMaterialImage, setUploadingMaterialImage] = useState(false);
+  const [uploadingMaterialResource, setUploadingMaterialResource] =
+    useState(false);
   const [uploadingOptionIndex, setUploadingOptionIndex] = useState<
     number | null
   >(null);
@@ -154,6 +156,7 @@ export default function AdminQuestionsPage() {
   const questionInputRef = useRef<HTMLInputElement | null>(null);
   const answerInputRef = useRef<HTMLInputElement | null>(null);
   const materialImageInputRef = useRef<HTMLInputElement | null>(null);
+  const materialResourceInputRef = useRef<HTMLInputElement | null>(null);
   const optionInputRefs = useRef<Record<number, HTMLInputElement | null>>({});
 
   const canSave = useMemo(
@@ -682,6 +685,42 @@ export default function AdminQuestionsPage() {
     }
   }
 
+  async function handleMaterialResourceUpload(file: File | null) {
+    if (!file) {
+      toast.error("Pilih file .md atau .pdf terlebih dahulu.");
+      return;
+    }
+
+    setUploadingMaterialResource(true);
+    try {
+      const form = new FormData();
+      form.append("file", file);
+      if (selectedMaterial) {
+        form.append("materialId", String(selectedMaterial));
+      }
+
+      const res = await fetch("/api/adm/materials/upload?kind=resource", {
+        method: "POST",
+        body: form,
+      });
+      const json = await res.json();
+      if (!res.ok || !json.ok) {
+        throw new Error(json.error || "Gagal upload ringkasan");
+      }
+
+      setMaterialPdfUrl(json.url);
+      toast.success("Upload ringkasan berhasil.");
+      if (materialResourceInputRef.current) {
+        materialResourceInputRef.current.value = "";
+      }
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      toast.error(msg);
+    } finally {
+      setUploadingMaterialResource(false);
+    }
+  }
+
   async function handleImportCsv() {
     if (!importFile) {
       toast.error("Pilih file CSV terlebih dahulu.");
@@ -906,13 +945,38 @@ export default function AdminQuestionsPage() {
           />
         </div>
         <div className="space-y-2">
-          <label className="text-xs text-slate-500">PDF URL</label>
+          <label className="text-xs text-slate-500">URL Materi (PDF / MD)</label>
           <input
             value={materialPdfUrl}
             onChange={(e) => setMaterialPdfUrl(e.target.value)}
             placeholder="https://..."
             className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900"
           />
+          <div className="flex flex-wrap items-center gap-2 text-[11px] text-slate-500">
+            <input
+              ref={materialResourceInputRef}
+              type="file"
+              accept=".md,.pdf,text/markdown,application/pdf"
+              className="text-xs text-slate-900"
+              onChange={(e) =>
+                handleMaterialResourceUpload(e.target.files?.[0] ?? null)
+              }
+              disabled={uploadingMaterialResource}
+            />
+            {uploadingMaterialResource ? (
+              <span>Mengunggah ringkasan...</span>
+            ) : (
+              <span>Upload file ringkasan (.md) atau PDF langsung.</span>
+            )}
+            <button
+              type="button"
+              onClick={() => setMaterialPdfUrl("")}
+              disabled={!materialPdfUrl}
+              className="rounded-lg border border-slate-200 bg-white px-3 py-1 text-[10px] text-slate-700 hover:border-rose-400/60 hover:text-rose-600 disabled:opacity-60"
+            >
+              Hapus file
+            </button>
+          </div>
         </div>
         <div className="flex flex-wrap items-center gap-2 md:col-span-2">
           <button
