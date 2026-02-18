@@ -146,7 +146,7 @@ export default function MaterialWithResources({
       }
 
       if (!videoId) return null;
-      return `https://www.youtube.com/embed/${videoId}`;
+      return `https://www.youtube-nocookie.com/embed/${videoId}?rel=0`;
     } catch {
       return null;
     }
@@ -340,14 +340,25 @@ export default function MaterialWithResources({
                 {showVideo && (
                   <div className="mt-3">
                     {isYouTube ? (
-                      <div className="relative w-full overflow-hidden rounded-xl border border-slate-200 bg-black pb-[56.25%]">
-                        <iframe
-                          src={youTubeEmbedUrl ?? undefined}
-                          className="absolute left-0 top-0 h-full w-full"
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                          allowFullScreen
-                        />
-                      </div>
+                      <>
+                        <div className="relative w-full overflow-hidden rounded-xl border border-slate-200 bg-black pb-[56.25%]">
+                          <iframe
+                            src={youTubeEmbedUrl ?? undefined}
+                            className="absolute left-0 top-0 h-full w-full"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            referrerPolicy="strict-origin-when-cross-origin"
+                            allowFullScreen
+                          />
+                        </div>
+                        <a
+                          href={material.video_url}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="mt-2 inline-block text-[11px] text-slate-600 underline hover:text-emerald-700"
+                        >
+                          Jika video tidak tampil, buka di YouTube ↗
+                        </a>
+                      </>
                     ) : (
                       <a
                         href={material.video_url}
