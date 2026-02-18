@@ -372,9 +372,13 @@ export default function MaterialWithResources({
                 )}
               </>
             ) : (
-              <p className="text-[11px] text-slate-500">
-                Belum ada video penjelasan untuk materi ini.
-              </p>
+              <div className="rounded-xl border border-amber-200 bg-amber-50 p-3 text-[11px] text-amber-800">
+                <p className="font-semibold">⏳ Video akan tersedia secepatnya.</p>
+                <p className="mt-1">
+                  Sekarang kamu bisa latihan untuk menyelesaikan soal dulu.
+                  Terima kasih 🙌
+                </p>
+              </div>
             )}
           </div>
 
