@@ -5,8 +5,6 @@ import { createClient } from "@supabase/supabase-js";
 import { createSupabaseServerClient } from "@/lib/supabaseServer";
 import type { UserRole } from "@/lib/type";
 import MaterialWithResources from "./material_client";
-import { getUserSubscriptionStatus } from "@/lib/subcription";
-import { resolvePlanAccess } from "@/lib/planAccess";
 
 // params: Promise<{ id: string }> -> sesuai file kamu
 interface MaterialPageProps {
@@ -70,31 +68,11 @@ export default async function MaterialPage(props: MaterialPageProps) {
     }
   }
 
-  // ✅ Sumber utama: profiles.is_premium
-  let isPremium = profile?.is_premium === true;
-  let planName: string | null = null;
-  let planCode: string | null = null;
-
-  if (!isGuest) {
-    // (Opsional) Tambahan dari sistem subscription; kalau helper bilang premium, paksa true
-    try {
-      const subStatus = await getUserSubscriptionStatus();
-      if (subStatus?.isPremium) {
-        isPremium = true;
-      }
-      planName = subStatus?.planName ?? null;
-      planCode = subStatus?.planCode ?? null;
-    } catch (e) {
-      console.warn("getUserSubscriptionStatus failed", e);
-    }
-  }
-
-  const planAccess = resolvePlanAccess(planCode, planName, isPremium);
-  let questionLimit = planAccess.questionLimit;
-  let planLabel = planAccess.label;
-  let isPremiumPlan = planAccess.isPremium;
-  let planPriceLabel = planAccess.priceLabel;
-  let upgradeOptions = planAccess.upgradeOptions;
+  let questionLimit = 0;
+  let planLabel = "Premium";
+  let isPremiumPlan = true;
+  let planPriceLabel = "Akses penuh";
+  const upgradeOptions: Array<{ label: string; priceLabel: string }> = [];
 
   const dbClient =
     isGuest && serviceKey
@@ -184,12 +162,12 @@ export default async function MaterialPage(props: MaterialPageProps) {
 
   const questionMetaList = questionMeta || [];
   const questionCount = questionMetaList.length;
+  questionLimit = questionCount;
   if (isAdmin) {
     questionLimit = questionCount;
     planLabel = "Admin";
     planPriceLabel = "Akses penuh";
     isPremiumPlan = true;
-    upgradeOptions = [];
   }
   const embedUrl =
     material.video_url && material.video_url.includes("phet.colorado.edu")
@@ -224,9 +202,7 @@ export default async function MaterialPage(props: MaterialPageProps) {
   }
 
   const userId = user?.id ?? "guest";
-  const displayedQuestionCount = isGuest
-    ? Math.min(questionCount, questionLimit)
-    : questionCount;
+  const displayedQuestionCount = questionCount;
 
   if (isEmbed) {
     return (

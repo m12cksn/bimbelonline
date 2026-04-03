@@ -969,11 +969,11 @@ export default function MaterialQuiz({
       return (
         <div className="mt-6 rounded-2xl border border-emerald-200 bg-white p-5 text-sm text-slate-700 shadow-xl shadow-slate-200/70">
           <h2 className="text-lg font-bold text-emerald-700">
-            Latihan gratis selesai 🎉
+            Latihan selesai
           </h2>
           <p className="mt-2 text-xs text-slate-600">
-            Kamu sudah menyelesaikan {questionLimit} soal gratis. Lanjutkan ke
-            materi lain atau upgrade untuk membuka semua soal.
+            Kamu sudah menyelesaikan {questionLimit} soal pada materi ini.
+            Lanjutkan ke materi lain kalau ingin latihan berikutnya.
           </p>
           <div className="mt-4 flex flex-wrap gap-2 text-[11px]">
             <Link
@@ -981,12 +981,6 @@ export default function MaterialQuiz({
               className="rounded-xl border border-emerald-400/70 bg-emerald-500 px-3 py-2 font-semibold text-white hover:bg-emerald-600"
             >
               Lihat materi lain
-            </Link>
-            <Link
-              href="/dashboard/student/upgrade"
-              className="rounded-xl border border-amber-300 bg-amber-400 px-3 py-2 font-semibold text-slate-900 hover:bg-amber-500"
-            >
-              Upgrade premium
             </Link>
           </div>
         </div>
@@ -1155,7 +1149,7 @@ export default function MaterialQuiz({
           <span className="font-bold text-emerald-700">{score}%</span>
         </div>
 
-        {upgradeOptions.length > 0 && (
+        {false && upgradeOptions.length > 0 && (
           <div className="mb-4 rounded-xl border border-amber-200 bg-amber-50 px-3 py-3 text-xs text-amber-800">
             <div className="font-semibold">Upgrade rekomendasi</div>
             <div className="mt-1">
@@ -1279,10 +1273,7 @@ export default function MaterialQuiz({
       const data = await res.json();
 
       if (data.locked) {
-        setLockedMessage(
-          data.message ||
-            `Soal ini terkunci untuk paket ${planLabel}. Upgrade paket untuk membuka semua soal.`,
-        );
+        setLockedMessage(data.message || "Soal ini belum bisa dibuka.");
         return;
       }
 
@@ -1534,12 +1525,6 @@ export default function MaterialQuiz({
                           className="rounded-xl border border-slate-200 bg-white px-4 py-2 font-semibold text-slate-700"
                         >
                           Lihat materi lain
-                        </Link>
-                        <Link
-                          href="/dashboard/student/upgrade"
-                          className="rounded-xl border border-emerald-500 bg-emerald-600 px-4 py-2 font-semibold text-white shadow-md shadow-emerald-300/60"
-                        >
-                          Upgrade premium
                         </Link>
                       </>
                     )}

@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { createServerClient } from "@supabase/ssr";
 import { createClient } from "@supabase/supabase-js";
-import { resolvePlanAccess } from "@/lib/planAccess";
 import { isInputAnswerCorrect } from "@/lib/answerValidation";
 
 interface MaterialParams {
@@ -115,57 +114,14 @@ export async function POST(req: Request, props: MaterialParams) {
           auth: { autoRefreshToken: false, persistSession: false },
         })
       : supabase;
-
-  let planAccess = resolvePlanAccess(null, null, false);
-
   let isAdmin = false;
+
   if (!isGuest && user) {
-    // 2. ambil status langganan untuk limit soal
     const { data: profile } = await supabase
       .from("profiles")
-      .select("is_premium, role")
+      .select("role")
       .eq("id", user.id)
       .single();
-
-    const nowIso = new Date().toISOString();
-    const { data: activeSub } = await supabase
-      .from("subscriptions")
-      .select(
-        `
-          id,
-          status,
-          start_at,
-          end_at,
-          subscription_plans (
-            name,
-            code
-          )
-        `
-      )
-      .eq("user_id", user.id)
-      .eq("status", "active")
-      .lte("start_at", nowIso)
-      .gte("end_at", nowIso)
-      .order("end_at", { ascending: false })
-      .limit(1)
-      .maybeSingle();
-
-    let planName: string | null = null;
-    let planCode: string | null = null;
-    const rel = (activeSub as any)?.subscription_plans;
-    if (Array.isArray(rel) && rel.length > 0) {
-      planName = rel[0]?.name ?? null;
-      planCode = rel[0]?.code ?? null;
-    } else if (rel) {
-      planName = rel?.name ?? null;
-      planCode = rel?.code ?? null;
-    }
-
-    planAccess = resolvePlanAccess(
-      planCode,
-      planName,
-      profile?.is_premium === true
-    );
     isAdmin = profile?.role === "admin";
   }
 
@@ -196,19 +152,6 @@ export async function POST(req: Request, props: MaterialParams) {
       { error: "Question not found", questionId: qId, materialId },
       { status: 404 }
     );
-  }
-
-  const shouldLock =
-    !isAdmin &&
-    question.question_mode !== "tryout" &&
-    question.question_number > planAccess.questionLimit;
-
-  if (shouldLock) {
-    return NextResponse.json({
-      locked: true,
-      message: `Soal ini terkunci untuk paket ${planAccess.label}. Upgrade paket untuk membuka semua soal.`,
-      limit: planAccess.questionLimit,
-    });
   }
 
   // 5. cek jawaban
