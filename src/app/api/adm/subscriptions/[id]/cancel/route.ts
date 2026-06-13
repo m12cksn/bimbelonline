@@ -70,7 +70,7 @@ export async function POST(_req: Request, props: CancelParams) {
 
     const { error: profileUpdateErr } = await supabase
       .from("profiles")
-      .update({ is_premium: false })
+      .update({ is_premium: true })
       .eq("id", sub.user_id);
 
     if (profileUpdateErr) {

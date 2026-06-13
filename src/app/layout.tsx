@@ -5,6 +5,7 @@ import { Suspense } from "react";
 import "./globals.css";
 import { ToastProvider } from "@/app/components/ToastProvider";
 import RouteLoader from "@/app/components/RouteLoader";
+import GlobalDashboardLink from "@/app/components/GlobalDashboardLink";
 
 const nunito = Nunito({
   variable: "--font-nunito",
@@ -96,6 +97,7 @@ export default function RootLayout({
         ) : null}
         <Suspense fallback={null}>
           <RouteLoader />
+          <GlobalDashboardLink />
         </Suspense>
         <ToastProvider>{children}</ToastProvider>
       </body>

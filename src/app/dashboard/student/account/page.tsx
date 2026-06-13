@@ -50,7 +50,7 @@ export default async function StudentAccountPage() {
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("full_name, email, phone, role, is_premium, created_at, avatar_url")
+    .select("full_name, email, phone, role, created_at, avatar_url")
     .eq("id", user.id)
     .single();
 
@@ -61,8 +61,6 @@ export default async function StudentAccountPage() {
     "Student";
 
   const email = profile?.email || user.email || "-";
-  const phone = profile?.phone || "-";
-  const isPremium = profile?.is_premium === true;
 
   const { data: subscription, error: subscriptionError } = await supabase
     .from("subscriptions")
@@ -141,18 +139,12 @@ export default async function StudentAccountPage() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold text-slate-900">
-            Akun & Langganan
+            Akun & Profil
           </h1>
           <p className="text-sm text-slate-600">
-            Lihat informasi profil, status paket, dan akses pembayaran.
+            Lihat dan perbarui informasi profil belajar.
           </p>
         </div>
-        <Link
-          href="/dashboard/student/upgrade"
-          className="rounded-xl border border-emerald-200 bg-emerald-500 px-4 py-2 text-xs font-semibold text-white hover:bg-emerald-600"
-        >
-          Upgrade paket
-        </Link>
       </div>
 
       <div className="grid gap-4 lg:grid-cols-[0.45fr_1fr]">
@@ -174,14 +166,8 @@ export default async function StudentAccountPage() {
           <div className="mt-5 space-y-3 text-xs text-slate-600">
             <div className="flex items-center justify-between">
               <span>Status akun</span>
-              <span
-                className={`rounded-full border px-3 py-1 text-[11px] font-semibold ${
-                  isPremium
-                    ? "border-amber-300 bg-amber-100 text-amber-800"
-                    : "border-emerald-200 bg-emerald-100 text-emerald-700"
-                }`}
-              >
-                {isPremium ? "Premium" : "Gratis"}
+              <span className="rounded-full border border-emerald-200 bg-emerald-100 px-3 py-1 text-[11px] font-semibold text-emerald-700">
+                Akses penuh
               </span>
             </div>
             <div className="flex items-center justify-between">
@@ -203,12 +189,9 @@ export default async function StudentAccountPage() {
                 Kelola profil kamu
               </h2>
             </div>
-            <Link
-              href="/dashboard/student/upgrade"
-              className="rounded-full border border-emerald-200 bg-emerald-100 px-3 py-1 text-[11px] font-semibold text-emerald-700"
-            >
-              {planName ?? "Free"}
-            </Link>
+            <span className="rounded-full border border-emerald-200 bg-emerald-100 px-3 py-1 text-[11px] font-semibold text-emerald-700">
+              Akses penuh
+            </span>
           </div>
 
           <AccountForm
@@ -220,15 +203,17 @@ export default async function StudentAccountPage() {
 
           <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-              Status Langganan
+              Akses Belajar
             </p>
             <div className="mt-3 grid gap-2 text-xs text-slate-600 sm:grid-cols-2">
               <div>
                 <p className="text-[11px] text-slate-400">Paket aktif</p>
                 <p className="font-semibold text-slate-900">
-                  {planName ?? "Belum ada paket"}
+                  {planName ?? "Akses penuh"}
                 </p>
-                <p className="text-[11px] text-slate-400">{planCode ?? "FREE"}</p>
+                <p className="text-[11px] text-slate-400">
+                  {planCode ?? "FULL_ACCESS"}
+                </p>
               </div>
               <div>
                 <p className="text-[11px] text-slate-400">Sisa hari</p>
@@ -237,12 +222,6 @@ export default async function StudentAccountPage() {
                 </p>
               </div>
             </div>
-
-            {!subscription && (
-              <div className="mt-3 rounded-xl border border-emerald-200 bg-white px-3 py-2 text-[11px] text-emerald-700">
-                Upgrade untuk membuka fitur premium dan kuota Zoom tambahan.
-              </div>
-            )}
           </div>
 
           <div className="grid gap-3 rounded-xl border border-slate-200 bg-white p-4 text-xs text-slate-600 sm:grid-cols-2">
@@ -286,12 +265,6 @@ export default async function StudentAccountPage() {
               className="rounded-xl border border-slate-200 bg-white px-3 py-2 font-semibold text-slate-700 hover:border-emerald-200 hover:text-emerald-700"
             >
               Riwayat pembayaran
-            </Link>
-            <Link
-              href="/dashboard/student/upgrade"
-              className="rounded-xl border border-emerald-200 bg-emerald-500 px-3 py-2 font-semibold text-white hover:bg-emerald-600"
-            >
-              Upgrade paket
             </Link>
           </div>
         </section>

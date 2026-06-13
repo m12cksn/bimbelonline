@@ -4,6 +4,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import MaterialQuiz from "./quiz_client";
 import MaterialLeaderboard from "./leaderboard_client";
+import BatchPracticeQuiz from "./batch_practice_quiz";
 
 type QuestionOptionRow = {
   label: string;
@@ -81,6 +82,8 @@ interface Props {
   isGuest?: boolean;
   isEmbed?: boolean;
   embedUrl?: string | null;
+  simpleView?: boolean;
+  autoStartPractice?: boolean;
 }
 
 export default function MaterialWithResources({
@@ -93,17 +96,18 @@ export default function MaterialWithResources({
   questionLimit,
   planLabel,
   planPriceLabel,
-  upgradeOptions,
   isAdmin = false,
   isGuest = false,
   isEmbed = false,
   embedUrl = null,
+  simpleView = false,
+  autoStartPractice = false,
 }: Props) {
-  const embedMaterial = isEmbed || Boolean(embedUrl);
+  const embedMaterial = isEmbed;
   const [mode, setMode] = useState<"practice" | "tryout" | null>(
-    embedMaterial ? "practice" : null
+    embedMaterial || autoStartPractice ? "practice" : null
   );
-  const [showVideo, setShowVideo] = useState(false);
+  const [showVideo, setShowVideo] = useState(Boolean(material.video_url));
   const quizRef = useRef<HTMLDivElement | null>(null);
   const startRef = useRef<HTMLDivElement | null>(null);
 
@@ -115,12 +119,13 @@ export default function MaterialWithResources({
 
   useEffect(() => {
     if (embedMaterial) return;
+    if (autoStartPractice) return;
     if (!startRef.current) return;
     const handle = window.setTimeout(() => {
       startRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 100);
     return () => window.clearTimeout(handle);
-  }, [embedMaterial]);
+  }, [autoStartPractice, embedMaterial]);
 
   const handleStart = (nextMode: "practice" | "tryout") => {
     setMode(nextMode);
@@ -180,7 +185,7 @@ export default function MaterialWithResources({
 
   return (
     <div className="text-slate-900">
-      {!embedMaterial && (
+      {!embedMaterial && !simpleView && (
         <>
           <h1 className="text-2xl font-extrabold text-slate-900">
             {material.title}
@@ -197,21 +202,20 @@ export default function MaterialWithResources({
               </span>
             ) : isPremium ? (
               <span className="font-semibold text-amber-700">
-                {planLabel} Akses soal 1-{questionLimit}
+                Akses penuh
               </span>
             ) : isGuest ? (
               <span className="font-semibold text-emerald-700">
-                Gratis (tanpa login) - {questionLimit} soal
+                Akses penuh tanpa login
               </span>
             ) : (
               <span className="font-semibold text-emerald-700">
-                Gratis (soal 1-{questionLimit} saja)
+                Akses penuh
               </span>
             )}
             <span className="text-slate-400">-</span>
             <span className="text-slate-600">
               Latihan: {practiceQuestions.length} soal
-              {isGuest ? ` (${questionLimit} gratis)` : ""}
             </span>
             {!isGuest && (
               <>
@@ -225,136 +229,83 @@ export default function MaterialWithResources({
         </>
       )}
 
-      {/* Tombol mulai kerjakan soal */}
-      {!embedMaterial && (
-        <div
-          ref={startRef}
-          className="mt-5 rounded-3xl border border-emerald-200/70 bg-white px-5 py-4 shadow-[0_24px_70px_-40px_rgba(16,185,129,0.45)]"
-        >
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-            <div>
-              <div className="text-sm font-semibold text-slate-700">
-                Siap latihan soal?
-              </div>
-              <div className="mt-1 text-xs text-slate-500">
-                Tonton video atau baca PDF dulu, lalu tekan tombol besar di
-                kanan untuk mulai mengerjakan.
-              </div>
-            </div>
-            <div className="flex flex-wrap gap-3">
-              <button
-                type="button"
-                onClick={() => handleStart("practice")}
-                className="relative overflow-hidden rounded-2xl border border-emerald-300 bg-emerald-500 px-6 py-3 text-sm font-semibold text-white shadow-[0_16px_40px_-18px_rgba(16,185,129,0.8)] transition hover:-translate-y-0.5 hover:bg-emerald-600"
-              >
-                <span className="relative z-10">
-                  {mode === "practice" ? "Lanjut latihan" : "Mulai latihan"}
-                </span>
-                <span className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.35),transparent_55%)]" />
-              </button>
-              {!isGuest && tryoutQuestions.length > 0 && (
-                <button
-                  type="button"
-                  onClick={() => handleStart("tryout")}
-                  className="relative overflow-hidden rounded-2xl border border-amber-300 bg-amber-500 px-6 py-3 text-sm font-semibold text-white shadow-[0_16px_40px_-18px_rgba(245,158,11,0.7)] transition hover:-translate-y-0.5 hover:bg-amber-600"
-                >
-                  <span className="relative z-10">
-                    {mode === "tryout" ? "Lanjut tryout" : "Mulai tryout"}
-                  </span>
-                  <span className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.35),transparent_55%)]" />
-                </button>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Quiz hanya muncul setelah tombol diklik */}
-      {mode && (
-        <div ref={quizRef} className={embedMaterial ? "mt-2" : "mt-4 space-y-4"}>
-          {embedMaterial && embedUrl ? (
-            <div className="rounded-3xl border border-slate-200 bg-white p-4 shadow-[0_18px_50px_-40px_rgba(15,23,42,0.2)]">
-              <div className="relative w-full overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 pb-[62%]">
-                <iframe
-                  src={embedUrl}
-                  title="Latihan interaktif"
-                  className="absolute left-0 top-0 h-full w-full"
-                  allow="fullscreen"
-                />
-              </div>
-              <p className="mt-3 text-xs text-slate-500">
-                Latihan interaktif ini bisa kamu kerjakan langsung di sini.
-              </p>
-            </div>
-          ) : (
-            <>
-              <MaterialQuiz
-                materialId={material.id}
-                questionMeta={
-                  mode === "tryout" ? tryoutQuestions : visiblePracticeQuestions
-                }
-                initialLastNumber={initialLastNumber}
-                userId={userId}
-                isPremium={isPremium}
-                questionLimit={questionLimit}
-                planLabel={planLabel}
-                planPriceLabel={planPriceLabel}
-                upgradeOptions={upgradeOptions}
-                isAdmin={isAdmin}
-                isGuest={isGuest}
-                isTryout={mode === "tryout"}
-                onReady={
-                  embedMaterial
-                    ? undefined
-                    : () => {
-                        quizRef.current?.scrollIntoView({
-                          behavior: "smooth",
-                          block: "start",
-                        });
-                      }
-                }
-                timerSeconds={
-                  mode === "tryout"
-                    ? (material.tryout_duration_minutes ??
-                        tryoutQuestions.length) * 60
-                    : undefined
-                }
-              />
-              {!embedMaterial && !isGuest && (
-                <MaterialLeaderboard
-                  materialId={material.id}
-                  currentUserId={userId}
-                />
-              )}
-            </>
-          )}
-        </div>
-      )}
-
-      {/* Bagian video & PDF */}
-      {!embedMaterial && (
-        <div className="mt-4 grid gap-4 md:grid-cols-3">
-          {/* Video */}
-          <div className="md:col-span-2 rounded-2xl border border-slate-200 bg-white p-3 shadow-sm">
-            <div className="mb-2 flex items-center justify-between text-xs">
-              <span className="font-semibold text-emerald-700">
-                🎥 Video penjelasan
-              </span>
-            </div>
+      {/* Video pembelajaran menjadi fokus utama saat halaman dibuka */}
+      {!embedMaterial && simpleView && (
+        <div ref={startRef} className="space-y-4">
+          <div className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm">
             {material.video_url ? (
-              <>
+              isYouTube ? (
+                <div className="relative w-full bg-black pb-[56.25%]">
+                  <iframe
+                    src={youTubeEmbedUrl ?? undefined}
+                    title={`Video ${material.title}`}
+                    className="absolute inset-0 h-full w-full"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                  />
+                </div>
+              ) : (
+                <div className="flex min-h-64 items-center justify-center p-6">
+                  <a
+                    href={material.video_url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="rounded-md bg-emerald-600 px-5 py-3 text-sm font-bold text-white hover:bg-emerald-500"
+                  >
+                    Buka Video Pembelajaran
+                  </a>
+                </div>
+              )
+            ) : (
+              <div className="flex min-h-64 items-center justify-center bg-amber-50 p-6 text-center text-sm font-semibold text-amber-800">
+                Video pembelajaran akan tersedia secepatnya.
+              </div>
+            )}
+          </div>
+
+          <button
+            type="button"
+            onClick={() => handleStart("practice")}
+            className="w-full rounded-lg bg-emerald-600 px-6 py-4 text-base font-bold text-white shadow-md transition hover:bg-emerald-500"
+          >
+            {mode === "practice"
+              ? "Lanjutkan Latihan Soal"
+              : "Mulai Latihan Soal"}
+          </button>
+        </div>
+      )}
+
+      {!embedMaterial && !simpleView && (
+        <div ref={startRef} className="mt-5 grid gap-4 xl:grid-cols-[minmax(0,1fr)_320px]">
+          <div className="rounded-[1.75rem] border border-slate-200 bg-white p-3 shadow-[0_24px_70px_-42px_rgba(15,23,42,0.35)] sm:p-4">
+            <div className="mb-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <div className="text-sm font-bold text-emerald-700">
+                  Video pembelajaran
+                </div>
+                <p className="mt-1 text-xs text-slate-500">
+                  Tonton penjelasan ini dulu, lalu lanjutkan latihan soal.
+                </p>
+              </div>
+              {material.video_url && (
                 <button
                   type="button"
                   onClick={() => setShowVideo((prev) => !prev)}
-                  className="inline-flex items-center justify-center rounded-xl border border-emerald-300 bg-emerald-50 px-3 py-2 text-[11px] font-semibold text-emerald-700 hover:bg-emerald-100"
+                  className="inline-flex w-fit items-center justify-center rounded-xl border border-emerald-300 bg-emerald-50 px-3 py-2 text-[11px] font-semibold text-emerald-700 hover:bg-emerald-100"
                 >
-                  {showVideo ? "Tutup video" : "Buka video penjelasan"}
+                  {showVideo ? "Sembunyikan video" : "Tampilkan video"}
                 </button>
+              )}
+            </div>
+
+            {material.video_url ? (
+              <>
                 {showVideo && (
                   <div className="mt-3">
                     {isYouTube ? (
                       <>
-                        <div className="relative w-full overflow-hidden rounded-xl border border-slate-200 bg-black pb-[56.25%]">
+                        <div className="relative w-full overflow-hidden rounded-[1.35rem] border border-slate-200 bg-black pb-[56.25%] shadow-inner">
                           <iframe
                             src={youTubeEmbedUrl ?? undefined}
                             className="absolute left-0 top-0 h-full w-full"
@@ -373,14 +324,19 @@ export default function MaterialWithResources({
                         </a>
                       </>
                     ) : (
-                      <a
-                        href={material.video_url}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="text-[11px] text-slate-600 underline hover:text-emerald-700"
-                      >
-                        Buka video di tab baru ↗
-                      </a>
+                      <div className="rounded-[1.35rem] border border-emerald-100 bg-emerald-50 p-6 text-center">
+                        <p className="text-sm font-semibold text-emerald-800">
+                          Video pembelajaran tersedia di link eksternal.
+                        </p>
+                        <a
+                          href={material.video_url}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="mt-3 inline-flex items-center justify-center rounded-xl border border-emerald-400/60 bg-emerald-500 px-4 py-2 text-xs font-semibold text-white hover:bg-emerald-600"
+                        >
+                          Buka video di tab baru
+                        </a>
+                      </div>
                     )}
                   </div>
                 )}
@@ -396,8 +352,37 @@ export default function MaterialWithResources({
             )}
           </div>
 
-          {/* PDF */}
-          <div className="rounded-2xl border border-slate-200 bg-white p-3 shadow-sm text-xs">
+          <div className="rounded-[1.75rem] border border-slate-200 bg-white p-4 text-xs shadow-sm">
+            <div className="font-semibold text-slate-700">Setelah menonton</div>
+            <p className="mt-1 text-slate-500">
+              Jika sudah paham, lanjutkan ke latihan soal. Materi PDF tersedia
+              sebagai bahan baca tambahan.
+            </p>
+            <div className="mt-4 flex flex-col gap-3">
+              <button
+                type="button"
+                onClick={() => handleStart("practice")}
+                className="relative w-full overflow-hidden rounded-2xl border border-emerald-300 bg-emerald-500 px-6 py-3 text-sm font-semibold text-white shadow-[0_16px_40px_-18px_rgba(16,185,129,0.8)] transition hover:-translate-y-0.5 hover:bg-emerald-600"
+              >
+                <span className="relative z-10">
+                  {mode === "practice" ? "Lanjut latihan" : "Mulai latihan"}
+                </span>
+                <span className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.35),transparent_55%)]" />
+              </button>
+              {!isGuest && tryoutQuestions.length > 0 && (
+                <button
+                  type="button"
+                  onClick={() => handleStart("tryout")}
+                  className="relative w-full overflow-hidden rounded-2xl border border-amber-300 bg-amber-500 px-6 py-3 text-sm font-semibold text-white shadow-[0_16px_40px_-18px_rgba(245,158,11,0.7)] transition hover:-translate-y-0.5 hover:bg-amber-600"
+                >
+                  <span className="relative z-10">
+                    {mode === "tryout" ? "Lanjut tryout" : "Mulai tryout"}
+                  </span>
+                  <span className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.35),transparent_55%)]" />
+                </button>
+              )}
+            </div>
+
             <div className="mb-2 font-semibold text-emerald-700">
               📄 Materi PDF
             </div>
@@ -427,8 +412,75 @@ export default function MaterialWithResources({
         </div>
       )}
 
+      {/* Quiz hanya muncul setelah tombol diklik */}
+      {mode && (
+        <div ref={quizRef} className={embedMaterial ? "mt-2" : "mt-5 space-y-4"}>
+          {embedMaterial && embedUrl ? (
+            <div className="rounded-[1.75rem] border border-slate-200 bg-white p-2 shadow-[0_18px_50px_-40px_rgba(15,23,42,0.2)] sm:p-3 md:p-4">
+              <div className="relative h-[68vh] min-h-[360px] w-full overflow-hidden rounded-[1.35rem] border border-slate-200 bg-slate-50 sm:min-h-[440px] lg:h-[76vh] lg:min-h-[620px] lg:max-h-[780px]">
+                <iframe
+                  src={embedUrl}
+                  title="Latihan interaktif"
+                  className="absolute left-0 top-0 h-full w-full"
+                  allow="fullscreen"
+                />
+              </div>
+              <p className="mt-3 text-xs text-slate-500">
+                Latihan interaktif ini bisa kamu kerjakan langsung di sini.
+              </p>
+            </div>
+          ) : (
+            <>
+              {mode === "practice" ? (
+                <BatchPracticeQuiz
+                  materialId={material.id}
+                  questionMeta={visiblePracticeQuestions}
+                  isAdmin={isAdmin}
+                  isGuest={isGuest}
+                />
+              ) : (
+                <MaterialQuiz
+                  materialId={material.id}
+                  questionMeta={tryoutQuestions}
+                  initialLastNumber={initialLastNumber}
+                  userId={userId}
+                  isPremium={isPremium}
+                  questionLimit={questionLimit}
+                  planLabel={planLabel}
+                  planPriceLabel={planPriceLabel}
+                  upgradeOptions={[]}
+                  isAdmin={isAdmin}
+                  isGuest={isGuest}
+                  isTryout
+                  onReady={
+                    embedMaterial
+                      ? undefined
+                      : () => {
+                          quizRef.current?.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start",
+                          });
+                        }
+                  }
+                  timerSeconds={
+                    (material.tryout_duration_minutes ??
+                      tryoutQuestions.length) * 60
+                  }
+                />
+              )}
+              {!embedMaterial && !isGuest && !simpleView && (
+                <MaterialLeaderboard
+                  materialId={material.id}
+                  currentUserId={userId}
+                />
+              )}
+            </>
+          )}
+        </div>
+      )}
+
       {/* Ringkasan materi + contoh soal */}
-      {!embedMaterial && (
+      {!embedMaterial && !simpleView && (
         <div className="mt-5 grid gap-4 md:grid-cols-2">
           <div className="rounded-2xl border border-slate-200 bg-white p-4 text-xs text-slate-700 shadow-sm">
             <div className="mb-2 font-semibold text-emerald-700">

@@ -131,11 +131,11 @@ export async function POST(req: Request, props: Params) {
       .eq("user_id", payment.user_id)
       .eq("status", "active");
 
-    // 3) sinkron ke profiles.is_premium → pastikan balik ke false
+    // Semua siswa tetap akses penuh; penolakan payment tidak mengunci materi.
     const profileUpdater = serviceClient ?? supabase;
     const { error: profileUpdateError } = await profileUpdater
       .from("profiles")
-      .update({ is_premium: false })
+      .update({ is_premium: true })
       .eq("id", payment.user_id);
 
     if (profileUpdateError) {

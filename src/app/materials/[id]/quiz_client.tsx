@@ -393,7 +393,6 @@ export default function MaterialQuiz({
   questionLimit,
   planLabel,
   planPriceLabel,
-  upgradeOptions,
   isAdmin = false,
   isTryout = false,
   timerSeconds,
@@ -466,8 +465,6 @@ export default function MaterialQuiz({
     answered: number;
     total: number;
   } | null>(null);
-  const [copiedBank, setCopiedBank] = useState(false);
-  const [promoCountdown, setPromoCountdown] = useState<string | null>(null);
   const doodleRef = useRef<DoodleHandle | null>(null);
   const [doodleActive, setDoodleActive] = useState(false);
   const [doodleState, setDoodleState] = useState<DoodleState>({
@@ -490,10 +487,6 @@ export default function MaterialQuiz({
   }, [activeMeta]);
 
   const totalQuestions = orderedMeta.length;
-  const premiumPrice = "145.000";
-  const promoPrice = "99.000";
-  const bankAccount = "0961097923";
-  const bankHolder = "Iwan Setiawan";
   const progressKey = `material_progress_${materialId}_${userId}`;
 
   // -------------------------------
@@ -565,29 +558,6 @@ export default function MaterialQuiz({
     setQuestionDetails({});
     setLoadingLevel(false);
   }, [isTryout, materialId]);
-
-  useEffect(() => {
-    const end = new Date();
-    end.setDate(end.getDate() + 7);
-
-    const update = () => {
-      const diff = end.getTime() - Date.now();
-      if (diff <= 0) {
-        setPromoCountdown("Promo berakhir");
-        return;
-      }
-      const days = Math.floor(diff / 86400000);
-      const hours = Math.floor((diff % 86400000) / 3600000);
-      const mins = Math.floor((diff % 3600000) / 60000);
-      const secs = Math.floor((diff % 60000) / 1000);
-      const pad = (val: number) => String(val).padStart(2, "0");
-      setPromoCountdown(`${days} hari ${pad(hours)}:${pad(mins)}:${pad(secs)}`);
-    };
-
-    update();
-    const timer = setInterval(update, 1000);
-    return () => clearInterval(timer);
-  }, []);
 
   // -------------------------------
   // Ambil riwayat percobaan dari DB
@@ -1140,47 +1110,15 @@ export default function MaterialQuiz({
         </div>
 
         <div className="mb-3 flex flex-wrap items-center gap-2 text-[11px] text-slate-600">
-          <span>Paket kamu: {planLabel}</span>
+          <span>Akses belajar: {planLabel}</span>
           <span className="text-slate-500">-</span>
-          <span>Harga: {planPriceLabel}</span>
+          <span>{planPriceLabel}</span>
         </div>
         <div className="mb-4 text-[11px] text-slate-600">
           Nilai percobaan {viewAttempt}:{" "}
           <span className="font-bold text-emerald-700">{score}%</span>
         </div>
 
-        {false && upgradeOptions.length > 0 && (
-          <div className="mb-4 rounded-xl border border-amber-200 bg-amber-50 px-3 py-3 text-xs text-amber-800">
-            <div className="font-semibold">Upgrade rekomendasi</div>
-            <div className="mt-1">
-              {planLabel === "Free"
-                ? "Upgrade ke paket berbayar untuk akses soal lebih banyak."
-                : planLabel === "Premium"
-                  ? "Upgrade ke Bundling 3 Bulan atau Zoom Premium."
-                  : planLabel === "3 Bulan"
-                    ? "Tambah Zoom Premium untuk kelas tambahan."
-                    : ""}
-            </div>
-            <div className="mt-2 flex flex-wrap items-center gap-2 text-[11px]">
-              {upgradeOptions.map((opt) => (
-                <span
-                  key={opt.label}
-                  className="rounded-full border border-amber-400/50 bg-amber-500/15 px-2 py-1"
-                >
-                  {opt.label} ({opt.priceLabel})
-                </span>
-              ))}
-            </div>
-            <div className="mt-2">
-              <Link
-                href="/dashboard/student/upgrade"
-                className="inline-flex rounded-lg border border-amber-400/60 bg-amber-100 px-3 py-1.5 text-[11px] font-semibold text-amber-800 hover:bg-amber-500/30"
-              >
-                Lihat semua paket
-              </Link>
-            </div>
-          </div>
-        )}
         {/* ringkasan percobaan 1 & 2 berdampingan */}
         <div className="mb-4 grid gap-2 text-[11px] sm:grid-cols-2">
           {hasAttempt1 && (
@@ -1437,10 +1375,6 @@ export default function MaterialQuiz({
   const correctCount = Object.values(questionResults).filter(
     (value) => value === "correct",
   ).length;
-  const isLockedPremium =
-    !allowAllAccess &&
-    !isTryout &&
-    currentQuestion.question_number > questionLimit;
   const progressPercent = Math.min(
     100,
     Math.round((displayNumber / Math.max(displayTotal, 1)) * 100),
@@ -1589,7 +1523,7 @@ export default function MaterialQuiz({
                 ) : displayNumber <= questionLimit ? (
                   <span className="text-emerald-700">{planLabel}</span>
                 ) : (
-                  <span className="text-yellow-300">Terkunci</span>
+                  <span className="text-emerald-700">{planLabel}</span>
                 )}
               </div>
             </div>
@@ -1706,126 +1640,7 @@ export default function MaterialQuiz({
                     )}
                   </div>
 
-                  {isLockedPremium ? (
-                    <div className="relative z-10 overflow-hidden rounded-2xl border border-rose-200 bg-white p-6 text-slate-700 shadow-[0_20px_70px_-45px_rgba(244,63,94,0.45)]">
-                      <div className="pointer-events-none absolute -right-24 -top-20 h-48 w-48 rounded-full bg-rose-200/70 blur-3xl" />
-                      <div className="pointer-events-none absolute -left-16 bottom-0 h-40 w-40 rounded-full bg-amber-200/60 blur-3xl" />
-
-                      <div className="relative grid gap-5 md:grid-cols-[1.2fr_1fr]">
-                        <div className="space-y-3">
-                          <div className="inline-flex items-center gap-2 rounded-full border border-rose-200 bg-rose-50 px-3 py-1 text-[11px] font-semibold uppercase text-rose-600">
-                            Promo terbatas
-                          </div>
-                          <h3 className="text-xl font-extrabold text-slate-900">
-                            Diskon Paket Premium! Upgrade sekarang supaya semua
-                            soal terbuka.
-                          </h3>
-                          <p className="text-[13px] text-slate-600">
-                            Kamu sudah menyelesaikan soal gratis. Buka akses
-                            penuh, pembahasan lengkap, dan sesi Zoom tambahan
-                            untuk hasil terbaik.
-                          </p>
-                          <div className="flex flex-wrap items-center gap-3">
-                            <div className="rounded-2xl border border-rose-200 bg-rose-50 px-6 py-5 text-center">
-                              <div className="text-[11px] uppercase text-rose-500">
-                                Harga normal
-                              </div>
-                              <div className="mx-auto mt-1 w-fit text-4xl font-extrabold text-slate-400 line-through">
-                                Rp {premiumPrice}
-                              </div>
-                              <div className="mt-2 text-[11px] uppercase text-rose-500">
-                                Harga promo
-                              </div>
-                              <div className="mt-1 text-5xl font-extrabold text-rose-600">
-                                Rp {promoPrice}
-                              </div>
-                              <div className="mt-3 rounded-full bg-rose-100 px-3 py-1 text-[10px] font-semibold text-rose-700">
-                                Diskon 7 hari saja
-                              </div>
-                              <div className="mt-2 rounded-xl border border-rose-200 bg-white px-3 py-2 text-[10px] text-rose-700">
-                                Berakhir dalam:{" "}
-                                <span
-                                  className="font-semibold"
-                                  suppressHydrationWarning
-                                >
-                                  {promoCountdown ?? "Menghitung..."}
-                                </span>
-                              </div>
-                            </div>
-                            <div className="space-y-2 text-[11px] text-slate-600">
-                              <div className="flex items-center gap-2">
-                                <span className="rounded-full bg-emerald-100 px-2 py-1 text-emerald-700">
-                                  Semua soal terbuka
-                                </span>
-                                <span className="rounded-full bg-sky-100 px-2 py-1 text-sky-700">
-                                  Analisis & progres
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="space-y-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-inner">
-                          <div className="flex items-center justify-between text-[11px] text-slate-500">
-                            <span>Transfer ke rekening</span>
-                            <img
-                              src="/images/bca.png"
-                              alt="BCA"
-                              className="h-4 w-auto"
-                            />
-                          </div>
-                          <div className="text-lg font-semibold text-slate-900">
-                            {bankAccount}
-                          </div>
-                          <div className="text-[12px] text-slate-600">
-                            a.n {bankHolder}
-                          </div>
-                          <button
-                            type="button"
-                            onClick={async () => {
-                              try {
-                                await navigator.clipboard.writeText(
-                                  bankAccount,
-                                );
-                                setCopiedBank(true);
-                                setTimeout(() => setCopiedBank(false), 2000);
-                              } catch {
-                                // ignore clipboard failure
-                              }
-                            }}
-                            className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-slate-900 px-4 py-2 text-xs font-semibold text-white hover:bg-slate-800"
-                          >
-                            {copiedBank
-                              ? "Rekening tersalin"
-                              : "Salin nomor rekening"}
-                          </button>
-                          <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 px-3 py-2 text-[11px] text-slate-500">
-                            QRIS menyusul. Setelah transfer, kirim bukti ke
-                            admin.
-                          </div>
-                          <Link
-                            href="/dashboard/student/upgrade"
-                            className="inline-flex items-center justify-center rounded-xl border border-emerald-500 bg-emerald-600 px-4 py-2 text-xs font-semibold text-white shadow-lg shadow-emerald-500/40 transition hover:-translate-y-0.5 hover:bg-emerald-700"
-                          >
-                            Konfirmasi & lanjutkan
-                          </Link>
-                          <Link
-                            href="/dashboard/student/upgrade"
-                            className="inline-flex mr-3 items-center justify-center rounded-xl border border-purple-200 bg-purple-600 px-4 py-2 text-xs font-semibold text-white shadow-lg shadow-purple-500/30 transition hover:-translate-y-0.5 hover:bg-purple-700"
-                          >
-                            Lihat paket lain
-                          </Link>
-                          <Link
-                            href="/materials"
-                            className="inline-flex items-center justify-center rounded-xl border border-slate-200  px-4 py-2 text-xs font-semibold bg-amber-400 text-slate-700 hover:bg-slate-50"
-                          >
-                            Lihat materi lain
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
-                  ) : (
-                    <>
+                  <>
                       {normalizedQuestion.type === "mcq" && (
                         <div className="space-y-3">
                           <div className="grid gap-2 md:grid-cols-2">
@@ -2374,8 +2189,7 @@ export default function MaterialQuiz({
                           )}
                         </>
                       )}
-                    </>
-                  )}
+                  </>
 
                   {feedback.isCorrect !== null && (
                     <div className="fixed inset-0 z-[60] flex items-center justify-center bg-slate-950/70 px-4 backdrop-blur-sm">

@@ -189,7 +189,7 @@ export async function POST(req: Request) {
       email,
       username,
       role: "student",
-      is_premium: false,
+      is_premium: true,
       learning_track: learningTrack,
     },
     { onConflict: "id" }

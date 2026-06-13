@@ -187,8 +187,8 @@ export default async function AdminStudentsPage({ searchParams }: PageProps) {
               Daftar Siswa
             </h1>
             <p className="text-xs text-slate-500">
-              Pantau status paket, masa berlaku, dan reset subscription jika
-              diperlukan.
+              Pantau akses belajar, masa berlaku administrasi, dan reset
+              subscription jika diperlukan.
             </p>
           </div>
           <span className="text-[11px] text-slate-500">

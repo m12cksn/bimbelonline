@@ -14,7 +14,6 @@ type StudentProfileRow = {
   id: string;
   full_name: string | null;
   grade_id: number | null;
-  is_premium: boolean | null;
 };
 
 type MaterialRow = {
@@ -74,7 +73,7 @@ export default async function TeacherStudentDetailPage(props: PageProps) {
   // 3. ambil profil murid
   const { data: studentProfile, error: studentError } = await supabase
     .from("profiles")
-    .select("id, full_name, grade_id, is_premium")
+    .select("id, full_name, grade_id")
     .eq("id", studentId)
     .single<StudentProfileRow>();
 
@@ -90,8 +89,6 @@ export default async function TeacherStudentDetailPage(props: PageProps) {
   const gradeLabel = studentProfile.grade_id
     ? `Kelas ${studentProfile.grade_id}`
     : "Kelas belum di-set";
-
-  const isPremium = !!studentProfile.is_premium;
 
   // 4. ambil daftar materi (aktif) untuk kelas murid ini
   let materialsQuery = supabase
@@ -123,9 +120,7 @@ export default async function TeacherStudentDetailPage(props: PageProps) {
             </h1>
             <p className="mt-1 text-xs text-slate-300">
               {gradeLabel} • Status:{" "}
-              <span className={isPremium ? "text-amber-300" : "text-slate-200"}>
-                {isPremium ? "Premium ⭐" : "Gratis 🎁"}
-              </span>
+              <span className="text-emerald-300">Akses penuh</span>
             </p>
           </div>
           <Link
@@ -271,9 +266,7 @@ export default async function TeacherStudentDetailPage(props: PageProps) {
           </h1>
           <p className="mt-1 text-xs text-slate-300">
             {gradeLabel} • Status:{" "}
-            <span className={isPremium ? "text-amber-300" : "text-slate-200"}>
-              {isPremium ? "Premium ⭐" : "Gratis 🎁"}
-            </span>
+            <span className="text-emerald-300">Akses penuh</span>
           </p>
           <p className="mt-1 text-[11px] text-slate-400">
             Ringkasan per materi: jumlah soal, progres, dan akurasi jawaban.

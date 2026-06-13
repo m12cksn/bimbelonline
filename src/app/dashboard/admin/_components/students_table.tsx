@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useToast } from "@/app/components/ToastProvider";
-import StudentPremiumToggle from "@/app/dashboard/teacher/StudentPremiumToggle";
 import { confirmAction } from "@/lib/alerts";
 
 type StudentRow = {
@@ -31,7 +30,7 @@ export default function StudentsTable({ rows, grades }: Props) {
     if (!row.subscriptionId) return;
     const ok = await confirmAction({
       title: "Reset subscription",
-      text: `Reset subscription ${row.name} ke Free?`,
+      text: `Reset subscription ${row.name}? Akses belajar siswa tetap penuh.`,
       confirmText: "Reset",
       cancelText: "Batal",
     });
@@ -119,15 +118,9 @@ export default function StudentsTable({ rows, grades }: Props) {
                 </div>
               </td>
               <td className="py-3">
-                {row.isPremium ? (
-                  <span className="inline-flex items-center rounded-full border border-amber-300 bg-amber-100 px-2 py-0.5 text-[10px] font-semibold text-amber-700">
-                    Premium
-                  </span>
-                ) : (
-                  <span className="inline-flex items-center rounded-full border border-emerald-300 bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold text-emerald-700">
-                    Gratis
-                  </span>
-                )}
+                <span className="inline-flex items-center rounded-full border border-emerald-300 bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold text-emerald-700">
+                  Akses penuh
+                </span>
               </td>
               <td className="py-3">
                 {row.remainingDays === null
@@ -136,12 +129,6 @@ export default function StudentsTable({ rows, grades }: Props) {
               </td>
               <td className="py-3">
                 <div className="flex flex-wrap items-center gap-2">
-                  <StudentPremiumToggle
-                    studentId={row.id}
-                    initialIsPremium={row.isPremium}
-                    studentName={row.name}
-                    showStatus={false}
-                  />
                   <button
                     type="button"
                     onClick={() => {

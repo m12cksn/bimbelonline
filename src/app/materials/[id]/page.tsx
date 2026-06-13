@@ -18,6 +18,7 @@ export default async function MaterialPage(props: MaterialPageProps) {
     ? await props.searchParams
     : undefined;
   const isEmbed = resolvedSearchParams?.embed === "1";
+  const autoStartPractice = resolvedSearchParams?.start === "practice";
 
   const materialId = parseInt(id, 10);
   if (Number.isNaN(materialId)) {
@@ -35,17 +36,16 @@ export default async function MaterialPage(props: MaterialPageProps) {
 
   let profile: {
     role?: UserRole | null;
-    is_premium?: boolean | null;
     learning_track?: string | null;
   } | null = null;
   let role: UserRole = "student";
   let isAdmin = false;
 
   if (!isGuest && user) {
-    // 2. cek role + is_premium dari profiles
+    // 2. cek role dari profiles
     const { data: profileData, error: profileError } = await supabase
       .from("profiles")
-      .select("role, is_premium, learning_track") // 👈 tambahkan is_premium
+      .select("role, learning_track")
       .eq("id", user.id)
       .single();
 
@@ -69,7 +69,7 @@ export default async function MaterialPage(props: MaterialPageProps) {
   }
 
   let questionLimit = 0;
-  let planLabel = "Premium";
+  let planLabel = "Akses penuh";
   let isPremiumPlan = true;
   let planPriceLabel = "Akses penuh";
   const upgradeOptions: Array<{ label: string; priceLabel: string }> = [];
@@ -125,27 +125,8 @@ export default async function MaterialPage(props: MaterialPageProps) {
 
   const learningTrack =
     (profile as { learning_track?: string | null })?.learning_track ?? "math";
-  const gradeIds: number[] = [];
-  if (!isGuest && user) {
-    const { data: gradeRows } = await supabase
-      .from("student_grades")
-      .select("grade_id")
-      .eq("student_id", user.id);
-    (gradeRows ?? []).forEach((row) => {
-      if (typeof row.grade_id === "number") gradeIds.push(row.grade_id);
-    });
-  }
 
   if (!isGuest && !isAdmin && learningTrack === "coding" && material.subject_id !== 4) {
-    redirect("/materials");
-  }
-
-  if (
-    !isGuest &&
-    !isAdmin &&
-    material.grade_id &&
-    !gradeIds.includes(material.grade_id)
-  ) {
     redirect("/materials");
   }
 
@@ -203,6 +184,7 @@ export default async function MaterialPage(props: MaterialPageProps) {
 
   const userId = user?.id ?? "guest";
   const displayedQuestionCount = questionCount;
+  const simpleView = true;
 
   if (isEmbed) {
     return (
@@ -224,6 +206,32 @@ export default async function MaterialPage(props: MaterialPageProps) {
           embedUrl={embedUrl}
         />
       </div>
+    );
+  }
+
+  if (simpleView) {
+    return (
+      <main className="min-h-screen bg-slate-50 px-3 py-4 sm:px-5 md:py-6">
+        <div className="mx-auto max-w-5xl">
+          <MaterialWithResources
+            material={material}
+            questionMeta={questionMetaList}
+            exampleQuestions={exampleQuestions}
+            initialLastNumber={lastQuestionNumber}
+            userId={userId}
+            isPremium={isPremiumPlan}
+            questionLimit={questionLimit}
+            planLabel={planLabel}
+            planPriceLabel={planPriceLabel}
+            upgradeOptions={upgradeOptions}
+            isAdmin={isAdmin}
+            isGuest={isGuest}
+            embedUrl={embedUrl}
+            simpleView
+            autoStartPractice={autoStartPractice}
+          />
+        </div>
+      </main>
     );
   }
 
@@ -287,10 +295,10 @@ export default async function MaterialPage(props: MaterialPageProps) {
                     }`}
                   >
                     {isGuest
-                      ? "Gratis (tanpa login)"
+                      ? "Akses penuh tanpa login"
                       : isPremiumPlan
-                      ? `${planLabel} Student`
-                      : "Free Student"}
+                      ? planLabel
+                      : "Akses penuh"}
                   </span>
                 </div>
 
@@ -298,7 +306,7 @@ export default async function MaterialPage(props: MaterialPageProps) {
 
                 <div className="flex items-center justify-between">
                   <span className="text-[11px] text-slate-500">
-                    {isGuest ? "Soal gratis" : "Jumlah soal"}
+                    Jumlah soal
                   </span>
                   <span className="font-semibold text-emerald-700">
                     {displayedQuestionCount} soal

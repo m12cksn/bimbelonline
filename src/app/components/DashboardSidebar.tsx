@@ -106,13 +106,6 @@ const IconTrophy = () => (
   </svg>
 );
 
-const IconUpgrade = () => (
-  <svg className={iconClass} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-    <path d="M12 3l5 6h-3v6H10V9H7l5-6z" />
-    <path d="M5 21h14" />
-  </svg>
-);
-
 const IconUser = () => (
   <svg className={iconClass} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
     <circle cx="12" cy="8" r="4" />
@@ -138,6 +131,12 @@ const navItems: Record<Role, Array<Omit<ItemProps, "active">>> = {
       href: "/dashboard/admin/classes",
       label: "Classes",
       description: "Kelola jadwal & mapel",
+      icon: <IconBook />,
+    },
+    {
+      href: "/dashboard/admin/grade-cards",
+      label: "Kartu Kelas",
+      description: "Gambar kelas 1-12",
       icon: <IconBook />,
     },
     {
@@ -225,7 +224,7 @@ const navItems: Record<Role, Array<Omit<ItemProps, "active">>> = {
     {
       href: "/dashboard/student/account",
       label: "Akun",
-      description: "Profil & langganan",
+      description: "Profil siswa",
       icon: <IconUser />,
     },
   ],

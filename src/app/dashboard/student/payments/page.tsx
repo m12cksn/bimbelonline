@@ -2,7 +2,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { useToast } from "@/app/components/ToastProvider";
 
 type PaymentRow = {
@@ -73,12 +72,6 @@ export default function StudentPaymentsPage() {
             Semua transaksi paket yang pernah kamu lakukan.
           </p>
         </div>
-        <Link
-          href="/dashboard/student/upgrade"
-          className="rounded-xl border border-cyan-400/60 bg-cyan-500/20 px-4 py-2 text-xs font-semibold text-cyan-100 hover:bg-cyan-500/30"
-        >
-          Upgrade paket
-        </Link>
       </div>
 
       {loading ? (
