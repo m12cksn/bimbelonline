@@ -286,9 +286,9 @@ export default function DashboardSidebar({
 
   return (
     <aside
-      className={`fixed inset-y-0 left-0 z-40 w-72 transform bg-white backdrop-blur-md transition-transform duration-300 ease-out ${
+      className={`fixed inset-y-0 left-0 z-40 w-72 transform bg-white backdrop-blur-md shadow-2xl transition-transform duration-300 ease-out ${
         isOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full"
-      } lg:static lg:shadow-none`}
+      }`}
     >
       <div className="flex h-full flex-col gap-6 px-5 py-6">
         {/* Header sidebar */}
@@ -303,10 +303,8 @@ export default function DashboardSidebar({
           </div>
           <button
             type="button"
-            className="lg:hidden inline-flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-200 text-emerald-900 transition hover:bg-emerald-300"
-            onClick={() => {
-              if (window.innerWidth < 1024) onClose?.();
-            }}
+            className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-200 text-emerald-900 transition hover:bg-emerald-300"
+            onClick={onClose}
             aria-label="Tutup sidebar"
           >
             <IconClose />
@@ -320,9 +318,7 @@ export default function DashboardSidebar({
               key={item.href}
               {...item}
               active={isActive(item.href)}
-              onClick={() => {
-                if (window.innerWidth < 1024) onClose?.();
-              }}
+              onClick={onClose}
             />
           ))}
         </nav>

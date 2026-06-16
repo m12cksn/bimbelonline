@@ -5,7 +5,8 @@ type Fraction = {
 };
 
 export function normalizeFraction(value: string): Fraction | null {
-  const match = value.match(/(-?\d+)\s*\/\s*(-?\d+)/);
+  const normalizedValue = replaceLatexFractions(value);
+  const match = normalizedValue.match(/(-?\d+)\s*\/\s*(-?\d+)/);
   if (!match) return null;
   const numerator = Number(match[1]);
   const denominator = Number(match[2]);
@@ -27,11 +28,56 @@ export function normalizeFraction(value: string): Fraction | null {
   };
 }
 
+function replaceLatexFractions(value: string) {
+  return value.replace(
+    /\\frac\s*\{\s*(-?\d+)\s*\}\s*\{\s*(-?\d+)\s*\}/g,
+    "$1/$2"
+  );
+}
+
+function extractMixedFractions(answer: string) {
+  const normalized = replaceLatexFractions(replaceUnicodeFractions(answer));
+  const matches = normalized.matchAll(/(-?\d+)\s+(\d+)\s*\/\s*(-?\d+)/g);
+  const values: number[] = [];
+
+  for (const match of matches) {
+    const whole = Number(match[1]);
+    const numerator = Number(match[2]);
+    const denominator = Number(match[3]);
+    if (
+      !Number.isFinite(whole) ||
+      !Number.isFinite(numerator) ||
+      !Number.isFinite(denominator) ||
+      denominator === 0
+    ) {
+      continue;
+    }
+    const sign = whole < 0 ? -1 : 1;
+    values.push(whole + sign * (Math.abs(numerator) / Math.abs(denominator)));
+  }
+
+  return values;
+}
+
 function extractFractions(answer: string) {
-  const matches = answer.match(/-?\d+\s*\/\s*-?\d+/g) ?? [];
+  const normalized = replaceLatexFractions(answer);
+  const matches = normalized.match(/-?\d+\s*\/\s*-?\d+/g) ?? [];
   return matches
     .map((chunk) => normalizeFraction(chunk))
     .filter((item): item is NonNullable<typeof item> => item !== null);
+}
+
+function extractNumericValues(answer: string) {
+  const normalized = replaceLatexFractions(replaceUnicodeFractions(answer));
+  const mixedValues = extractMixedFractions(normalized);
+  const fractionValues = extractFractions(normalized).map(
+    (item) => item.numerator / item.denominator
+  );
+  const numberValues = extractNumbers(normalized)
+    .map((item) => Number(item))
+    .filter((item) => Number.isFinite(item));
+
+  return [...mixedValues, ...fractionValues, ...numberValues];
 }
 
 function normalizeNumberToken(raw: string) {
@@ -148,13 +194,22 @@ function extractAltGroups(value: string) {
 
 export function isInputAnswerCorrect(selected: string, correct: string | null) {
   if (!correct) return false;
-  const normalizedSelected = replaceUnicodeFractions(selected);
-  const normalizedCorrect = replaceUnicodeFractions(correct);
+  const normalizedSelected = replaceLatexFractions(replaceUnicodeFractions(selected));
+  const normalizedCorrect = replaceLatexFractions(replaceUnicodeFractions(correct));
   const symbolCorrect = normalizeSymbolAnswer(normalizedCorrect);
   const symbolSelected = normalizeSymbolAnswer(normalizedSelected);
   if (/[<>]=?/.test(symbolCorrect)) {
     return symbolCorrect === symbolSelected;
   }
+
+  const correctMixedValues = extractMixedFractions(normalizedCorrect);
+  if (correctMixedValues.length > 0) {
+    const selectedValues = extractNumericValues(normalizedSelected);
+    return correctMixedValues.some((expected) =>
+      selectedValues.some((value) => Math.abs(value - expected) < 1e-9)
+    );
+  }
+
   const correctFraction = normalizeFraction(normalizedCorrect);
   if (correctFraction) {
     const fractions = extractFractions(normalizedSelected);
@@ -163,9 +218,9 @@ export function isInputAnswerCorrect(selected: string, correct: string | null) {
     }
     const correctDecimal =
       correctFraction.numerator / correctFraction.denominator;
-    const selectedNumbers = extractNumbers(normalizedSelected);
-    return selectedNumbers.some(
-      (value) => Math.abs(Number(value) - correctDecimal) < 1e-9
+    const selectedValues = extractNumericValues(normalizedSelected);
+    return selectedValues.some(
+      (value) => Math.abs(value - correctDecimal) < 1e-9
     );
   }
 
@@ -184,13 +239,10 @@ export function isInputAnswerCorrect(selected: string, correct: string | null) {
     if (answerNumbers.some((value) => correctNumbers.includes(value))) {
       return true;
     }
-    const selectedFractions = extractFractions(normalizedSelected);
-    if (selectedFractions.length > 0) {
-      const selectedDecimals = selectedFractions.map(
-        (item) => item.numerator / item.denominator
-      );
+    const selectedNumericValues = extractNumericValues(normalizedSelected);
+    if (selectedNumericValues.length > 0) {
       if (
-        selectedDecimals.some((value) =>
+        selectedNumericValues.some((value) =>
           correctNumbers.some(
             (num) => Math.abs(Number(num) - value) < 1e-9
           )

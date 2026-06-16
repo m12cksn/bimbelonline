@@ -1,7 +1,13 @@
 "use client";
 /* eslint-disable @next/next/no-img-element */
 
-import { useEffect, useMemo, useState } from "react";
+import { useRef, useState, useEffect, useMemo } from "react";
+import Link from "next/link";
+import MathText from "@/app/components/MathText";
+import DoodleOverlay, {
+  DoodleHandle,
+  DoodleState,
+} from "@/app/components/DoodleOverlay";
 
 type QuestionMeta = {
   id: string;
@@ -50,6 +56,12 @@ type AnswerResult = {
   explanation?: string | null;
   correctAnswer?: string | null;
   correctAnswerImage?: string | null;
+  multipartResults?: Array<{
+    itemId: string;
+    label: string;
+    isCorrect: boolean;
+    correctAnswer: string;
+  }> | null;
 };
 
 type Props = {
@@ -60,6 +72,85 @@ type Props = {
 };
 
 const PAGE_SIZE = 10;
+const MAX_PRACTICE_QUESTIONS = 20;
+
+function PageDoodleLayer({ resetKey }: { resetKey: string }) {
+  const doodleRef = useRef<DoodleHandle | null>(null);
+  const [active, setActive] = useState(false);
+  const [state, setState] = useState<DoodleState>({
+    canUndo: false,
+    canRedo: false,
+    hasStrokes: false,
+  });
+
+  return (
+    <>
+      <div
+        className={`fixed inset-0 z-40 ${
+          active ? "" : "pointer-events-none"
+        }`}
+      >
+        {active && (
+          <div className="pointer-events-none absolute inset-0 bg-black/35 backdrop-blur-[1px]" />
+        )}
+        <DoodleOverlay
+          ref={doodleRef}
+          resetKey={resetKey}
+          active={active}
+          strokeColor="#facc15"
+          onStateChange={setState}
+        />
+      </div>
+      <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-2">
+        {active && (
+          <div className="flex flex-col items-end gap-1.5">
+            <button
+              type="button"
+              onClick={() => doodleRef.current?.undo()}
+              disabled={!state.canUndo}
+              className="rounded-lg border-2 border-white bg-slate-950 px-4 py-2 text-xs font-extrabold text-white shadow-lg disabled:opacity-40"
+            >
+              Undo
+            </button>
+            <button
+              type="button"
+              onClick={() => doodleRef.current?.redo()}
+              disabled={!state.canRedo}
+              className="rounded-lg border-2 border-white bg-slate-950 px-4 py-2 text-xs font-extrabold text-white shadow-lg disabled:opacity-40"
+            >
+              Redo
+            </button>
+            <button
+              type="button"
+              onClick={() => doodleRef.current?.clear()}
+              disabled={!state.hasStrokes}
+              className="rounded-lg border-2 border-white bg-red-600 px-4 py-2 text-xs font-extrabold text-white shadow-lg disabled:opacity-40"
+            >
+              Hapus
+            </button>
+          </div>
+        )}
+        <button
+          type="button"
+          onClick={() => setActive((current) => !current)}
+          aria-pressed={active}
+          className={`rounded-xl border-2 px-5 py-3 text-sm font-extrabold shadow-xl transition ${
+            active
+              ? "border-white bg-red-600 text-white shadow-red-900/30"
+              : "border-slate-950 bg-amber-300 text-slate-950 shadow-amber-900/30 hover:bg-amber-200"
+          }`}
+        >
+          {active ? "Exit" : "Coret"}
+        </button>
+      </div>
+      {active && (
+        <div className="pointer-events-none fixed bottom-5 left-5 z-50 rounded-md bg-amber-100 px-3 py-2 text-xs font-bold text-amber-800 shadow-sm">
+          Mode coret aktif. Klik Exit untuk menjawab.
+        </div>
+      )}
+    </>
+  );
+}
 
 export default function BatchPracticeQuiz({
   materialId,
@@ -71,7 +162,8 @@ export default function BatchPracticeQuiz({
     () =>
       questionMeta
         .filter((question) => question.question_mode !== "tryout")
-        .sort((a, b) => a.question_number - b.question_number),
+        .sort((a, b) => a.question_number - b.question_number)
+        .slice(0, MAX_PRACTICE_QUESTIONS),
     [questionMeta],
   );
   const [page, setPage] = useState(0);
@@ -100,8 +192,6 @@ export default function BatchPracticeQuiz({
 
       setLoading(true);
       setError(null);
-      setAnswers({});
-      setResults({});
 
       try {
         const start = pageMeta[0].question_number;
@@ -133,7 +223,7 @@ export default function BatchPracticeQuiz({
   }, [materialId, pageMeta]);
 
   function setAnswer(questionId: string, value: string) {
-    if (Object.keys(results).length > 0) return;
+    if (results[questionId]) return;
     setAnswers((current) => ({ ...current, [questionId]: value }));
   }
 
@@ -200,10 +290,28 @@ export default function BatchPracticeQuiz({
 
   const allAnswered =
     questions.length > 0 && questions.every((question) => isAnswered(question));
-  const submitted = Object.keys(results).length === questions.length;
+  const canSubmitPage = isAdmin ? questions.length > 0 : allAnswered;
+  const submitted =
+    questions.length > 0 &&
+    questions.every((question) => Boolean(results[question.id]));
+  const completedCount = orderedMeta.filter((question) =>
+    Boolean(results[question.id]),
+  ).length;
+  const correctCount = Object.values(results).filter(
+    (result) => result.isCorrect,
+  ).length;
+  const wrongCount = completedCount - correctCount;
+  const finalPageSubmitted =
+    page === totalPages - 1 &&
+    submitted &&
+    completedCount === orderedMeta.length;
+  const finalScore =
+    completedCount > 0
+      ? Math.round((correctCount / completedCount) * 100)
+      : 0;
 
   async function submitPage() {
-    if (!allAnswered || submitting) return;
+    if (!canSubmitPage || submitting) return;
     setSubmitting(true);
     setError(null);
 
@@ -216,7 +324,7 @@ export default function BatchPracticeQuiz({
             body: JSON.stringify({
               questionId: question.id,
               questionNumber: question.question_number,
-              selectedAnswer: answers[question.id],
+              selectedAnswer: answers[question.id] ?? "",
               attemptNumber: 1,
             }),
           });
@@ -240,6 +348,18 @@ export default function BatchPracticeQuiz({
 
   function movePage(nextPage: number) {
     setPage(nextPage);
+    window.setTimeout(() => {
+      document
+        .getElementById("batch-practice-top")
+        ?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 0);
+  }
+
+  function restartPractice() {
+    setAnswers({});
+    setResults({});
+    setError(null);
+    setPage(0);
     window.setTimeout(() => {
       document
         .getElementById("batch-practice-top")
@@ -273,7 +393,8 @@ export default function BatchPracticeQuiz({
 
   return (
     <section id="batch-practice-top" className="space-y-5">
-      <header className="sticky top-2 z-30 flex flex-col gap-3 rounded-lg border border-emerald-200 bg-white/95 p-4 shadow-sm backdrop-blur sm:flex-row sm:items-center sm:justify-between">
+      <PageDoodleLayer resetKey={`material-${materialId}-page-${page}`} />
+      <header className="sticky top-0 z-30 flex flex-col gap-3 border border-emerald-200 bg-white/95 p-4 shadow-sm backdrop-blur sm:rounded-lg sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-emerald-700">
             Latihan Soal
@@ -291,11 +412,14 @@ export default function BatchPracticeQuiz({
 
       {questions.map((question, index) => {
         const result = results[question.id];
+        const isEvenQuestion = (page * PAGE_SIZE + index + 1) % 2 === 0;
         const cardColor = result
           ? result.isCorrect
             ? "border-emerald-400 bg-emerald-50"
             : "border-red-400 bg-red-50"
-          : "border-slate-200 bg-white";
+          : isEvenQuestion
+            ? "border-slate-300 bg-slate-100"
+            : "border-slate-200 bg-white";
 
         return (
           <article
@@ -307,12 +431,12 @@ export default function BatchPracticeQuiz({
                 {page * PAGE_SIZE + index + 1}
               </span>
               <div className="min-w-0 flex-1">
-                <h3 className="whitespace-pre-line text-base font-bold leading-relaxed text-slate-900">
-                  {question.prompt}
+                <h3 className="text-base font-bold leading-relaxed text-slate-900">
+                  <MathText text={question.prompt} />
                 </h3>
                 {question.helper_text && (
                   <p className="mt-1 text-sm text-slate-600">
-                    {question.helper_text}
+                    <MathText text={question.helper_text} />
                   </p>
                 )}
               </div>
@@ -329,36 +453,60 @@ export default function BatchPracticeQuiz({
             <div className="mt-5">
               {question.type === "mcq" && (
                 <div className="grid gap-3 sm:grid-cols-2">
-                  {question.options.map((option) => (
-                    <label
-                      key={option.value}
-                      className={`flex cursor-pointer items-start gap-3 rounded-md border p-3 transition ${
-                        answers[question.id] === option.value
-                          ? "border-emerald-500 bg-emerald-100"
-                          : "border-slate-200 bg-white hover:border-emerald-300"
-                      } ${submitted ? "cursor-default" : ""}`}
-                    >
-                      <input
-                        type="radio"
-                        name={`question-${question.id}`}
-                        value={option.value}
-                        checked={answers[question.id] === option.value}
-                        disabled={submitted}
-                        onChange={() => setAnswer(question.id, option.value)}
-                        className="mt-1 accent-emerald-600"
-                      />
-                      <span className="text-sm font-semibold text-slate-700">
-                        {option.label}
-                        {option.image_url && (
-                          <img
-                            src={option.image_url}
-                            alt={option.label}
-                            className="mt-2 max-h-40 rounded-md object-contain"
-                          />
-                        )}
-                      </span>
-                    </label>
-                  ))}
+                  {question.options.map((option) => {
+                    const selectedValue = answers[question.id];
+                    const isSelected = selectedValue === option.value;
+                    const isCorrectOption =
+                      result?.correctAnswer === option.value;
+                    const optionStateClass = result
+                      ? isCorrectOption
+                        ? "border-emerald-500 bg-emerald-100 text-emerald-950 shadow-sm"
+                        : isSelected
+                          ? "border-red-500 bg-red-200 text-red-950 shadow-sm"
+                          : "border-slate-200 bg-white text-slate-600 opacity-80"
+                      : isSelected
+                        ? "border-emerald-500 bg-emerald-100 text-slate-900"
+                        : "border-slate-200 bg-white text-slate-700 hover:border-emerald-300";
+
+                    return (
+                      <label
+                        key={option.value}
+                        className={`flex cursor-pointer items-start gap-3 rounded-md border p-3 transition ${optionStateClass} ${
+                          submitted ? "cursor-default" : ""
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          name={`question-${question.id}`}
+                          value={option.value}
+                          checked={isSelected}
+                          disabled={submitted}
+                          onChange={() => setAnswer(question.id, option.value)}
+                          className="mt-1 accent-emerald-600"
+                        />
+                        <span className="text-sm font-semibold">
+                          <MathText text={option.label} />
+                          {result && isSelected && !isCorrectOption && (
+                            <span className="ml-2 rounded bg-red-600 px-2 py-0.5 text-[10px] font-extrabold text-white">
+                              Jawaban kamu
+                            </span>
+                          )}
+                          {result && isCorrectOption && (
+                            <span className="ml-2 rounded bg-emerald-600 px-2 py-0.5 text-[10px] font-extrabold text-white">
+                              Jawaban benar
+                            </span>
+                          )}
+                          {option.image_url && (
+                            <img
+                              src={option.image_url}
+                              alt={option.label}
+                              className="mt-2 max-h-40 rounded-md object-contain"
+                            />
+                          )}
+                        </span>
+                      </label>
+                    );
+                  })}
                 </div>
               )}
 
@@ -384,10 +532,18 @@ export default function BatchPracticeQuiz({
                     } catch {
                       parsed = {};
                     }
+                    const itemResult = result?.multipartResults?.find(
+                      (part) => part.itemId === item.id,
+                    );
+                    const inputStateClass = itemResult
+                      ? itemResult.isCorrect
+                        ? "border-emerald-500 bg-emerald-100 text-emerald-950 disabled:bg-emerald-100"
+                        : "border-red-500 bg-red-200 text-red-950 disabled:bg-red-200"
+                      : "border-slate-300 bg-white focus:border-emerald-500 disabled:bg-slate-100";
                     return (
                       <label key={item.id} className="block">
                         <span className="text-sm font-semibold text-slate-700">
-                          {item.label}. {item.prompt}
+                          {item.label}. <MathText text={item.prompt} />
                         </span>
                         {item.image_url && (
                           <img
@@ -406,9 +562,22 @@ export default function BatchPracticeQuiz({
                               event.target.value,
                             )
                           }
-                          className="mt-2 w-full rounded-md border border-slate-300 bg-white p-3 text-sm outline-none focus:border-emerald-500 disabled:bg-slate-100"
+                          className={`mt-2 w-full rounded-md border p-3 text-sm outline-none ${inputStateClass}`}
                           placeholder="Jawaban bagian ini..."
                         />
+                        {itemResult && (
+                          <div
+                            className={`mt-2 rounded-md px-3 py-2 text-xs font-semibold ${
+                              itemResult.isCorrect
+                                ? "bg-emerald-100 text-emerald-800"
+                                : "bg-red-100 text-red-800"
+                            }`}
+                          >
+                            {itemResult.isCorrect
+                              ? "Bagian ini benar."
+                              : `Bagian ini belum tepat. Jawaban benar: ${itemResult.correctAnswer}`}
+                          </div>
+                        )}
                       </label>
                     );
                   })}
@@ -472,15 +641,13 @@ export default function BatchPracticeQuiz({
                 </p>
                 {!result.isCorrect && (
                   <>
-                    {result.correctAnswer && (
-                      <p className="mt-2 text-sm">
-                        Jawaban benar:{" "}
-                        <strong>{result.correctAnswer}</strong>
-                      </p>
-                    )}
-                    <p className="mt-2 whitespace-pre-line text-sm leading-relaxed">
-                      {result.explanation ||
-                        "Periksa kembali langkah pengerjaan dan coba pahami konsep pada soal ini."}
+                    <p className="mt-2 text-sm leading-relaxed">
+                      <MathText
+                        text={
+                          result.explanation ||
+                          "Periksa kembali langkah pengerjaan dan coba pahami konsep pada soal ini."
+                        }
+                      />
                     </p>
                     {result.correctAnswerImage && (
                       <img
@@ -506,13 +673,15 @@ export default function BatchPracticeQuiz({
       {!submitted ? (
         <button
           type="button"
-          disabled={!allAnswered || submitting}
+          disabled={!canSubmitPage || submitting}
           onClick={submitPage}
           className="w-full rounded-lg bg-emerald-600 px-6 py-4 text-base font-extrabold text-white shadow-md transition hover:bg-emerald-500 disabled:cursor-not-allowed disabled:bg-slate-300 disabled:text-slate-500 disabled:shadow-none"
         >
           {submitting
             ? "Memeriksa jawaban..."
-            : allAnswered
+            : isAdmin
+              ? "Submit dan Periksa Jawaban (Mode Admin)"
+              : allAnswered
               ? "Submit dan Periksa Jawaban"
               : "Jawab semua soal untuk mengaktifkan Submit"}
         </button>
@@ -533,14 +702,77 @@ export default function BatchPracticeQuiz({
               onClick={() => movePage(page + 1)}
               className="flex-1 rounded-lg bg-emerald-600 px-5 py-3 font-bold text-white hover:bg-emerald-500"
             >
-              Lanjut 10 Soal Berikutnya
+              Lanjut ke Soal {page * PAGE_SIZE + PAGE_SIZE + 1}–
+              {Math.min(
+                page * PAGE_SIZE + PAGE_SIZE * 2,
+                orderedMeta.length,
+              )}
             </button>
-          ) : (
+          ) : !finalPageSubmitted ? (
             <div className="flex-1 rounded-lg border border-emerald-300 bg-emerald-50 px-5 py-3 text-center font-bold text-emerald-800">
               Semua soal telah selesai diperiksa.
             </div>
-          )}
+          ) : null}
         </div>
+      )}
+
+      {finalPageSubmitted && (
+        <section className="rounded-lg border border-emerald-300 bg-white p-5 shadow-md sm:p-7">
+          <div className="text-center">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-700">
+              Ringkasan Latihan
+            </p>
+            <h2 className="mt-2 text-2xl font-extrabold text-slate-900">
+              Latihan selesai
+            </h2>
+            <p className="mt-2 text-sm text-slate-600">
+              Kamu telah menyelesaikan seluruh {orderedMeta.length} soal.
+            </p>
+          </div>
+
+          <div className="mt-6 grid grid-cols-3 gap-3">
+            <div className="rounded-md bg-emerald-50 p-4 text-center">
+              <p className="text-2xl font-extrabold text-emerald-700">
+                {correctCount}
+              </p>
+              <p className="mt-1 text-xs font-semibold text-emerald-800">
+                Jawaban benar
+              </p>
+            </div>
+            <div className="rounded-md bg-red-50 p-4 text-center">
+              <p className="text-2xl font-extrabold text-red-700">
+                {wrongCount}
+              </p>
+              <p className="mt-1 text-xs font-semibold text-red-800">
+                Jawaban salah
+              </p>
+            </div>
+            <div className="rounded-md bg-sky-50 p-4 text-center">
+              <p className="text-2xl font-extrabold text-sky-700">
+                {finalScore}
+              </p>
+              <p className="mt-1 text-xs font-semibold text-sky-800">
+                Skor akhir
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-6 grid gap-3 sm:grid-cols-2">
+            <button
+              type="button"
+              onClick={restartPractice}
+              className="rounded-lg border border-emerald-300 bg-white px-5 py-3 font-bold text-emerald-700 transition hover:bg-emerald-50"
+            >
+              Ulangi Latihan
+            </button>
+            <Link
+              href="/dashboard/student"
+              className="inline-flex items-center justify-center rounded-lg bg-emerald-600 px-5 py-3 font-bold text-white transition hover:bg-emerald-500"
+            >
+              Kembali ke Daftar Materi
+            </Link>
+          </div>
+        </section>
       )}
 
       {(isGuest || isAdmin) && (

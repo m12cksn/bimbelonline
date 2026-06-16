@@ -22,6 +22,7 @@ import { TouchBackend } from "react-dnd-touch-backend";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import type Konva from "konva";
 import { Layer, Line, Stage } from "react-konva";
+import MathText from "@/app/components/MathText";
 
 type QuestionOption = {
   value: string;
@@ -1620,11 +1621,11 @@ export default function MaterialQuiz({
                   <div className="flex flex-col gap-3">
                     <div className="space-y-1">
                       <p className="text-lg font-semibold text-slate-900 md:text-2xl leading-snug">
-                        {normalizedQuestion.prompt}
+                        <MathText text={normalizedQuestion.prompt} />
                       </p>
                       {normalizedQuestion.helperText && (
                         <p className="text-xs text-slate-600 md:text-sm">
-                          {normalizedQuestion.helperText}
+                          <MathText text={normalizedQuestion.helperText} />
                         </p>
                       )}
                     </div>
@@ -1661,7 +1662,7 @@ export default function MaterialQuiz({
                                   </div>
                                 )}
                                 <span className="font-semibold text-slate-900">
-                                  {opt.label}
+                                  <MathText text={opt.label} />
                                 </span>
                                 <div className="pointer-events-none absolute -bottom-6 -right-8 h-16 w-16 rounded-full bg-linear-to-tr from-cyan-500/20 via-purple-500/20 to-pink-500/20 blur-xl" />
                               </button>
@@ -1793,7 +1794,7 @@ export default function MaterialQuiz({
                               >
                                 <p className="text-sm font-semibold text-slate-900">
                                   {item.label || String.fromCharCode(97 + idx)}.{" "}
-                                  {item.prompt}
+                                  <MathText text={item.prompt} />
                                 </p>
                                 {item.image_url && (
                                   <div className="mt-2 overflow-hidden rounded-xl border border-slate-200 bg-white">
@@ -2245,8 +2246,12 @@ export default function MaterialQuiz({
                         {!feedback.isCorrect && (
                           <div className="mt-3 rounded-2xl bg-white/80 px-4 py-3 text-xs text-slate-700 shadow-inner">
                             <span className="font-semibold">Penjelasan:</span>{" "}
-                            {feedback.explanation ||
-                              "Pembahasan belum tersedia."}
+                            <MathText
+                              text={
+                                feedback.explanation ||
+                                "Pembahasan belum tersedia."
+                              }
+                            />
                           </div>
                         )}
                         {!feedback.isCorrect && feedback.imageUrl && (

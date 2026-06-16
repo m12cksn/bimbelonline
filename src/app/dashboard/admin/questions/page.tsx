@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useToast } from "@/app/components/ToastProvider";
+import MathText from "@/app/components/MathText";
 import { confirmAction } from "@/lib/alerts";
 
 type QuestionType = "mcq" | "essay" | "drag_drop" | "multipart";
@@ -153,6 +154,7 @@ export default function AdminQuestionsPage() {
   const [replaceExisting, setReplaceExisting] = useState(false);
   const importInputRef = useRef<HTMLInputElement | null>(null);
 
+  const promptTextareaRef = useRef<HTMLTextAreaElement | null>(null);
   const questionInputRef = useRef<HTMLInputElement | null>(null);
   const answerInputRef = useRef<HTMLInputElement | null>(null);
   const materialImageInputRef = useRef<HTMLInputElement | null>(null);
@@ -685,6 +687,24 @@ export default function AdminQuestionsPage() {
     }
   }
 
+  function insertPromptText(template: string) {
+    const input = promptTextareaRef.current;
+    if (!input) {
+      setPromptText((current) => `${current}${template}`);
+      return;
+    }
+
+    const start = input.selectionStart ?? promptText.length;
+    const end = input.selectionEnd ?? promptText.length;
+    const next = `${promptText.slice(0, start)}${template}${promptText.slice(end)}`;
+    setPromptText(next);
+    window.setTimeout(() => {
+      input.focus();
+      const cursor = start + template.length;
+      input.setSelectionRange(cursor, cursor);
+    }, 0);
+  }
+
   async function handleMaterialResourceUpload(file: File | null) {
     if (!file) {
       toast.error("Pilih file .md atau .pdf terlebih dahulu.");
@@ -772,14 +792,15 @@ export default function AdminQuestionsPage() {
   }
 
   return (
-    <div className="mx-auto max-w-full space-y-6 px-4 py-6">
-      <div>
+    <div className="mx-auto max-w-full">
+      <section className="border-b border-slate-200 bg-white px-4 py-5 sm:px-6 lg:px-8">
         <h1 className="text-2xl font-bold text-slate-900">CMS Soal (Admin)</h1>
         <p className="text-sm text-slate-500">
           Buat dan edit soal dengan teks atau gambar seperti Google Form.
         </p>
-      </div>
+      </section>
 
+      <div className="space-y-6 px-4 py-6 sm:px-6 lg:px-8">
       <div className="flex flex-wrap items-center gap-3 rounded-lg border border-slate-200 bg-white p-4">
         <div className="flex flex-col gap-1">
           <label className="text-xs text-slate-500">Materi</label>
@@ -1108,8 +1129,8 @@ export default function AdminQuestionsPage() {
         </div>
       )}
 
-      <div className="grid gap-4 lg:grid-cols-[360px_minmax(0,1fr)]">
-        <div className="w-full max-w-[360px] space-y-3 rounded-lg border border-slate-200 bg-white p-4">
+      <div className="grid gap-4 lg:grid-cols-[320px_minmax(0,1fr)]">
+        <div className="w-full space-y-3 rounded-lg border border-slate-200 bg-white p-4 lg:sticky lg:top-4 lg:max-h-[calc(100vh-120px)] lg:overflow-auto">
           <div className="flex items-center justify-between">
             <h2 className="text-sm font-semibold text-slate-700">
               Daftar Soal
@@ -1191,8 +1212,50 @@ export default function AdminQuestionsPage() {
           </div>
         </div>
 
-        <div className="space-y-4 rounded-lg border border-slate-200 bg-white p-4">
-          <div className="grid gap-3 md:grid-cols-2">
+        <div className="overflow-hidden rounded-lg border border-slate-200 bg-white">
+          <div className="sticky top-0 z-10 flex flex-col gap-3 border-b border-slate-200 bg-white/95 p-4 backdrop-blur sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-cyan-700">
+                Editor Soal
+              </p>
+              <h2 className="text-lg font-bold text-slate-900">
+                {selectedId ? "Edit soal yang dipilih" : "Buat soal baru"}
+              </h2>
+              <p className="text-xs text-slate-500">
+                Isi bagian utama dulu. Bagian gambar dan pengaturan lanjutan bisa dibuka jika diperlukan.
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-2">
+              <button
+                type="button"
+                onClick={handleCreate}
+                disabled={!selectedMaterial || creating}
+                className="rounded-lg border border-emerald-600 bg-emerald-600 px-3 py-2 text-xs font-semibold text-white disabled:opacity-60"
+              >
+                {creating ? "Membuat..." : "Buat"}
+              </button>
+              <button
+                type="button"
+                onClick={handleSave}
+                disabled={!canSave || saving}
+                className="rounded-lg border border-cyan-600 bg-cyan-600 px-3 py-2 text-xs font-semibold text-white disabled:opacity-60"
+              >
+                {saving ? "Menyimpan..." : "Simpan"}
+              </button>
+              <button
+                type="button"
+                onClick={handleDelete}
+                disabled={!selectedId}
+                className="rounded-lg border border-rose-600 bg-rose-600 px-3 py-2 text-xs font-semibold text-white disabled:opacity-60"
+              >
+                Hapus
+              </button>
+            </div>
+          </div>
+
+          <div className="space-y-4 p-4">
+          <section className="rounded-lg border border-slate-200 bg-slate-50 p-4">
+          <div className="grid gap-3 md:grid-cols-3">
             <div>
               <label className="text-xs text-slate-500">Nomor Soal</label>
               <input
@@ -1233,13 +1296,44 @@ export default function AdminQuestionsPage() {
           </div>
 
           <div>
-            <label className="text-xs text-slate-500">Teks Soal</label>
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <label className="text-xs text-slate-500">Teks Soal</label>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  onClick={() => insertPromptText("\\frac{1}{2}")}
+                  className="rounded-md border border-emerald-200 bg-white px-2 py-1 text-[11px] font-semibold text-emerald-700 hover:bg-emerald-50"
+                >
+                  + Pecahan
+                </button>
+                <button
+                  type="button"
+                  onClick={() => insertPromptText("\\frac{3}{4} + \\frac{1}{4}")}
+                  className="rounded-md border border-slate-200 bg-white px-2 py-1 text-[11px] font-semibold text-slate-600 hover:bg-slate-50"
+                >
+                  Contoh
+                </button>
+              </div>
+            </div>
             <textarea
+              ref={promptTextareaRef}
               className="mt-1 min-h-[90px] w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900"
               value={promptText}
               onChange={(e) => setPromptText(e.target.value)}
-              placeholder="Contoh: 12 + 5 = ?"
+              placeholder="Contoh: Ibu membeli \\frac{1}{2} kg gula. Berapa kg gula yang dibeli?"
             />
+            <p className="mt-1 text-[11px] text-slate-500">
+              Untuk pecahan, tulis <code className="rounded bg-white px-1">\frac{"{1}"}{"{2}"}</code>.
+              Nanti akan tampil sebagai pecahan bertingkat.
+            </p>
+            {promptText.trim() && (
+              <div className="mt-3 rounded-lg border border-emerald-100 bg-white p-3 text-sm text-slate-900">
+                <div className="mb-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-emerald-700">
+                  Preview soal
+                </div>
+                <MathText text={promptText} className="font-semibold leading-relaxed" />
+              </div>
+            )}
           </div>
 
           <div>
@@ -1251,8 +1345,13 @@ export default function AdminQuestionsPage() {
               placeholder="Petunjuk singkat (opsional)"
             />
           </div>
+          </section>
 
-          <div className="grid gap-3 md:grid-cols-2">
+          <details className="rounded-lg border border-slate-200 bg-white">
+            <summary className="cursor-pointer px-4 py-3 text-sm font-semibold text-slate-700">
+              Gambar soal dan gambar jawaban benar
+            </summary>
+          <div className="grid gap-3 border-t border-slate-200 p-4 md:grid-cols-2">
             <div className="space-y-2">
               <label className="text-xs text-slate-500">Gambar Soal</label>
               <button
@@ -1323,14 +1422,18 @@ export default function AdminQuestionsPage() {
               )}
             </div>
           </div>
+          </details>
 
           {(questionType === "mcq" || questionType === "drag_drop") && (
-            <div className="space-y-3">
-              <label className="text-xs text-slate-500">Opsi Jawaban</label>
+            <details open className="rounded-lg border border-slate-200 bg-white">
+              <summary className="cursor-pointer px-4 py-3 text-sm font-semibold text-slate-700">
+                Opsi jawaban
+              </summary>
+              <div className="space-y-3 border-t border-slate-200 p-4">
               <div className="space-y-2">
                 {options.map((opt, idx) => (
                   <div
-                    key={`${idx}-${opt.value}`}
+                    key={`option-${idx}`}
                     className="grid min-w-0 gap-2 rounded-lg border border-slate-200 bg-white p-3 md:grid-cols-[1fr_1fr_1fr_auto]"
                   >
                     <input
@@ -1426,18 +1529,20 @@ export default function AdminQuestionsPage() {
               >
                 + Tambah opsi
               </button>
-            </div>
+              </div>
+            </details>
           )}
 
           {questionType === "multipart" && (
-            <div className="space-y-3">
-              <label className="text-xs text-slate-500">
+            <details open className="rounded-lg border border-slate-200 bg-white">
+              <summary className="cursor-pointer px-4 py-3 text-sm font-semibold text-slate-700">
                 Sub-soal (a/b/c/d)
-              </label>
+              </summary>
+              <div className="space-y-3 border-t border-slate-200 p-4">
               <div className="space-y-2">
                 {multipartItems.map((item, idx) => (
                   <div
-                    key={`${idx}-${item.label}`}
+                    key={`multipart-${idx}`}
                     className="grid gap-2 rounded-lg border border-slate-200 bg-white p-3 md:grid-cols-[80px_1fr_1fr_1fr_auto]"
                   >
                     <input
@@ -1504,11 +1609,12 @@ export default function AdminQuestionsPage() {
               >
                 + Tambah sub-soal
               </button>
-            </div>
+              </div>
+            </details>
           )}
 
           {questionType === "drag_drop" && (
-            <div>
+            <section className="rounded-lg border border-slate-200 bg-slate-50 p-4">
               <label className="text-xs text-slate-500">
                 Drop targets (pisahkan dengan koma)
               </label>
@@ -1518,14 +1624,14 @@ export default function AdminQuestionsPage() {
                 onChange={(e) => setDropTargets(e.target.value)}
                 placeholder="Contoh: A,B,C"
               />
-            </div>
+            </section>
           )}
 
-          <div
+          <section
             className={`grid gap-3 ${
               questionType === "mcq" || questionType === "essay"
-                ? "md:grid-cols-2"
-                : ""
+                ? "rounded-lg border border-slate-200 bg-slate-50 p-4 md:grid-cols-2"
+                : "rounded-lg border border-slate-200 bg-slate-50 p-4"
             }`}
           >
             {(questionType === "mcq" || questionType === "essay") && (
@@ -1541,16 +1647,16 @@ export default function AdminQuestionsPage() {
             )}
             <div>
               <label className="text-xs text-slate-500">Penjelasan</label>
-              <input
-                className="mt-1 w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900"
+              <textarea
+                className="mt-1 min-h-28 w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900"
                 value={explanation}
                 onChange={(e) => setExplanation(e.target.value)}
-                placeholder="Penjelasan jawaban (opsional)"
+                placeholder={"Penjelasan jawaban (opsional)\nContoh:\n1. Samakan penyebut.\n2. Jumlahkan pembilang.\n3. Sederhanakan hasilnya."}
               />
             </div>
-          </div>
+          </section>
 
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="sticky bottom-0 -mx-4 -mb-4 flex flex-wrap items-center gap-3 border-t border-slate-200 bg-white/95 p-4 backdrop-blur">
             <button
               type="button"
               onClick={handleCreate}
@@ -1578,6 +1684,8 @@ export default function AdminQuestionsPage() {
           </div>
         </div>
       </div>
+      </div>
+    </div>
     </div>
   );
 }

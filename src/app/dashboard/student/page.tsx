@@ -56,8 +56,8 @@ export default async function StudentDashboardPage() {
   const gradeCards = mergeGradeCards(gradeRows);
 
   return (
-    <div className="space-y-8">
-      <section className="relative overflow-hidden rounded-lg border border-emerald-200 bg-linear-to-br from-emerald-900 via-emerald-700 to-lime-500 p-6 text-white shadow-xl shadow-emerald-100 md:p-9">
+    <div>
+      <section className="relative overflow-hidden border-b border-emerald-200 bg-linear-to-br from-emerald-900 via-emerald-700 to-lime-500 p-6 text-white md:p-9">
         <div className="pointer-events-none absolute -left-16 top-0 h-52 w-52 rounded-full bg-lime-300/25 blur-3xl" />
         <div className="pointer-events-none absolute -right-16 bottom-0 h-56 w-56 rounded-full bg-cyan-300/25 blur-3xl" />
 
@@ -75,7 +75,7 @@ export default async function StudentDashboardPage() {
         </div>
       </section>
 
-      <section className="space-y-5">
+      <section className="space-y-5 px-4 py-8 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.22em] text-emerald-700">

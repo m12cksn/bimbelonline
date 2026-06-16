@@ -160,6 +160,14 @@ export async function POST(req: Request, props: MaterialParams) {
   let correctAnswerImage: string | null =
     (question as { correct_answer_image_url?: string | null })
       ?.correct_answer_image_url ?? null;
+  let multipartResults:
+    | Array<{
+        itemId: string;
+        label: string;
+        isCorrect: boolean;
+        correctAnswer: string;
+      }>
+    | null = null;
 
   if (question.type === "essay") {
     correctAnswerText =
@@ -211,6 +219,16 @@ export async function POST(req: Request, props: MaterialParams) {
       partIds.every((id) =>
         isInputAnswerCorrect(parsed[id] ?? "", answerMap.get(id) ?? "")
       );
+
+    multipartResults = (partRows || []).map((row) => {
+      const correctAnswer = answerMap.get(row.id) ?? "";
+      return {
+        itemId: row.id,
+        label: row.label || "-",
+        isCorrect: isInputAnswerCorrect(parsed[row.id] ?? "", correctAnswer),
+        correctAnswer,
+      };
+    });
 
     correctAnswerText = (partRows || [])
       .map((row) => {
@@ -358,6 +376,7 @@ export async function POST(req: Request, props: MaterialParams) {
     correctAnswer: correctAnswerText,
     correctAnswerImage,
     explanation: explanation ?? null,
+    multipartResults,
     nextQuestionNumber: question.question_number + 1,
   });
 }

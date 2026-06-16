@@ -1,7 +1,8 @@
 "use client";
 
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import LogoutButton from "./LogoutButton";
 import DashboardSidebar from "./DashboardSidebar";
 
@@ -19,18 +20,11 @@ export default function DashboardShell({
   children,
 }: DashboardShellProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  // Default: desktop sidebar open, mobile close
-  useEffect(() => {
-    const handleResize = () => {
-      const isDesktop = window.innerWidth >= 1024; // lg
-      setSidebarOpen(isDesktop);
-    };
-
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  const pathname = usePathname();
+  const isFlushDashboardHome =
+    pathname === "/dashboard/student" ||
+    pathname === "/dashboard/admin" ||
+    pathname.startsWith("/dashboard/admin/questions");
 
   const IconMenu = () => (
     <svg
@@ -70,10 +64,10 @@ export default function DashboardShell({
         <div className="absolute left-1/2 top-1/3 h-64 w-64 -translate-x-1/2 rounded-3xl border border-emerald-200/70" />
       </div>
 
-      {/* Overlay hanya saat mobile & sidebar terbuka */}
+      {/* Sidebar selalu berupa drawer, termasuk pada tablet dan desktop. */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 z-30 bg-slate-200/80 backdrop-blur-sm lg:hidden"
+          className="fixed inset-0 z-30 bg-slate-950/35 backdrop-blur-sm"
           onClick={() => setSidebarOpen(false)}
           aria-hidden
         />
@@ -96,10 +90,12 @@ export default function DashboardShell({
                 {/* Toggle sidebar */}
                 <button
                   type="button"
-                  onClick={() => {
-                    if (window.innerWidth < 1024) setSidebarOpen(true);
-                  }}
+                  onClick={() => setSidebarOpen((current) => !current)}
                   className="inline-flex h-11 items-center justify-center rounded-2xl border border-emerald-200 bg-emerald-300 px-4 text-sm font-semibold text-emerald-900 shadow-lg shadow-emerald-200/60 transition hover:border-emerald-400 hover:bg-emerald-200 lg:h-12 lg:px-5 lg:text-base"
+                  aria-label={
+                    sidebarOpen ? "Tutup menu navigasi" : "Buka menu navigasi"
+                  }
+                  aria-expanded={sidebarOpen}
                 >
                   <IconMenu />
                 </button>
@@ -132,11 +128,29 @@ export default function DashboardShell({
           </header>
 
           {/* Content wrapper */}
-          <main className="flex-1 overflow-x-hidden px-4 py-6 sm:px-6 lg:px-8">
-            <div className="min-w-0 rounded-3xl bg-white p-4 shadow-[0_20px_60px_-35px_rgba(15,23,42,0.25)] sm:p-6">
+          <main
+            className={
+              isFlushDashboardHome
+                ? "flex-1 overflow-x-hidden"
+                : "flex-1 overflow-x-hidden px-4 py-6 sm:px-6 lg:px-8"
+            }
+          >
+            <div
+              className={
+                isFlushDashboardHome
+                  ? "min-w-0 bg-white"
+                  : "min-w-0 rounded-3xl bg-white p-4 shadow-[0_20px_60px_-35px_rgba(15,23,42,0.25)] sm:p-6"
+              }
+            >
               {children}
             </div>
-            <footer className="mt-4 flex flex-wrap items-center gap-3 text-[11px] text-slate-500">
+            <footer
+              className={`flex flex-wrap items-center gap-3 text-[11px] text-slate-500 ${
+                isFlushDashboardHome
+                  ? "border-t border-slate-200 px-4 py-4 sm:px-6 lg:px-8"
+                  : "mt-4"
+              }`}
+            >
               <span>(c) MathKids</span>
               <span className="text-slate-400">-</span>
               <Link href="/privacy" className="hover:text-emerald-700">

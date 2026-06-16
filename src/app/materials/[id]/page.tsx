@@ -211,8 +211,8 @@ export default async function MaterialPage(props: MaterialPageProps) {
 
   if (simpleView) {
     return (
-      <main className="min-h-screen bg-slate-50 px-3 py-4 sm:px-5 md:py-6">
-        <div className="mx-auto max-w-5xl">
+      <main className="min-h-screen bg-slate-50">
+        <div className="mx-auto max-w-5xl px-3 pb-6 sm:px-5">
           <MaterialWithResources
             material={material}
             questionMeta={questionMetaList}

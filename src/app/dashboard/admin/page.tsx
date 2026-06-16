@@ -27,8 +27,8 @@ export default async function AdminDashboardPage() {
   }
 
   return (
-    <div className="space-y-6">
-      <section className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-6 text-slate-900 shadow-[0_20px_60px_-45px_rgba(0,0,0,1)]">
+    <div>
+      <section className="relative overflow-hidden border-b border-slate-200 bg-white p-6 text-slate-900 sm:p-8">
         <div className="pointer-events-none absolute -right-10 -top-12 h-32 w-32 rounded-full bg-cyan-500/20 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-10 -left-12 h-32 w-32 rounded-full bg-indigo-500/20 blur-3xl" />
         <div className="relative space-y-3">
@@ -63,7 +63,8 @@ export default async function AdminDashboardPage() {
         </div>
       </section>
 
-      <section className="grid gap-4 md:grid-cols-3">
+      <div className="space-y-6 px-4 py-6 sm:px-6 lg:px-8">
+        <section className="grid gap-4 md:grid-cols-3">
         <div className="rounded-2xl border border-slate-200 bg-white p-5 text-slate-900 shadow-[0_20px_60px_-45px_rgba(0,0,0,1)]">
           <p className="text-xs uppercase tracking-[0.2em] text-slate-500">
             Fokus Hari Ini
@@ -112,9 +113,9 @@ export default async function AdminDashboardPage() {
             Kelola soal →
           </Link>
         </div>
-      </section>
+        </section>
 
-      <section className="grid gap-4 md:grid-cols-2">
+        <section className="grid gap-4 md:grid-cols-2">
         <div className="rounded-2xl border border-slate-200 bg-white p-5 text-slate-900">
           <h3 className="text-sm font-semibold">Quick Actions</h3>
           <div className="mt-4 flex flex-wrap gap-3 text-xs">
@@ -146,7 +147,8 @@ export default async function AdminDashboardPage() {
             konfirmasi subscription baru maksimal 1x24 jam.
           </p>
         </div>
-      </section>
+        </section>
+      </div>
     </div>
   );
 }

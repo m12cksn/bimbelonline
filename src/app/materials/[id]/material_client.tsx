@@ -232,7 +232,7 @@ export default function MaterialWithResources({
       {/* Video pembelajaran menjadi fokus utama saat halaman dibuka */}
       {!embedMaterial && simpleView && (
         <div ref={startRef} className="space-y-4">
-          <div className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm">
+          <div className="overflow-hidden border-x border-b border-slate-200 bg-white shadow-sm sm:rounded-b-lg">
             {material.video_url ? (
               isYouTube ? (
                 <div className="relative w-full bg-black pb-[56.25%]">
@@ -414,7 +414,16 @@ export default function MaterialWithResources({
 
       {/* Quiz hanya muncul setelah tombol diklik */}
       {mode && (
-        <div ref={quizRef} className={embedMaterial ? "mt-2" : "mt-5 space-y-4"}>
+        <div
+          ref={quizRef}
+          className={
+            embedMaterial
+              ? "mt-2"
+              : simpleView
+                ? "mt-4 space-y-4"
+                : "mt-5 space-y-4"
+          }
+        >
           {embedMaterial && embedUrl ? (
             <div className="rounded-[1.75rem] border border-slate-200 bg-white p-2 shadow-[0_18px_50px_-40px_rgba(15,23,42,0.2)] sm:p-3 md:p-4">
               <div className="relative h-[68vh] min-h-[360px] w-full overflow-hidden rounded-[1.35rem] border border-slate-200 bg-slate-50 sm:min-h-[440px] lg:h-[76vh] lg:min-h-[620px] lg:max-h-[780px]">
