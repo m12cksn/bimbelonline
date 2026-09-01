@@ -85,6 +85,11 @@ const defaultMultipartItem = (): MultipartItem => ({
   answer: "",
 });
 
+function previewImageSrc(url: string) {
+  if (!url || url.startsWith("blob:") || url.startsWith("data:")) return url;
+  return `${url}${url.includes("?") ? "&" : "?"}preview=${Date.now()}`;
+}
+
 const gradeOptions = [
   ...Array.from({ length: 9 }, (_, idx) => ({
     id: idx + 1,
@@ -132,6 +137,8 @@ export default function AdminQuestionsPage() {
   const [explanation, setExplanation] = useState("");
   const [questionImageUrl, setQuestionImageUrl] = useState("");
   const [answerImageUrl, setAnswerImageUrl] = useState("");
+  const [questionImagePreviewUrl, setQuestionImagePreviewUrl] = useState("");
+  const [answerImagePreviewUrl, setAnswerImagePreviewUrl] = useState("");
 
   const [saving, setSaving] = useState(false);
   const [creating, setCreating] = useState(false);
@@ -411,6 +418,8 @@ export default function AdminQuestionsPage() {
     setExplanation("");
     setQuestionImageUrl("");
     setAnswerImageUrl("");
+    setQuestionImagePreviewUrl("");
+    setAnswerImagePreviewUrl("");
   }
 
   function handleSelectQuestion(row: QuestionRow) {
@@ -422,6 +431,8 @@ export default function AdminQuestionsPage() {
     setHelperText(row.helper_text ?? "");
     setQuestionImageUrl(row.question_image_url ?? "");
     setAnswerImageUrl(row.correct_answer_image_url ?? "");
+    setQuestionImagePreviewUrl("");
+    setAnswerImagePreviewUrl("");
     setExplanation(row.explanation ?? "");
 
     const dropTargetLabels = (row.drop_targets || [])
@@ -555,9 +566,47 @@ export default function AdminQuestionsPage() {
         throw new Error(json.error || "Gagal menyimpan perubahan");
       }
       toast.success("Perubahan tersimpan.");
-      if (selectedMaterial) {
-        await loadQuestions(selectedMaterial);
-      }
+      setQuestions((current) =>
+        current.map((question) => {
+          if (question.id !== selectedId) return question;
+
+          return {
+            ...question,
+            material_id: selectedMaterial ?? question.material_id,
+            question_number: questionNumber ? Number(questionNumber) : null,
+            type: questionType,
+            prompt: promptText.trim(),
+            helper_text: helperText.trim() || null,
+            correct_answer: correctAnswer || null,
+            explanation: explanation || null,
+            question_image_url: questionImageUrl || null,
+            correct_answer_image_url: answerImageUrl || null,
+            question_mode: questionMode,
+            options:
+              questionType === "mcq" || questionType === "drag_drop"
+                ? options.map((option) => ({
+                    ...option,
+                    isCorrect:
+                      Boolean(correctAnswer) &&
+                      (correctAnswer === option.value ||
+                        correctAnswer === option.label),
+                  }))
+                : [],
+            items:
+              questionType === "multipart"
+                ? multipartItems.map((item, index) => ({
+                    id: question.items?.[index]?.id ?? `local-${index}`,
+                    label: item.label,
+                    prompt: item.prompt,
+                    image_url: item.imageUrl ?? null,
+                    answer: item.answer,
+                  }))
+                : [],
+            drop_targets: questionType === "drag_drop" ? question.drop_targets : [],
+            drop_items: questionType === "drag_drop" ? question.drop_items : [],
+          };
+        }),
+      );
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
       toast.error(msg);
@@ -610,6 +659,19 @@ export default function AdminQuestionsPage() {
     if (kind === "option" && typeof optionIndex === "number") {
       setUploadingOptionIndex(optionIndex);
     }
+    const localPreviewUrl = URL.createObjectURL(file);
+    if (kind === "question") {
+      setQuestionImagePreviewUrl(localPreviewUrl);
+    } else if (kind === "answer") {
+      setAnswerImagePreviewUrl(localPreviewUrl);
+    } else if (kind === "option" && typeof optionIndex === "number") {
+      setOptions((prev) => {
+        const next = [...prev];
+        const existing = next[optionIndex] ?? defaultOption();
+        next[optionIndex] = { ...existing, imageUrl: localPreviewUrl };
+        return next;
+      });
+    }
     try {
       const form = new FormData();
       form.append("file", file);
@@ -642,6 +704,12 @@ export default function AdminQuestionsPage() {
         });
       }
       toast.success("Upload berhasil.");
+      if (questionInputRef.current) questionInputRef.current.value = "";
+      if (answerInputRef.current) answerInputRef.current.value = "";
+      if (kind === "option" && typeof optionIndex === "number") {
+        const input = optionInputRefs.current[optionIndex];
+        if (input) input.value = "";
+      }
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
       toast.error(msg);
@@ -801,7 +869,7 @@ export default function AdminQuestionsPage() {
       </section>
 
       <div className="space-y-6 px-4 py-6 sm:px-6 lg:px-8">
-      <div className="flex flex-wrap items-center gap-3 rounded-lg border border-slate-200 bg-white p-4">
+      <div className="sticky bottom-0 -mx-4 -mb-4 flex flex-wrap items-center gap-3 border-t border-slate-200 bg-white/95 p-4 backdrop-blur">
         <div className="flex flex-col gap-1">
           <label className="text-xs text-slate-500">Materi</label>
           <select
@@ -1308,7 +1376,14 @@ export default function AdminQuestionsPage() {
                 </button>
                 <button
                   type="button"
-                  onClick={() => insertPromptText("\\frac{3}{4} + \\frac{1}{4}")}
+                  onClick={() => insertPromptText("2^2")}
+                  className="rounded-md border border-sky-200 bg-white px-2 py-1 text-[11px] font-semibold text-sky-700 hover:bg-sky-50"
+                >
+                  + Pangkat
+                </button>
+                <button
+                  type="button"
+                  onClick={() => insertPromptText("\\frac{3}{4} + 2^2")}
                   className="rounded-md border border-slate-200 bg-white px-2 py-1 text-[11px] font-semibold text-slate-600 hover:bg-slate-50"
                 >
                   Contoh
@@ -1323,8 +1398,9 @@ export default function AdminQuestionsPage() {
               placeholder="Contoh: Ibu membeli \\frac{1}{2} kg gula. Berapa kg gula yang dibeli?"
             />
             <p className="mt-1 text-[11px] text-slate-500">
-              Untuk pecahan, tulis <code className="rounded bg-white px-1">\frac{"{1}"}{"{2}"}</code>.
-              Nanti akan tampil sebagai pecahan bertingkat.
+              Pecahan: <code className="rounded bg-white px-1">\frac{"{1}"}{"{2}"}</code>.
+              Pangkat: <code className="rounded bg-white px-1">2^2</code> atau{" "}
+              <code className="rounded bg-white px-1">10^{"{3}"}</code>.
             </p>
             {promptText.trim() && (
               <div className="mt-3 rounded-lg border border-emerald-100 bg-white p-3 text-sm text-slate-900">
@@ -1375,11 +1451,14 @@ export default function AdminQuestionsPage() {
                 className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs text-slate-900"
                 placeholder="URL gambar soal"
                 value={questionImageUrl}
-                onChange={(e) => setQuestionImageUrl(e.target.value)}
+                onChange={(e) => {
+                  setQuestionImageUrl(e.target.value);
+                  setQuestionImagePreviewUrl("");
+                }}
               />
-              {questionImageUrl && (
+              {(questionImagePreviewUrl || questionImageUrl) && (
                 <img
-                  src={questionImageUrl}
+                  src={questionImagePreviewUrl || previewImageSrc(questionImageUrl)}
                   alt="Preview soal"
                   className="max-h-32 rounded-lg border border-slate-200 bg-white object-contain"
                 />
@@ -1411,11 +1490,14 @@ export default function AdminQuestionsPage() {
                 className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs text-slate-900"
                 placeholder="URL gambar jawaban benar"
                 value={answerImageUrl}
-                onChange={(e) => setAnswerImageUrl(e.target.value)}
+                onChange={(e) => {
+                  setAnswerImageUrl(e.target.value);
+                  setAnswerImagePreviewUrl("");
+                }}
               />
-              {answerImageUrl && (
+              {(answerImagePreviewUrl || answerImageUrl) && (
                 <img
-                  src={answerImageUrl}
+                  src={answerImagePreviewUrl || previewImageSrc(answerImageUrl)}
                   alt="Preview jawaban"
                   className="max-h-32 rounded-lg border border-slate-200 bg-white object-contain"
                 />
@@ -1656,7 +1738,7 @@ export default function AdminQuestionsPage() {
             </div>
           </section>
 
-          <div className="sticky bottom-0 -mx-4 -mb-4 flex flex-wrap items-center gap-3 border-t border-slate-200 bg-white/95 p-4 backdrop-blur">
+          <div className="flex flex-wrap items-center gap-3 rounded-lg border border-slate-200 bg-white p-4">
             <button
               type="button"
               onClick={handleCreate}
@@ -1689,3 +1771,4 @@ export default function AdminQuestionsPage() {
     </div>
   );
 }
+

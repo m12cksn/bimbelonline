@@ -223,7 +223,7 @@ function DropZone({
       className={`rounded-xl border border-dashed px-4 py-4 text-base transition ${
         isOver
           ? "border-emerald-400 bg-emerald-50"
-        : "border-slate-200 bg-slate-50"
+          : "border-slate-200 bg-slate-50"
       } ${onClick ? "cursor-pointer" : ""}`}
     >
       <div className="text-[11px] uppercase tracking-wide text-slate-500">
@@ -496,8 +496,12 @@ export default function MaterialQuiz({
   useEffect(() => {
     if (allowAllAccess) {
       if (orderedMeta.length > 0) {
-        const minNumber = Math.min(...orderedMeta.map((q) => q.question_number));
-        const maxNumber = Math.max(...orderedMeta.map((q) => q.question_number));
+        const minNumber = Math.min(
+          ...orderedMeta.map((q) => q.question_number),
+        );
+        const maxNumber = Math.max(
+          ...orderedMeta.map((q) => q.question_number),
+        );
         setCurrentNumber(minNumber);
         setMaxUnlockedNumber(maxNumber);
       }
@@ -1642,33 +1646,92 @@ export default function MaterialQuiz({
                   </div>
 
                   <>
-                      {normalizedQuestion.type === "mcq" && (
-                        <div className="space-y-3">
-                          <div className="grid gap-2 md:grid-cols-2">
-                            {normalizedQuestion.options.map((opt) => (
-                              <button
-                                key={opt.value}
-                                disabled={loadingAnswer}
-                                onClick={() => handleAnswer(opt.value)}
-                                className="group relative w-full overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-left text-base text-slate-900 transition hover:-translate-y-0.5 hover:border-cyan-400 hover:bg-slate-100 hover:shadow-md hover:shadow-cyan-500/30 disabled:opacity-60"
-                              >
-                                {opt.imageUrl && (
-                                  <div className="mb-2 overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
-                                    <img
-                                      src={opt.imageUrl}
-                                      alt={opt.label}
-                                      className="h-32 w-full object-contain"
-                                    />
-                                  </div>
-                                )}
-                                <span className="font-semibold text-slate-900">
-                                  <MathText text={opt.label} />
-                                </span>
-                                <div className="pointer-events-none absolute -bottom-6 -right-8 h-16 w-16 rounded-full bg-linear-to-tr from-cyan-500/20 via-purple-500/20 to-pink-500/20 blur-xl" />
-                              </button>
-                            ))}
-                          </div>
-                          <div className="relative z-30 flex flex-wrap items-center justify-end gap-2 text-[11px] text-slate-600">
+                    {normalizedQuestion.type === "mcq" && (
+                      <div className="space-y-3">
+                        <div className="grid gap-2 md:grid-cols-2">
+                          {normalizedQuestion.options.map((opt) => (
+                            <button
+                              key={opt.value}
+                              disabled={loadingAnswer}
+                              onClick={() => handleAnswer(opt.value)}
+                              className="group relative w-full overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-left text-base text-slate-900 transition hover:-translate-y-0.5 hover:border-cyan-400 hover:bg-slate-100 hover:shadow-md hover:shadow-cyan-500/30 disabled:opacity-60"
+                            >
+                              {opt.imageUrl && (
+                                <div className="mb-2 overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
+                                  <img
+                                    src={opt.imageUrl}
+                                    alt={opt.label}
+                                    className="h-32 w-full object-contain"
+                                  />
+                                </div>
+                              )}
+                              <span className="font-semibold text-slate-900">
+                                <MathText text={opt.label} />
+                              </span>
+                              <div className="pointer-events-none absolute -bottom-6 -right-8 h-16 w-16 rounded-full bg-linear-to-tr from-cyan-500/20 via-purple-500/20 to-pink-500/20 blur-xl" />
+                            </button>
+                          ))}
+                        </div>
+                        <div className="relative z-30 flex flex-wrap items-center justify-end gap-2 text-[11px] text-slate-600">
+                          <button
+                            type="button"
+                            onClick={toggleDoodle}
+                            aria-pressed={doodleActive}
+                            title="Coret-coret"
+                            className={`rounded-xl border px-2 py-2 text-sm transition ${
+                              doodleActive
+                                ? "border-slate-900 bg-slate-900 text-white"
+                                : "border-slate-200 bg-white text-slate-600"
+                            }`}
+                          >
+                            ✏️
+                          </button>
+                          <button
+                            type="button"
+                            onClick={handleDoodleUndo}
+                            disabled={!doodleState.canUndo}
+                            title="Undo"
+                            className="rounded-xl border border-slate-200 bg-white px-2 py-2 text-sm text-slate-600 disabled:opacity-50"
+                          >
+                            ↶
+                          </button>
+                          <button
+                            type="button"
+                            onClick={handleDoodleRedo}
+                            disabled={!doodleState.canRedo}
+                            title="Redo"
+                            className="rounded-xl border border-slate-200 bg-white px-2 py-2 text-sm text-slate-600 disabled:opacity-50"
+                          >
+                            ↷
+                          </button>
+                          <button
+                            type="button"
+                            onClick={handleDoodleClear}
+                            disabled={!doodleState.hasStrokes}
+                            title="Hapus"
+                            className="rounded-xl border border-slate-200 bg-white px-2 py-2 text-sm text-slate-600 disabled:opacity-50"
+                          >
+                            🧹
+                          </button>
+                        </div>
+                      </div>
+                    )}
+
+                    {normalizedQuestion.type === "essay" && (
+                      <div className="space-y-2">
+                        <textarea
+                          value={essayAnswer}
+                          onChange={(e) => setEssayAnswer(e.target.value)}
+                          placeholder="Tulis jawabanmu di sini..."
+                          className="w-full rounded-2xl border border-slate-200 bg-slate-50 p-4 text-base text-slate-900 shadow-inner shadow-slate-200/70 focus:border-cyan-400 focus:outline-none"
+                          rows={6}
+                        />
+                        <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-600">
+                          <span>
+                            Ekspresikan jawaban dengan bahasamu sendiri. Kamu
+                            boleh menulis langkah-langkahnya.
+                          </span>
+                          <div className="relative z-30 flex items-center gap-2">
                             <button
                               type="button"
                               onClick={toggleDoodle}
@@ -1709,219 +1772,296 @@ export default function MaterialQuiz({
                             >
                               🧹
                             </button>
+                            <button
+                              type="button"
+                              disabled={loadingAnswer || !essayAnswer.trim()}
+                              onClick={() => handleAnswer(essayAnswer.trim())}
+                              className="rounded-xl border border-emerald-500 bg-emerald-600 px-3 py-2 font-semibold text-white shadow-md shadow-emerald-500/40 transition hover:-translate-y-px hover:bg-emerald-700 disabled:opacity-60"
+                            >
+                              Kirim jawaban
+                            </button>
                           </div>
                         </div>
-                      )}
+                      </div>
+                    )}
 
-                      {normalizedQuestion.type === "essay" && (
-                        <div className="space-y-2">
-                          <textarea
-                            value={essayAnswer}
-                            onChange={(e) => setEssayAnswer(e.target.value)}
-                            placeholder="Tulis jawabanmu di sini..."
-                            className="w-full rounded-2xl border border-slate-200 bg-slate-50 p-4 text-base text-slate-900 shadow-inner shadow-slate-200/70 focus:border-cyan-400 focus:outline-none"
-                            rows={6}
-                          />
-                          <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-600">
-                            <span>
-                              Ekspresikan jawaban dengan bahasamu sendiri. Kamu
-                              boleh menulis langkah-langkahnya.
-                            </span>
-                            <div className="relative z-30 flex items-center gap-2">
-                              <button
-                                type="button"
-                                onClick={toggleDoodle}
-                                aria-pressed={doodleActive}
-                                title="Coret-coret"
-                                className={`rounded-xl border px-2 py-2 text-sm transition ${
-                                  doodleActive
-                                    ? "border-slate-900 bg-slate-900 text-white"
-                                    : "border-slate-200 bg-white text-slate-600"
-                                }`}
-                              >
-                                ✏️
-                              </button>
-                              <button
-                                type="button"
-                                onClick={handleDoodleUndo}
-                                disabled={!doodleState.canUndo}
-                                title="Undo"
-                                className="rounded-xl border border-slate-200 bg-white px-2 py-2 text-sm text-slate-600 disabled:opacity-50"
-                              >
-                                ↶
-                              </button>
-                              <button
-                                type="button"
-                                onClick={handleDoodleRedo}
-                                disabled={!doodleState.canRedo}
-                                title="Redo"
-                                className="rounded-xl border border-slate-200 bg-white px-2 py-2 text-sm text-slate-600 disabled:opacity-50"
-                              >
-                                ↷
-                              </button>
-                              <button
-                                type="button"
-                                onClick={handleDoodleClear}
-                                disabled={!doodleState.hasStrokes}
-                                title="Hapus"
-                                className="rounded-xl border border-slate-200 bg-white px-2 py-2 text-sm text-slate-600 disabled:opacity-50"
-                              >
-                                🧹
-                              </button>
-                              <button
-                                type="button"
-                                disabled={loadingAnswer || !essayAnswer.trim()}
-                                onClick={() => handleAnswer(essayAnswer.trim())}
-                                className="rounded-xl border border-emerald-500 bg-emerald-600 px-3 py-2 font-semibold text-white shadow-md shadow-emerald-500/40 transition hover:-translate-y-px hover:bg-emerald-700 disabled:opacity-60"
-                              >
-                                Kirim jawaban
-                              </button>
-                            </div>
-                          </div>
+                    {normalizedQuestion.type === "multipart" && (
+                      <div className="space-y-3">
+                        <div className="text-[11px] font-semibold text-slate-600">
+                          Jawab tiap bagian berikut:
                         </div>
-                      )}
-
-                      {normalizedQuestion.type === "multipart" && (
                         <div className="space-y-3">
-                          <div className="text-[11px] font-semibold text-slate-600">
-                            Jawab tiap bagian berikut:
-                          </div>
-                          <div className="space-y-3">
-                            {multipartItems.map((item, idx) => (
-                              <div
-                                key={item.id}
-                                className="rounded-2xl border border-slate-200 bg-slate-50 p-4 shadow-inner shadow-slate-200/70"
-                              >
-                                <p className="text-sm font-semibold text-slate-900">
-                                  {item.label || String.fromCharCode(97 + idx)}.{" "}
-                                  <MathText text={item.prompt} />
-                                </p>
-                                {item.image_url && (
-                                  <div className="mt-2 overflow-hidden rounded-xl border border-slate-200 bg-white">
-                                    <img
-                                      src={item.image_url}
-                                      alt={`Ilustrasi ${item.label}`}
-                                      className="h-32 w-full object-contain"
-                                    />
-                                  </div>
-                                )}
-                                <input
-                                  className="mt-3 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900"
-                                  placeholder="Jawaban bagian ini..."
-                                  value={multipartAnswers[item.id] ?? ""}
-                                  onChange={(e) =>
-                                    setMultipartAnswers((prev) => ({
-                                      ...prev,
-                                      [item.id]: e.target.value,
-                                    }))
-                                  }
-                                />
-                              </div>
-                            ))}
-                          </div>
-                          <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-600">
-                            <span>
-                              Pastikan semua bagian terisi sebelum mengirim.
-                            </span>
-                            <div className="relative z-30 flex items-center gap-2">
-                              <button
-                                type="button"
-                                onClick={toggleDoodle}
-                                aria-pressed={doodleActive}
-                                title="Coret-coret"
-                                className={`rounded-xl border px-2 py-2 text-sm transition ${
-                                  doodleActive
-                                    ? "border-slate-900 bg-slate-900 text-white"
-                                    : "border-slate-200 bg-white text-slate-600"
-                                }`}
-                              >
-                                ✏️
-                              </button>
-                              <button
-                                type="button"
-                                onClick={handleDoodleUndo}
-                                disabled={!doodleState.canUndo}
-                                title="Undo"
-                                className="rounded-xl border border-slate-200 bg-white px-2 py-2 text-sm text-slate-600 disabled:opacity-50"
-                              >
-                                ↶
-                              </button>
-                              <button
-                                type="button"
-                                onClick={handleDoodleRedo}
-                                disabled={!doodleState.canRedo}
-                                title="Redo"
-                                className="rounded-xl border border-slate-200 bg-white px-2 py-2 text-sm text-slate-600 disabled:opacity-50"
-                              >
-                                ↷
-                              </button>
-                              <button
-                                type="button"
-                                onClick={handleDoodleClear}
-                                disabled={!doodleState.hasStrokes}
-                                title="Hapus"
-                                className="rounded-xl border border-slate-200 bg-white px-2 py-2 text-sm text-slate-600 disabled:opacity-50"
-                              >
-                                🧹
-                              </button>
-                              <button
-                                type="button"
-                                disabled={loadingAnswer || !multipartReady}
-                                onClick={() =>
-                                  handleAnswer(JSON.stringify(multipartAnswers))
+                          {multipartItems.map((item, idx) => (
+                            <div
+                              key={item.id}
+                              className="rounded-2xl border border-slate-200 bg-slate-50 p-4 shadow-inner shadow-slate-200/70"
+                            >
+                              <p className="text-sm font-semibold text-slate-900">
+                                {item.label || String.fromCharCode(97 + idx)}.{" "}
+                                <MathText text={item.prompt} />
+                              </p>
+                              {item.image_url && (
+                                <div className="mt-2 overflow-hidden rounded-xl border border-slate-200 bg-white">
+                                  <img
+                                    src={item.image_url}
+                                    alt={`Ilustrasi ${item.label}`}
+                                    className="h-32 w-full object-contain"
+                                  />
+                                </div>
+                              )}
+                              <input
+                                className="mt-3 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900"
+                                placeholder="Jawaban bagian ini..."
+                                value={multipartAnswers[item.id] ?? ""}
+                                onChange={(e) =>
+                                  setMultipartAnswers((prev) => ({
+                                    ...prev,
+                                    [item.id]: e.target.value,
+                                  }))
                                 }
-                                className="rounded-xl border border-emerald-500 bg-emerald-600 px-3 py-2 font-semibold text-white shadow-md shadow-emerald-500/40 transition hover:-translate-y-px hover:bg-emerald-700 disabled:opacity-60"
-                              >
-                                Kirim jawaban
-                              </button>
+                              />
                             </div>
+                          ))}
+                        </div>
+                        <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-600">
+                          <span>
+                            Pastikan semua bagian terisi sebelum mengirim.
+                          </span>
+                          <div className="relative z-30 flex items-center gap-2">
+                            <button
+                              type="button"
+                              onClick={toggleDoodle}
+                              aria-pressed={doodleActive}
+                              title="Coret-coret"
+                              className={`rounded-xl border px-2 py-2 text-sm transition ${
+                                doodleActive
+                                  ? "border-slate-900 bg-slate-900 text-white"
+                                  : "border-slate-200 bg-white text-slate-600"
+                              }`}
+                            >
+                              ✏️
+                            </button>
+                            <button
+                              type="button"
+                              onClick={handleDoodleUndo}
+                              disabled={!doodleState.canUndo}
+                              title="Undo"
+                              className="rounded-xl border border-slate-200 bg-white px-2 py-2 text-sm text-slate-600 disabled:opacity-50"
+                            >
+                              ↶
+                            </button>
+                            <button
+                              type="button"
+                              onClick={handleDoodleRedo}
+                              disabled={!doodleState.canRedo}
+                              title="Redo"
+                              className="rounded-xl border border-slate-200 bg-white px-2 py-2 text-sm text-slate-600 disabled:opacity-50"
+                            >
+                              ↷
+                            </button>
+                            <button
+                              type="button"
+                              onClick={handleDoodleClear}
+                              disabled={!doodleState.hasStrokes}
+                              title="Hapus"
+                              className="rounded-xl border border-slate-200 bg-white px-2 py-2 text-sm text-slate-600 disabled:opacity-50"
+                            >
+                              🧹
+                            </button>
+                            <button
+                              type="button"
+                              disabled={loadingAnswer || !multipartReady}
+                              onClick={() =>
+                                handleAnswer(JSON.stringify(multipartAnswers))
+                              }
+                              className="rounded-xl border border-emerald-500 bg-emerald-600 px-3 py-2 font-semibold text-white shadow-md shadow-emerald-500/40 transition hover:-translate-y-px hover:bg-emerald-700 disabled:opacity-60"
+                            >
+                              Kirim jawaban
+                            </button>
                           </div>
                         </div>
-                      )}
+                      </div>
+                    )}
 
-                      {normalizedQuestion.type === "drag_drop" && (
-                        <>
-                          {tapMode ? (
+                    {normalizedQuestion.type === "drag_drop" && (
+                      <>
+                        {tapMode ? (
+                          <div className="grid gap-4 lg:grid-cols-[1.1fr_1fr]">
+                            <div className="space-y-2">
+                              <div className="text-[11px] font-semibold text-slate-600">
+                                Tap pilihan, lalu tap kotak jawaban
+                              </div>
+                              <div className="flex flex-wrap gap-2">
+                                {normalizedQuestion.options.map((opt) => {
+                                  const used = Object.values(
+                                    placements,
+                                  ).includes(opt.value);
+                                  const isSelected = tapSelection === opt.value;
+                                  return (
+                                    <button
+                                      key={opt.value}
+                                      type="button"
+                                      onClick={() => handleTapOption(opt.value)}
+                                      className={`rounded-xl border px-3 py-2 text-sm font-semibold transition ${
+                                        isSelected
+                                          ? "border-slate-900 bg-slate-900 text-white"
+                                          : "border-slate-200 bg-white text-slate-700"
+                                      } ${used ? "opacity-70" : ""}`}
+                                    >
+                                      {opt.label}
+                                    </button>
+                                  );
+                                })}
+                              </div>
+                              {tapSelection && (
+                                <div className="text-[11px] text-slate-500">
+                                  Dipilih:{" "}
+                                  {
+                                    normalizedQuestion.options.find(
+                                      (opt) => opt.value === tapSelection,
+                                    )?.label
+                                  }
+                                </div>
+                              )}
+                            </div>
+
+                            <div className="space-y-2 rounded-2xl border border-slate-200 bg-slate-50 p-4 shadow-inner shadow-slate-200/70">
+                              <div className="text-[11px] font-semibold text-slate-600">
+                                Kotak jawaban
+                              </div>
+
+                              <div className="space-y-2">
+                                {(normalizedQuestion.dropTargets || []).map(
+                                  (target) => (
+                                    <DropZone
+                                      key={target.key}
+                                      id={target.key}
+                                      label={target.label}
+                                      onClick={() =>
+                                        handleTapTarget(target.key)
+                                      }
+                                    >
+                                      {placements[target.key] ? (
+                                        <div className="mt-1 rounded-lg border border-emerald-200 bg-emerald-50 px-2 py-1 text-emerald-700">
+                                          {normalizedQuestion.options.find(
+                                            (opt) =>
+                                              opt.value ===
+                                              placements[target.key],
+                                          )?.label ?? placements[target.key]}
+                                        </div>
+                                      ) : (
+                                        <div className="mt-1 rounded-lg border border-slate-200 bg-white px-2 py-1 text-[12px] text-slate-500">
+                                          {target.placeholder ??
+                                            "Tap untuk mengisi"}
+                                        </div>
+                                      )}
+                                    </DropZone>
+                                  ),
+                                )}
+                              </div>
+
+                              <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-600">
+                                <span>
+                                  {Object.values(placements).length}/
+                                  {normalizedQuestion.dropTargets?.length ?? 0}{" "}
+                                  kotak terisi.
+                                </span>
+                                <div className="relative z-30 flex items-center gap-2">
+                                  <button
+                                    type="button"
+                                    onClick={toggleDoodle}
+                                    aria-pressed={doodleActive}
+                                    title="Coret-coret"
+                                    className={`rounded-xl border px-2 py-2 text-sm transition ${
+                                      doodleActive
+                                        ? "border-slate-900 bg-slate-900 text-white"
+                                        : "border-slate-200 bg-white text-slate-600"
+                                    }`}
+                                  >
+                                    ✏️
+                                  </button>
+                                  <button
+                                    type="button"
+                                    onClick={handleDoodleUndo}
+                                    disabled={!doodleState.canUndo}
+                                    title="Undo"
+                                    className="rounded-xl border border-slate-200 bg-white px-2 py-2 text-sm text-slate-600 disabled:opacity-50"
+                                  >
+                                    ↶
+                                  </button>
+                                  <button
+                                    type="button"
+                                    onClick={handleDoodleRedo}
+                                    disabled={!doodleState.canRedo}
+                                    title="Redo"
+                                    className="rounded-xl border border-slate-200 bg-white px-2 py-2 text-sm text-slate-600 disabled:opacity-50"
+                                  >
+                                    ↷
+                                  </button>
+                                  <button
+                                    type="button"
+                                    onClick={handleDoodleClear}
+                                    disabled={!doodleState.hasStrokes}
+                                    title="Hapus"
+                                    className="rounded-xl border border-slate-200 bg-white px-2 py-2 text-sm text-slate-600 disabled:opacity-50"
+                                  >
+                                    🧹
+                                  </button>
+                                  <button
+                                    type="button"
+                                    disabled={
+                                      loadingAnswer ||
+                                      !normalizedQuestion.dropTargets?.every(
+                                        (target) => placements[target.key],
+                                      )
+                                    }
+                                    onClick={() =>
+                                      handleAnswer(
+                                        JSON.stringify(
+                                          normalizedQuestion.dropTargets?.reduce(
+                                            (acc, target) => ({
+                                              ...acc,
+                                              [target.key]:
+                                                placements[target.key] ?? "",
+                                            }),
+                                            {},
+                                          ) || {},
+                                        ),
+                                      )
+                                    }
+                                    className="rounded-xl border border-cyan-600 bg-cyan-600 px-3 py-2 font-semibold text-white shadow-md shadow-cyan-200/70 transition hover:-translate-y-px hover:bg-cyan-700 disabled:opacity-60"
+                                  >
+                                    Kirim jawaban
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        ) : (
+                          <DndProvider
+                            backend={MultiBackend}
+                            options={DND_OPTIONS}
+                          >
                             <div className="grid gap-4 lg:grid-cols-[1.1fr_1fr]">
                               <div className="space-y-2">
                                 <div className="text-[11px] font-semibold text-slate-600">
-                                  Tap pilihan, lalu tap kotak jawaban
+                                  Pilih kartu jawaban
                                 </div>
                                 <div className="flex flex-wrap gap-2">
                                   {normalizedQuestion.options.map((opt) => {
                                     const used = Object.values(
                                       placements,
                                     ).includes(opt.value);
-                                    const isSelected =
-                                      tapSelection === opt.value;
                                     return (
-                                      <button
+                                      <DraggableOption
                                         key={opt.value}
-                                        type="button"
-                                        onClick={() =>
-                                          handleTapOption(opt.value)
-                                        }
-                                        className={`rounded-xl border px-3 py-2 text-sm font-semibold transition ${
-                                          isSelected
-                                            ? "border-slate-900 bg-slate-900 text-white"
-                                            : "border-slate-200 bg-white text-slate-700"
-                                        } ${used ? "opacity-70" : ""}`}
-                                      >
-                                        {opt.label}
-                                      </button>
+                                        id={opt.value}
+                                        label={opt.label}
+                                        isUsed={used}
+                                      />
                                     );
                                   })}
                                 </div>
-                                {tapSelection && (
-                                  <div className="text-[11px] text-slate-500">
-                                    Dipilih:{" "}
-                                    {
-                                      normalizedQuestion.options.find(
-                                        (opt) => opt.value === tapSelection,
-                                      )?.label
-                                    }
-                                  </div>
-                                )}
                               </div>
 
                               <div className="space-y-2 rounded-2xl border border-slate-200 bg-slate-50 p-4 shadow-inner shadow-slate-200/70">
@@ -1936,9 +2076,17 @@ export default function MaterialQuiz({
                                         key={target.key}
                                         id={target.key}
                                         label={target.label}
-                                        onClick={() =>
-                                          handleTapTarget(target.key)
-                                        }
+                                        onDropValue={(value, targetKey) => {
+                                          setPlacements((prev) => {
+                                            const next = { ...prev };
+                                            Object.keys(next).forEach((key) => {
+                                              if (next[key] === value)
+                                                delete next[key];
+                                            });
+                                            next[targetKey] = value;
+                                            return next;
+                                          });
+                                        }}
                                       >
                                         {placements[target.key] ? (
                                           <div className="mt-1 rounded-lg border border-emerald-200 bg-emerald-50 px-2 py-1 text-emerald-700">
@@ -1951,7 +2099,7 @@ export default function MaterialQuiz({
                                         ) : (
                                           <div className="mt-1 rounded-lg border border-slate-200 bg-white px-2 py-1 text-[12px] text-slate-500">
                                             {target.placeholder ??
-                                              "Tap untuk mengisi"}
+                                              "Seret jawaban ke sini"}
                                           </div>
                                         )}
                                       </DropZone>
@@ -2037,159 +2185,10 @@ export default function MaterialQuiz({
                                 </div>
                               </div>
                             </div>
-                          ) : (
-                          <DndProvider backend={MultiBackend} options={DND_OPTIONS}>
-                              <div className="grid gap-4 lg:grid-cols-[1.1fr_1fr]">
-                                <div className="space-y-2">
-                                  <div className="text-[11px] font-semibold text-slate-600">
-                                    Pilih kartu jawaban
-                                  </div>
-                                  <div className="flex flex-wrap gap-2">
-                                    {normalizedQuestion.options.map((opt) => {
-                                      const used = Object.values(
-                                        placements,
-                                      ).includes(opt.value);
-                                      return (
-                                        <DraggableOption
-                                          key={opt.value}
-                                          id={opt.value}
-                                          label={opt.label}
-                                          isUsed={used}
-                                        />
-                                      );
-                                    })}
-                                  </div>
-                                </div>
-
-                                <div className="space-y-2 rounded-2xl border border-slate-200 bg-slate-50 p-4 shadow-inner shadow-slate-200/70">
-                                  <div className="text-[11px] font-semibold text-slate-600">
-                                    Kotak jawaban
-                                  </div>
-
-                                  <div className="space-y-2">
-                                    {(normalizedQuestion.dropTargets || []).map(
-                                      (target) => (
-                                        <DropZone
-                                          key={target.key}
-                                          id={target.key}
-                                          label={target.label}
-                                          onDropValue={(value, targetKey) => {
-                                            setPlacements((prev) => {
-                                              const next = { ...prev };
-                                              Object.keys(next).forEach(
-                                                (key) => {
-                                                  if (next[key] === value)
-                                                    delete next[key];
-                                                },
-                                              );
-                                              next[targetKey] = value;
-                                              return next;
-                                            });
-                                          }}
-                                        >
-                                          {placements[target.key] ? (
-                                            <div className="mt-1 rounded-lg border border-emerald-200 bg-emerald-50 px-2 py-1 text-emerald-700">
-                                              {normalizedQuestion.options.find(
-                                                (opt) =>
-                                                  opt.value ===
-                                                  placements[target.key],
-                                              )?.label ??
-                                                placements[target.key]}
-                                            </div>
-                                          ) : (
-                                            <div className="mt-1 rounded-lg border border-slate-200 bg-white px-2 py-1 text-[12px] text-slate-500">
-                                              {target.placeholder ??
-                                                "Seret jawaban ke sini"}
-                                            </div>
-                                          )}
-                                        </DropZone>
-                                      ),
-                                    )}
-                                  </div>
-
-                                  <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-600">
-                                    <span>
-                                      {Object.values(placements).length}/
-                                      {normalizedQuestion.dropTargets?.length ??
-                                        0}{" "}
-                                      kotak terisi.
-                                    </span>
-                                    <div className="relative z-30 flex items-center gap-2">
-                                      <button
-                                        type="button"
-                                        onClick={toggleDoodle}
-                                        aria-pressed={doodleActive}
-                                        title="Coret-coret"
-                                        className={`rounded-xl border px-2 py-2 text-sm transition ${
-                                          doodleActive
-                                            ? "border-slate-900 bg-slate-900 text-white"
-                                            : "border-slate-200 bg-white text-slate-600"
-                                        }`}
-                                      >
-                                        ✏️
-                                      </button>
-                                      <button
-                                        type="button"
-                                        onClick={handleDoodleUndo}
-                                        disabled={!doodleState.canUndo}
-                                        title="Undo"
-                                        className="rounded-xl border border-slate-200 bg-white px-2 py-2 text-sm text-slate-600 disabled:opacity-50"
-                                      >
-                                        ↶
-                                      </button>
-                                      <button
-                                        type="button"
-                                        onClick={handleDoodleRedo}
-                                        disabled={!doodleState.canRedo}
-                                        title="Redo"
-                                        className="rounded-xl border border-slate-200 bg-white px-2 py-2 text-sm text-slate-600 disabled:opacity-50"
-                                      >
-                                        ↷
-                                      </button>
-                                      <button
-                                        type="button"
-                                        onClick={handleDoodleClear}
-                                        disabled={!doodleState.hasStrokes}
-                                        title="Hapus"
-                                        className="rounded-xl border border-slate-200 bg-white px-2 py-2 text-sm text-slate-600 disabled:opacity-50"
-                                      >
-                                        🧹
-                                      </button>
-                                      <button
-                                        type="button"
-                                        disabled={
-                                          loadingAnswer ||
-                                          !normalizedQuestion.dropTargets?.every(
-                                            (target) => placements[target.key],
-                                          )
-                                        }
-                                        onClick={() =>
-                                          handleAnswer(
-                                            JSON.stringify(
-                                              normalizedQuestion.dropTargets?.reduce(
-                                                (acc, target) => ({
-                                                  ...acc,
-                                                  [target.key]:
-                                                    placements[target.key] ??
-                                                    "",
-                                                }),
-                                                {},
-                                              ) || {},
-                                            ),
-                                          )
-                                        }
-                                        className="rounded-xl border border-cyan-600 bg-cyan-600 px-3 py-2 font-semibold text-white shadow-md shadow-cyan-200/70 transition hover:-translate-y-px hover:bg-cyan-700 disabled:opacity-60"
-                                      >
-                                        Kirim jawaban
-                                      </button>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </DndProvider>
-                          )}
-                        </>
-                      )}
+                          </DndProvider>
+                        )}
+                      </>
+                    )}
                   </>
 
                   {feedback.isCorrect !== null && (

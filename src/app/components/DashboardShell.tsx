@@ -24,7 +24,8 @@ export default function DashboardShell({
   const isFlushDashboardHome =
     pathname === "/dashboard/student" ||
     pathname === "/dashboard/admin" ||
-    pathname.startsWith("/dashboard/admin/questions");
+    pathname.startsWith("/dashboard/admin/questions") ||
+    pathname.startsWith("/dashboard/admin/diagnostic-questions");
 
   const IconMenu = () => (
     <svg
