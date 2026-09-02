@@ -23,7 +23,7 @@ export default function MathCheckupLanding() {
   const router = useRouter();
   const [studentName, setStudentName] = useState("");
   const [parentWhatsapp, setParentWhatsapp] = useState("");
-  // const [gradeLevel, setGradeLevel] = useState("4");
+  const [gradeLevel, setGradeLevel] = useState(4);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -33,36 +33,35 @@ export default function MathCheckupLanding() {
       label: "Kelas 1–2",
       shortLabel: "1–2",
       description: "Fondasi matematika dasar",
+      grades: [1, 2],
     },
     {
       value: "grade_3_4",
       label: "Kelas 3–4",
       shortLabel: "3–4",
       description: "Matematika dasar dan problem solving",
+      grades: [3, 4],
     },
     {
       value: "grade_5_6",
       label: "Kelas 5–6",
       shortLabel: "5–6",
       description: "Pecahan, desimal, geometri, dan reasoning",
+      grades: [5, 6],
     },
     {
       value: "grade_7_9",
       label: "SMP",
       shortLabel: "7–9",
       description: "Matematika kelas 7–9",
+      grades: [7, 8, 9],
     },
     {
       value: "grade_10_12",
       label: "SMA",
       shortLabel: "10–12",
       description: "Matematika kelas 10–12",
-    },
-    {
-      value: "olympiad",
-      label: "Olimpiade",
-      shortLabel: "🏆",
-      description: "Problem solving dan mathematical reasoning",
+      grades: [10, 11, 12],
     },
   ];
 
@@ -81,7 +80,7 @@ export default function MathCheckupLanding() {
         body: JSON.stringify({
           studentName,
           parentWhatsapp,
-          // gradeLevel: Number(gradeLevel),
+          gradeLevel,
           diagnosticLevel,
           concern: "Math Check-Up BeSmartKids",
         }),
@@ -105,6 +104,10 @@ export default function MathCheckupLanding() {
       setLoading(false);
     }
   }
+
+  const selectedDiagnosticLevel = diagnosticLevels.find(
+    (level) => level.value === diagnosticLevel,
+  );
 
   return (
     <main className="min-h-screen overflow-hidden bg-[#ecfdf3] p-4 text-slate-950 sm:p-6 lg:p-8">
@@ -196,7 +199,10 @@ export default function MathCheckupLanding() {
                   <button
                     key={level.value}
                     type="button"
-                    onClick={() => setDiagnosticLevel(level.value)}
+                    onClick={() => {
+                      setDiagnosticLevel(level.value);
+                      setGradeLevel(level.grades[0]);
+                    }}
                     className={`text-left border p-4 transition ${
                       selected
                         ? "border-emerald-600 bg-emerald-600 text-white shadow-[0_12px_28px_-18px_rgba(5,150,105,0.9)]"
@@ -270,6 +276,24 @@ export default function MathCheckupLanding() {
                 className="mt-2 w-full border border-slate-200 bg-slate-50 px-4 py-3 font-semibold outline-none transition focus:border-emerald-500 focus:bg-white focus:shadow-[0_0_0_4px_rgba(16,185,129,0.14)]"
                 placeholder="Contoh: 081234567890"
               />
+            </label>
+            <label className="block">
+              <span className="text-sm font-bold text-slate-700">
+                Kelas anak saat ini
+              </span>
+
+              <select
+                required
+                value={gradeLevel}
+                onChange={(e) => setGradeLevel(Number(e.target.value))}
+                className="mt-2 w-full border border-slate-200 bg-slate-50 px-4 py-3 font-semibold outline-none transition focus:border-emerald-500 focus:bg-white focus:shadow-[0_0_0_4px_rgba(16,185,129,0.14)]"
+              >
+                {selectedDiagnosticLevel?.grades.map((grade) => (
+                  <option key={grade} value={grade}>
+                    Kelas {grade}
+                  </option>
+                ))}
+              </select>
             </label>
 
             <div className="border border-emerald-100 bg-emerald-50/60 p-4">
