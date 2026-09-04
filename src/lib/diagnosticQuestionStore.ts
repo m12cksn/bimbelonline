@@ -128,6 +128,13 @@ function buildFallbackDiagnosticVersion(gradeLevel: number) {
   return `BSMATH_G${gradeLevel}_V1`;
 }
 
+function defaultRecommendationKey(
+  gradeLevel: number,
+  category: DiagnosticCategory,
+) {
+  return `G${gradeLevel}_${category.toUpperCase().replace(/[^A-Z0-9]+/g, "_")}`;
+}
+
 /* =========================================================
  * DATABASE ROW → DOMAIN OBJECT
  * ======================================================= */
@@ -240,13 +247,15 @@ export function staticQuestionRows(gradeLevel?: number) {
 
       subskill: question.subskill,
 
-      prerequisite_skill: question.prerequisiteSkill || null,
+      prerequisite_skill: question.prerequisiteSkill || "",
 
       difficulty: question.difficulty,
 
       cognitive_type: question.cognitiveType,
 
-      recommendation_key: question.recommendationKey || null,
+      recommendation_key:
+        question.recommendationKey ||
+        defaultRecommendationKey(question.gradeLevel, question.category),
 
       misconception_key: question.misconceptionKey,
 
