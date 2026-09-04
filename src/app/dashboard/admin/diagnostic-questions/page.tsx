@@ -330,13 +330,17 @@ export default function AdminDiagnosticQuestionsPage() {
   }
 
   async function seedDefaults() {
-    if (!window.confirm("Sinkronkan soal default kelas 1-12 ke database? Soal default dengan ID yang sama akan diperbarui.")) return;
+    if (!window.confirm(`Sinkronkan soal default untuk Kelas ${gradeLevel}? Soal default kelas ini dengan ID yang sama akan diperbarui.`)) return;
     setSaving(true);
     try {
-      const res = await fetch("/api/adm/diagnostic-questions/seed", { method: "POST" });
+      const res = await fetch("/api/adm/diagnostic-questions/seed", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ gradeLevel }),
+      });
       const json = await res.json();
       if (!res.ok || !json.ok) throw new Error(json.error || "Gagal sinkron soal default.");
-      toast.success("Soal default diagnostic sudah disinkronkan.");
+      toast.success(`Soal default Kelas ${json.gradeLevel ?? gradeLevel} sudah disinkronkan.`);
       await loadQuestions(gradeLevel);
     } catch (err) {
       toast.error((err as Error).message);
@@ -364,7 +368,7 @@ export default function AdminDiagnosticQuestionsPage() {
                 disabled={saving}
                 className="border border-white/30 bg-white/95 px-4 py-3 text-sm font-black text-emerald-800 shadow-[0_14px_35px_-24px_rgba(15,23,42,0.65)] hover:bg-emerald-50 disabled:opacity-60"
               >
-                Sinkron Soal Default
+                Sinkron Soal Kelas {gradeLevel}
               </button>
             </div>
           </div>
