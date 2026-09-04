@@ -7,6 +7,53 @@ type MathTextProps = {
   className?: string;
 };
 
+type VisualIconType =
+  | "circle"
+  | "circleGreen"
+  | "circlePink"
+  | "circlePurple"
+  | "triangle"
+  | "star"
+  | "apple"
+  | "block"
+  | "plus";
+
+type IconToken =
+  | {
+      kind: "builtIn";
+      type: VisualIconType;
+      count: number;
+      end: number;
+    }
+  | {
+      kind: "asset";
+      name: string;
+      src: string;
+      count: number;
+      end: number;
+    };
+
+const visualIconAliases: Record<string, VisualIconType> = {
+  circle: "circle",
+  lingkaran: "circle",
+  "circle-green": "circleGreen",
+  "lingkaran-hijau": "circleGreen",
+  "circle-pink": "circlePink",
+  "lingkaran-pink": "circlePink",
+  "circle-purple": "circlePurple",
+  "lingkaran-ungu": "circlePurple",
+  triangle: "triangle",
+  segitiga: "triangle",
+  star: "star",
+  bintang: "star",
+  apple: "apple",
+  apel: "apple",
+  block: "block",
+  blok: "block",
+  plus: "plus",
+  tambah: "plus",
+};
+
 function readBraced(input: string, start: number) {
   if (input[start] !== "{") return null;
   let depth = 0;
@@ -21,6 +68,49 @@ function readBraced(input: string, start: number) {
     }
   }
   return null;
+}
+
+function readIconToken(input: string, start: number) {
+  if (!input.startsWith("{{", start)) return null;
+  const end = input.indexOf("}}", start + 2);
+  if (end === -1) return null;
+
+  const raw = input.slice(start + 2, end).trim();
+  const parts = raw.split(":").map((part) => part.trim());
+  const rawType = parts[0]?.toLowerCase() ?? "";
+
+  if (rawType === "icon") {
+    const rawName = parts[1] ?? "";
+    const rawCount = parts[2] ?? "";
+    const count = Number(rawCount);
+    const safeName = rawName.replace(/[\\/?#<>:"|{}^`]/g, "").trim();
+
+    if (!safeName || !Number.isInteger(count) || count < 1) return null;
+
+    const hasExtension = /\.(svg|png|jpg|jpeg|webp)$/i.test(safeName);
+    const fileName = hasExtension ? safeName : `${safeName}.webp`;
+
+    return {
+      kind: "asset",
+      name: safeName.replace(/\.(svg|png|jpg|jpeg|webp)$/i, ""),
+      src: `/images/icons/${encodeURIComponent(fileName)}`,
+      count: Math.min(count, 40),
+      end: end + 2,
+    } satisfies IconToken;
+  }
+
+  const rawCount = parts[1]?.toLowerCase();
+  const iconType = visualIconAliases[rawType];
+  const count = Number(rawCount);
+
+  if (!iconType || !Number.isInteger(count) || count < 1) return null;
+
+  return {
+    kind: "builtIn",
+    type: iconType,
+    count: Math.min(count, 40),
+    end: end + 2,
+  } satisfies IconToken;
 }
 
 function readWrapped(input: string, start: number, open: string, close: string) {
@@ -53,6 +143,131 @@ function renderSqrt(
       <span className="border-t border-current px-1 pt-0.5">
         {renderInlineMath(value, depth + 1, `${key}-sqrt`)}
       </span>
+    </span>
+  );
+}
+
+function VisualIcon({ type }: { type: VisualIconType }) {
+  const common =
+    "h-5 w-5 drop-shadow-[0_2px_3px_rgba(15,23,42,0.18)] sm:h-6 sm:w-6";
+
+  if (type === "circle") {
+    return (
+      <svg viewBox="0 0 32 32" className={common} aria-label="lingkaran">
+        <circle cx="16" cy="16" r="12" fill="#38bdf8" />
+        <circle cx="12" cy="11" r="4" fill="#bae6fd" opacity="0.95" />
+        <circle cx="16" cy="16" r="12" fill="none" stroke="#0284c7" strokeWidth="1.5" />
+      </svg>
+    );
+  }
+
+  if (type === "circleGreen") {
+    return (
+      <svg viewBox="0 0 32 32" className={common} aria-label="lingkaran hijau">
+        <circle cx="16" cy="16" r="12" fill="#4ade80" />
+        <circle cx="12" cy="11" r="4" fill="#dcfce7" opacity="0.95" />
+        <circle cx="16" cy="16" r="12" fill="none" stroke="#16a34a" strokeWidth="1.5" />
+      </svg>
+    );
+  }
+
+  if (type === "circlePink") {
+    return (
+      <svg viewBox="0 0 32 32" className={common} aria-label="lingkaran pink">
+        <circle cx="16" cy="16" r="12" fill="#f472b6" />
+        <circle cx="12" cy="11" r="4" fill="#fce7f3" opacity="0.95" />
+        <circle cx="16" cy="16" r="12" fill="none" stroke="#db2777" strokeWidth="1.5" />
+      </svg>
+    );
+  }
+
+  if (type === "circlePurple") {
+    return (
+      <svg viewBox="0 0 32 32" className={common} aria-label="lingkaran ungu">
+        <circle cx="16" cy="16" r="12" fill="#a78bfa" />
+        <circle cx="12" cy="11" r="4" fill="#ede9fe" opacity="0.95" />
+        <circle cx="16" cy="16" r="12" fill="none" stroke="#7c3aed" strokeWidth="1.5" />
+      </svg>
+    );
+  }
+
+  if (type === "triangle") {
+    return (
+      <svg viewBox="0 0 32 32" className={common} aria-label="segitiga">
+        <path d="M16 4 29 27H3Z" fill="#fb923c" />
+        <path d="M16 8 9 22h14Z" fill="#fed7aa" opacity="0.45" />
+        <path d="M16 4 29 27H3Z" fill="none" stroke="#ea580c" strokeWidth="1.5" />
+      </svg>
+    );
+  }
+
+  if (type === "star") {
+    return (
+      <svg viewBox="0 0 32 32" className={common} aria-label="bintang">
+        <path
+          d="m16 3 3.9 8 8.8 1.3-6.4 6.2 1.5 8.7L16 23.1l-7.8 4.1 1.5-8.7-6.4-6.2 8.8-1.3Z"
+          fill="#facc15"
+          stroke="#ca8a04"
+          strokeWidth="1.4"
+        />
+        <path d="m16 7 1.8 4-4.2 1.1Z" fill="#fef3c7" opacity="0.85" />
+      </svg>
+    );
+  }
+
+  if (type === "apple") {
+    return (
+      <svg viewBox="0 0 32 32" className={common} aria-label="apel">
+        <path d="M18 8c2.7-3.5 6.3-3 7-2.7-.4 2.8-2.9 5-6.3 5.1Z" fill="#22c55e" />
+        <path d="M16.2 10.4c5.4-4.2 12.4-.1 10.6 8.1-1.6 7.5-6.2 9.7-9.7 7.2-3.5 2.5-8.1.3-9.7-7.2-1.8-8.2 5.2-12.3 8.8-8.1Z" fill="#ef4444" />
+        <path d="M12 13.2c-1.7 1.5-2.1 4.4-.8 7.8" fill="none" stroke="#fecaca" strokeWidth="2" strokeLinecap="round" />
+        <path d="M16.5 10.2c.2-2.8-.8-4.1-2.7-5.4" stroke="#854d0e" strokeWidth="2" strokeLinecap="round" />
+      </svg>
+    );
+  }
+
+  if (type === "block") {
+    return (
+      <svg viewBox="0 0 32 32" className={common} aria-label="blok">
+        <path d="M6 11 16 5l10 6-10 6Z" fill="#a78bfa" />
+        <path d="M6 11v10l10 6V17Z" fill="#7c3aed" />
+        <path d="M26 11v10l-10 6V17Z" fill="#8b5cf6" />
+        <path d="M6 11 16 5l10 6v10l-10 6-10-6Z" fill="none" stroke="#5b21b6" strokeWidth="1.2" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg viewBox="0 0 32 32" className={common} aria-label="tambah">
+      <circle cx="16" cy="16" r="12" fill="#34d399" />
+      <path d="M16 9v14M9 16h14" stroke="#065f46" strokeWidth="4" strokeLinecap="round" />
+      <circle cx="12" cy="11" r="3" fill="#bbf7d0" opacity="0.85" />
+    </svg>
+  );
+}
+
+function renderIconSet(
+  icon: IconToken,
+  key: string,
+): React.ReactNode {
+  return (
+    <span
+      key={key}
+      className="mx-1 inline-flex max-w-full flex-wrap items-center gap-1 align-middle"
+    >
+      {Array.from({ length: icon.count }, (_, index) => (
+        icon.kind === "asset" ? (
+          <img
+            key={`${key}-${index}`}
+            src={icon.src}
+            alt={icon.name}
+            className="h-5 w-5 object-contain drop-shadow-[0_2px_3px_rgba(15,23,42,0.18)] sm:h-6 sm:w-6"
+            loading="lazy"
+          />
+        ) : (
+          <VisualIcon key={`${key}-${index}`} type={icon.type} />
+        )
+      ))}
     </span>
   );
 }
@@ -132,6 +347,7 @@ function renderInlineMath(
 
   while (cursor < text.length) {
     const candidates = [
+      { type: "icon", index: text.indexOf("{{", cursor) },
       { type: "frac", index: text.indexOf("\\frac{", cursor) },
       { type: "sqrtBrace", index: text.indexOf("\\sqrt{", cursor) },
       { type: "sqrtParen", index: text.indexOf("sqrt(", cursor) },
@@ -208,6 +424,24 @@ function renderInlineMath(
       }
       nodes.push("√");
       cursor = next.index + 1;
+      continue;
+    }
+
+    if (next.type === "icon") {
+      const icon = readIconToken(text, next.index);
+      if (!icon) {
+        nodes.push("{{");
+        cursor = next.index + 2;
+        continue;
+      }
+
+      nodes.push(
+        renderIconSet(
+          icon,
+          `${keyPrefix}-icon-${key++}-${next.index}`,
+        ),
+      );
+      cursor = icon.end;
       continue;
     }
 

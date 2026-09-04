@@ -605,10 +605,15 @@ const grade1DiagnosticV2: DiagnosticQuestion[] = [
     "v2-q22",
     "Pecahan",
     "sedang",
-    "Model: ■ □. Dua bagian sama besar dan 1 bagian diarsir. Pecahan yang diarsir adalah ...",
-    ["rac{1}{2}", "rac{1}{3}", "rac{1}{4}", "rac{2}{2}"],
-    "rac{1}{2}",
-    "Satu dari dua bagian yang sama besar berarti satu per dua.",
+    "Ada 2 lingkaran. 1 lingkaran berwarna hijau.\n{{circle-green:1}} {{circle:1}}\nBagian yang berwarna hijau adalah ...",
+    [
+      "1 dari 2 = \frac{1}{2}",
+      "1 dari 3 = \frac{1}{3}",
+      "1 dari 4 = \frac{1}{4}",
+      "2 dari 2 = \frac{2}{2}",
+    ],
+    "1 dari 2 = \\frac{1}{2}",
+    "gambar disamping termasuk pecahan ?",
     {
       skillLevel: 2,
       assessmentBand: "stretch",
