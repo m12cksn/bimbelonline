@@ -583,7 +583,7 @@ export default function MathCheckupPdfClient({
 
       <div className="print-toolbar">
         <button type="button" onClick={() => window.print()}>
-          Download / Print PDF
+          Unduh / Cetak PDF
         </button>
         <a href={`/math-checkup/result/${attemptId}`}>Kembali ke Hasil</a>
       </div>
@@ -746,7 +746,7 @@ export default function MathCheckupPdfClient({
             <div className="next-step">
               <h3>Rekomendasi BeSmartKids</h3>
               <p>
-                Berdasarkan hasil diagnostic ini, area belajar yang paling perlu
+                Berdasarkan hasil diagnosis ini, area belajar yang paling perlu
                 diprioritaskan adalah{" "}
                 <strong>
                   {weakest.map((item) => item.category).join(", ")}

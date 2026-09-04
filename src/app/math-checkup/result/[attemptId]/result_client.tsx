@@ -267,7 +267,7 @@ function bandStatus(score: number, band: "foundation" | "core" | "stretch") {
 
     if (score >= 34) return "Berkembang";
 
-    return "Emerging";
+    return "Mulai Terlihat";
   }
 
   if (score >= 83) return "Kuat";
@@ -287,6 +287,39 @@ function bandDescription(band: "foundation" | "core" | "stretch") {
   }
 
   return "Soal tantangan untuk melihat kesiapan menuju materi yang lebih tinggi.";
+}
+
+function diagnosticLabel(value: string) {
+  const labels: Record<string, string> = {
+    "Number Sense": "Pemahaman Bilangan",
+    "Calculation Fluency": "Kelancaran Berhitung",
+    Fractions: "Pecahan",
+    "Word Problem Modeling": "Memahami Soal Cerita",
+    "Logical Reasoning": "Penalaran Logis",
+    "Counting and Cardinality": "Menghitung dan Menentukan Banyak Benda",
+    "Number Representation": "Mengenal Lambang Bilangan",
+    "Number Magnitude": "Membandingkan Banyak Benda dan Bilangan",
+    "Number Composition": "Menyusun dan Mengurai Bilangan",
+    "Place Value": "Nilai Tempat",
+    "Basic Addition": "Penjumlahan Dasar",
+    "Basic Subtraction": "Pengurangan Dasar",
+    "Missing Addend": "Angka yang Hilang",
+    "Number Bonds and Missing Addend": "Pasangan Bilangan dan Angka yang Hilang",
+    "Equality and Number Relationships": "Kesetaraan dan Hubungan Bilangan",
+    "Pattern Recognition": "Mengenali Pola",
+    Measurement: "Pengukuran",
+    "Direct Length Comparison": "Membandingkan Panjang Secara Langsung",
+    "Shape Attributes": "Ciri-Ciri Bangun",
+    "Spatial Position": "Posisi Benda",
+    "Fraction as Part of a Whole": "Pecahan sebagai Bagian dari Keseluruhan",
+    "One Half": "Setengah",
+    "Equal Parts": "Bagian Sama Besar",
+    "Data Interpretation": "Membaca Data Sederhana",
+    "Grade Level Practice": "Latihan Sesuai Kelas",
+    "Grade Level Mathematics": "Matematika Sesuai Kelas",
+  };
+
+  return labels[value] ?? value;
 }
 
 /* =========================================================
@@ -536,7 +569,7 @@ export default function MathCheckupResultClient({
         };
 
         if (!response.ok || !data.ok) {
-          throw new Error(data.error ?? "Gagal memuat hasil diagnostic.");
+          throw new Error(data.error ?? "Gagal memuat hasil diagnosis.");
         }
 
         if (!active) {
@@ -630,7 +663,7 @@ export default function MathCheckupResultClient({
   ).replace(/\D/g, "");
 
   const whatsappMessage = encodeURIComponent(
-    `Halo BeSmartKids, saya ingin konsultasi hasil Math Check-Up ${displayName} kelas ${attempt?.grade_level ?? ""}. Hasil readiness: ${diagnostic?.readinessScore ?? "-"} / 100 (${diagnostic ? readinessText(diagnostic.readinessStatus) : ""}). Saya ingin mengetahui program belajar yang disarankan.`,
+    `Halo BeSmartKids, saya ingin konsultasi hasil Math Check-Up ${displayName} kelas ${attempt?.grade_level ?? ""}. Skor kesiapan: ${diagnostic?.readinessScore ?? "-"} / 100 (${diagnostic ? readinessText(diagnostic.readinessStatus) : ""}). Saya ingin mengetahui program belajar yang disarankan.`,
   );
 
   const whatsappHref = businessWhatsapp
@@ -772,7 +805,7 @@ export default function MathCheckupResultClient({
               sm:text-sm
             "
           >
-            Math Check-Up Report
+            Laporan Math Check-Up
           </span>
         </div>
       </header>
@@ -822,7 +855,7 @@ export default function MathCheckupResultClient({
                   text-blue-600
                 "
               >
-                Mathematics Readiness
+                Kesiapan Matematika
               </p>
 
               <h1
@@ -944,7 +977,7 @@ export default function MathCheckupResultClient({
                 text-blue-700
               "
             >
-              Performance by Level
+              Performa Berdasarkan Level
             </p>
 
             <h2
@@ -967,19 +1000,19 @@ export default function MathCheckupResultClient({
             "
           >
             <BandCard
-              title="Foundation"
+              title="Dasar"
               band="foundation"
               data={diagnostic.bandScores.foundation}
             />
 
             <BandCard
-              title="Grade Level"
+              title="Sesuai Kelas"
               band="core"
               data={diagnostic.bandScores.core}
             />
 
             <BandCard
-              title="Stretch"
+              title="Tantangan"
               band="stretch"
               data={diagnostic.bandScores.stretch}
             />
@@ -999,8 +1032,8 @@ export default function MathCheckupResultClient({
             "
           >
             Skor readiness tidak dihitung hanya dari jumlah jawaban benar.
-            Foundation dan materi inti digunakan untuk membaca kesiapan anak,
-            sedangkan soal Stretch berfungsi sebagai indikator kesiapan menuju
+            Level dasar dan materi inti digunakan untuk membaca kesiapan anak,
+            sedangkan soal tantangan berfungsi sebagai indikator kesiapan menuju
             tantangan berikutnya.
           </div>
         </section>
@@ -1058,7 +1091,7 @@ export default function MathCheckupResultClient({
                     text-emerald-700
                   "
                 >
-                  Strengths
+                  Kekuatan
                 </p>
 
                 <h2
@@ -1081,7 +1114,7 @@ export default function MathCheckupResultClient({
               {diagnostic.strengths.length > 0 ? (
                 diagnostic.strengths.slice(0, 5).map((skill) => (
                   <div
-                    key={skill.skill}
+                    key={diagnosticLabel(skill.skill)}
                     className="
                           border
                           border-emerald-100
@@ -1104,7 +1137,7 @@ export default function MathCheckupResultClient({
                               text-slate-800
                             "
                       >
-                        {skill.skill}
+                        {diagnosticLabel(skill.skill)}
                       </p>
 
                       <span
@@ -1129,7 +1162,7 @@ export default function MathCheckupResultClient({
                             text-slate-500
                           "
                     >
-                      Benar {skill.correct} dari {skill.total} evidence •{" "}
+                      Benar {skill.correct} dari {skill.total} bukti jawaban •{" "}
                       {confidenceLabel(skill.confidence)}
                     </p>
                   </div>
@@ -1143,7 +1176,7 @@ export default function MathCheckupResultClient({
                     text-slate-600
                   "
                 >
-                  Belum ada skill dengan evidence cukup untuk dikategorikan
+                  Belum ada kemampuan dengan bukti jawaban yang cukup untuk dikategorikan
                   sebagai kekuatan utama.
                 </p>
               )}
@@ -1195,7 +1228,7 @@ export default function MathCheckupResultClient({
                     text-amber-700
                   "
                 >
-                  Learning Gaps
+                  Celah Belajar
                 </p>
 
                 <h2
@@ -1218,7 +1251,7 @@ export default function MathCheckupResultClient({
               {priorityItems.length > 0 ? (
                 priorityItems.slice(0, 5).map((skill, index) => (
                   <div
-                    key={`${skill.skill}-${index}`}
+                    key={`${diagnosticLabel(skill.skill)}-${index}`}
                     className="
                           border
                           border-amber-100
@@ -1272,7 +1305,7 @@ export default function MathCheckupResultClient({
                                   text-slate-800
                                 "
                           >
-                            {skill.skill}
+                            {diagnosticLabel(skill.skill)}
                           </p>
 
                           <span
@@ -1298,7 +1331,7 @@ export default function MathCheckupResultClient({
                                 text-slate-500
                               "
                         >
-                          Benar {skill.correct} dari {skill.total} evidence •{" "}
+                          Benar {skill.correct} dari {skill.total} bukti jawaban •{" "}
                           {confidenceLabel(skill.confidence)}
                         </p>
                       </div>
@@ -1318,7 +1351,7 @@ export default function MathCheckupResultClient({
                     text-emerald-800
                   "
                 >
-                  Tidak ditemukan priority gap yang signifikan pada diagnostic
+                  Tidak ditemukan celah prioritas yang signifikan pada diagnosis
                   ini.
                 </div>
               )}
@@ -1349,7 +1382,7 @@ export default function MathCheckupResultClient({
                 text-rose-700
               "
             >
-              Prerequisite Analysis
+              Analisis Prasyarat
             </p>
 
             <h2
@@ -1387,7 +1420,7 @@ export default function MathCheckupResultClient({
             >
               {diagnostic.rootGaps.map((gap) => (
                 <div
-                  key={gap.skill}
+                  key={diagnosticLabel(gap.skill)}
                   className="
                         border
                         border-rose-100
@@ -1404,7 +1437,7 @@ export default function MathCheckupResultClient({
                           text-rose-600
                         "
                   >
-                    Root / prerequisite
+                    Akar / Prasyarat
                   </p>
 
                   <p
@@ -1415,7 +1448,7 @@ export default function MathCheckupResultClient({
                           text-slate-900
                         "
                   >
-                    {gap.skill}
+                    {diagnosticLabel(gap.skill)}
                   </p>
 
                   <p
@@ -1427,7 +1460,7 @@ export default function MathCheckupResultClient({
                           text-slate-600
                         "
                   >
-                    Berpengaruh pada: {gap.affects.join(", ")}
+                    Berpengaruh pada: {gap.affects.map(diagnosticLabel).join(", ")}
                   </p>
                 </div>
               ))}
@@ -1457,7 +1490,7 @@ export default function MathCheckupResultClient({
               text-blue-700
             "
           >
-            Personalized Recommendation
+            Rekomendasi Belajar Personal
           </p>
 
           <h2
@@ -1490,7 +1523,7 @@ export default function MathCheckupResultClient({
                 text-blue-600
               "
             >
-              Recommended Starting Point
+              Titik Awal yang Disarankan
             </p>
 
             <p
@@ -1501,7 +1534,7 @@ export default function MathCheckupResultClient({
                 text-[#102449]
               "
             >
-              {diagnostic.recommendedStartingPoint.title}
+              {diagnosticLabel(diagnostic.recommendedStartingPoint.title)}
             </p>
 
             <p
@@ -1531,7 +1564,7 @@ export default function MathCheckupResultClient({
                   text-slate-800
                 "
               >
-                Personalized Learning Path
+                Alur Belajar Personal
               </p>
 
               <div
@@ -1545,7 +1578,7 @@ export default function MathCheckupResultClient({
               >
                 {diagnostic.learningPath.map((step, index) => (
                   <div
-                    key={`${step}-${index}`}
+                    key={`${diagnosticLabel(step)}-${index}`}
                     className="
                           relative
                           border
@@ -1581,7 +1614,7 @@ export default function MathCheckupResultClient({
                             text-[#102449]
                           "
                     >
-                      {step}
+                      {diagnosticLabel(step)}
                     </p>
                   </div>
                 ))}
@@ -1621,7 +1654,7 @@ export default function MathCheckupResultClient({
                   text-blue-200
                 "
               >
-                Recommended Free Trial
+                Rekomendasi Sesi Percobaan
               </p>
 
               <h2
@@ -1645,8 +1678,8 @@ export default function MathCheckupResultClient({
                   text-blue-100
                 "
               >
-                Free Trial dapat difokuskan pada area yang ditemukan dari
-                diagnostic ini, sehingga sesi pertama tidak dimulai secara acak.
+                Sesi percobaan dapat difokuskan pada area yang ditemukan dari
+                diagnosis ini, sehingga sesi pertama tidak dimulai secara acak.
               </p>
             </div>
 
@@ -1671,7 +1704,7 @@ export default function MathCheckupResultClient({
                   hover:bg-emerald-50
                 "
               >
-                Konsultasi Hasil & Free Trial
+                Konsultasi Hasil & Sesi Percobaan Gratis
               </a>
             ) : (
               <div
@@ -1713,7 +1746,7 @@ export default function MathCheckupResultClient({
               text-blue-700
             "
           >
-            Answer History
+            Riwayat Jawaban
           </p>
 
           <h2
@@ -1837,7 +1870,7 @@ export default function MathCheckupResultClient({
             text-slate-400
           "
         >
-          Hasil Math Check-Up BeSmartKids merupakan diagnostic pembelajaran
+          Hasil Math Check-Up BeSmartKids merupakan diagnosis pembelajaran
           internal untuk membantu menentukan titik awal belajar. Hasil ini bukan
           diagnosis klinis atau nilai sekolah.
         </p>

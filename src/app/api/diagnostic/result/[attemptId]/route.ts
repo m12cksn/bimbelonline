@@ -81,37 +81,37 @@ type RootGap = {
 };
 
 const grade1RecommendationTitles: Record<string, string> = {
-  G1_COUNTING_CARDINALITY: "Counting & Cardinality",
+  G1_COUNTING_CARDINALITY: "Menghitung dan Menentukan Banyak Benda",
 
-  G1_NUMBER_REPRESENTATION: "Number Representation",
+  G1_NUMBER_REPRESENTATION: "Mengenal Lambang Bilangan",
 
-  G1_NUMBER_MAGNITUDE: "Number Magnitude",
+  G1_NUMBER_MAGNITUDE: "Membandingkan Banyak Benda dan Bilangan",
 
-  G1_NUMBER_COMPOSITION: "Number Composition",
+  G1_NUMBER_COMPOSITION: "Menyusun dan Mengurai Bilangan",
 
-  G1_PLACE_VALUE: "Place Value",
+  G1_PLACE_VALUE: "Nilai Tempat",
 
-  G1_BASIC_ADDITION: "Basic Addition",
+  G1_BASIC_ADDITION: "Penjumlahan Dasar",
 
-  G1_BASIC_SUBTRACTION: "Basic Subtraction",
+  G1_BASIC_SUBTRACTION: "Pengurangan Dasar",
 
-  G1_MISSING_ADDEND: "Number Bonds & Missing Numbers",
+  G1_MISSING_ADDEND: "Pasangan Bilangan dan Angka yang Hilang",
 
-  G1_EQUALITY: "Equality & Number Relationships",
+  G1_EQUALITY: "Kesetaraan dan Hubungan Bilangan",
 
-  G1_WORD_PROBLEM: "Word Problem Modeling",
+  G1_WORD_PROBLEM: "Memahami Soal Cerita",
 
-  G1_PATTERN: "Patterns",
+  G1_PATTERN: "Pola",
 
-  G1_MEASUREMENT: "Measurement",
+  G1_MEASUREMENT: "Pengukuran",
 
-  G1_SHAPE_ATTRIBUTES: "Shape Attributes",
+  G1_SHAPE_ATTRIBUTES: "Ciri-Ciri Bangun",
 
-  G1_SPATIAL_POSITION: "Spatial Position",
+  G1_SPATIAL_POSITION: "Posisi Benda",
 
-  G1_FRACTION_FOUNDATION: "Fraction Foundation",
+  G1_FRACTION_FOUNDATION: "Dasar Pecahan",
 
-  G1_DATA_INTERPRETATION: "Data Interpretation",
+  G1_DATA_INTERPRETATION: "Membaca Data Sederhana",
 };
 
 /* =========================================================
@@ -281,11 +281,11 @@ function getReadinessStatus({
 
 function readinessLabel(status: ReadinessStatus) {
   const labels: Record<ReadinessStatus, string> = {
-    foundation_support_needed: "Foundation Support Needed",
+    foundation_support_needed: "Perlu Penguatan Dasar",
 
-    developing_at_grade_level: "Developing at Grade Level",
+    developing_at_grade_level: "Mulai Berkembang Sesuai Kelas",
 
-    secure_at_grade_level: "Secure at Grade Level",
+    secure_at_grade_level: "Kuat Sesuai Kelas",
 
     ready_for_enrichment: "Ready for Enrichment",
   };
@@ -589,7 +589,7 @@ function buildLearningPlan(skillResults: SkillResult[], rootGaps: RootGap[]) {
     : {
         key: "GRADE_LEVEL_PRACTICE",
 
-        title: "Grade Level Practice",
+        title: "Latihan Sesuai Kelas",
       };
 
   return {
@@ -602,7 +602,7 @@ function buildLearningPlan(skillResults: SkillResult[], rootGaps: RootGap[]) {
     trialFocus:
       learningPath.length > 0
         ? learningPath.slice(0, 2).join(" & ")
-        : "Grade Level Mathematics",
+        : "Matematika Sesuai Kelas",
   };
 }
 
