@@ -46,7 +46,7 @@ export async function GET(req: Request) {
 
   let { data, error } = await supabase
     .from("diagnostic_questions")
-    .select("id, grade_level, category, difficulty, prompt, options, correct_answer, explanation, sort_order, is_active")
+    .select("id, grade_level, skill_level, assessment_band, category, domain, skill, subskill, prerequisite_skill, difficulty, cognitive_type, recommendation_key, misconception_key, diagnostic_weight, diagnostic_version, prompt, options, correct_answer, explanation, sort_order, is_active")
     .eq("grade_level", gradeLevel)
     .order("sort_order", { ascending: true })
     .order("created_at", { ascending: true });
@@ -68,7 +68,7 @@ export async function GET(req: Request) {
 
     const retry = await supabase
       .from("diagnostic_questions")
-      .select("id, grade_level, category, difficulty, prompt, options, correct_answer, explanation, sort_order, is_active")
+      .select("id, grade_level, skill_level, assessment_band, category, domain, skill, subskill, prerequisite_skill, difficulty, cognitive_type, recommendation_key, misconception_key, diagnostic_weight, diagnostic_version, prompt, options, correct_answer, explanation, sort_order, is_active")
       .eq("grade_level", gradeLevel)
       .order("sort_order", { ascending: true })
       .order("created_at", { ascending: true });

@@ -12,12 +12,25 @@ type DiagnosticCategory =
   | "Penalaran Logis";
 
 type Difficulty = "mudah" | "sedang" | "menantang";
+type AssessmentBand = "foundation" | "core" | "stretch";
+type CognitiveType = "fluency" | "concept" | "application" | "reasoning";
 
 type DiagnosticQuestion = {
   id: string;
   gradeLevel: number;
+  skillLevel: number;
+  assessmentBand: AssessmentBand;
   category: DiagnosticCategory;
+  domain: string;
+  skill: string;
+  subskill: string;
+  prerequisiteSkill: string;
   difficulty: Difficulty;
+  cognitiveType: CognitiveType;
+  recommendationKey: string;
+  misconceptionKey: string | null;
+  diagnosticWeight: number;
+  diagnosticVersion: string;
   prompt: string;
   options: string[];
   correctAnswer: string;
@@ -35,11 +48,46 @@ const categories: DiagnosticCategory[] = [
 ];
 
 const difficulties: Difficulty[] = ["mudah", "sedang", "menantang"];
+const assessmentBands: AssessmentBand[] = ["foundation", "core", "stretch"];
+const cognitiveTypes: CognitiveType[] = ["fluency", "concept", "application", "reasoning"];
+
+function defaultSkillFromCategory(category: DiagnosticCategory) {
+  const map: Record<DiagnosticCategory, string> = {
+    "Pemahaman Bilangan": "Number Sense",
+    "Kelancaran Berhitung": "Calculation Fluency",
+    Pecahan: "Fractions",
+    "Soal Cerita": "Word Problem Modeling",
+    "Penalaran Logis": "Logical Reasoning",
+  };
+  return map[category];
+}
+
+function defaultCognitiveType(category: DiagnosticCategory): CognitiveType {
+  if (category === "Kelancaran Berhitung") return "fluency";
+  if (category === "Soal Cerita") return "application";
+  if (category === "Penalaran Logis") return "reasoning";
+  return "concept";
+}
+
+function defaultRecommendationKey(gradeLevel: number, category: DiagnosticCategory) {
+  return `G${gradeLevel}_${defaultSkillFromCategory(category).toUpperCase().replace(/[^A-Z0-9]+/g, "_")}`;
+}
 
 const emptyForm = (gradeLevel = 1): Omit<DiagnosticQuestion, "id"> => ({
   gradeLevel,
+  skillLevel: gradeLevel,
+  assessmentBand: "core",
   category: "Pemahaman Bilangan",
+  domain: defaultSkillFromCategory("Pemahaman Bilangan"),
+  skill: defaultSkillFromCategory("Pemahaman Bilangan"),
+  subskill: defaultSkillFromCategory("Pemahaman Bilangan"),
+  prerequisiteSkill: "",
   difficulty: "sedang",
+  cognitiveType: defaultCognitiveType("Pemahaman Bilangan"),
+  recommendationKey: defaultRecommendationKey(gradeLevel, "Pemahaman Bilangan"),
+  misconceptionKey: null,
+  diagnosticWeight: 1,
+  diagnosticVersion: "MATH_CHECKUP_V1",
   prompt: "",
   options: ["", "", "", ""],
   correctAnswer: "",
@@ -96,8 +144,19 @@ export default function AdminDiagnosticQuestionsPage() {
     setSelectedId(question.id);
     setForm({
       gradeLevel: question.gradeLevel,
+      skillLevel: question.skillLevel ?? question.gradeLevel,
+      assessmentBand: question.assessmentBand ?? "core",
       category: question.category,
+      domain: question.domain ?? question.category,
+      skill: question.skill ?? defaultSkillFromCategory(question.category),
+      subskill: question.subskill ?? question.skill ?? defaultSkillFromCategory(question.category),
+      prerequisiteSkill: question.prerequisiteSkill ?? "",
       difficulty: question.difficulty,
+      cognitiveType: question.cognitiveType ?? defaultCognitiveType(question.category),
+      recommendationKey: question.recommendationKey ?? defaultRecommendationKey(question.gradeLevel, question.category),
+      misconceptionKey: question.misconceptionKey ?? null,
+      diagnosticWeight: question.diagnosticWeight ?? 1,
+      diagnosticVersion: question.diagnosticVersion ?? "MATH_CHECKUP_V1",
       prompt: question.prompt,
       options: [...question.options, "", "", "", ""].slice(0, Math.max(4, question.options.length)),
       correctAnswer: question.correctAnswer,
@@ -135,12 +194,39 @@ export default function AdminDiagnosticQuestionsPage() {
     });
   }
 
+  function updateCategory(category: DiagnosticCategory) {
+    setForm((current) => {
+      const skill = defaultSkillFromCategory(category);
+      return {
+        ...current,
+        category,
+        domain: current.domain || skill,
+        skill: current.skill || skill,
+        subskill: current.subskill || skill,
+        cognitiveType: defaultCognitiveType(category),
+        recommendationKey:
+          current.recommendationKey || defaultRecommendationKey(current.gradeLevel, category),
+      };
+    });
+  }
+
   function payload() {
     const options = form.options.map((option) => option.trim()).filter(Boolean);
     return {
       gradeLevel: form.gradeLevel,
+      skillLevel: form.skillLevel,
+      assessmentBand: form.assessmentBand,
       category: form.category,
+      domain: form.domain,
+      skill: form.skill.trim(),
+      subskill: form.subskill.trim(),
+      prerequisiteSkill: form.prerequisiteSkill.trim(),
       difficulty: form.difficulty,
+      cognitiveType: form.cognitiveType,
+      recommendationKey: form.recommendationKey.trim(),
+      misconceptionKey: form.misconceptionKey?.trim() || null,
+      diagnosticWeight: Number(form.diagnosticWeight),
+      diagnosticVersion: form.diagnosticVersion.trim(),
       prompt: form.prompt.trim(),
       options,
       correctAnswer: form.correctAnswer.trim(),
@@ -326,10 +412,26 @@ export default function AdminDiagnosticQuestionsPage() {
                   </select>
                 </label>
                 <label className="block">
+                  <span className="text-xs font-black text-slate-500">Skill Level</span>
+                  <select value={form.skillLevel} onChange={(event) => setForm((current) => ({ ...current, skillLevel: Number(event.target.value) }))} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none">
+                    {Array.from({ length: 12 }, (_, index) => index + 1).map((grade) => <option key={grade} value={grade}>Kelas {grade}</option>)}
+                  </select>
+                </label>
+                <label className="block">
+                  <span className="text-xs font-black text-slate-500">Assessment Band</span>
+                  <select value={form.assessmentBand} onChange={(event) => setForm((current) => ({ ...current, assessmentBand: event.target.value as AssessmentBand }))} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none">
+                    {assessmentBands.map((band) => <option key={band} value={band}>{band}</option>)}
+                  </select>
+                </label>
+                <label className="block">
                   <span className="text-xs font-black text-slate-500">Kategori</span>
-                  <select value={form.category} onChange={(event) => setForm((current) => ({ ...current, category: event.target.value as DiagnosticCategory }))} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none">
+                  <select value={form.category} onChange={(event) => updateCategory(event.target.value as DiagnosticCategory)} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none">
                     {categories.map((category) => <option key={category} value={category}>{category}</option>)}
                   </select>
+                </label>
+                <label className="block">
+                  <span className="text-xs font-black text-slate-500">Domain</span>
+                  <input value={form.domain} onChange={(event) => setForm((current) => ({ ...current, domain: event.target.value }))} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none" placeholder="Number Sense" />
                 </label>
                 <label className="block">
                   <span className="text-xs font-black text-slate-500">Kesulitan</span>
@@ -342,6 +444,47 @@ export default function AdminDiagnosticQuestionsPage() {
                   <input value={form.sortOrder ?? ""} onChange={(event) => setForm((current) => ({ ...current, sortOrder: event.target.value ? Number(event.target.value) : null }))} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none" placeholder="1" />
                 </label>
               </div>
+
+              <div className="mt-4 grid gap-4 md:grid-cols-3">
+                <label className="block">
+                  <span className="text-xs font-black text-slate-500">Skill</span>
+                  <input value={form.skill} onChange={(event) => setForm((current) => ({ ...current, skill: event.target.value }))} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none" placeholder="Number Sense" />
+                </label>
+                <label className="block">
+                  <span className="text-xs font-black text-slate-500">Subskill</span>
+                  <input value={form.subskill} onChange={(event) => setForm((current) => ({ ...current, subskill: event.target.value }))} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none" placeholder="Counting forward" />
+                </label>
+                <label className="block">
+                  <span className="text-xs font-black text-slate-500">Prerequisite Skill</span>
+                  <input value={form.prerequisiteSkill} onChange={(event) => setForm((current) => ({ ...current, prerequisiteSkill: event.target.value }))} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none" placeholder="Number recognition" />
+                </label>
+              </div>
+
+              <div className="mt-4 grid gap-4 md:grid-cols-4">
+                <label className="block">
+                  <span className="text-xs font-black text-slate-500">Cognitive Type</span>
+                  <select value={form.cognitiveType} onChange={(event) => setForm((current) => ({ ...current, cognitiveType: event.target.value as CognitiveType }))} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none">
+                    {cognitiveTypes.map((type) => <option key={type} value={type}>{type}</option>)}
+                  </select>
+                </label>
+                <label className="block">
+                  <span className="text-xs font-black text-slate-500">Recommendation Key</span>
+                  <input value={form.recommendationKey} onChange={(event) => setForm((current) => ({ ...current, recommendationKey: event.target.value }))} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none" placeholder="G1_NUMBER_SENSE" />
+                </label>
+                <label className="block">
+                  <span className="text-xs font-black text-slate-500">Misconception Key</span>
+                  <input value={form.misconceptionKey ?? ""} onChange={(event) => setForm((current) => ({ ...current, misconceptionKey: event.target.value || null }))} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none" placeholder="Optional" />
+                </label>
+                <label className="block">
+                  <span className="text-xs font-black text-slate-500">Diagnostic Weight</span>
+                  <input type="number" step="0.1" value={form.diagnosticWeight} onChange={(event) => setForm((current) => ({ ...current, diagnosticWeight: Number(event.target.value) }))} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none" placeholder="1" />
+                </label>
+              </div>
+
+              <label className="mt-4 block">
+                <span className="text-xs font-black text-slate-500">Diagnostic Version</span>
+                <input value={form.diagnosticVersion} onChange={(event) => setForm((current) => ({ ...current, diagnosticVersion: event.target.value }))} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none" placeholder="MATH_CHECKUP_V1" />
+              </label>
 
               <label className="mt-4 block">
                 <span className="text-xs font-black text-slate-500">Teks Soal</span>

@@ -403,7 +403,29 @@ export default function MathCheckupResultClient({
               </div>
               <DonutScore score={Number(attempt.score ?? 0)} />
             </div>
-
+            <div className="mt-6 grid gap-3 sm:grid-cols-3">
+              <button
+                type="button"
+                onClick={() => setActiveTab("analysis")}
+                className="border border-blue-200 bg-white px-5 py-4 text-center font-black text-blue-700 hover:bg-blue-50"
+              >
+                Lihat Laporan Lengkap
+              </button>
+              <Link
+                href={`/math-checkup/result/${attemptId}/pdf`}
+                className="border border-emerald-200 bg-emerald-50 px-5 py-4 text-center font-black text-emerald-700 hover:bg-emerald-100"
+              >
+                Download PDF
+              </Link>
+              <a
+                href={whatsappHref}
+                target="_blank"
+                rel="noreferrer"
+                className="bg-blue-600 px-5 py-4 text-center font-black text-white shadow-[0_16px_42px_-30px_rgba(37,99,235,0.95)] hover:bg-[#123a82]"
+              >
+                Konsultasi Hasil
+              </a>
+            </div>
             <div className="mt-7">
               <h2 className="text-lg font-black">Ringkasan Kemampuan</h2>
               <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-2 lg:grid-cols-5">
@@ -429,30 +451,6 @@ export default function MathCheckupResultClient({
                   </div>
                 ))}
               </div>
-            </div>
-
-            <div className="mt-6 grid gap-3 sm:grid-cols-3">
-              <button
-                type="button"
-                onClick={() => setActiveTab("analysis")}
-                className="border border-blue-200 bg-white px-5 py-4 text-center font-black text-blue-700 hover:bg-blue-50"
-              >
-                Lihat Laporan Lengkap
-              </button>
-              <Link
-                href={`/math-checkup/result/${attemptId}/pdf`}
-                className="border border-emerald-200 bg-emerald-50 px-5 py-4 text-center font-black text-emerald-700 hover:bg-emerald-100"
-              >
-                Download PDF
-              </Link>
-              <a
-                href={whatsappHref}
-                target="_blank"
-                rel="noreferrer"
-                className="bg-blue-600 px-5 py-4 text-center font-black text-white shadow-[0_16px_42px_-30px_rgba(37,99,235,0.95)] hover:bg-[#123a82]"
-              >
-                Konsultasi Hasil
-              </a>
             </div>
           </div>
         </section>

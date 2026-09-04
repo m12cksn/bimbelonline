@@ -10,8 +10,19 @@ type Difficulty = DiagnosticQuestion["difficulty"];
 
 type Payload = {
   gradeLevel?: number;
+  skillLevel?: number;
+  assessmentBand?: DiagnosticQuestion["assessmentBand"];
   category?: string;
+  domain?: string;
+  skill?: string;
+  subskill?: string;
+  prerequisiteSkill?: string;
   difficulty?: Difficulty;
+  cognitiveType?: DiagnosticQuestion["cognitiveType"];
+  recommendationKey?: string;
+  misconceptionKey?: string | null;
+  diagnosticWeight?: number;
+  diagnosticVersion?: string;
   prompt?: string;
   options?: string[];
   correctAnswer?: string;
@@ -33,21 +44,60 @@ async function requireAdmin() {
 
 function cleanPayload(body: Payload) {
   const gradeLevel = Number(body.gradeLevel);
+  const skillLevel = Number(body.skillLevel ?? body.gradeLevel);
+  const assessmentBand = body.assessmentBand ?? "core";
   const category = String(body.category ?? "");
+  const domain = String(body.domain ?? body.category ?? "").trim();
+  const skill = String(body.skill ?? "").trim();
+  const subskill = String(body.subskill ?? "").trim();
+  const prerequisiteSkill = String(body.prerequisiteSkill ?? "").trim();
   const difficulty = body.difficulty ?? "sedang";
+  const cognitiveType = body.cognitiveType ?? "concept";
+  const recommendationKey = String(body.recommendationKey ?? "").trim();
+  const misconceptionKey = body.misconceptionKey ? String(body.misconceptionKey).trim() : null;
+  const diagnosticWeight = Number(body.diagnosticWeight ?? 1);
+  const diagnosticVersion = String(body.diagnosticVersion ?? "MATH_CHECKUP_V1").trim();
   const prompt = String(body.prompt ?? "").trim();
   const options = (body.options ?? []).map((item) => String(item).trim()).filter(Boolean);
   const correctAnswer = String(body.correctAnswer ?? "").trim();
   const explanation = String(body.explanation ?? "").trim();
 
   if (!Number.isInteger(gradeLevel) || gradeLevel < 1 || gradeLevel > 12) throw new Error("Kelas tidak valid.");
+  if (!Number.isInteger(skillLevel) || skillLevel < 1 || skillLevel > 12) throw new Error("Skill level tidak valid.");
+  if (!["foundation", "core", "stretch"].includes(assessmentBand)) throw new Error("Assessment band tidak valid.");
   if (!isDiagnosticCategory(category)) throw new Error("Kategori tidak valid.");
+  if (!domain) throw new Error("Domain wajib diisi.");
+  if (!skill) throw new Error("Skill wajib diisi.");
+  if (!subskill) throw new Error("Subskill wajib diisi.");
   if (!["mudah", "sedang", "menantang"].includes(difficulty)) throw new Error("Kesulitan tidak valid.");
+  if (!["fluency", "concept", "application", "reasoning"].includes(cognitiveType)) throw new Error("Cognitive type tidak valid.");
+  if (!recommendationKey) throw new Error("Recommendation key wajib diisi.");
+  if (!Number.isFinite(diagnosticWeight) || diagnosticWeight <= 0) throw new Error("Diagnostic weight tidak valid.");
+  if (!diagnosticVersion) throw new Error("Diagnostic version wajib diisi.");
   if (!prompt) throw new Error("Teks soal wajib diisi.");
   if (options.length < 2) throw new Error("Minimal isi 2 opsi jawaban.");
   if (!correctAnswer || !options.includes(correctAnswer)) throw new Error("Jawaban benar harus ada di opsi.");
 
-  return { gradeLevel, category, difficulty, prompt, options, correctAnswer, explanation };
+  return {
+    gradeLevel,
+    skillLevel,
+    assessmentBand,
+    category,
+    domain,
+    skill,
+    subskill,
+    prerequisiteSkill,
+    difficulty,
+    cognitiveType,
+    recommendationKey,
+    misconceptionKey,
+    diagnosticWeight,
+    diagnosticVersion,
+    prompt,
+    options,
+    correctAnswer,
+    explanation,
+  };
 }
 
 export async function POST(req: Request) {
@@ -78,8 +128,19 @@ export async function POST(req: Request) {
     .insert({
       id: `diag-${crypto.randomUUID()}`,
       grade_level: cleaned.gradeLevel,
+      skill_level: cleaned.skillLevel,
+      assessment_band: cleaned.assessmentBand,
       category: cleaned.category,
+      domain: cleaned.domain,
+      skill: cleaned.skill,
+      subskill: cleaned.subskill,
+      prerequisite_skill: cleaned.prerequisiteSkill,
       difficulty: cleaned.difficulty,
+      cognitive_type: cleaned.cognitiveType,
+      recommendation_key: cleaned.recommendationKey,
+      misconception_key: cleaned.misconceptionKey,
+      diagnostic_weight: cleaned.diagnosticWeight,
+      diagnostic_version: cleaned.diagnosticVersion,
       prompt: cleaned.prompt,
       options: cleaned.options,
       correct_answer: cleaned.correctAnswer,
