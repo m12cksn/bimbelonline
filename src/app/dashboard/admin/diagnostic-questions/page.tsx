@@ -51,6 +51,41 @@ const difficulties: Difficulty[] = ["mudah", "sedang", "menantang"];
 const assessmentBands: AssessmentBand[] = ["foundation", "core", "stretch"];
 const cognitiveTypes: CognitiveType[] = ["fluency", "concept", "application", "reasoning"];
 
+const bandLabels: Record<AssessmentBand, string> = {
+  foundation: "Foundation",
+  core: "Core",
+  stretch: "Stretch",
+};
+
+const cognitiveLabels: Record<CognitiveType, string> = {
+  fluency: "Fluency",
+  concept: "Concept",
+  application: "Application",
+  reasoning: "Reasoning",
+};
+
+function FieldLabel({ children }: { children: React.ReactNode }) {
+  return <span className="text-xs font-black uppercase tracking-[0.12em] text-slate-500">{children}</span>;
+}
+
+function SectionTitle({
+  eyebrow,
+  title,
+  description,
+}: {
+  eyebrow: string;
+  title: string;
+  description: string;
+}) {
+  return (
+    <div>
+      <p className="text-xs font-black uppercase tracking-[0.18em] text-emerald-700">{eyebrow}</p>
+      <h2 className="mt-1 text-lg font-black text-[#102449]">{title}</h2>
+      <p className="mt-1 text-sm font-semibold leading-6 text-slate-500">{description}</p>
+    </div>
+  );
+}
+
 function defaultSkillFromCategory(category: DiagnosticCategory) {
   const map: Record<DiagnosticCategory, string> = {
     "Pemahaman Bilangan": "Number Sense",
@@ -106,11 +141,7 @@ export default function AdminDiagnosticQuestionsPage() {
   const [saving, setSaving] = useState(false);
   const [testAnswers, setTestAnswers] = useState<Record<string, string>>({});
   const [showResult, setShowResult] = useState(false);
-
-  const selectedQuestion = useMemo(
-    () => questions.find((question) => question.id === selectedId) ?? null,
-    [questions, selectedId],
-  );
+  const [showAdvanced, setShowAdvanced] = useState(false);
 
   const testScore = useMemo(() => {
     const total = questions.length;
@@ -315,283 +346,368 @@ export default function AdminDiagnosticQuestionsPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#f4f7fb] p-4 text-slate-950 sm:p-6">
+    <main className="min-h-screen bg-[#eefbf3] p-4 text-slate-950 sm:p-6">
       <div className="mx-auto max-w-7xl">
-        <div className="flex flex-col gap-3 border border-slate-200 bg-white p-5 shadow-sm md:flex-row md:items-center md:justify-between">
-          <div>
-            <p className="text-xs font-black uppercase tracking-[0.18em] text-blue-700">Admin</p>
-            <h1 className="mt-1 text-2xl font-black text-[#102449]">CRUD Soal Diagnostic</h1>
-            <p className="mt-1 text-sm font-semibold text-slate-600">
-              Kelola soal Math Check-Up per kelas dan coba langsung semua soal sebagai admin.
-            </p>
-          </div>
-          <button
-            type="button"
-            onClick={seedDefaults}
-            disabled={saving}
-            className="border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-black text-emerald-700 hover:bg-emerald-100 disabled:opacity-60"
-          >
-            Sinkron Soal Default
-          </button>
-        </div>
-
-        <div className="mt-4 grid gap-4 lg:grid-cols-[320px_1fr]">
-          <aside className="border border-slate-200 bg-white shadow-sm">
-            <div className="border-b border-slate-200 p-4">
-              <label className="text-xs font-black text-slate-500">Pilih Kelas</label>
-              <select
-                value={gradeLevel}
-                onChange={(event) => setGradeLevel(Number(event.target.value))}
-                className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-black outline-none focus:border-blue-500"
-              >
-                {Array.from({ length: 12 }, (_, index) => index + 1).map((grade) => (
-                  <option key={grade} value={grade}>Kelas {grade}</option>
-                ))}
-              </select>
+        <div className="overflow-hidden border border-emerald-100 bg-white shadow-[0_24px_70px_-55px_rgba(15,23,42,0.45)]">
+          <div className="bg-gradient-to-br from-emerald-700 via-emerald-600 to-lime-500 p-5 text-white sm:p-6">
+            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+              <div>
+                <p className="text-xs font-black uppercase tracking-[0.2em] text-emerald-100">Admin Diagnostic</p>
+                <h1 className="mt-2 text-2xl font-black sm:text-3xl">Kelola Soal Math Check-Up</h1>
+                <p className="mt-2 max-w-2xl text-sm font-semibold leading-6 text-emerald-50">
+                  Isi soal utama dulu. Metadata lanjutan disembunyikan agar halaman tidak terasa seperti form panjang.
+                </p>
+              </div>
               <button
                 type="button"
-                onClick={() => {
-                  setSelectedId(null);
-                  setForm(emptyForm(gradeLevel));
-                }}
-                className="mt-3 w-full bg-blue-600 px-4 py-3 text-sm font-black text-white hover:bg-[#123a82]"
+                onClick={seedDefaults}
+                disabled={saving}
+                className="border border-white/30 bg-white/95 px-4 py-3 text-sm font-black text-emerald-800 shadow-[0_14px_35px_-24px_rgba(15,23,42,0.65)] hover:bg-emerald-50 disabled:opacity-60"
               >
-                + Soal Baru
+                Sinkron Soal Default
               </button>
             </div>
+          </div>
 
-            <div className="max-h-[72vh] overflow-y-auto p-3">
-              {loading ? (
-                <p className="p-4 text-sm font-bold text-slate-500">Memuat soal...</p>
-              ) : questions.length === 0 ? (
-                <p className="p-4 text-sm font-bold text-slate-500">Belum ada soal.</p>
-              ) : (
-                <div className="space-y-2">
-                  {questions.map((question, index) => (
-                    <button
-                      key={question.id}
-                      type="button"
-                      onClick={() => selectQuestion(question)}
-                      className={`w-full border p-3 text-left transition hover:border-blue-300 hover:bg-blue-50 ${
-                        selectedId === question.id ? "border-blue-600 bg-blue-50" : "border-slate-200 bg-white"
-                      }`}
-                    >
-                      <div className="flex items-start justify-between gap-3">
-                        <p className="text-xs font-black text-blue-700">#{question.sortOrder ?? index + 1} · {question.category}</p>
-                        <span className={`text-[10px] font-black ${question.isActive === false ? "text-red-600" : "text-emerald-700"}`}>
-                          {question.isActive === false ? "nonaktif" : "aktif"}
-                        </span>
-                      </div>
-                      <p className="mt-2 line-clamp-2 text-sm font-bold text-slate-800"><MathText text={question.prompt} /></p>
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-          </aside>
+          <div className="grid gap-0 lg:grid-cols-[340px_1fr]">
+            <aside className="border-b border-slate-200 bg-slate-50/80 lg:border-b-0 lg:border-r">
+              <div className="sticky top-0 z-10 border-b border-slate-200 bg-white p-4">
+                <label className="block">
+                  <FieldLabel>Pilih Kelas</FieldLabel>
+                  <select
+                    value={gradeLevel}
+                    onChange={(event) => setGradeLevel(Number(event.target.value))}
+                    className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-black outline-none transition focus:border-emerald-500 focus:bg-white"
+                  >
+                    {Array.from({ length: 12 }, (_, index) => index + 1).map((grade) => (
+                      <option key={grade} value={grade}>Kelas {grade}</option>
+                    ))}
+                  </select>
+                </label>
 
-          <section className="grid gap-4 xl:grid-cols-[1fr_420px]">
-            <div className="border border-slate-200 bg-white p-5 shadow-sm">
-              <div className="flex flex-col gap-2 border-b border-slate-200 pb-4 sm:flex-row sm:items-center sm:justify-between">
-                <div>
-                  <h2 className="text-xl font-black text-[#102449]">Editor Soal</h2>
-                  <p className="text-sm font-semibold text-slate-500">{selectedId ? `Edit ID ${selectedId}` : "Buat soal diagnostic baru"}</p>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  <button type="button" onClick={createQuestion} disabled={saving} className="bg-blue-600 px-4 py-2 text-sm font-black text-white hover:bg-[#123a82] disabled:opacity-60">Buat</button>
-                  <button type="button" onClick={saveQuestion} disabled={saving || !selectedId} className="border border-blue-200 px-4 py-2 text-sm font-black text-blue-700 hover:bg-blue-50 disabled:opacity-60">Simpan</button>
-                  <button type="button" onClick={deleteQuestion} disabled={saving || !selectedId} className="border border-red-200 px-4 py-2 text-sm font-black text-red-700 hover:bg-red-50 disabled:opacity-60">Hapus</button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedId(null);
+                    setForm(emptyForm(gradeLevel));
+                    setShowAdvanced(false);
+                  }}
+                  className="mt-3 w-full bg-emerald-600 px-4 py-3 text-sm font-black text-white shadow-[0_12px_30px_-22px_rgba(5,150,105,0.9)] hover:bg-emerald-700"
+                >
+                  + Buat Soal Baru
+                </button>
+
+                <div className="mt-3 grid grid-cols-2 gap-2 text-center text-xs font-black">
+                  <div className="border border-slate-200 bg-slate-50 px-3 py-2 text-slate-600">{questions.length} soal</div>
+                  <div className="border border-emerald-100 bg-emerald-50 px-3 py-2 text-emerald-700">Kelas {gradeLevel}</div>
                 </div>
               </div>
 
-              <div className="mt-5 grid gap-4 md:grid-cols-4">
-                <label className="block">
-                  <span className="text-xs font-black text-slate-500">Kelas</span>
-                  <select value={form.gradeLevel} onChange={(event) => setForm((current) => ({ ...current, gradeLevel: Number(event.target.value) }))} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none">
-                    {Array.from({ length: 12 }, (_, index) => index + 1).map((grade) => <option key={grade} value={grade}>Kelas {grade}</option>)}
-                  </select>
-                </label>
-                <label className="block">
-                  <span className="text-xs font-black text-slate-500">Skill Level</span>
-                  <select value={form.skillLevel} onChange={(event) => setForm((current) => ({ ...current, skillLevel: Number(event.target.value) }))} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none">
-                    {Array.from({ length: 12 }, (_, index) => index + 1).map((grade) => <option key={grade} value={grade}>Kelas {grade}</option>)}
-                  </select>
-                </label>
-                <label className="block">
-                  <span className="text-xs font-black text-slate-500">Assessment Band</span>
-                  <select value={form.assessmentBand} onChange={(event) => setForm((current) => ({ ...current, assessmentBand: event.target.value as AssessmentBand }))} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none">
-                    {assessmentBands.map((band) => <option key={band} value={band}>{band}</option>)}
-                  </select>
-                </label>
-                <label className="block">
-                  <span className="text-xs font-black text-slate-500">Kategori</span>
-                  <select value={form.category} onChange={(event) => updateCategory(event.target.value as DiagnosticCategory)} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none">
-                    {categories.map((category) => <option key={category} value={category}>{category}</option>)}
-                  </select>
-                </label>
-                <label className="block">
-                  <span className="text-xs font-black text-slate-500">Domain</span>
-                  <input value={form.domain} onChange={(event) => setForm((current) => ({ ...current, domain: event.target.value }))} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none" placeholder="Number Sense" />
-                </label>
-                <label className="block">
-                  <span className="text-xs font-black text-slate-500">Kesulitan</span>
-                  <select value={form.difficulty} onChange={(event) => setForm((current) => ({ ...current, difficulty: event.target.value as Difficulty }))} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none">
-                    {difficulties.map((difficulty) => <option key={difficulty} value={difficulty}>{difficulty}</option>)}
-                  </select>
-                </label>
-                <label className="block">
-                  <span className="text-xs font-black text-slate-500">Urutan</span>
-                  <input value={form.sortOrder ?? ""} onChange={(event) => setForm((current) => ({ ...current, sortOrder: event.target.value ? Number(event.target.value) : null }))} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none" placeholder="1" />
-                </label>
-              </div>
-
-              <div className="mt-4 grid gap-4 md:grid-cols-3">
-                <label className="block">
-                  <span className="text-xs font-black text-slate-500">Skill</span>
-                  <input value={form.skill} onChange={(event) => setForm((current) => ({ ...current, skill: event.target.value }))} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none" placeholder="Number Sense" />
-                </label>
-                <label className="block">
-                  <span className="text-xs font-black text-slate-500">Subskill</span>
-                  <input value={form.subskill} onChange={(event) => setForm((current) => ({ ...current, subskill: event.target.value }))} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none" placeholder="Counting forward" />
-                </label>
-                <label className="block">
-                  <span className="text-xs font-black text-slate-500">Prerequisite Skill</span>
-                  <input value={form.prerequisiteSkill} onChange={(event) => setForm((current) => ({ ...current, prerequisiteSkill: event.target.value }))} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none" placeholder="Number recognition" />
-                </label>
-              </div>
-
-              <div className="mt-4 grid gap-4 md:grid-cols-4">
-                <label className="block">
-                  <span className="text-xs font-black text-slate-500">Cognitive Type</span>
-                  <select value={form.cognitiveType} onChange={(event) => setForm((current) => ({ ...current, cognitiveType: event.target.value as CognitiveType }))} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none">
-                    {cognitiveTypes.map((type) => <option key={type} value={type}>{type}</option>)}
-                  </select>
-                </label>
-                <label className="block">
-                  <span className="text-xs font-black text-slate-500">Recommendation Key</span>
-                  <input value={form.recommendationKey} onChange={(event) => setForm((current) => ({ ...current, recommendationKey: event.target.value }))} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none" placeholder="G1_NUMBER_SENSE" />
-                </label>
-                <label className="block">
-                  <span className="text-xs font-black text-slate-500">Misconception Key</span>
-                  <input value={form.misconceptionKey ?? ""} onChange={(event) => setForm((current) => ({ ...current, misconceptionKey: event.target.value || null }))} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none" placeholder="Optional" />
-                </label>
-                <label className="block">
-                  <span className="text-xs font-black text-slate-500">Diagnostic Weight</span>
-                  <input type="number" step="0.1" value={form.diagnosticWeight} onChange={(event) => setForm((current) => ({ ...current, diagnosticWeight: Number(event.target.value) }))} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none" placeholder="1" />
-                </label>
-              </div>
-
-              <label className="mt-4 block">
-                <span className="text-xs font-black text-slate-500">Diagnostic Version</span>
-                <input value={form.diagnosticVersion} onChange={(event) => setForm((current) => ({ ...current, diagnosticVersion: event.target.value }))} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none" placeholder="MATH_CHECKUP_V1" />
-              </label>
-
-              <label className="mt-4 block">
-                <span className="text-xs font-black text-slate-500">Teks Soal</span>
-                <textarea value={form.prompt} onChange={(event) => setForm((current) => ({ ...current, prompt: event.target.value }))} rows={5} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-semibold leading-6 outline-none focus:border-blue-500" placeholder="Tulis soal diagnostic di sini..." />
-              </label>
-
-              <div className="mt-4">
-                <div className="flex items-center justify-between gap-3">
-                  <span className="text-xs font-black text-slate-500">Opsi Jawaban</span>
-                  <button type="button" onClick={addOption} className="text-xs font-black text-blue-700">+ Tambah Opsi</button>
-                </div>
-                <div className="mt-2 space-y-2">
-                  {form.options.map((option, index) => (
-                    <div key={index} className="grid grid-cols-[1fr_auto] gap-2">
-                      <input value={option} onChange={(event) => updateOption(index, event.target.value)} className="border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-semibold outline-none focus:border-blue-500" placeholder={`Opsi ${index + 1}`} />
-                      <button type="button" onClick={() => removeOption(index)} className="border border-red-100 px-3 text-xs font-black text-red-600 hover:bg-red-50">Hapus</button>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <label className="mt-4 block">
-                <span className="text-xs font-black text-slate-500">Jawaban Benar</span>
-                <select value={form.correctAnswer} onChange={(event) => setForm((current) => ({ ...current, correctAnswer: event.target.value }))} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none">
-                  <option value="">Pilih jawaban benar</option>
-                  {form.options.filter(Boolean).map((option) => <option key={option} value={option}>{option}</option>)}
-                </select>
-              </label>
-
-              <label className="mt-4 block">
-                <span className="text-xs font-black text-slate-500">Penjelasan</span>
-                <textarea value={form.explanation} onChange={(event) => setForm((current) => ({ ...current, explanation: event.target.value }))} rows={4} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-semibold leading-6 outline-none focus:border-blue-500" placeholder="Penjelasan yang tampil di hasil diagnostic..." />
-              </label>
-
-              <label className="mt-4 flex items-center gap-2 text-sm font-bold text-slate-700">
-                <input type="checkbox" checked={form.isActive ?? true} onChange={(event) => setForm((current) => ({ ...current, isActive: event.target.checked }))} />
-                Soal aktif digunakan di Math Check-Up
-              </label>
-            </div>
-
-            <div className="space-y-4">
-              <div className="border border-slate-200 bg-white p-5 shadow-sm">
-                <h2 className="text-lg font-black text-[#102449]">Preview Soal</h2>
-                <div className="mt-4 border border-blue-100 bg-blue-50 p-4">
-                  <p className="text-sm font-black"><MathText text={form.prompt || "Teks soal akan tampil di sini."} /></p>
-                  <div className="mt-4 space-y-2">
-                    {form.options.filter(Boolean).map((option) => (
-                      <div key={option} className={`border bg-white p-3 text-sm font-bold ${option === form.correctAnswer ? "border-emerald-400 text-emerald-700" : "border-slate-200 text-slate-700"}`}>
-                        <MathText text={option} />
-                      </div>
+              <div className="max-h-[72vh] overflow-y-auto p-3">
+                {loading ? (
+                  <div className="space-y-2">
+                    {Array.from({ length: 5 }).map((_, index) => (
+                      <div key={index} className="h-24 animate-pulse border border-slate-200 bg-white" />
                     ))}
                   </div>
-                </div>
-              </div>
-
-              <div className="border border-slate-200 bg-white p-5 shadow-sm">
-                <div className="flex items-center justify-between gap-3">
-                  <div>
-                    <h2 className="text-lg font-black text-[#102449]">Coba Semua Soal</h2>
-                    <p className="text-xs font-semibold text-slate-500">Mode admin, tidak menyimpan attempt.</p>
+                ) : questions.length === 0 ? (
+                  <div className="border border-dashed border-slate-300 bg-white p-5 text-center">
+                    <p className="text-sm font-black text-slate-700">Belum ada soal.</p>
+                    <p className="mt-1 text-xs font-semibold text-slate-500">Klik Buat Soal Baru untuk mulai.</p>
                   </div>
-                  <button type="button" onClick={() => setShowResult(true)} className="bg-emerald-600 px-4 py-2 text-xs font-black text-white hover:bg-emerald-700">
-                    Koreksi
-                  </button>
-                </div>
-
-                {showResult && (
-                  <div className="mt-4 border border-emerald-200 bg-emerald-50 p-3 text-sm font-black text-emerald-700">
-                    Skor percobaan: {testScore.correct}/{testScore.total} benar ({testScore.score}%)
+                ) : (
+                  <div className="space-y-2">
+                    {questions.map((question, index) => {
+                      const active = selectedId === question.id;
+                      return (
+                        <button
+                          key={question.id}
+                          type="button"
+                          onClick={() => selectQuestion(question)}
+                          className={`w-full border p-3 text-left transition ${
+                            active
+                              ? "border-emerald-500 bg-emerald-50 shadow-[0_14px_34px_-28px_rgba(5,150,105,0.9)]"
+                              : "border-slate-200 bg-white hover:border-emerald-300 hover:bg-emerald-50/60"
+                          }`}
+                        >
+                          <div className="flex items-start justify-between gap-3">
+                            <div className="flex flex-wrap gap-1">
+                              <span className="bg-slate-900 px-2 py-1 text-[10px] font-black text-white">#{question.sortOrder ?? index + 1}</span>
+                              <span className="bg-emerald-100 px-2 py-1 text-[10px] font-black text-emerald-800">{question.assessmentBand ?? "core"}</span>
+                            </div>
+                            <span className={`text-[10px] font-black ${question.isActive === false ? "text-red-600" : "text-emerald-700"}`}>
+                              {question.isActive === false ? "nonaktif" : "aktif"}
+                            </span>
+                          </div>
+                          <p className="mt-2 line-clamp-2 text-sm font-bold leading-5 text-slate-900"><MathText text={question.prompt} /></p>
+                          <p className="mt-2 line-clamp-1 text-xs font-semibold text-slate-500">{question.domain || question.category} - {question.skill}</p>
+                        </button>
+                      );
+                    })}
                   </div>
                 )}
+              </div>
+            </aside>
 
-                <div className="mt-4 max-h-[680px] space-y-3 overflow-y-auto pr-1">
-                  {questions.map((question, index) => {
-                    const selected = testAnswers[question.id] ?? "";
-                    const checked = showResult && selected;
-                    const correct = selected === question.correctAnswer;
-                    return (
-                      <div key={question.id} className={`border p-4 ${checked ? (correct ? "border-emerald-200 bg-emerald-50" : "border-red-200 bg-red-50") : "border-slate-200 bg-white"}`}>
-                        <p className="text-xs font-black text-blue-700">Soal {index + 1} · {question.category}</p>
-                        <p className="mt-2 text-sm font-bold"><MathText text={question.prompt} /></p>
-                        <div className="mt-3 space-y-2">
-                          {question.options.map((option) => (
-                            <button
-                              key={option}
-                              type="button"
-                              onClick={() => setTestAnswers((current) => ({ ...current, [question.id]: option }))}
-                              className={`w-full border p-2 text-left text-xs font-bold ${
-                                selected === option ? "border-blue-500 bg-blue-50 text-blue-700" : "border-slate-200 bg-white text-slate-700"
-                              } ${showResult && option === question.correctAnswer ? "!border-emerald-500 !bg-emerald-100 !text-emerald-800" : ""}`}
-                            >
-                              <MathText text={option} />
-                            </button>
-                          ))}
-                        </div>
-                        {showResult && !correct && (
-                          <p className="mt-3 text-xs font-semibold leading-relaxed text-red-700">
-                            <strong>Penjelasan:</strong> <MathText text={question.explanation} />
-                          </p>
-                        )}
+            <section className="grid gap-0 xl:grid-cols-[1fr_400px]">
+              <div className="bg-white p-4 sm:p-6">
+                <div className="mb-5 flex flex-col gap-3 border-b border-slate-200 pb-5 sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <p className="text-xs font-black uppercase tracking-[0.18em] text-emerald-700">
+                      {selectedId ? "Mode Edit" : "Mode Buat"}
+                    </p>
+                    <h2 className="mt-1 text-2xl font-black text-[#102449]">Editor Soal</h2>
+                    <p className="mt-1 text-sm font-semibold text-slate-500">
+                      {selectedId ? `Sedang mengedit ${selectedId}` : "Soal baru akan masuk ke daftar kelas terpilih."}
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    <button type="button" onClick={createQuestion} disabled={saving} className="bg-emerald-600 px-4 py-2.5 text-sm font-black text-white hover:bg-emerald-700 disabled:opacity-60">Buat</button>
+                    <button type="button" onClick={saveQuestion} disabled={saving || !selectedId} className="border border-emerald-200 bg-white px-4 py-2.5 text-sm font-black text-emerald-700 hover:bg-emerald-50 disabled:opacity-60">Simpan</button>
+                    <button type="button" onClick={deleteQuestion} disabled={saving || !selectedId} className="border border-red-200 bg-white px-4 py-2.5 text-sm font-black text-red-700 hover:bg-red-50 disabled:opacity-60">Hapus</button>
+                  </div>
+                </div>
+
+                <div className="space-y-5">
+                  <div className="border border-slate-200 bg-slate-50/70 p-4">
+                    <SectionTitle eyebrow="Step 1" title="Identitas Soal" description="Tentukan kelas, kategori, tingkat soal, dan urutan tampil." />
+                    <div className="mt-4 grid gap-4 md:grid-cols-3 xl:grid-cols-4">
+                      <label className="block">
+                        <FieldLabel>Kelas</FieldLabel>
+                        <select value={form.gradeLevel} onChange={(event) => setForm((current) => ({ ...current, gradeLevel: Number(event.target.value) }))} className="mt-2 w-full border border-slate-200 bg-white px-3 py-3 text-sm font-bold outline-none focus:border-emerald-500">
+                          {Array.from({ length: 12 }, (_, index) => index + 1).map((grade) => <option key={grade} value={grade}>Kelas {grade}</option>)}
+                        </select>
+                      </label>
+                      <label className="block">
+                        <FieldLabel>Kategori</FieldLabel>
+                        <select value={form.category} onChange={(event) => updateCategory(event.target.value as DiagnosticCategory)} className="mt-2 w-full border border-slate-200 bg-white px-3 py-3 text-sm font-bold outline-none focus:border-emerald-500">
+                          {categories.map((category) => <option key={category} value={category}>{category}</option>)}
+                        </select>
+                      </label>
+                      <label className="block">
+                        <FieldLabel>Kesulitan</FieldLabel>
+                        <select value={form.difficulty} onChange={(event) => setForm((current) => ({ ...current, difficulty: event.target.value as Difficulty }))} className="mt-2 w-full border border-slate-200 bg-white px-3 py-3 text-sm font-bold outline-none focus:border-emerald-500">
+                          {difficulties.map((difficulty) => <option key={difficulty} value={difficulty}>{difficulty}</option>)}
+                        </select>
+                      </label>
+                      <label className="block">
+                        <FieldLabel>Urutan</FieldLabel>
+                        <input value={form.sortOrder ?? ""} onChange={(event) => setForm((current) => ({ ...current, sortOrder: event.target.value ? Number(event.target.value) : null }))} className="mt-2 w-full border border-slate-200 bg-white px-3 py-3 text-sm font-bold outline-none focus:border-emerald-500" placeholder="1" />
+                      </label>
+                    </div>
+                  </div>
+
+                  <div className="border border-slate-200 bg-white p-4 shadow-sm">
+                    <SectionTitle eyebrow="Step 2" title="Isi Soal" description="Tulis pertanyaan, opsi jawaban, jawaban benar, dan pembahasan." />
+                    <label className="mt-4 block">
+                      <FieldLabel>Teks Soal</FieldLabel>
+                      <textarea value={form.prompt} onChange={(event) => setForm((current) => ({ ...current, prompt: event.target.value }))} rows={5} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-semibold leading-6 outline-none transition focus:border-emerald-500 focus:bg-white" placeholder="Tulis soal diagnostic di sini..." />
+                    </label>
+
+                    <div className="mt-4">
+                      <div className="flex items-center justify-between gap-3">
+                        <FieldLabel>Opsi Jawaban</FieldLabel>
+                        <button type="button" onClick={addOption} className="text-xs font-black text-emerald-700 hover:text-emerald-900">+ Tambah Opsi</button>
                       </div>
-                    );
-                  })}
+                      <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                        {form.options.map((option, index) => (
+                          <div key={index} className="grid grid-cols-[1fr_auto] gap-2">
+                            <input value={option} onChange={(event) => updateOption(index, event.target.value)} className="border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-semibold outline-none transition focus:border-emerald-500 focus:bg-white" placeholder={`Opsi ${index + 1}`} />
+                            <button type="button" onClick={() => removeOption(index)} className="border border-red-100 bg-white px-3 text-xs font-black text-red-600 hover:bg-red-50">Hapus</button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="mt-4 grid gap-4 md:grid-cols-2">
+                      <label className="block">
+                        <FieldLabel>Jawaban Benar</FieldLabel>
+                        <select value={form.correctAnswer} onChange={(event) => setForm((current) => ({ ...current, correctAnswer: event.target.value }))} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none transition focus:border-emerald-500 focus:bg-white">
+                          <option value="">Pilih jawaban benar</option>
+                          {form.options.filter(Boolean).map((option) => <option key={option} value={option}>{option}</option>)}
+                        </select>
+                      </label>
+                      <label className="flex items-end gap-2 pb-3 text-sm font-bold text-slate-700">
+                        <input type="checkbox" checked={form.isActive ?? true} onChange={(event) => setForm((current) => ({ ...current, isActive: event.target.checked }))} />
+                        Soal aktif digunakan di Math Check-Up
+                      </label>
+                    </div>
+
+                    <label className="mt-4 block">
+                      <FieldLabel>Penjelasan</FieldLabel>
+                      <textarea value={form.explanation} onChange={(event) => setForm((current) => ({ ...current, explanation: event.target.value }))} rows={4} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-semibold leading-6 outline-none transition focus:border-emerald-500 focus:bg-white" placeholder="Penjelasan yang tampil di hasil diagnostic..." />
+                    </label>
+                  </div>
+
+                  <div className="border border-slate-200 bg-white shadow-sm">
+                    <button
+                      type="button"
+                      onClick={() => setShowAdvanced((value) => !value)}
+                      className="flex w-full items-center justify-between gap-4 p-4 text-left"
+                    >
+                      <div>
+                        <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-500">Step 3</p>
+                        <h2 className="mt-1 text-lg font-black text-[#102449]">Metadata Diagnostic Lanjutan</h2>
+                        <p className="mt-1 text-sm font-semibold text-slate-500">Untuk analisis skill, hidden gap, recommendation engine, dan versi diagnostic.</p>
+                      </div>
+                      <span className="shrink-0 bg-emerald-50 px-3 py-2 text-xs font-black text-emerald-700">
+                        {showAdvanced ? "Tutup" : "Buka"}
+                      </span>
+                    </button>
+
+                    {showAdvanced && (
+                      <div className="border-t border-slate-200 p-4">
+                        <div className="grid gap-4 md:grid-cols-3">
+                          <label className="block">
+                            <FieldLabel>Skill Level</FieldLabel>
+                            <select value={form.skillLevel} onChange={(event) => setForm((current) => ({ ...current, skillLevel: Number(event.target.value) }))} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none focus:border-emerald-500">
+                              {Array.from({ length: 12 }, (_, index) => index + 1).map((grade) => <option key={grade} value={grade}>Kelas {grade}</option>)}
+                            </select>
+                          </label>
+                          <label className="block">
+                            <FieldLabel>Assessment Band</FieldLabel>
+                            <select value={form.assessmentBand} onChange={(event) => setForm((current) => ({ ...current, assessmentBand: event.target.value as AssessmentBand }))} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none focus:border-emerald-500">
+                              {assessmentBands.map((band) => <option key={band} value={band}>{bandLabels[band]}</option>)}
+                            </select>
+                          </label>
+                          <label className="block">
+                            <FieldLabel>Cognitive Type</FieldLabel>
+                            <select value={form.cognitiveType} onChange={(event) => setForm((current) => ({ ...current, cognitiveType: event.target.value as CognitiveType }))} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none focus:border-emerald-500">
+                              {cognitiveTypes.map((type) => <option key={type} value={type}>{cognitiveLabels[type]}</option>)}
+                            </select>
+                          </label>
+                        </div>
+
+                        <div className="mt-4 grid gap-4 md:grid-cols-3">
+                          <label className="block">
+                            <FieldLabel>Domain</FieldLabel>
+                            <input value={form.domain} onChange={(event) => setForm((current) => ({ ...current, domain: event.target.value }))} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none focus:border-emerald-500" placeholder="Number Sense" />
+                          </label>
+                          <label className="block">
+                            <FieldLabel>Skill</FieldLabel>
+                            <input value={form.skill} onChange={(event) => setForm((current) => ({ ...current, skill: event.target.value }))} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none focus:border-emerald-500" placeholder="Number Sense" />
+                          </label>
+                          <label className="block">
+                            <FieldLabel>Subskill</FieldLabel>
+                            <input value={form.subskill} onChange={(event) => setForm((current) => ({ ...current, subskill: event.target.value }))} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none focus:border-emerald-500" placeholder="Counting forward" />
+                          </label>
+                        </div>
+
+                        <label className="mt-4 block">
+                          <FieldLabel>Prerequisite Skill</FieldLabel>
+                          <input value={form.prerequisiteSkill} onChange={(event) => setForm((current) => ({ ...current, prerequisiteSkill: event.target.value }))} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none focus:border-emerald-500" placeholder="Number recognition" />
+                        </label>
+
+                        <div className="mt-4 grid gap-4 md:grid-cols-3">
+                          <label className="block md:col-span-2">
+                            <FieldLabel>Recommendation Key</FieldLabel>
+                            <input value={form.recommendationKey} onChange={(event) => setForm((current) => ({ ...current, recommendationKey: event.target.value }))} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none focus:border-emerald-500" placeholder="G1_NUMBER_SENSE" />
+                          </label>
+                          <label className="block">
+                            <FieldLabel>Diagnostic Weight</FieldLabel>
+                            <input type="number" step="0.1" value={form.diagnosticWeight} onChange={(event) => setForm((current) => ({ ...current, diagnosticWeight: Number(event.target.value) }))} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none focus:border-emerald-500" placeholder="1" />
+                          </label>
+                        </div>
+
+                        <div className="mt-4 grid gap-4 md:grid-cols-2">
+                          <label className="block">
+                            <FieldLabel>Misconception Key</FieldLabel>
+                            <input value={form.misconceptionKey ?? ""} onChange={(event) => setForm((current) => ({ ...current, misconceptionKey: event.target.value || null }))} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none focus:border-emerald-500" placeholder="Optional" />
+                          </label>
+                          <label className="block">
+                            <FieldLabel>Diagnostic Version</FieldLabel>
+                            <input value={form.diagnosticVersion} onChange={(event) => setForm((current) => ({ ...current, diagnosticVersion: event.target.value }))} className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none focus:border-emerald-500" placeholder="MATH_CHECKUP_V1" />
+                          </label>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          </section>
+
+              <div className="border-t border-slate-200 bg-slate-50/80 p-4 xl:border-l xl:border-t-0">
+                <div className="sticky top-4 space-y-4">
+                  <div className="border border-slate-200 bg-white p-5 shadow-sm">
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <p className="text-xs font-black uppercase tracking-[0.18em] text-emerald-700">Live Preview</p>
+                        <h2 className="mt-1 text-lg font-black text-[#102449]">Tampilan Siswa</h2>
+                      </div>
+                      <span className="bg-slate-100 px-2 py-1 text-[10px] font-black text-slate-600">{form.difficulty}</span>
+                    </div>
+                    <div className="mt-4 border border-emerald-100 bg-emerald-50/70 p-4">
+                      <p className="text-sm font-black leading-6"><MathText text={form.prompt || "Teks soal akan tampil di sini."} /></p>
+                      <div className="mt-4 space-y-2">
+                        {form.options.filter(Boolean).map((option) => (
+                          <div key={option} className={`border bg-white p-3 text-sm font-bold ${option === form.correctAnswer ? "border-emerald-500 text-emerald-700" : "border-slate-200 text-slate-700"}`}>
+                            <MathText text={option} />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="mt-4 grid grid-cols-2 gap-2 text-xs font-black text-slate-600">
+                      <span className="border border-slate-200 bg-slate-50 px-2 py-2">{form.assessmentBand}</span>
+                      <span className="border border-slate-200 bg-slate-50 px-2 py-2">{form.cognitiveType}</span>
+                      <span className="border border-slate-200 bg-slate-50 px-2 py-2">{form.domain || "Domain"}</span>
+                      <span className="border border-slate-200 bg-slate-50 px-2 py-2">Bobot {form.diagnosticWeight}</span>
+                    </div>
+                  </div>
+
+                  <div className="border border-slate-200 bg-white p-5 shadow-sm">
+                    <div className="flex items-center justify-between gap-3">
+                      <div>
+                        <p className="text-xs font-black uppercase tracking-[0.18em] text-emerald-700">Admin Test</p>
+                        <h2 className="mt-1 text-lg font-black text-[#102449]">Coba Soal Kelas Ini</h2>
+                        <p className="mt-1 text-xs font-semibold text-slate-500">Tidak menyimpan attempt siswa.</p>
+                      </div>
+                      <button type="button" onClick={() => setShowResult(true)} className="bg-emerald-600 px-4 py-2 text-xs font-black text-white hover:bg-emerald-700">
+                        Koreksi
+                      </button>
+                    </div>
+
+                    {showResult && (
+                      <div className="mt-4 border border-emerald-200 bg-emerald-50 p-3 text-sm font-black text-emerald-700">
+                        Skor percobaan: {testScore.correct}/{testScore.total} benar ({testScore.score}%)
+                      </div>
+                    )}
+
+                    <div className="mt-4 max-h-[520px] space-y-3 overflow-y-auto pr-1">
+                      {questions.map((question, index) => {
+                        const selected = testAnswers[question.id] ?? "";
+                        const checked = showResult && Boolean(selected);
+                        const correct = selected === question.correctAnswer;
+                        return (
+                          <div key={question.id} className={`border p-4 ${checked ? (correct ? "border-emerald-200 bg-emerald-50" : "border-red-200 bg-red-50") : "border-slate-200 bg-white"}`}>
+                            <p className="text-xs font-black text-emerald-700">Soal {index + 1} - {question.category}</p>
+                            <p className="mt-2 text-sm font-bold leading-5"><MathText text={question.prompt} /></p>
+                            <div className="mt-3 space-y-2">
+                              {question.options.map((option) => (
+                                <button
+                                  key={option}
+                                  type="button"
+                                  onClick={() => setTestAnswers((current) => ({ ...current, [question.id]: option }))}
+                                  className={`w-full border p-2 text-left text-xs font-bold ${
+                                    selected === option ? "border-emerald-500 bg-emerald-50 text-emerald-700" : "border-slate-200 bg-white text-slate-700"
+                                  } ${showResult && option === question.correctAnswer ? "!border-emerald-500 !bg-emerald-100 !text-emerald-800" : ""}`}
+                                >
+                                  <MathText text={option} />
+                                </button>
+                              ))}
+                            </div>
+                            {showResult && !correct && selected && (
+                              <p className="mt-3 text-xs font-semibold leading-relaxed text-red-700">
+                                <strong>Penjelasan:</strong> <MathText text={question.explanation} />
+                              </p>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
         </div>
       </div>
     </main>
