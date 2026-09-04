@@ -15,7 +15,12 @@ type VisualIconType =
   | "triangle"
   | "star"
   | "apple"
+  | "banana"
+  | "cat"
+  | "fish"
+  | "orange"
   | "block"
+  | "box"
   | "plus";
 
 type IconToken =
@@ -48,8 +53,19 @@ const visualIconAliases: Record<string, VisualIconType> = {
   bintang: "star",
   apple: "apple",
   apel: "apple",
+  banana: "banana",
+  pisang: "banana",
+  cat: "cat",
+  kucing: "cat",
+  fish: "fish",
+  ikan: "fish",
+  orange: "orange",
+  jeruk: "orange",
+  oranges: "orange",
   block: "block",
   blok: "block",
+  box: "box",
+  kotak: "box",
   plus: "plus",
   tambah: "plus",
 };
@@ -226,6 +242,56 @@ function VisualIcon({ type }: { type: VisualIconType }) {
     );
   }
 
+  if (type === "banana") {
+    return (
+      <svg viewBox="0 0 32 32" className={common} aria-label="pisang">
+        <path
+          d="M7 18.5C13.5 27 25 22.5 27 10.5c-4.2 7.4-12.6 9.4-18.4 4.9-.7-.5-1.7.2-1.6 1.1.1.7.4 1.4 0 2Z"
+          fill="#facc15"
+          stroke="#ca8a04"
+          strokeWidth="1.5"
+          strokeLinejoin="round"
+        />
+        <path d="M9 17.8c4 3.8 10.9 3.3 15.1-2" fill="none" stroke="#fef3c7" strokeWidth="2" strokeLinecap="round" />
+        <path d="M26.5 9.5 29 8.6M6.8 18.2 4.5 20" stroke="#854d0e" strokeWidth="2" strokeLinecap="round" />
+      </svg>
+    );
+  }
+
+  if (type === "cat") {
+    return (
+      <svg viewBox="0 0 32 32" className={common} aria-label="kucing">
+        <path d="M8 13 7 5l6 4h6l6-4-1 8c1.6 1.6 2.5 3.7 2.5 6 0 5-4.3 8.5-10.5 8.5S5.5 24 5.5 19c0-2.3.9-4.4 2.5-6Z" fill="#fbbf24" stroke="#b45309" strokeWidth="1.4" strokeLinejoin="round" />
+        <circle cx="12" cy="18" r="1.4" fill="#111827" />
+        <circle cx="20" cy="18" r="1.4" fill="#111827" />
+        <path d="M16 19.5v2M12 23c1.6 1 6.4 1 8 0M10 21H5M22 21h5M10.5 23.5H6M21.5 23.5H26" stroke="#7c2d12" strokeWidth="1.2" strokeLinecap="round" />
+        <path d="M11 10.5 8.8 8.8M21 10.5l2.2-1.7" stroke="#fde68a" strokeWidth="1.3" strokeLinecap="round" />
+      </svg>
+    );
+  }
+
+  if (type === "fish") {
+    return (
+      <svg viewBox="0 0 32 32" className={common} aria-label="ikan">
+        <path d="M4 16c4.2-5.2 11.2-6.3 17-1.6L27 10v12l-6-4.4C15.2 22.3 8.2 21.2 4 16Z" fill="#38bdf8" stroke="#0284c7" strokeWidth="1.4" strokeLinejoin="round" />
+        <circle cx="11" cy="15" r="1.4" fill="#0f172a" />
+        <path d="M15 11.7c1.8.8 3 2.2 3.8 4.3-1 2-2.3 3.4-4.1 4.1" fill="none" stroke="#bae6fd" strokeWidth="1.6" strokeLinecap="round" />
+        <path d="M25.8 12.2 22.6 16l3.2 3.8" fill="none" stroke="#075985" strokeWidth="1.2" strokeLinecap="round" />
+      </svg>
+    );
+  }
+
+  if (type === "orange") {
+    return (
+      <svg viewBox="0 0 32 32" className={common} aria-label="jeruk">
+        <circle cx="16" cy="17" r="10.5" fill="#fb923c" stroke="#ea580c" strokeWidth="1.5" />
+        <path d="M16 7.2c1.1-2.5 3.7-3.3 6.2-2.5-.4 2.8-2.6 4.6-5.5 4.6Z" fill="#22c55e" stroke="#15803d" strokeWidth="1" />
+        <path d="M11 13c1.3-1.8 4-2.9 7-2.3" fill="none" stroke="#fed7aa" strokeWidth="2" strokeLinecap="round" />
+        <circle cx="21" cy="20" r="1.1" fill="#fdba74" />
+      </svg>
+    );
+  }
+
   if (type === "block") {
     return (
       <svg viewBox="0 0 32 32" className={common} aria-label="blok">
@@ -233,6 +299,15 @@ function VisualIcon({ type }: { type: VisualIconType }) {
         <path d="M6 11v10l10 6V17Z" fill="#7c3aed" />
         <path d="M26 11v10l-10 6V17Z" fill="#8b5cf6" />
         <path d="M6 11 16 5l10 6v10l-10 6-10-6Z" fill="none" stroke="#5b21b6" strokeWidth="1.2" />
+      </svg>
+    );
+  }
+
+  if (type === "box") {
+    return (
+      <svg viewBox="0 0 32 32" className={common} aria-label="kotak">
+        <rect x="6" y="6" width="20" height="20" rx="4" fill="#60a5fa" stroke="#2563eb" strokeWidth="1.5" />
+        <path d="M10 11h12M10 16h12M10 21h7" stroke="#dbeafe" strokeWidth="2" strokeLinecap="round" />
       </svg>
     );
   }

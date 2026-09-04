@@ -1,47 +1,164 @@
 "use client";
 
-import { useEffect, useMemo, useState, useRef } from "react";
-import Link from "next/link";
+import { useEffect, useMemo, useRef, useState } from "react";
+
 import MathText from "@/app/components/MathText";
+
 import { trackMetaCustomEvent } from "@/lib/meta-pixel";
 
-type CategoryScore = {
-  category: string;
+/* =========================================================
+ * TYPES
+ * ======================================================= */
+
+type ReadinessStatus =
+  | "foundation_support_needed"
+  | "developing_at_grade_level"
+  | "secure_at_grade_level"
+  | "ready_for_enrichment";
+
+type SkillStatus =
+  | "strong"
+  | "secure"
+  | "developing"
+  | "needs_review"
+  | "priority_gap";
+
+type Confidence = "low" | "medium" | "high";
+
+type BandScore = {
   score: number;
   correct: number;
   total: number;
 };
+
+type SkillResult = {
+  skill: string;
+
+  domain: string;
+
+  subskills: string[];
+
+  score: number;
+
+  correct: number;
+
+  total: number;
+
+  status: SkillStatus;
+
+  confidence: Confidence;
+
+  recommendationKeys: string[];
+
+  prerequisiteSkills: string[];
+
+  bands: Array<"foundation" | "core" | "stretch">;
+};
+
+type RootGap = {
+  skill: string;
+
+  affects: string[];
+
+  confidence: "medium" | "high";
+};
+
+type DiagnosticResult = {
+  version: string;
+
+  readinessScore: number;
+
+  readinessStatus: ReadinessStatus;
+
+  readinessLabel: string;
+
+  bandScores: {
+    foundation: BandScore;
+    core: BandScore;
+    stretch: BandScore;
+  };
+
+  skillResults: SkillResult[];
+
+  strengths: SkillResult[];
+
+  needsReview: SkillResult[];
+
+  priorityGaps: SkillResult[];
+
+  rootGaps: RootGap[];
+
+  recommendedStartingPoint: {
+    key: string;
+    title: string;
+  };
+
+  learningPath: string[];
+
+  recommendationKeys: string[];
+
+  trialFocus: string;
+
+  narrative: string;
+};
+
 type Attempt = {
   id: string;
+
   student_name: string;
+
   parent_whatsapp: string;
+
   grade_level: number;
+
   concern?: string | null;
+
   score: number;
+
   result_level: string;
+
   completed_at?: string | null;
 };
-type Profile = {
-  level: string;
-  tone: string;
-  summary: string;
-  recommendation: string[];
-};
+
 type Answer = {
   question_id: string;
+
   prompt: string;
+
   selected_answer: string | null;
+
   correct_answer: string;
+
   category: string;
+
+  difficulty: string;
+
   is_correct: boolean;
+
   explanation: string;
+
+  assessmentBand: "foundation" | "core" | "stretch";
+
+  domain: string;
+
+  skill: string;
+
+  subskill: string;
+
+  prerequisiteSkill: string;
+
+  cognitiveType: string;
+
+  recommendationKey: string;
+
+  misconceptionKey: string | null;
+
+  diagnosticVersion: string | null;
 };
-type TabKey =
-  | "summary"
-  | "analysis"
-  | "recommendation"
-  | "comparison"
-  | "history";
+
+/* =========================================================
+ * HELPERS
+ * ======================================================= */
 
 function formatName(value: string) {
   return value
@@ -52,162 +169,326 @@ function formatName(value: string) {
     .join(" ");
 }
 
-function levelLabel(score: number) {
-  if (score >= 85) return "Sangat Baik";
-  if (score >= 70) return "Baik";
-  if (score >= 55) return "Cukup";
-  return "Perlu Latihan";
-}
+function readinessText(status: ReadinessStatus) {
+  const map: Record<ReadinessStatus, string> = {
+    foundation_support_needed: "Fondasi Perlu Dikuatkan",
 
-function levelClass(score: number) {
-  if (score >= 85) return "bg-emerald-50 text-emerald-700 border-emerald-100";
-  if (score >= 70) return "bg-green-50 text-green-700 border-green-100";
-  if (score >= 55) return "bg-amber-50 text-amber-700 border-amber-100";
-  return "bg-red-50 text-red-700 border-red-100";
-}
+    developing_at_grade_level: "Sedang Berkembang",
 
-function categoryNarrative(category: string, score: number) {
-  const base: Record<
-    string,
-    { strength: string; gap: string; action: string; besmart: string }
-  > = {
-    "Pemahaman Bilangan": {
-      strength:
-        "Anak mulai mampu membaca hubungan antarbilangan dan memahami nilai suatu bilangan dalam konteks sederhana.",
-      gap: "Jika bagian ini rendah, biasanya anak belum stabil saat membandingkan bilangan, melihat pola nilai tempat, atau memahami makna angka dalam soal.",
-      action:
-        "Latihan terbaik adalah permainan nilai tempat, mengurutkan bilangan, membandingkan jumlah benda, dan menjelaskan alasan mengapa sebuah bilangan lebih besar atau lebih kecil.",
-      besmart:
-        "Di BeSmartKids, anak akan dibantu membangun rasa angka melalui visual, cerita pendek, dan latihan bertahap agar tidak hanya hafal urutan angka, tetapi paham maknanya.",
-    },
-    "Kelancaran Berhitung": {
-      strength:
-        "Anak memiliki modal penting untuk menyelesaikan operasi hitung dengan lebih cepat dan percaya diri.",
-      gap: "Jika skornya belum tinggi, anak mungkin masih membutuhkan waktu lama, mudah tertukar langkah, atau belum otomatis pada operasi dasar.",
-      action:
-        "Fokuskan latihan pada strategi berhitung, bukan sekadar mengejar banyak soal. Gunakan pola 10, pasangan bilangan, perkalian bertahap, dan cek ulang hasil.",
-      besmart:
-        "Di BeSmartKids, latihan hitung dibuat pendek tetapi konsisten, dengan pembahasan cara berpikir agar anak tahu mengapa jawabannya benar.",
-    },
-    Pecahan: {
-      strength:
-        "Anak mulai mengenali bagian dari keseluruhan dan hubungan sederhana antarpecahan.",
-      gap: "Pecahan sering terasa abstrak. Kesalahan biasanya muncul saat membandingkan pecahan, mencari pecahan senilai, atau mengubah bentuk pecahan dalam soal cerita.",
-      action:
-        "Gunakan gambar potongan kue, garis bilangan, dan benda konkret sebelum masuk ke rumus. Anak perlu melihat bahwa pecahan adalah nilai, bukan hanya dua angka yang dipisahkan garis.",
-      besmart:
-        "Di BeSmartKids, pecahan diajarkan dari visual menuju simbol sehingga anak tidak cepat bingung saat bentuk soalnya berubah.",
-    },
-    "Soal Cerita": {
-      strength:
-        "Anak mulai mampu menghubungkan matematika dengan situasi sehari-hari.",
-      gap: "Jika bagian ini rendah, masalah utamanya sering bukan hitungan, tetapi memahami informasi penting, memilih operasi yang tepat, dan menyusun langkah penyelesaian.",
-      action:
-        "Latih anak menandai informasi penting, menulis apa yang ditanyakan, lalu memilih operasi. Jangan langsung meminta jawaban akhir sebelum alurnya jelas.",
-      besmart:
-        "Di BeSmartKids, soal cerita dibahas dengan metode baca-pahami-rencanakan-selesaikan agar anak terbiasa berpikir runtut.",
-    },
-    "Penalaran Logis": {
-      strength:
-        "Anak menunjukkan kemampuan melihat pola, hubungan, dan aturan tersembunyi dalam soal.",
-      gap: "Jika nilainya rendah, anak mungkin masih terburu-buru menebak jawaban tanpa mencari aturan atau hubungan antarangka.",
-      action:
-        "Berikan latihan pola, teka-teki angka, dan soal sebab-akibat. Minta anak menjelaskan alasan, bukan hanya menyebut jawaban.",
-      besmart:
-        "Di BeSmartKids, penalaran dilatih dengan soal bertahap agar anak berani mencoba strategi dan tidak takut pada soal yang berbeda dari contoh.",
-    },
+    secure_at_grade_level: "Siap di Level Kelas",
+
+    ready_for_enrichment: "Siap untuk Tantangan Lebih",
   };
-  const fallback = base[category] ?? base["Soal Cerita"];
-  if (score >= 80) {
-    return {
-      title: `${category} sudah menjadi kekuatan utama`,
-      message: `${fallback.strength} Bagian ini bisa dipakai sebagai pijakan untuk masuk ke soal yang lebih menantang. Tantangan berikutnya adalah menjaga ketelitian dan melatih anak menjelaskan langkahnya dengan bahasa sendiri.`,
-      action: `Berikan variasi soal HOTS ringan pada topik ${category}, terutama soal yang meminta alasan dan bukan hanya hasil akhir. ${fallback.besmart}`,
-    };
-  }
-  if (score >= 60) {
-    return {
-      title: `${category} sudah cukup, tetapi belum stabil`,
-      message: `${fallback.strength} Namun hasilnya menunjukkan pemahaman anak masih perlu dibuat lebih konsisten. Pada kondisi ini, anak biasanya bisa mengerjakan soal yang mirip contoh, tetapi mulai ragu saat angka atau bentuk soal berubah.`,
-      action: `${fallback.action} ${fallback.besmart}`,
-    };
-  }
-  return {
-    title: `${category} perlu menjadi fokus utama`,
-    message: `${fallback.gap} Ini bukan berarti anak tidak mampu. Biasanya anak hanya belum mendapat urutan belajar yang cukup jelas atau belum cukup sering melihat contoh dari bentuk konkret ke bentuk soal.`,
-    action: `${fallback.action} ${fallback.besmart}`,
+
+  return map[status];
+}
+
+function readinessDescription(status: ReadinessStatus) {
+  const map: Record<ReadinessStatus, string> = {
+    foundation_support_needed:
+      "Beberapa kemampuan dasar perlu diperkuat terlebih dahulu agar anak lebih siap mengikuti materi kelas.",
+
+    developing_at_grade_level:
+      "Sebagian kemampuan sudah terbentuk, tetapi masih ada konsep penting yang perlu dibuat lebih stabil.",
+
+    secure_at_grade_level:
+      "Fondasi dan kemampuan inti anak sudah cukup kuat untuk mengikuti materi matematika pada level kelasnya.",
+
+    ready_for_enrichment:
+      "Anak menunjukkan kesiapan yang kuat dan dapat mulai diberikan soal dengan penalaran serta tantangan yang lebih tinggi.",
   };
+
+  return map[status];
 }
 
-function buildSummary(
-  studentName: string,
-  score: number,
-  strongest: CategoryScore[],
-  weakest: CategoryScore[],
-) {
-  const strengthText = strongest
-    .map((item) => `${item.category} (${item.score}%)`)
-    .join(" dan ");
-  const weakText = weakest
-    .map((item) => `${item.category} (${item.score}%)`)
-    .join(" dan ");
-  if (score >= 80) {
-    return `${studentName} menunjukkan kesiapan matematika yang kuat. Kekuatan paling menonjol terlihat pada ${strengthText}. Ini modal yang sangat baik karena anak sudah punya dasar untuk masuk ke soal yang lebih menantang. Bagian yang tetap perlu dijaga adalah ${weakText}, supaya kemampuan anak tidak hanya tinggi di satu jenis soal, tetapi merata. Dengan pendampingan BeSmartKids, anak bisa diarahkan ke latihan penalaran, soal cerita bertahap, dan tantangan HOTS yang membuat kemampuan berpikirnya berkembang lebih jauh.`;
+function readinessClass(status: ReadinessStatus) {
+  if (status === "ready_for_enrichment") {
+    return "border-emerald-200 bg-emerald-50 text-emerald-800";
   }
-  if (score >= 60) {
-    return `${studentName} sudah memiliki fondasi yang cukup baik, terutama pada ${strengthText}. Artinya anak punya kemampuan yang bisa dikembangkan, tetapi masih membutuhkan latihan yang lebih terarah pada ${weakText}. Pada tahap ini, target utamanya bukan memberi soal sebanyak mungkin, melainkan membuat anak paham pola soal, tahu langkah penyelesaian, dan lebih percaya diri ketika bentuk soal berubah. BeSmartKids dapat membantu menyusun latihan bertahap agar kekuatan anak tetap terpakai, sementara bagian yang lemah diperbaiki pelan-pelan.`;
+
+  if (status === "secure_at_grade_level") {
+    return "border-blue-200 bg-blue-50 text-blue-800";
   }
-  return `${studentName} masih membutuhkan penguatan fondasi secara bertahap. Kekuatan awal yang bisa dijadikan pegangan terlihat pada ${strengthText}, sedangkan bagian yang paling perlu diperhatikan adalah ${weakText}. Hasil seperti ini bukan alasan untuk membuat anak merasa gagal. Justru ini memberi arah yang jelas: mulai dari konsep yang paling dasar, gunakan visual dan contoh konkret, lalu naik perlahan ke soal yang lebih kompleks. Di BeSmartKids, anak dapat dibimbing dengan ritme belajar yang lebih aman, sehingga rasa percaya diri tumbuh bersama pemahamannya.`;
+
+  if (status === "developing_at_grade_level") {
+    return "border-amber-200 bg-amber-50 text-amber-800";
+  }
+
+  return "border-rose-200 bg-rose-50 text-rose-800";
 }
 
-function DonutScore({ score }: { score: number }) {
-  const angle = Math.max(0, Math.min(100, score)) * 3.6;
+function skillStatusLabel(status: SkillStatus) {
+  const map: Record<SkillStatus, string> = {
+    strong: "Kuat",
+
+    secure: "Dikuasai",
+
+    developing: "Sedang Berkembang",
+
+    needs_review: "Perlu Ditinjau",
+
+    priority_gap: "Prioritas Penguatan",
+  };
+
+  return map[status];
+}
+
+function skillStatusClass(status: SkillStatus) {
+  if (status === "strong") {
+    return "border-emerald-200 bg-emerald-50 text-emerald-700";
+  }
+
+  if (status === "secure") {
+    return "border-blue-200 bg-blue-50 text-blue-700";
+  }
+
+  if (status === "priority_gap") {
+    return "border-rose-200 bg-rose-50 text-rose-700";
+  }
+
+  return "border-amber-200 bg-amber-50 text-amber-700";
+}
+
+function confidenceLabel(confidence: Confidence) {
+  if (confidence === "high") {
+    return "Bukti kuat";
+  }
+
+  if (confidence === "medium") {
+    return "Bukti cukup";
+  }
+
+  return "Perlu data tambahan";
+}
+
+function bandStatus(score: number, band: "foundation" | "core" | "stretch") {
+  if (band === "stretch") {
+    if (score >= 67) return "Kuat";
+
+    if (score >= 34) return "Berkembang";
+
+    return "Emerging";
+  }
+
+  if (score >= 83) return "Kuat";
+
+  if (score >= 67) return "Cukup";
+
+  return "Perlu Dikuatkan";
+}
+
+function bandDescription(band: "foundation" | "core" | "stretch") {
+  if (band === "foundation") {
+    return "Kemampuan dasar yang menopang materi kelas saat ini.";
+  }
+
+  if (band === "core") {
+    return "Kemampuan utama yang diharapkan pada level kelas anak.";
+  }
+
+  return "Soal tantangan untuk melihat kesiapan menuju materi yang lebih tinggi.";
+}
+
+/* =========================================================
+ * SCORE CIRCLE
+ * ======================================================= */
+
+function ScoreCircle({ score }: { score: number }) {
+  const value = Math.max(0, Math.min(100, Number(score || 0)));
+
+  const angle = value * 3.6;
+
   return (
     <div
-      className="relative mx-auto flex h-44 w-44 items-center justify-center rounded-full shadow-[inset_0_6px_18px_rgba(255,255,255,0.55),0_20px_45px_-32px_rgba(15,23,42,0.9)] sm:h-56 sm:w-56"
+      className="
+        relative
+        flex
+        h-44
+        w-44
+        items-center
+        justify-center
+        rounded-full
+        shadow-[0_20px_55px_-30px_rgba(15,23,42,0.45)]
+        sm:h-52
+        sm:w-52
+      "
       style={{
-        background: `conic-gradient(#2f9b5f ${angle}deg, #e8edf4 0deg)`,
+        background: `conic-gradient(#16a34a ${angle}deg, #e2e8f0 0deg)`,
       }}
     >
-      <div className="flex h-28 w-28 flex-col items-center justify-center rounded-full bg-white shadow-inner sm:h-36 sm:w-36">
-        <span className="text-4xl font-black text-[#102449] sm:text-5xl">
-          {score}%
+      <div
+        className="
+          flex
+          h-32
+          w-32
+          flex-col
+          items-center
+          justify-center
+          rounded-full
+          bg-white
+          sm:h-40
+          sm:w-40
+        "
+      >
+        <span
+          className="
+            text-5xl
+            font-black
+            leading-none
+            text-[#102449]
+          "
+        >
+          {value}
         </span>
-        <span className="text-sm font-bold text-slate-500">Persentase</span>
+
+        <span
+          className="
+            mt-1
+            text-sm
+            font-black
+            text-slate-400
+          "
+        >
+          / 100
+        </span>
       </div>
     </div>
   );
 }
 
-function TopTabs({
-  active,
-  onChange,
+/* =========================================================
+ * BAND CARD
+ * ======================================================= */
+
+function BandCard({
+  title,
+  band,
+  data,
 }: {
-  active: TabKey;
-  onChange: (tab: TabKey) => void;
+  title: string;
+
+  band: "foundation" | "core" | "stretch";
+
+  data: BandScore;
 }) {
-  const tabs: Array<[TabKey, string]> = [
-    ["summary", "Ringkasan"],
-    ["analysis", "Analisis Detail"],
-    ["recommendation", "Rekomendasi"],
-    ["comparison", "Perbandingan"],
-    ["history", "Riwayat"],
-  ];
   return (
-    <div className="flex max-w-full gap-2 overflow-x-auto border-b border-slate-200 bg-slate-50 p-2 text-center text-[11px] font-black text-slate-500 [-webkit-overflow-scrolling:touch] sm:grid sm:grid-cols-5 sm:gap-0 sm:overflow-visible sm:bg-white sm:p-0 sm:text-xs">
-      {tabs.map(([key, label]) => (
-        <button
-          key={key}
-          type="button"
-          onClick={() => onChange(key)}
-          className={`shrink-0 whitespace-nowrap border px-4 py-3 transition hover:bg-blue-50 hover:text-blue-700 sm:border-0 sm:px-2 sm:py-4 ${active === key ? "border-blue-600 bg-blue-600 text-white shadow-[0_12px_28px_-20px_rgba(37,99,235,0.9)] sm:border-b-2 sm:bg-blue-50 sm:text-blue-700 sm:shadow-none" : "border-slate-200 bg-white sm:bg-transparent"}`}
+    <div
+      className="
+        border
+        border-slate-200
+        bg-white
+        p-5
+        shadow-sm
+      "
+    >
+      <div
+        className="
+          flex
+          items-start
+          justify-between
+          gap-4
+        "
+      >
+        <div>
+          <p
+            className="
+              text-sm
+              font-black
+              text-[#102449]
+            "
+          >
+            {title}
+          </p>
+
+          <p
+            className="
+              mt-1
+              text-xs
+              font-semibold
+              leading-relaxed
+              text-slate-500
+            "
+          >
+            {bandDescription(band)}
+          </p>
+        </div>
+
+        <span
+          className="
+            text-3xl
+            font-black
+            text-blue-700
+          "
         >
-          {label}
-        </button>
-      ))}
+          {data.score}%
+        </span>
+      </div>
+
+      <div
+        className="
+          mt-5
+          h-3
+          overflow-hidden
+          rounded-full
+          bg-slate-100
+        "
+      >
+        <div
+          className="
+            h-full
+            rounded-full
+            bg-gradient-to-r
+            from-emerald-700
+            via-emerald-500
+            to-lime-300
+          "
+          style={{
+            width: `${data.score}%`,
+          }}
+        />
+      </div>
+
+      <div
+        className="
+          mt-4
+          flex
+          items-center
+          justify-between
+          gap-3
+        "
+      >
+        <span
+          className="
+            text-xs
+            font-bold
+            text-slate-500
+          "
+        >
+          Benar {data.correct} dari {data.total}
+        </span>
+
+        <span
+          className="
+            border
+            border-blue-100
+            bg-blue-50
+            px-3
+            py-1
+            text-xs
+            font-black
+            text-blue-700
+          "
+        >
+          {bandStatus(data.score, band)}
+        </span>
+      </div>
     </div>
   );
 }
+
+/* =========================================================
+ * COMPONENT
+ * ======================================================= */
 
 export default function MathCheckupResultClient({
   attemptId,
@@ -215,70 +496,97 @@ export default function MathCheckupResultClient({
   attemptId: string;
 }) {
   const [attempt, setAttempt] = useState<Attempt | null>(null);
-  const [profile, setProfile] = useState<Profile | null>(null);
-  const [categoryScores, setCategoryScores] = useState<CategoryScore[]>([]);
+
+  const [diagnostic, setDiagnostic] = useState<DiagnosticResult | null>(null);
+
   const [answers, setAnswers] = useState<Answer[]>([]);
-  const [activeTab, setActiveTab] = useState<TabKey>("summary");
+
   const [selectedAnswer, setSelectedAnswer] = useState<Answer | null>(null);
-  const [selectedCategory, setSelectedCategory] =
-    useState<CategoryScore | null>(null);
+
   const [loading, setLoading] = useState(true);
+
   const [error, setError] = useState<string | null>(null);
+
+  /*
+   * Tracking guard.
+   */
   const viewResultTracked = useRef(false);
+
+  /* =======================================================
+   * LOAD RESULT
+   * ===================================================== */
 
   useEffect(() => {
     let active = true;
+
     async function load() {
       try {
         const response = await fetch(`/api/diagnostic/result/${attemptId}`);
+
         const data = (await response.json()) as {
           ok?: boolean;
+
           attempt?: Attempt;
-          profile?: Profile;
-          categoryScores?: CategoryScore[];
+
+          diagnostic?: DiagnosticResult;
+
           answers?: Answer[];
+
           error?: string;
         };
-        if (!response.ok || !data.ok)
-          throw new Error(data.error ?? "Gagal memuat hasil.");
-        if (!active) return;
+
+        if (!response.ok || !data.ok) {
+          throw new Error(data.error ?? "Gagal memuat hasil diagnostic.");
+        }
+
+        if (!active) {
+          return;
+        }
+
         setAttempt(data.attempt ?? null);
-        setProfile(data.profile ?? null);
-        setCategoryScores(data.categoryScores ?? []);
+
+        setDiagnostic(data.diagnostic ?? null);
+
         setAnswers(data.answers ?? []);
       } catch (err) {
-        if (active) setError((err as Error).message);
+        if (active) {
+          setError((err as Error).message);
+        }
       } finally {
-        if (active) setLoading(false);
+        if (active) {
+          setLoading(false);
+        }
       }
     }
+
     load();
+
     return () => {
       active = false;
     };
   }, [attemptId]);
 
-  useEffect(() => {
-    /*
-     * Jangan hitung ViewResult sebelum laporan
-     * benar-benar berhasil dimuat.
-     */
-    if (loading || !attempt || !profile) return;
+  /* =======================================================
+   * META VIEW RESULT
+   *
+   * LOCKED TRACKING
+   * ===================================================== */
 
-    /*
-     * Proteksi dalam lifecycle component.
-     */
-    if (viewResultTracked.current) return;
+  useEffect(() => {
+    if (loading || !attempt || !diagnostic) {
+      return;
+    }
+
+    if (viewResultTracked.current) {
+      return;
+    }
 
     const storageKey = `meta_view_result_${attemptId}`;
 
     try {
-      /*
-       * Kalau attempt ini pernah dilihat sebelumnya,
-       * jangan kirim ViewResult lagi.
-       */
       if (localStorage.getItem(storageKey)) {
         viewResultTracked.current = true;
+
         return;
       }
 
@@ -286,805 +594,1537 @@ export default function MathCheckupResultClient({
 
       trackMetaCustomEvent("ViewResult", {
         content_name: "Math Checkup Result",
+
         diagnostic_type: "math_checkup",
       });
 
       localStorage.setItem(storageKey, "1");
     } catch {
-      /*
-       * Fallback kalau localStorage tidak tersedia.
-       */
       viewResultTracked.current = true;
 
       trackMetaCustomEvent("ViewResult", {
         content_name: "Math Checkup Result",
+
         diagnostic_type: "math_checkup",
       });
     }
-  }, [attemptId, attempt, profile, loading]);
+  }, [attemptId, attempt, diagnostic, loading]);
 
-  const lowestCategories = useMemo(
-    () => [...categoryScores].sort((a, b) => a.score - b.score).slice(0, 2),
-    [categoryScores],
-  );
-  const strongestCategories = useMemo(
-    () => [...categoryScores].sort((a, b) => b.score - a.score).slice(0, 2),
-    [categoryScores],
-  );
-  const totalCorrect = categoryScores.reduce(
-    (sum, item) => sum + item.correct,
-    0,
-  );
-  const totalQuestions = categoryScores.reduce(
-    (sum, item) => sum + item.total,
-    0,
-  );
+  /* =======================================================
+   * DERIVED DATA
+   * ===================================================== */
+
   const displayName = attempt ? formatName(attempt.student_name) : "";
-  const richSummary = attempt
-    ? buildSummary(
-        displayName,
-        Number(attempt.score ?? 0),
-        strongestCategories,
-        lowestCategories,
-      )
-    : "";
-  const focusRecommendations = [
-    ...lowestCategories,
-    ...categoryScores.filter(
-      (item) =>
-        item.score < 75 &&
-        !lowestCategories.some((low) => low.category === item.category),
-    ),
-  ].slice(0, 3);
 
-  if (loading)
-    return (
-      <main className="flex min-h-screen items-center justify-center bg-[#f4f7fb] font-black text-blue-700">
-        Menyusun laporan...
-      </main>
-    );
-  if (error || !attempt || !profile)
-    return (
-      <main className="flex min-h-screen items-center justify-center bg-red-50 p-4 text-center font-bold text-red-700">
-        {error ?? "Hasil tidak tersedia."}
-      </main>
-    );
+  const priorityItems = useMemo(
+    () => [
+      ...(diagnostic?.priorityGaps ?? []),
 
-  const waMessage = encodeURIComponent(
-    `Halo BeSmartKids, saya ingin konsultasi hasil cek matematika ${displayName} kelas ${attempt.grade_level}. Skornya ${attempt.score}/100 (${profile.level}).`,
+      ...(diagnostic?.needsReview ?? []),
+    ],
+    [diagnostic],
   );
-  const whatsappHref = `https://wa.me/${attempt.parent_whatsapp}?text=${waMessage}`;
+
+  const businessWhatsapp = (
+    process.env.NEXT_PUBLIC_BESMARTKIDS_WHATSAPP ?? ""
+  ).replace(/\D/g, "");
+
+  const whatsappMessage = encodeURIComponent(
+    `Halo BeSmartKids, saya ingin konsultasi hasil Math Check-Up ${displayName} kelas ${attempt?.grade_level ?? ""}. Hasil readiness: ${diagnostic?.readinessScore ?? "-"} / 100 (${diagnostic ? readinessText(diagnostic.readinessStatus) : ""}). Saya ingin mengetahui program belajar yang disarankan.`,
+  );
+
+  const whatsappHref = businessWhatsapp
+    ? `https://wa.me/${businessWhatsapp}?text=${whatsappMessage}`
+    : "#";
+
+  function handleContact() {
+    /*
+     * Jangan kirim nama,
+     * nomor WA,
+     * score,
+     * grade,
+     * atau data anak
+     * ke Meta.
+     */
+    trackMetaCustomEvent("Contact", {
+      content_name: "Math Checkup Consultation",
+
+      diagnostic_type: "math_checkup",
+    });
+  }
+
+  /* =======================================================
+   * LOADING / ERROR
+   * ===================================================== */
+
+  if (loading) {
+    return (
+      <main
+        className="
+          flex
+          min-h-screen
+          items-center
+          justify-center
+          bg-[#f4f7fb]
+          px-4
+          text-center
+        "
+      >
+        <div>
+          <div
+            className="
+              mx-auto
+              h-12
+              w-12
+              animate-spin
+              rounded-full
+              border-4
+              border-blue-100
+              border-t-blue-700
+            "
+          />
+
+          <p
+            className="
+              mt-5
+              font-black
+              text-blue-700
+            "
+          >
+            Menyusun laporan kemampuan...
+          </p>
+        </div>
+      </main>
+    );
+  }
+
+  if (error || !attempt || !diagnostic) {
+    return (
+      <main
+        className="
+          flex
+          min-h-screen
+          items-center
+          justify-center
+          bg-red-50
+          p-5
+          text-center
+          font-bold
+          text-red-700
+        "
+      >
+        {error ?? "Hasil diagnostic tidak tersedia."}
+      </main>
+    );
+  }
+
+  /* =======================================================
+   * UI
+   * ===================================================== */
 
   return (
-    <main className="min-h-screen bg-[radial-gradient(circle_at_top_left,#dff7e8_0,#f4f7fb_32%,#f7fbff_100%)] text-[#102449]">
-      <header className="bg-[#123a82] px-4 py-3 text-white shadow-sm sm:px-6 lg:px-8">
-        <div className="mx-auto flex max-w-5xl items-center justify-between gap-4">
-          <div className="flex items-center">
-            <img
-              src="/images/logo_horizontal.png"
-              alt="BeSmartKids"
-              className="h-9 w-auto rounded bg-white/95 px-2 py-1 object-contain"
-            />
-          </div>
-          <div className="text-sm font-black">Hasil Math Check-Up</div>
+    <main
+      className="
+        min-h-screen
+        bg-[radial-gradient(circle_at_top_left,#dcfce7_0,#f5f8fc_30%,#f8fbff_100%)]
+        text-[#102449]
+      "
+    >
+      {/* HEADER */}
+
+      <header
+        className="
+          bg-[#123a82]
+          px-4
+          py-3
+          text-white
+          shadow-sm
+        "
+      >
+        <div
+          className="
+            mx-auto
+            flex
+            max-w-5xl
+            items-center
+            justify-between
+            gap-4
+          "
+        >
+          <img
+            src="/images/logo_horizontal.png"
+            alt="BeSmartKids"
+            className="
+              h-9
+              w-auto
+              rounded
+              bg-white
+              px-2
+              py-1
+              object-contain
+            "
+          />
+
+          <span
+            className="
+              text-xs
+              font-black
+              sm:text-sm
+            "
+          >
+            Math Check-Up Report
+          </span>
         </div>
       </header>
 
-      <div className="mx-auto max-w-5xl overflow-hidden px-3 py-4 sm:px-6 sm:py-5 lg:px-8">
-        <section className="overflow-hidden border border-slate-200 bg-white shadow-[0_22px_70px_-56px_rgba(15,23,42,0.85)]">
-          <div className="bg-gradient-to-br from-blue-50 via-white to-emerald-50 p-5 sm:p-7">
-            <div className="text-center">
-              <h1 className="text-2xl font-black text-blue-700">Selamat!</h1>
-              <p className="mt-2 text-base font-semibold leading-relaxed text-slate-700">
-                {displayName} telah menyelesaikan Math Check-Up Kelas{" "}
-                {attempt.grade_level}.
+      <div
+        className="
+          mx-auto
+          max-w-5xl
+          px-3
+          py-5
+          sm:px-6
+          sm:py-8
+        "
+      >
+        {/* HERO */}
+
+        <section
+          className="
+            overflow-hidden
+            border
+            border-slate-200
+            bg-white
+            shadow-[0_25px_70px_-50px_rgba(15,23,42,0.7)]
+          "
+        >
+          <div
+            className="
+              bg-gradient-to-br
+              from-blue-50
+              via-white
+              to-emerald-50
+              p-5
+              sm:p-8
+            "
+          >
+            <div
+              className="
+                text-center
+              "
+            >
+              <p
+                className="
+                  text-xs
+                  font-black
+                  uppercase
+                  tracking-[0.22em]
+                  text-blue-600
+                "
+              >
+                Mathematics Readiness
+              </p>
+
+              <h1
+                className="
+                  mt-2
+                  text-2xl
+                  font-black
+                  sm:text-3xl
+                "
+              >
+                Hasil Math Check-Up {displayName}
+              </h1>
+
+              <p
+                className="
+                  mt-2
+                  text-sm
+                  font-semibold
+                  text-slate-600
+                "
+              >
+                Kelas {attempt.grade_level} • Diagnostic {diagnostic.version}
               </p>
             </div>
 
-            <div className="mt-6 grid gap-5 border border-blue-100 bg-white/95 p-5 shadow-[0_18px_55px_-42px_rgba(15,23,42,0.75)] lg:grid-cols-[1fr_1fr]">
-              <div className="flex flex-col items-center justify-center border-b border-slate-200 pb-5 text-center lg:items-start lg:border-b-0 lg:border-r lg:pb-0 lg:pr-8 lg:text-left">
-                <p className="text-sm font-black text-[#102449]">Skor Total</p>
-                <div className="mt-3 flex items-end gap-2">
-                  <span className="text-5xl font-black leading-none text-[#102449] sm:text-6xl">
-                    {attempt.score}
-                  </span>
-                  <span className="pb-2 text-xl font-bold text-[#102449]">
-                    /100
-                  </span>
-                </div>
-                <p className="mt-5 text-sm font-black text-slate-500">
-                  Kategori
-                </p>
+            <div
+              className="
+                mt-7
+                grid
+                items-center
+                gap-7
+                border
+                border-blue-100
+                bg-white/95
+                p-5
+                lg:grid-cols-[1fr_260px]
+                lg:p-7
+              "
+            >
+              <div>
                 <span
-                  className={`mt-2 w-fit border px-5 py-2 text-sm font-black ${levelClass(attempt.score)}`}
+                  className={`
+                    inline-flex
+                    border
+                    px-4
+                    py-2
+                    text-sm
+                    font-black
+                    ${readinessClass(diagnostic.readinessStatus)}
+                  `}
                 >
-                  {levelLabel(attempt.score)}
+                  {readinessText(diagnostic.readinessStatus)}
                 </span>
+
+                <h2
+                  className="
+                    mt-5
+                    text-2xl
+                    font-black
+                    leading-tight
+                    sm:text-3xl
+                  "
+                >
+                  Peta kesiapan matematika anak
+                </h2>
+
+                <p
+                  className="
+                    mt-3
+                    max-w-2xl
+                    text-sm
+                    font-semibold
+                    leading-7
+                    text-slate-600
+                  "
+                >
+                  {readinessDescription(diagnostic.readinessStatus)}
+                </p>
+
+                <p
+                  className="
+                    mt-4
+                    max-w-2xl
+                    text-sm
+                    font-semibold
+                    leading-7
+                    text-slate-700
+                  "
+                >
+                  {diagnostic.narrative}
+                </p>
               </div>
-              <DonutScore score={Number(attempt.score ?? 0)} />
+
+              <ScoreCircle score={diagnostic.readinessScore} />
             </div>
-            <div className="mt-6 grid gap-3 sm:grid-cols-3">
-              <button
-                type="button"
-                onClick={() => setActiveTab("analysis")}
-                className="border border-blue-200 bg-white px-5 py-4 text-center font-black text-blue-700 hover:bg-blue-50"
+          </div>
+        </section>
+
+        {/* BAND PERFORMANCE */}
+
+        <section
+          className="
+            mt-5
+            border
+            border-slate-200
+            bg-white
+            p-5
+            shadow-sm
+            sm:p-7
+          "
+        >
+          <div>
+            <p
+              className="
+                text-xs
+                font-black
+                uppercase
+                tracking-[0.18em]
+                text-blue-700
+              "
+            >
+              Performance by Level
+            </p>
+
+            <h2
+              className="
+                mt-1
+                text-2xl
+                font-black
+              "
+            >
+              Kesiapan berdasarkan tingkat soal
+            </h2>
+          </div>
+
+          <div
+            className="
+              mt-5
+              grid
+              gap-4
+              lg:grid-cols-3
+            "
+          >
+            <BandCard
+              title="Foundation"
+              band="foundation"
+              data={diagnostic.bandScores.foundation}
+            />
+
+            <BandCard
+              title="Grade Level"
+              band="core"
+              data={diagnostic.bandScores.core}
+            />
+
+            <BandCard
+              title="Stretch"
+              band="stretch"
+              data={diagnostic.bandScores.stretch}
+            />
+          </div>
+
+          <div
+            className="
+              mt-5
+              border
+              border-blue-100
+              bg-blue-50
+              p-4
+              text-sm
+              font-semibold
+              leading-7
+              text-slate-700
+            "
+          >
+            Skor readiness tidak dihitung hanya dari jumlah jawaban benar.
+            Foundation dan materi inti digunakan untuk membaca kesiapan anak,
+            sedangkan soal Stretch berfungsi sebagai indikator kesiapan menuju
+            tantangan berikutnya.
+          </div>
+        </section>
+
+        {/* STRENGTH */}
+
+        <section
+          className="
+            mt-5
+            grid
+            gap-5
+            lg:grid-cols-2
+          "
+        >
+          <div
+            className="
+              border
+              border-emerald-200
+              bg-white
+              p-5
+              shadow-sm
+              sm:p-6
+            "
+          >
+            <div
+              className="
+                flex
+                items-center
+                gap-3
+              "
+            >
+              <div
+                className="
+                  flex
+                  h-10
+                  w-10
+                  items-center
+                  justify-center
+                  rounded-full
+                  bg-emerald-600
+                  font-black
+                  text-white
+                "
               >
-                Lihat Laporan Lengkap
-              </button>
-              <Link
-                href={`/math-checkup/result/${attemptId}/pdf`}
-                className="border border-emerald-200 bg-emerald-50 px-5 py-4 text-center font-black text-emerald-700 hover:bg-emerald-100"
-              >
-                Download PDF
-              </Link>
-              <a
-                href={whatsappHref}
-                target="_blank"
-                rel="noreferrer"
-                className="bg-blue-600 px-5 py-4 text-center font-black text-white shadow-[0_16px_42px_-30px_rgba(37,99,235,0.95)] hover:bg-[#123a82]"
-              >
-                Konsultasi Hasil
-              </a>
+                ✓
+              </div>
+
+              <div>
+                <p
+                  className="
+                    text-xs
+                    font-black
+                    uppercase
+                    tracking-[0.16em]
+                    text-emerald-700
+                  "
+                >
+                  Strengths
+                </p>
+
+                <h2
+                  className="
+                    text-xl
+                    font-black
+                  "
+                >
+                  Kekuatan Anak
+                </h2>
+              </div>
             </div>
-            <div className="mt-7">
-              <h2 className="text-lg font-black">Ringkasan Kemampuan</h2>
-              <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-2 lg:grid-cols-5">
-                {categoryScores.map((item, index) => (
+
+            <div
+              className="
+                mt-5
+                space-y-3
+              "
+            >
+              {diagnostic.strengths.length > 0 ? (
+                diagnostic.strengths.slice(0, 5).map((skill) => (
                   <div
-                    key={item.category}
-                    className={`min-w-0 border bg-white p-3 text-center shadow-sm sm:p-4 ${index === 0 ? "border-emerald-200" : index === 1 || index === 4 ? "border-amber-200" : "border-slate-200"}`}
+                    key={skill.skill}
+                    className="
+                          border
+                          border-emerald-100
+                          bg-emerald-50/60
+                          p-4
+                        "
                   >
-                    <div className="mx-auto flex h-9 w-9 items-center justify-center rounded-full bg-blue-50 text-sm font-black text-blue-700">
-                      {index + 1}
-                    </div>
-                    <p className="mt-3 min-h-8 break-words text-[11px] font-black leading-tight text-slate-600 sm:text-xs">
-                      {item.category}
-                    </p>
-                    <p className="mt-1 text-2xl font-black text-[#102449] sm:text-3xl">
-                      {item.score}
-                    </p>
-                    <span
-                      className={`mt-2 inline-flex border px-3 py-1 text-[11px] font-black ${levelClass(item.score)}`}
+                    <div
+                      className="
+                            flex
+                            flex-wrap
+                            items-center
+                            justify-between
+                            gap-3
+                          "
                     >
-                      {levelLabel(item.score)}
+                      <p
+                        className="
+                              font-black
+                              text-slate-800
+                            "
+                      >
+                        {skill.skill}
+                      </p>
+
+                      <span
+                        className={`
+                              border
+                              px-2
+                              py-1
+                              text-[11px]
+                              font-black
+                              ${skillStatusClass(skill.status)}
+                            `}
+                      >
+                        {skillStatusLabel(skill.status)}
+                      </span>
+                    </div>
+
+                    <p
+                      className="
+                            mt-2
+                            text-xs
+                            font-semibold
+                            text-slate-500
+                          "
+                    >
+                      Benar {skill.correct} dari {skill.total} evidence •{" "}
+                      {confidenceLabel(skill.confidence)}
+                    </p>
+                  </div>
+                ))
+              ) : (
+                <p
+                  className="
+                    text-sm
+                    font-semibold
+                    leading-7
+                    text-slate-600
+                  "
+                >
+                  Belum ada skill dengan evidence cukup untuk dikategorikan
+                  sebagai kekuatan utama.
+                </p>
+              )}
+            </div>
+          </div>
+
+          {/* GAPS */}
+
+          <div
+            className="
+              border
+              border-amber-200
+              bg-white
+              p-5
+              shadow-sm
+              sm:p-6
+            "
+          >
+            <div
+              className="
+                flex
+                items-center
+                gap-3
+              "
+            >
+              <div
+                className="
+                  flex
+                  h-10
+                  w-10
+                  items-center
+                  justify-center
+                  rounded-full
+                  bg-amber-500
+                  font-black
+                  text-white
+                "
+              >
+                !
+              </div>
+
+              <div>
+                <p
+                  className="
+                    text-xs
+                    font-black
+                    uppercase
+                    tracking-[0.16em]
+                    text-amber-700
+                  "
+                >
+                  Learning Gaps
+                </p>
+
+                <h2
+                  className="
+                    text-xl
+                    font-black
+                  "
+                >
+                  Prioritas Penguatan
+                </h2>
+              </div>
+            </div>
+
+            <div
+              className="
+                mt-5
+                space-y-3
+              "
+            >
+              {priorityItems.length > 0 ? (
+                priorityItems.slice(0, 5).map((skill, index) => (
+                  <div
+                    key={`${skill.skill}-${index}`}
+                    className="
+                          border
+                          border-amber-100
+                          bg-amber-50/60
+                          p-4
+                        "
+                  >
+                    <div
+                      className="
+                            flex
+                            items-start
+                            gap-3
+                          "
+                    >
+                      <span
+                        className="
+                              flex
+                              h-7
+                              w-7
+                              shrink-0
+                              items-center
+                              justify-center
+                              rounded-full
+                              bg-[#123a82]
+                              text-xs
+                              font-black
+                              text-white
+                            "
+                      >
+                        {index + 1}
+                      </span>
+
+                      <div
+                        className="
+                              min-w-0
+                              flex-1
+                            "
+                      >
+                        <div
+                          className="
+                                flex
+                                flex-wrap
+                                items-center
+                                justify-between
+                                gap-2
+                              "
+                        >
+                          <p
+                            className="
+                                  font-black
+                                  text-slate-800
+                                "
+                          >
+                            {skill.skill}
+                          </p>
+
+                          <span
+                            className={`
+                                  border
+                                  px-2
+                                  py-1
+                                  text-[11px]
+                                  font-black
+                                  ${skillStatusClass(skill.status)}
+                                `}
+                          >
+                            {skillStatusLabel(skill.status)}
+                          </span>
+                        </div>
+
+                        <p
+                          className="
+                                mt-2
+                                text-xs
+                                font-semibold
+                                leading-relaxed
+                                text-slate-500
+                              "
+                        >
+                          Benar {skill.correct} dari {skill.total} evidence •{" "}
+                          {confidenceLabel(skill.confidence)}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div
+                  className="
+                    border
+                    border-emerald-100
+                    bg-emerald-50
+                    p-4
+                    text-sm
+                    font-semibold
+                    leading-7
+                    text-emerald-800
+                  "
+                >
+                  Tidak ditemukan priority gap yang signifikan pada diagnostic
+                  ini.
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+
+        {/* ROOT GAP */}
+
+        {diagnostic.rootGaps.length > 0 && (
+          <section
+            className="
+              mt-5
+              border
+              border-rose-200
+              bg-white
+              p-5
+              shadow-sm
+              sm:p-7
+            "
+          >
+            <p
+              className="
+                text-xs
+                font-black
+                uppercase
+                tracking-[0.18em]
+                text-rose-700
+              "
+            >
+              Prerequisite Analysis
+            </p>
+
+            <h2
+              className="
+                mt-1
+                text-2xl
+                font-black
+              "
+            >
+              Kemungkinan Akar Kesulitan
+            </h2>
+
+            <p
+              className="
+                mt-2
+                max-w-3xl
+                text-sm
+                font-semibold
+                leading-7
+                text-slate-600
+              "
+            >
+              Ketika kemampuan prasyarat dan skill di atasnya sama-sama
+              bermasalah, pembelajaran sebaiknya dimulai dari kemampuan
+              prasyarat terlebih dahulu.
+            </p>
+
+            <div
+              className="
+                mt-5
+                grid
+                gap-3
+                md:grid-cols-2
+              "
+            >
+              {diagnostic.rootGaps.map((gap) => (
+                <div
+                  key={gap.skill}
+                  className="
+                        border
+                        border-rose-100
+                        bg-rose-50
+                        p-4
+                      "
+                >
+                  <p
+                    className="
+                          text-xs
+                          font-black
+                          uppercase
+                          tracking-[0.12em]
+                          text-rose-600
+                        "
+                  >
+                    Root / prerequisite
+                  </p>
+
+                  <p
+                    className="
+                          mt-1
+                          text-lg
+                          font-black
+                          text-slate-900
+                        "
+                  >
+                    {gap.skill}
+                  </p>
+
+                  <p
+                    className="
+                          mt-3
+                          text-sm
+                          font-semibold
+                          leading-6
+                          text-slate-600
+                        "
+                  >
+                    Berpengaruh pada: {gap.affects.join(", ")}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* LEARNING PLAN */}
+
+        <section
+          className="
+            mt-5
+            border
+            border-blue-200
+            bg-white
+            p-5
+            shadow-sm
+            sm:p-7
+          "
+        >
+          <p
+            className="
+              text-xs
+              font-black
+              uppercase
+              tracking-[0.18em]
+              text-blue-700
+            "
+          >
+            Personalized Recommendation
+          </p>
+
+          <h2
+            className="
+              mt-1
+              text-2xl
+              font-black
+            "
+          >
+            Arah Belajar yang Disarankan
+          </h2>
+
+          <div
+            className="
+              mt-5
+              border
+              border-blue-100
+              bg-gradient-to-br
+              from-blue-50
+              to-emerald-50
+              p-5
+            "
+          >
+            <p
+              className="
+                text-xs
+                font-black
+                uppercase
+                tracking-[0.14em]
+                text-blue-600
+              "
+            >
+              Recommended Starting Point
+            </p>
+
+            <p
+              className="
+                mt-2
+                text-2xl
+                font-black
+                text-[#102449]
+              "
+            >
+              {diagnostic.recommendedStartingPoint.title}
+            </p>
+
+            <p
+              className="
+                mt-2
+                text-sm
+                font-semibold
+                leading-7
+                text-slate-600
+              "
+            >
+              Ini merupakan titik awal yang disarankan berdasarkan pola jawaban
+              dan kemampuan yang perlu diperkuat.
+            </p>
+          </div>
+
+          {diagnostic.learningPath.length > 0 && (
+            <div
+              className="
+                mt-6
+              "
+            >
+              <p
+                className="
+                  text-sm
+                  font-black
+                  text-slate-800
+                "
+              >
+                Personalized Learning Path
+              </p>
+
+              <div
+                className="
+                  mt-4
+                  grid
+                  gap-3
+                  sm:grid-cols-2
+                  lg:grid-cols-4
+                "
+              >
+                {diagnostic.learningPath.map((step, index) => (
+                  <div
+                    key={`${step}-${index}`}
+                    className="
+                          relative
+                          border
+                          border-slate-200
+                          bg-slate-50
+                          p-4
+                          pt-6
+                        "
+                  >
+                    <span
+                      className="
+                            absolute
+                            -top-3
+                            left-4
+                            flex
+                            h-7
+                            w-7
+                            items-center
+                            justify-center
+                            rounded-full
+                            bg-[#123a82]
+                            text-xs
+                            font-black
+                            text-white
+                          "
+                    >
+                      {index + 1}
                     </span>
+
+                    <p
+                      className="
+                            font-black
+                            text-[#102449]
+                          "
+                    >
+                      {step}
+                    </p>
                   </div>
                 ))}
               </div>
             </div>
-          </div>
+          )}
         </section>
+
+        {/* CTA */}
 
         <section
-          id="laporan-lengkap"
-          className="mt-5 border border-slate-200 bg-white shadow-sm"
+          className="
+            mt-5
+            overflow-hidden
+            bg-[#123a82]
+            p-5
+            text-white
+            shadow-[0_24px_65px_-40px_rgba(30,64,175,0.85)]
+            sm:p-7
+          "
         >
-          <header className="bg-[#123a82] px-4 py-3 text-center text-sm font-black text-white">
-            Laporan Lengkap - Kelas {attempt.grade_level}
-          </header>
-          <TopTabs active={activeTab} onChange={setActiveTab} />
-          <div className="min-w-0 p-4 sm:p-7">
-            {activeTab === "summary" && (
-              <div>
-                <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-                  <div>
-                    <p className="text-xs font-black uppercase tracking-[0.18em] text-blue-700">
-                      Ringkasan Utama
-                    </p>
-                    <h2 className="mt-1 text-2xl font-black text-[#102449]">
-                      Peta Awal Kemampuan Anak
-                    </h2>
-                  </div>
-                  <span
-                    className={`w-fit border px-4 py-2 text-sm font-black ${levelClass(attempt.score)}`}
-                  >
-                    {levelLabel(attempt.score)}
-                  </span>
-                </div>
+          <div
+            className="
+              grid
+              items-center
+              gap-6
+              lg:grid-cols-[1fr_300px]
+            "
+          >
+            <div>
+              <p
+                className="
+                  text-xs
+                  font-black
+                  uppercase
+                  tracking-[0.18em]
+                  text-blue-200
+                "
+              >
+                Recommended Free Trial
+              </p>
 
-                <div className="mt-5 border border-blue-100 bg-gradient-to-br from-blue-50 via-white to-emerald-50 p-5 shadow-[0_18px_55px_-45px_rgba(15,23,42,0.65)]">
-                  <p className="max-w-3xl text-xl font-black leading-snug text-[#102449]">
-                    {displayName} memiliki modal belajar pada{" "}
-                    {strongestCategories
-                      .map((item) => item.category)
-                      .join(" dan ")}
-                    , dengan fokus penguatan berikutnya pada{" "}
-                    {lowestCategories
-                      .map((item) => item.category)
-                      .join(" dan ")}
-                    .
-                  </p>
-                  <p className="mt-3 max-w-3xl text-sm font-semibold leading-7 text-slate-700">
-                    Hasil ini bukan label kemampuan anak, melainkan peta awal
-                    untuk menentukan cara belajar yang paling tepat, lebih
-                    terarah, dan tidak membuat anak merasa tertinggal.
-                  </p>
-                </div>
+              <h2
+                className="
+                  mt-2
+                  text-2xl
+                  font-black
+                  sm:text-3xl
+                "
+              >
+                {diagnostic.trialFocus}
+              </h2>
 
-                <div className="mt-5 grid gap-4 lg:grid-cols-3">
-                  <div className="border border-emerald-100 bg-emerald-50 p-5">
-                    <div className="flex items-center gap-3">
-                      <span className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-600 text-sm font-black text-white">
-                        1
-                      </span>
-                      <p className="text-base font-black text-emerald-800">
-                        Kekuatan Anak
-                      </p>
-                    </div>
-                    <div className="mt-4 space-y-3">
-                      {strongestCategories.map((item) => (
-                        <div
-                          key={item.category}
-                          className="border border-emerald-100 bg-white/80 p-3"
-                        >
-                          <div className="flex items-center justify-between gap-3">
-                            <span className="text-sm font-black text-slate-800">
-                              {item.category}
-                            </span>
-                            <span className="text-sm font-black text-emerald-700">
-                              {item.score}%
-                            </span>
-                          </div>
-                          <p className="mt-1 text-xs font-semibold leading-relaxed text-slate-600">
-                            Bisa dijadikan pijakan untuk membangun percaya diri
-                            dan masuk ke soal yang lebih menantang.
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+              <p
+                className="
+                  mt-3
+                  max-w-2xl
+                  text-sm
+                  font-semibold
+                  leading-7
+                  text-blue-100
+                "
+              >
+                Free Trial dapat difokuskan pada area yang ditemukan dari
+                diagnostic ini, sehingga sesi pertama tidak dimulai secara acak.
+              </p>
+            </div>
 
-                  <div className="border border-amber-100 bg-amber-50 p-5">
-                    <div className="flex items-center gap-3">
-                      <span className="flex h-10 w-10 items-center justify-center rounded-full bg-amber-500 text-sm font-black text-white">
-                        2
-                      </span>
-                      <p className="text-base font-black text-amber-800">
-                        Perlu Dikuatkan
-                      </p>
-                    </div>
-                    <div className="mt-4 space-y-3">
-                      {lowestCategories.map((item) => (
-                        <div
-                          key={item.category}
-                          className="border border-amber-100 bg-white/80 p-3"
-                        >
-                          <div className="flex items-center justify-between gap-3">
-                            <span className="text-sm font-black text-slate-800">
-                              {item.category}
-                            </span>
-                            <span className="text-sm font-black text-amber-700">
-                              {item.score}%
-                            </span>
-                          </div>
-                          <p className="mt-1 text-xs font-semibold leading-relaxed text-slate-600">
-                            Perlu latihan bertahap agar anak memahami langkah,
-                            bukan hanya menghafal jawaban.
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="border border-blue-100 bg-blue-50 p-5">
-                    <div className="flex items-center gap-3">
-                      <span className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-sm font-black text-white">
-                        3
-                      </span>
-                      <p className="text-base font-black text-blue-800">
-                        Arah Belajar
-                      </p>
-                    </div>
-                    <div className="mt-4 space-y-3 text-sm font-semibold leading-relaxed text-slate-700">
-                      <p>
-                        Anak perlu belajar dengan urutan yang jelas: pahami
-                        konsep, latihan singkat, bahas kesalahan, lalu naik ke
-                        soal cerita atau penalaran.
-                      </p>
-                      <p>
-                        Di BeSmartKids, proses ini dibuat bertahap agar anak
-                        berani mencoba dan tidak cepat menyerah ketika bentuk
-                        soal berubah.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-5 border border-slate-200 bg-white p-5">
-                  <p className="text-sm font-black text-slate-800">
-                    Learning Path yang Disarankan
-                  </p>
-                  <div className="mt-4 flex max-w-full gap-3 overflow-x-auto pb-3 [-webkit-overflow-scrolling:touch] md:grid md:grid-cols-4 md:overflow-visible md:pb-0">
-                    {[
-                      "Pahami konsep",
-                      "Latihan bertahap",
-                      "Bahas kesalahan",
-                      "Evaluasi ulang",
-                    ].map((step, index) => (
-                      <div
-                        key={step}
-                        className="relative min-w-[145px] max-w-[170px] border border-slate-200 bg-slate-50 p-4 md:min-w-0 md:max-w-none"
-                      >
-                        <span className="absolute -top-3 left-4 flex h-7 w-7 items-center justify-center rounded-full bg-[#123a82] text-xs font-black text-white">
-                          {index + 1}
-                        </span>
-                        <p className="mt-2 text-sm font-black text-[#102449]">
-                          {step}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {activeTab === "analysis" && (
-              <div>
-                <h2 className="text-xl font-black">Analisis per Kompetensi</h2>
-                <div className="mt-4 grid gap-3 md:hidden">
-                  {categoryScores.map((item) => (
-                    <button
-                      key={item.category}
-                      type="button"
-                      onClick={() => setSelectedCategory(item)}
-                      className="border border-slate-200 bg-gradient-to-br from-white to-blue-50/50 p-4 text-left shadow-[0_14px_36px_-30px_rgba(15,23,42,0.75)]"
-                    >
-                      <div className="flex items-start justify-between gap-3">
-                        <div>
-                          <p className="text-sm font-black text-[#102449]">
-                            {item.category}
-                          </p>
-                          <p className="mt-1 text-xs font-semibold text-slate-500">
-                            Benar {item.correct} dari {item.total} soal
-                          </p>
-                        </div>
-                        <span
-                          className={`border px-2 py-1 text-[11px] font-black ${levelClass(item.score)}`}
-                        >
-                          {levelLabel(item.score)}
-                        </span>
-                      </div>
-                      <div className="mt-4 flex items-center gap-3">
-                        <div className="h-3 flex-1 overflow-hidden rounded-full bg-slate-100 shadow-inner">
-                          <div
-                            className="h-full rounded-full bg-gradient-to-r from-emerald-700 via-emerald-500 to-lime-300 shadow-[inset_0_1px_3px_rgba(255,255,255,0.65),0_6px_14px_-9px_rgba(5,150,105,0.9)]"
-                            style={{ width: `${item.score}%` }}
-                          />
-                        </div>
-                        <span className="text-lg font-black text-blue-700">
-                          {item.score}%
-                        </span>
-                      </div>
-                      <p className="mt-3 text-xs font-black text-blue-700">
-                        Ketuk untuk melihat detail
-                      </p>
-                    </button>
-                  ))}
-                </div>
-                <div className="mt-4 hidden overflow-x-auto md:block">
-                  <table className="w-full min-w-[720px] border-collapse text-sm">
-                    <thead>
-                      <tr className="bg-slate-50 text-left text-xs font-black text-slate-500">
-                        <th className="px-4 py-3">Kompetensi</th>
-                        <th className="px-4 py-3">Skor</th>
-                        <th className="px-4 py-3">Persentase</th>
-                        <th className="px-4 py-3">Level</th>
-                        <th className="px-4 py-3">Detail</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-100">
-                      {categoryScores.map((item) => (
-                        <tr key={item.category}>
-                          <td className="px-4 py-3 font-black">
-                            {item.category}
-                          </td>
-                          <td className="px-4 py-3 font-semibold">
-                            {item.correct}/{item.total}
-                          </td>
-                          <td className="px-4 py-3">
-                            <div className="flex items-center gap-3">
-                              <div className="h-3 w-32 overflow-hidden rounded-full bg-slate-100 shadow-inner">
-                                <div
-                                  className="h-full rounded-full bg-gradient-to-r from-emerald-700 via-emerald-500 to-lime-300 shadow-[inset_0_1px_3px_rgba(255,255,255,0.65),0_6px_14px_-9px_rgba(5,150,105,0.9)]"
-                                  style={{ width: `${item.score}%` }}
-                                />
-                              </div>
-                              <span className="font-black">{item.score}%</span>
-                            </div>
-                          </td>
-                          <td className="px-4 py-3">
-                            <span
-                              className={`border px-3 py-1 text-xs font-black ${levelClass(item.score)}`}
-                            >
-                              {levelLabel(item.score)}
-                            </span>
-                          </td>
-                          <td className="px-4 py-3">
-                            <button
-                              type="button"
-                              onClick={() => setSelectedCategory(item)}
-                              className="border border-blue-100 px-3 py-1 text-xs font-black text-blue-700 hover:bg-blue-50"
-                            >
-                              Lihat
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
-                      <tr className="bg-slate-50 font-black">
-                        <td className="px-4 py-3">Total</td>
-                        <td className="px-4 py-3">
-                          {totalCorrect}/{totalQuestions}
-                        </td>
-                        <td className="px-4 py-3">{attempt.score}%</td>
-                        <td className="px-4 py-3">
-                          {levelLabel(attempt.score)}
-                        </td>
-                        <td className="px-4 py-3" />
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div className="mt-6 border border-blue-200 bg-blue-50 p-4 text-sm font-semibold leading-relaxed text-slate-700">
-                  {profile.summary} Tingkatkan latihan pada{" "}
-                  {lowestCategories.map((item) => item.category).join(" dan ")}{" "}
-                  untuk hasil yang lebih optimal.
-                </div>
-              </div>
-            )}
-
-            {activeTab === "recommendation" && (
-              <div>
-                <h2 className="text-xl font-black">Rekomendasi Belajar</h2>
-                <div className="mt-4 border border-amber-200 bg-amber-50 p-5 text-sm font-semibold leading-7 text-slate-700">
-                  <strong>Fokus utama saat ini:</strong>{" "}
-                  {focusRecommendations.map((item) => item.category).join(", ")}
-                  . Rekomendasi di bawah disusun dari bagian yang nilainya
-                  paling perlu diperkuat, sehingga latihan anak lebih terarah
-                  dan tidak terasa acak.
-                </div>
-                <div className="mt-5 space-y-4">
-                  {focusRecommendations.map((item, index) => {
-                    const rec = categoryNarrative(item.category, item.score);
-                    return (
-                      <div
-                        key={item.category}
-                        className="grid gap-4 border border-slate-200 bg-white p-5 shadow-[0_18px_45px_-38px_rgba(15,23,42,0.7)] sm:grid-cols-[88px_1fr]"
-                      >
-                        <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-blue-50 to-emerald-50 text-2xl font-black text-blue-700 shadow-inner">
-                          {index + 1}
-                        </div>
-                        <div>
-                          <div className="flex flex-wrap items-center gap-2">
-                            <h3 className="text-lg font-black">{rec.title}</h3>
-                            <span
-                              className={`border px-2 py-1 text-[11px] font-black ${levelClass(item.score)}`}
-                            >
-                              {item.score}%
-                            </span>
-                          </div>
-                          <p className="mt-2 text-sm font-semibold leading-7 text-slate-700">
-                            {rec.message}
-                          </p>
-                          <p className="mt-3 text-sm font-semibold leading-7 text-slate-700">
-                            {rec.action}
-                          </p>
-                          <div className="mt-4 flex flex-wrap gap-2">
-                            <span className="border border-blue-100 bg-blue-50 px-3 py-1 text-xs font-black text-blue-700">
-                              Video sesuai topik
-                            </span>
-                            <span className="border border-blue-100 bg-blue-50 px-3 py-1 text-xs font-black text-blue-700">
-                              Latihan bertahap
-                            </span>
-                            <span className="border border-blue-100 bg-blue-50 px-3 py-1 text-xs font-black text-blue-700">
-                              Pembahasan konsep
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-                <div className="mt-5 border border-emerald-200 bg-emerald-50 p-5 text-sm font-semibold leading-7 text-slate-700">
-                  Rencana belajar yang baik tidak harus membuat anak belajar
-                  lama setiap hari. Yang lebih penting adalah urutannya jelas,
-                  soalnya sesuai kemampuan, dan anak mendapatkan penjelasan
-                  ketika salah. Dengan pola seperti ini, anak lebih mudah merasa
-                  mampu dan tidak cepat menyerah saat bertemu soal yang
-                  menantang.
-                </div>
-              </div>
-            )}
-
-            {activeTab === "comparison" && (
-              <div>
-                <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-                  <div>
-                    <h2 className="text-xl font-black">
-                      Perbandingan dengan Rata-rata
-                    </h2>
-                    <p className="mt-2 text-sm font-semibold text-slate-600">
-                      Grafik ini membandingkan skor anak dengan target
-                      pembanding internal BeSmartKids untuk siswa di jenjang
-                      kelas yang sama. Angka pembanding bukan nilai sekolah,
-                      tetapi acuan awal untuk membaca area yang sudah kuat dan
-                      area yang perlu dilatih.
-                    </p>
-                  </div>
-                  <div className="flex gap-4 text-xs font-black text-slate-600">
-                    <span className="flex items-center gap-2">
-                      <span className="h-3 w-3 bg-blue-600" /> Biru: skor anak
-                    </span>
-                    <span className="flex items-center gap-2">
-                      <span className="h-3 w-3 bg-slate-300" /> Abu-abu: target
-                      pembanding BeSmartKids
-                    </span>
-                  </div>
-                </div>
-
-                <div className="mt-6 max-w-full overflow-x-auto border border-slate-200 bg-gradient-to-br from-white to-blue-50/40 p-4 shadow-[0_18px_55px_-45px_rgba(15,23,42,0.8)] [-webkit-overflow-scrolling:touch] sm:p-5">
-                  <div className="relative h-72 min-w-[560px] border-b border-l border-slate-200 pl-4 sm:min-w-[620px]">
-                    {[100, 75, 50, 25].map((tick) => (
-                      <div
-                        key={tick}
-                        className="absolute left-0 right-0 border-t border-dashed border-slate-200"
-                        style={{ bottom: `${tick}%` }}
-                      >
-                        <span className="absolute -left-4 -top-2 bg-white pr-1 text-[10px] font-bold text-slate-400">
-                          {tick}
-                        </span>
-                      </div>
-                    ))}
-                    <div className="absolute inset-x-4 bottom-0 flex h-full items-end justify-between gap-2 sm:gap-3">
-                      {categoryScores.map((item) => {
-                        const average = Math.max(
-                          45,
-                          Math.min(82, item.score - 12),
-                        );
-                        const diff = item.score - average;
-                        return (
-                          <div
-                            key={item.category}
-                            className="flex min-w-0 flex-1 flex-col items-center gap-2"
-                          >
-                            <div className="flex h-56 items-end gap-2">
-                              <div
-                                className="relative w-6 rounded-t-lg bg-gradient-to-t from-blue-700 to-blue-400 shadow-lg sm:w-8"
-                                style={{ height: `${item.score}%` }}
-                              >
-                                <span className="absolute -top-6 left-1/2 -translate-x-1/2 text-xs font-black text-blue-700">
-                                  {item.score}
-                                </span>
-                              </div>
-                              <div
-                                className="relative w-6 rounded-t-lg bg-gradient-to-t from-slate-400 to-slate-200 sm:w-8"
-                                style={{ height: `${average}%` }}
-                              >
-                                <span className="absolute -top-6 left-1/2 -translate-x-1/2 text-xs font-black text-slate-500">
-                                  {average}
-                                </span>
-                              </div>
-                            </div>
-                            <p className="min-h-8 max-w-[92px] text-center text-[10px] font-bold leading-tight text-slate-600">
-                              {item.category}
-                            </p>
-                            <span
-                              className={`text-[10px] font-black ${diff >= 0 ? "text-emerald-700" : "text-red-600"}`}
-                            >
-                              {diff >= 0 ? "+" : ""}
-                              {diff} poin
-                            </span>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-6 grid gap-4 lg:grid-cols-[1fr_260px]">
-                  <div className="border border-blue-100 bg-blue-50 p-5">
-                    <h3 className="text-lg font-black text-blue-700">
-                      Makna Grafik
-                    </h3>
-                    <p className="mt-2 text-sm font-semibold leading-7 text-slate-700">
-                      Selisih yang tinggi menunjukkan area yang sudah kuat dan
-                      bisa dipakai sebagai modal percaya diri. Selisih yang
-                      kecil atau negatif menunjukkan topik yang perlu dilatih
-                      lebih terarah. Fokus belajar sebaiknya dimulai dari{" "}
-                      {lowestCategories
-                        .map((item) => item.category)
-                        .join(" dan ")}{" "}
-                      agar perkembangan anak lebih terasa.
-                    </p>
-                  </div>
-                  <a
-                    href={whatsappHref}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex items-center justify-center bg-blue-600 px-5 py-4 text-center font-black text-white shadow-[0_18px_45px_-34px_rgba(37,99,235,0.9)] hover:bg-[#123a82]"
-                  >
-                    Jadwalkan Konsultasi
-                  </a>
-                </div>
-              </div>
-            )}
-
-            {activeTab === "history" && (
-              <div>
-                <h2 className="text-xl font-black">Riwayat Jawaban</h2>
-                <p className="mt-2 text-sm font-semibold text-slate-600">
-                  Klik nomor soal untuk melihat jawaban dan penjelasan.
-                </p>
-                <div className="mt-5 grid grid-cols-4 justify-items-center gap-2 min-[380px]:grid-cols-5 sm:grid-cols-10 sm:gap-3">
-                  {answers.map((answer, index) => (
-                    <button
-                      key={answer.question_id}
-                      type="button"
-                      onClick={() => setSelectedAnswer(answer)}
-                      className={`relative h-12 w-12 rounded-full text-sm font-black text-white transition hover:-translate-y-1 hover:scale-105 sm:h-14 sm:w-14 ${answer.is_correct ? "bg-gradient-to-br from-emerald-300 via-emerald-500 to-emerald-800 shadow-[inset_0_2px_4px_rgba(255,255,255,0.55),0_12px_22px_-10px_rgba(5,150,105,0.9)]" : "bg-gradient-to-br from-rose-300 via-red-500 to-red-800 shadow-[inset_0_2px_4px_rgba(255,255,255,0.55),0_12px_22px_-10px_rgba(220,38,38,0.9)]"}`}
-                      aria-label={`Lihat soal ${index + 1}`}
-                    >
-                      {index + 1}
-                    </button>
-                  ))}
-                </div>
-                <div className="mt-5 flex flex-wrap gap-4 text-sm font-semibold text-slate-600">
-                  <div className="flex items-center gap-2">
-                    <span className="h-4 w-4 rounded-full bg-emerald-600" />{" "}
-                    Jawaban benar
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="h-4 w-4 rounded-full bg-red-600" /> Jawaban
-                    salah
-                  </div>
-                </div>
+            {businessWhatsapp ? (
+              <a
+                href={whatsappHref}
+                target="_blank"
+                rel="noreferrer"
+                onClick={handleContact}
+                className="
+                  flex
+                  min-h-14
+                  items-center
+                  justify-center
+                  bg-white
+                  px-5
+                  py-4
+                  text-center
+                  font-black
+                  text-blue-700
+                  transition
+                  hover:bg-emerald-50
+                "
+              >
+                Konsultasi Hasil & Free Trial
+              </a>
+            ) : (
+              <div
+                className="
+                  bg-white/10
+                  px-5
+                  py-4
+                  text-center
+                  text-sm
+                  font-bold
+                  text-white
+                "
+              >
+                Nomor WhatsApp BeSmartKids belum dikonfigurasi.
               </div>
             )}
           </div>
         </section>
+
+        {/* ANSWER HISTORY */}
+
+        <section
+          className="
+            mt-5
+            border
+            border-slate-200
+            bg-white
+            p-5
+            shadow-sm
+            sm:p-7
+          "
+        >
+          <p
+            className="
+              text-xs
+              font-black
+              uppercase
+              tracking-[0.18em]
+              text-blue-700
+            "
+          >
+            Answer History
+          </p>
+
+          <h2
+            className="
+              mt-1
+              text-2xl
+              font-black
+            "
+          >
+            Riwayat 24 Jawaban
+          </h2>
+
+          <p
+            className="
+              mt-2
+              text-sm
+              font-semibold
+              text-slate-600
+            "
+          >
+            Klik nomor soal untuk melihat jawaban anak dan pembahasannya.
+          </p>
+
+          <div
+            className="
+              mt-5
+              grid
+              grid-cols-4
+              justify-items-center
+              gap-3
+              min-[380px]:grid-cols-5
+              sm:grid-cols-8
+              lg:grid-cols-12
+            "
+          >
+            {answers.map((answer, index) => (
+              <button
+                key={answer.question_id}
+                type="button"
+                onClick={() => setSelectedAnswer(answer)}
+                className={`
+                    flex
+                    h-12
+                    w-12
+                    items-center
+                    justify-center
+                    rounded-full
+                    text-sm
+                    font-black
+                    text-white
+                    transition
+                    hover:-translate-y-1
+                    ${
+                      answer.is_correct
+                        ? "bg-emerald-600 shadow-[0_10px_20px_-12px_rgba(5,150,105,0.8)]"
+                        : "bg-red-600 shadow-[0_10px_20px_-12px_rgba(220,38,38,0.8)]"
+                    }
+                  `}
+              >
+                {index + 1}
+              </button>
+            ))}
+          </div>
+
+          <div
+            className="
+              mt-5
+              flex
+              flex-wrap
+              gap-5
+              text-sm
+              font-semibold
+              text-slate-600
+            "
+          >
+            <span
+              className="
+                flex
+                items-center
+                gap-2
+              "
+            >
+              <span
+                className="
+                  h-4
+                  w-4
+                  rounded-full
+                  bg-emerald-600
+                "
+              />
+              Jawaban benar
+            </span>
+
+            <span
+              className="
+                flex
+                items-center
+                gap-2
+              "
+            >
+              <span
+                className="
+                  h-4
+                  w-4
+                  rounded-full
+                  bg-red-600
+                "
+              />
+              Jawaban salah
+            </span>
+          </div>
+        </section>
+
+        <p
+          className="
+            py-7
+            text-center
+            text-xs
+            font-semibold
+            leading-6
+            text-slate-400
+          "
+        >
+          Hasil Math Check-Up BeSmartKids merupakan diagnostic pembelajaran
+          internal untuk membantu menentukan titik awal belajar. Hasil ini bukan
+          diagnosis klinis atau nilai sekolah.
+        </p>
       </div>
 
-      {selectedCategory && (
-        <div
-          className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-slate-950/60 p-3 py-6 sm:items-center sm:p-4"
-          role="dialog"
-          aria-modal="true"
-        >
-          <div className="w-full max-w-2xl border border-slate-200 bg-white p-4 shadow-2xl sm:p-6">
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <p
-                  className={`w-fit border px-3 py-1 text-xs font-black ${levelClass(selectedCategory.score)}`}
-                >
-                  {levelLabel(selectedCategory.score)}
-                </p>
-                <h3 className="mt-3 text-xl font-black text-[#102449]">
-                  Detail {selectedCategory.category}
-                </h3>
-              </div>
-              <button
-                type="button"
-                onClick={() => setSelectedCategory(null)}
-                className="border border-slate-200 px-3 py-2 text-sm font-black text-slate-600 hover:bg-slate-50"
-              >
-                Tutup
-              </button>
-            </div>
-            <div className="mt-5 space-y-4 text-sm font-semibold leading-7 text-slate-700">
-              <div className="grid gap-3 sm:grid-cols-3">
-                <div className="border border-slate-200 bg-slate-50 p-3">
-                  <p className="text-xs font-black text-slate-500">Skor</p>
-                  <p className="mt-1 text-2xl font-black text-[#102449]">
-                    {selectedCategory.score}%
-                  </p>
-                </div>
-                <div className="border border-slate-200 bg-slate-50 p-3">
-                  <p className="text-xs font-black text-slate-500">Benar</p>
-                  <p className="mt-1 text-2xl font-black text-[#102449]">
-                    {selectedCategory.correct}/{selectedCategory.total}
-                  </p>
-                </div>
-                <div className="border border-slate-200 bg-slate-50 p-3">
-                  <p className="text-xs font-black text-slate-500">Status</p>
-                  <p className="mt-1 font-black text-[#102449]">
-                    {levelLabel(selectedCategory.score)}
-                  </p>
-                </div>
-              </div>
-              <div className="border border-blue-100 bg-blue-50 p-4">
-                <div className="mb-4 h-4 overflow-hidden rounded-full bg-white shadow-inner">
-                  <div
-                    className="h-full rounded-full bg-gradient-to-r from-blue-800 via-blue-500 to-cyan-300 shadow-[inset_0_1px_4px_rgba(255,255,255,0.7),0_8px_18px_-12px_rgba(37,99,235,0.95)]"
-                    style={{ width: `${selectedCategory.score}%` }}
-                  />
-                </div>
-                <p className="text-xs font-black text-blue-700">Analisis</p>
-                <p className="mt-2">
-                  {
-                    categoryNarrative(
-                      selectedCategory.category,
-                      selectedCategory.score,
-                    ).message
-                  }
-                </p>
-              </div>
-              <div className="border border-emerald-100 bg-emerald-50 p-4">
-                <p className="text-xs font-black text-emerald-700">
-                  Langkah Berikutnya
-                </p>
-                <p className="mt-2">
-                  {
-                    categoryNarrative(
-                      selectedCategory.category,
-                      selectedCategory.score,
-                    ).action
-                  }
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* ANSWER MODAL */}
 
       {selectedAnswer && (
         <div
-          className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-slate-950/60 p-3 py-6 sm:items-center sm:p-4"
+          className="
+            fixed
+            inset-0
+            z-50
+            flex
+            items-start
+            justify-center
+            overflow-y-auto
+            bg-slate-950/60
+            p-3
+            py-6
+            sm:items-center
+          "
           role="dialog"
           aria-modal="true"
         >
-          <div className="w-full max-w-2xl border border-slate-200 bg-white p-4 shadow-2xl sm:p-6">
-            <div className="flex items-start justify-between gap-4">
+          <div
+            className="
+              w-full
+              max-w-2xl
+              border
+              border-slate-200
+              bg-white
+              p-5
+              shadow-2xl
+              sm:p-6
+            "
+          >
+            <div
+              className="
+                flex
+                items-start
+                justify-between
+                gap-4
+              "
+            >
               <div>
-                <p
-                  className={`w-fit border px-3 py-1 text-xs font-black ${selectedAnswer.is_correct ? "border-emerald-100 bg-emerald-50 text-emerald-700" : "border-red-100 bg-red-50 text-red-700"}`}
+                <span
+                  className={`
+                    inline-flex
+                    border
+                    px-3
+                    py-1
+                    text-xs
+                    font-black
+                    ${
+                      selectedAnswer.is_correct
+                        ? "border-emerald-200 bg-emerald-50 text-emerald-700"
+                        : "border-red-200 bg-red-50 text-red-700"
+                    }
+                  `}
                 >
                   {selectedAnswer.is_correct
                     ? "Jawaban Benar"
                     : "Jawaban Salah"}
-                </p>
-                <h3 className="mt-3 text-xl font-black text-[#102449]">
+                </span>
+
+                <h3
+                  className="
+                    mt-3
+                    text-xl
+                    font-black
+                  "
+                >
                   Pembahasan Soal
                 </h3>
               </div>
+
               <button
                 type="button"
                 onClick={() => setSelectedAnswer(null)}
-                className="border border-slate-200 px-3 py-2 text-sm font-black text-slate-600 hover:bg-slate-50"
+                className="
+                  border
+                  border-slate-200
+                  px-3
+                  py-2
+                  text-sm
+                  font-black
+                  text-slate-600
+                  hover:bg-slate-50
+                "
               >
                 Tutup
               </button>
             </div>
-            <div className="mt-5 space-y-4 text-sm font-semibold leading-relaxed text-slate-700">
+
+            <div
+              className="
+                mt-5
+                space-y-4
+              "
+            >
               <div>
-                <p className="text-xs font-black uppercase tracking-[0.16em] text-slate-400">
+                <p
+                  className="
+                    text-xs
+                    font-black
+                    uppercase
+                    tracking-[0.14em]
+                    text-slate-400
+                  "
+                >
                   Soal
                 </p>
-                <p className="mt-1 text-base font-black text-slate-900">
+
+                <div
+                  className="
+                    mt-2
+                    text-base
+                    font-black
+                    leading-7
+                    text-slate-900
+                  "
+                >
                   <MathText text={selectedAnswer.prompt} />
-                </p>
+                </div>
               </div>
-              <div className="grid gap-3 sm:grid-cols-2">
-                <div className="border border-slate-200 bg-slate-50 p-3">
-                  <p className="text-xs font-black text-slate-500">
+
+              <div
+                className="
+                  grid
+                  gap-3
+                  sm:grid-cols-2
+                "
+              >
+                <div
+                  className="
+                    border
+                    border-slate-200
+                    bg-slate-50
+                    p-4
+                  "
+                >
+                  <p
+                    className="
+                      text-xs
+                      font-black
+                      text-slate-500
+                    "
+                  >
                     Jawaban anak
                   </p>
-                  <p className="mt-1 font-black">
+
+                  <div
+                    className="
+                      mt-2
+                      font-black
+                    "
+                  >
                     <MathText text={selectedAnswer.selected_answer ?? "-"} />
-                  </p>
+                  </div>
                 </div>
-                <div className="border border-emerald-200 bg-emerald-50 p-3">
-                  <p className="text-xs font-black text-emerald-700">
+
+                <div
+                  className="
+                    border
+                    border-emerald-200
+                    bg-emerald-50
+                    p-4
+                  "
+                >
+                  <p
+                    className="
+                      text-xs
+                      font-black
+                      text-emerald-700
+                    "
+                  >
                     Jawaban benar
                   </p>
-                  <p className="mt-1 font-black">
+
+                  <div
+                    className="
+                      mt-2
+                      font-black
+                    "
+                  >
                     <MathText text={selectedAnswer.correct_answer} />
-                  </p>
+                  </div>
                 </div>
               </div>
-              <div className="border border-blue-100 bg-blue-50 p-4">
-                <p className="text-xs font-black text-blue-700">Penjelasan</p>
-                <p className="mt-2">
-                  <MathText text={selectedAnswer.explanation} />
+
+              <div
+                className="
+                  border
+                  border-blue-100
+                  bg-blue-50
+                  p-4
+                "
+              >
+                <p
+                  className="
+                    text-xs
+                    font-black
+                    text-blue-700
+                  "
+                >
+                  Penjelasan
                 </p>
+
+                <div
+                  className="
+                    mt-2
+                    text-sm
+                    font-semibold
+                    leading-7
+                    text-slate-700
+                  "
+                >
+                  <MathText text={selectedAnswer.explanation} />
+                </div>
+              </div>
+
+              <div
+                className="
+                  grid
+                  gap-3
+                  sm:grid-cols-2
+                "
+              >
+                <div
+                  className="
+                    border
+                    border-slate-200
+                    p-3
+                  "
+                >
+                  <p
+                    className="
+                      text-xs
+                      font-black
+                      text-slate-400
+                    "
+                  >
+                    Skill
+                  </p>
+
+                  <p
+                    className="
+                      mt-1
+                      text-sm
+                      font-black
+                      text-slate-800
+                    "
+                  >
+                    {selectedAnswer.skill}
+                  </p>
+                </div>
+
+                <div
+                  className="
+                    border
+                    border-slate-200
+                    p-3
+                  "
+                >
+                  <p
+                    className="
+                      text-xs
+                      font-black
+                      text-slate-400
+                    "
+                  >
+                    Level soal
+                  </p>
+
+                  <p
+                    className="
+                      mt-1
+                      text-sm
+                      font-black
+                      capitalize
+                      text-slate-800
+                    "
+                  >
+                    {selectedAnswer.assessmentBand}
+                  </p>
+                </div>
               </div>
             </div>
           </div>

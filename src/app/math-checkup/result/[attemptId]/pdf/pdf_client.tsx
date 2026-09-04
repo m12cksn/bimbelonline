@@ -91,7 +91,7 @@ function iconFor(category: string) {
   if (category === "Kelancaran Berhitung")
     return "/images/icons/aritmatika.webp";
   if (category === "Pecahan") return "/images/icons/fraction.webp";
-  if (category === "Soal Cerita") return "/images/icons/soal cerita.webp";
+  if (category === "Soal Cerita") return "/images/icons/soal.webp";
   if (category === "Penalaran Logis") return "/images/icons/geometry.webp";
   if (category === "Pemahaman Bilangan") return "/images/icons/aritmatika.webp";
   return "/images/icons/pengukuran.webp";
