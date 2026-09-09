@@ -1,7 +1,7 @@
 "use client";
-/* eslint-disable @next/next/no-img-element */
 
 import { useRef, useState, useEffect, useMemo } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import MathText from "@/app/components/MathText";
 import DoodleOverlay, {
@@ -443,11 +443,16 @@ export default function BatchPracticeQuiz({
             </div>
 
             {question.question_image_url && (
-              <img
-                src={question.question_image_url}
-                alt={`Gambar soal ${page * PAGE_SIZE + index + 1}`}
-                className="mx-auto mt-4 max-h-[420px] max-w-full rounded-md border border-slate-200 bg-white object-contain"
-              />
+              <div className="relative mx-auto mt-4 h-[min(420px,60vw)] min-h-48 w-full max-w-3xl overflow-hidden rounded-md border border-slate-200 bg-white">
+                <Image
+                  src={question.question_image_url}
+                  alt={`Gambar soal ${page * PAGE_SIZE + index + 1}`}
+                  fill
+                  sizes="(min-width: 1024px) 768px, 100vw"
+                  className="object-contain"
+                  unoptimized
+                />
+              </div>
             )}
 
             <div className="mt-5">
@@ -497,11 +502,16 @@ export default function BatchPracticeQuiz({
                             </span>
                           )}
                           {option.image_url && (
-                            <img
-                              src={option.image_url}
-                              alt={option.label}
-                              className="mt-2 max-h-40 rounded-md object-contain"
-                            />
+                            <span className="relative mt-2 block h-40 w-full overflow-hidden rounded-md bg-white">
+                              <Image
+                                src={option.image_url}
+                                alt={option.label}
+                                fill
+                                sizes="(min-width: 640px) 50vw, 100vw"
+                                className="object-contain"
+                                unoptimized
+                              />
+                            </span>
                           )}
                         </span>
                       </label>
@@ -546,11 +556,16 @@ export default function BatchPracticeQuiz({
                           {item.label}. <MathText text={item.prompt} />
                         </span>
                         {item.image_url && (
-                          <img
-                            src={item.image_url}
-                            alt={item.prompt}
-                            className="my-2 max-h-52 rounded-md object-contain"
-                          />
+                          <span className="relative my-2 block h-52 w-full overflow-hidden rounded-md bg-white">
+                            <Image
+                              src={item.image_url}
+                              alt={item.prompt}
+                              fill
+                              sizes="100vw"
+                              className="object-contain"
+                              unoptimized
+                            />
+                          </span>
                         )}
                         <input
                           value={parsed[item.id] ?? ""}
@@ -650,11 +665,16 @@ export default function BatchPracticeQuiz({
                       />
                     </p>
                     {result.correctAnswerImage && (
-                      <img
-                        src={result.correctAnswerImage}
-                        alt="Gambar jawaban benar"
-                        className="mt-3 max-h-64 rounded-md bg-white object-contain"
-                      />
+                      <span className="relative mt-3 block h-64 w-full overflow-hidden rounded-md bg-white">
+                        <Image
+                          src={result.correctAnswerImage}
+                          alt="Gambar jawaban benar"
+                          fill
+                          sizes="100vw"
+                          className="object-contain"
+                          unoptimized
+                        />
+                      </span>
                     )}
                   </>
                 )}

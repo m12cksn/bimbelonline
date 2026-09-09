@@ -408,6 +408,88 @@ export async function getDiagnosticQuestionsFromDb(gradeLevel: number) {
   );
 }
 
+export async function getDiagnosticQuestionsByIdsFromDb(
+  gradeLevel: number,
+  questionIds: string[],
+) {
+  const uniqueQuestionIds = [...new Set(questionIds.filter(Boolean))];
+
+  if (uniqueQuestionIds.length === 0) {
+    return getDiagnosticQuestionsFromDb(gradeLevel);
+  }
+
+  const supabase = diagnosticServiceClient();
+
+  if (!supabase) {
+    const questionMap = new Map(
+      getDiagnosticQuestions(gradeLevel).map((question) => [
+        question.id,
+        question,
+      ]),
+    );
+
+    return uniqueQuestionIds
+      .map((questionId) => questionMap.get(questionId))
+      .filter((question): question is DiagnosticQuestion => Boolean(question));
+  }
+
+  const { data, error } = await supabase
+    .from("diagnostic_questions")
+    .select(
+      `
+          id,
+          grade_level,
+          skill_level,
+          assessment_band,
+          category,
+          domain,
+          skill,
+          subskill,
+          prerequisite_skill,
+          difficulty,
+          cognitive_type,
+          recommendation_key,
+          misconception_key,
+          diagnostic_weight,
+          diagnostic_version,
+          prompt,
+          options,
+          correct_answer,
+          explanation,
+          sort_order,
+          is_active
+        `,
+    )
+    .eq("grade_level", gradeLevel)
+    .in("id", uniqueQuestionIds);
+
+  if (error) {
+    console.error("diagnostic question db read by ids error", error);
+
+    const fallbackMap = new Map(
+      getDiagnosticQuestions(gradeLevel).map((question) => [
+        question.id,
+        question,
+      ]),
+    );
+
+    return uniqueQuestionIds
+      .map((questionId) => fallbackMap.get(questionId))
+      .filter((question): question is DiagnosticQuestion => Boolean(question));
+  }
+
+  const questionMap = new Map(
+    (data ?? []).map((row) => {
+      const question = rowToDiagnosticQuestion(row as DiagnosticQuestionRow);
+      return [question.id, question];
+    }),
+  );
+
+  return uniqueQuestionIds
+    .map((questionId) => questionMap.get(questionId))
+    .filter((question): question is DiagnosticQuestion => Boolean(question));
+}
+
 /* =========================================================
  * QUESTION MAP
  * ======================================================= */

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState, useRef } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import MathText from "@/app/components/MathText";
 import { trackMetaCustomEvent } from "@/lib/meta-pixel";
@@ -175,10 +176,13 @@ export default function MathCheckupTestClient({
       <header className="bg-[#123a82] px-4 py-4 text-white shadow-sm sm:px-6 lg:px-8">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4">
           <div className="flex items-center">
-            <img
+            <Image
               src="/images/logo_horizontal.png"
               alt="BeSmartKids"
+              width={150}
+              height={36}
               className="h-9 w-auto rounded bg-white/95 px-2 py-1 object-contain"
+              priority
             />
           </div>
           <div className="hidden text-sm font-black sm:block">

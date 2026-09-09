@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { trackMetaEvent } from "@/lib/meta-pixel";
@@ -117,10 +119,13 @@ export default function MathCheckupLanding() {
           <div className="pointer-events-none absolute -right-28 bottom-24 h-72 w-72 rounded-full bg-emerald-100 blur-3xl" />
 
           <div className="relative z-10 flex items-center justify-between gap-4">
-            <img
+            <Image
               src="/images/logo_horizontal.png"
               alt="BeSmartKids"
+              width={180}
+              height={48}
               className="h-12 w-auto object-contain"
+              priority
             />
             <span className="hidden border border-emerald-200 bg-emerald-50 px-3 py-2 text-xs font-black text-emerald-700 sm:inline-flex">
               Gratis
@@ -144,10 +149,13 @@ export default function MathCheckupLanding() {
 
             <div className="relative min-h-[280px] overflow-visible border border-emerald-100 bg-gradient-to-br from-emerald-50 via-white to-lime-50 p-4 shadow-[0_24px_70px_-54px_rgba(15,23,42,0.9)] sm:min-h-[330px]">
               <div className="absolute inset-x-10 bottom-8 h-12 rounded-full bg-slate-900/15 blur-2xl" />
-              <img
+              <Image
                 src="/images/diag/diag.webp"
                 alt="Anak belajar matematika menggunakan tablet"
+                width={640}
+                height={420}
                 className="relative z-10 mx-auto h-full max-h-[330px] w-full object-contain object-center"
+                priority
               />
             </div>
           </div>

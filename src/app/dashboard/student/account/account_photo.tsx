@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Image from "next/image";
 import { useToast } from "@/app/components/ToastProvider";
 
 type AccountPhotoProps = {
@@ -54,10 +55,13 @@ export default function AccountPhoto({
     <div className="flex flex-col gap-4">
       <div className="flex items-center gap-4">
         {avatarUrl ? (
-          <img
+          <Image
             src={avatarUrl}
             alt="Foto profil"
+            width={64}
+            height={64}
             className="h-16 w-16 rounded-2xl border border-slate-200 object-cover"
+            unoptimized
           />
         ) : (
           <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-500 text-xl font-semibold text-white">

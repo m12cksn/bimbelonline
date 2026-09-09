@@ -2,6 +2,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import MaterialQuiz from "./quiz_client";
 import MaterialLeaderboard from "./leaderboard_client";
 import BatchPracticeQuiz from "./batch_practice_quiz";
@@ -527,11 +528,16 @@ export default function MaterialWithResources({
                       {q.prompt}
                     </p>
                     {q.imageUrl && (
-                      <img
-                        src={q.imageUrl}
-                        alt={`Contoh soal ${idx + 1}`}
-                        className="mt-2 max-h-32 w-full rounded-xl border border-slate-200 object-contain"
-                      />
+                      <div className="relative mt-2 h-32 w-full overflow-hidden rounded-xl border border-slate-200 bg-white">
+                        <Image
+                          src={q.imageUrl}
+                          alt={`Contoh soal ${idx + 1}`}
+                          fill
+                          sizes="(min-width: 768px) 33vw, 100vw"
+                          className="object-contain"
+                          unoptimized
+                        />
+                      </div>
                     )}
                   </div>
                 ))}

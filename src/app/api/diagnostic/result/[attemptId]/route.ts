@@ -7,7 +7,7 @@ import {
   type DiagnosticQuestion,
 } from "@/lib/mathCheckup";
 
-import { getDiagnosticQuestionMapFromDb } from "@/lib/diagnosticQuestionStore";
+import { getDiagnosticQuestionsByIdsFromDb } from "@/lib/diagnosticQuestionStore";
 
 type Params = {
   params: Promise<{
@@ -49,6 +49,9 @@ type SkillAccumulator = {
 
   incorrectQuestionIds: string[];
 
+  correctWeight: number;
+  totalWeight: number;
+
   recommendationKeys: Set<string>;
   prerequisiteSkills: Set<string>;
 
@@ -81,37 +84,37 @@ type RootGap = {
 };
 
 const grade1RecommendationTitles: Record<string, string> = {
-  G1_COUNTING_CARDINALITY: "Menghitung dan Menentukan Banyak Benda",
+  G1_COUNTING_CARDINALITY: "Menghitung dan Memahami Penjumlahan",
 
   G1_NUMBER_REPRESENTATION: "Mengenal Lambang Bilangan",
 
-  G1_NUMBER_MAGNITUDE: "Membandingkan Banyak Benda dan Bilangan",
+  G1_NUMBER_MAGNITUDE: "Membandingkan Nilai Bilangan",
 
-  G1_NUMBER_COMPOSITION: "Menyusun dan Mengurai Bilangan",
+  G1_NUMBER_COMPOSITION: "Menyusun dan Memecah Bilangan",
 
-  G1_PLACE_VALUE: "Nilai Tempat",
+  G1_PLACE_VALUE: "Nilai Tempat Bilangan",
 
   G1_BASIC_ADDITION: "Penjumlahan Dasar",
 
   G1_BASIC_SUBTRACTION: "Pengurangan Dasar",
 
-  G1_MISSING_ADDEND: "Pasangan Bilangan dan Angka yang Hilang",
+  G1_MISSING_ADDEND: "Mencari Angka yang Hilang",
 
-  G1_EQUALITY: "Kesetaraan dan Hubungan Bilangan",
+  G1_EQUALITY: "Kesamaan dan Hubungan Antar Bilangan",
 
   G1_WORD_PROBLEM: "Memahami Soal Cerita",
 
-  G1_PATTERN: "Pola",
+  G1_PATTERN: "Pola Bilangan",
 
   G1_MEASUREMENT: "Pengukuran",
 
-  G1_SHAPE_ATTRIBUTES: "Ciri-Ciri Bangun",
+  G1_SHAPE_ATTRIBUTES: "Memahami Bentuk",
 
-  G1_SPATIAL_POSITION: "Posisi Benda",
+  G1_SPATIAL_POSITION: "Posisi dan Arah Benda",
 
-  G1_FRACTION_FOUNDATION: "Dasar Pecahan",
+  G1_FRACTION_FOUNDATION: "Pecahan Dasar",
 
-  G1_DATA_INTERPRETATION: "Membaca Data Sederhana",
+  G1_DATA_INTERPRETATION: "Interpretasi Data",
 };
 
 /* =========================================================
@@ -151,6 +154,17 @@ function percentage(correct: number, total: number) {
   return clampPercentage((correct / total) * 100);
 }
 
+function questionWeight(question: DiagnosticQuestion) {
+  return Number.isFinite(question.diagnosticWeight) &&
+    question.diagnosticWeight > 0
+    ? question.diagnosticWeight
+    : 1;
+}
+
+function normalizeQuestionIds(value: unknown) {
+  return Array.isArray(value) ? value.map((item) => String(item)) : [];
+}
+
 function unique<T>(items: T[]) {
   return [...new Set(items)];
 }
@@ -168,21 +182,29 @@ function calculateBandScores(
     {
       correct: number;
       total: number;
+      correctWeight: number;
+      totalWeight: number;
     }
   > = {
     foundation: {
       correct: 0,
       total: 0,
+      correctWeight: 0,
+      totalWeight: 0,
     },
 
     core: {
       correct: 0,
       total: 0,
+      correctWeight: 0,
+      totalWeight: 0,
     },
 
     stretch: {
       correct: 0,
       total: 0,
+      correctWeight: 0,
+      totalWeight: 0,
     },
   };
 
@@ -194,11 +216,14 @@ function calculateBandScores(
     }
 
     const band = question.assessmentBand;
+    const weight = questionWeight(question);
 
     accumulator[band].total += 1;
+    accumulator[band].totalWeight += weight;
 
     if (answer.is_correct) {
       accumulator[band].correct += 1;
+      accumulator[band].correctWeight += weight;
     }
   }
 
@@ -207,21 +232,24 @@ function calculateBandScores(
       ...accumulator.foundation,
 
       score: percentage(
-        accumulator.foundation.correct,
-        accumulator.foundation.total,
+        accumulator.foundation.correctWeight,
+        accumulator.foundation.totalWeight,
       ),
     },
 
     core: {
       ...accumulator.core,
 
-      score: percentage(accumulator.core.correct, accumulator.core.total),
+      score: percentage(accumulator.core.correctWeight, accumulator.core.totalWeight),
     },
 
     stretch: {
       ...accumulator.stretch,
 
-      score: percentage(accumulator.stretch.correct, accumulator.stretch.total),
+      score: percentage(
+        accumulator.stretch.correctWeight,
+        accumulator.stretch.totalWeight,
+      ),
     },
   };
 }
@@ -281,11 +309,11 @@ function getReadinessStatus({
 
 function readinessLabel(status: ReadinessStatus) {
   const labels: Record<ReadinessStatus, string> = {
-    foundation_support_needed: "Perlu Penguatan Dasar",
+    foundation_support_needed: "Foundation Support Needed",
 
-    developing_at_grade_level: "Mulai Berkembang Sesuai Kelas",
+    developing_at_grade_level: "Developing at Grade Level",
 
-    secure_at_grade_level: "Kuat Sesuai Kelas",
+    secure_at_grade_level: "Secure at Grade Level",
 
     ready_for_enrichment: "Ready for Enrichment",
   };
@@ -383,6 +411,9 @@ function calculateSkillResults(
 
       incorrectQuestionIds: [],
 
+      correctWeight: 0,
+      totalWeight: 0,
+
       recommendationKeys: new Set<string>(),
 
       prerequisiteSkills: new Set<string>(),
@@ -391,9 +422,11 @@ function calculateSkillResults(
     };
 
     current.total += 1;
+    current.totalWeight += questionWeight(question);
 
     if (answer.is_correct) {
       current.correct += 1;
+      current.correctWeight += questionWeight(question);
     } else {
       current.incorrectQuestionIds.push(answer.question_id);
     }
@@ -416,7 +449,7 @@ function calculateSkillResults(
   }
 
   return Array.from(map.values()).map((item) => {
-    const score = percentage(item.correct, item.total);
+    const score = percentage(item.correctWeight, item.totalWeight);
 
     return {
       skill: item.skill,
@@ -589,7 +622,7 @@ function buildLearningPlan(skillResults: SkillResult[], rootGaps: RootGap[]) {
     : {
         key: "GRADE_LEVEL_PRACTICE",
 
-        title: "Latihan Sesuai Kelas",
+        title: "Grade Level Practice",
       };
 
   return {
@@ -602,7 +635,7 @@ function buildLearningPlan(skillResults: SkillResult[], rootGaps: RootGap[]) {
     trialFocus:
       learningPath.length > 0
         ? learningPath.slice(0, 2).join(" & ")
-        : "Matematika Sesuai Kelas",
+        : "Grade Level Mathematics",
   };
 }
 
@@ -612,18 +645,21 @@ function buildLearningPlan(skillResults: SkillResult[], rootGaps: RootGap[]) {
 
 function buildDiagnosticNarrative({
   studentName,
+  gradeLevel,
   status,
   strengths,
   priorityGaps,
   rootGaps,
 }: {
   studentName: string;
+  gradeLevel: number;
   status: ReadinessStatus;
   strengths: SkillResult[];
   priorityGaps: SkillResult[];
   rootGaps: RootGap[];
 }) {
   const firstName = studentName.trim().split(/\s+/)[0] || "Anak";
+  const gradeText = `kelas ${gradeLevel}`;
 
   const strengthText =
     strengths.length > 0
@@ -644,7 +680,7 @@ function buildDiagnosticNarrative({
   const rootText = rootGaps.length > 0 ? rootGaps[0].skill : null;
 
   if (status === "ready_for_enrichment") {
-    return `${firstName} menunjukkan fondasi dan kemampuan matematika kelas 1 yang kuat. ${
+    return `${firstName} menunjukkan fondasi dan kemampuan matematika ${gradeText} yang kuat. ${
       strengthText
         ? `Kekuatan yang paling terlihat berada pada ${strengthText}. `
         : ""
@@ -652,7 +688,7 @@ function buildDiagnosticNarrative({
   }
 
   if (status === "secure_at_grade_level") {
-    return `${firstName} menunjukkan kesiapan yang baik terhadap materi matematika kelas 1. ${
+    return `${firstName} menunjukkan kesiapan yang baik terhadap materi matematika ${gradeText}. ${
       strengthText
         ? `Kemampuan yang sudah cukup kuat terlihat pada ${strengthText}. `
         : ""
@@ -660,36 +696,47 @@ function buildDiagnosticNarrative({
   }
 
   if (status === "foundation_support_needed") {
-    return `${firstName} membutuhkan penguatan pada beberapa kemampuan fondasi sebelum materi kelas 1 dilanjutkan lebih jauh. ${
+    return `${firstName} membutuhkan penguatan pada beberapa kemampuan fondasi sebelum materi ${gradeText} dilanjutkan lebih jauh. ${
       rootText
         ? `Analisis menunjukkan ${rootText} menjadi salah satu kemampuan dasar yang perlu diperkuat terlebih dahulu. `
         : ""
     }Penguatan sebaiknya dilakukan secara bertahap dari konsep dasar menuju soal yang lebih kompleks.`;
   }
 
-  return `${firstName} sudah memiliki sebagian kemampuan matematika kelas 1, tetapi beberapa konsep belum stabil. ${
+  return `${firstName} sudah memiliki sebagian kemampuan matematika ${gradeText}, tetapi beberapa konsep belum stabil. ${
     strengthText
       ? `Kekuatan yang dapat dijadikan pijakan terlihat pada ${strengthText}. `
       : ""
   }${
     priorityText ? `Fokus penguatan berikutnya adalah ${priorityText}. ` : ""
-  }Latihan sebaiknya mengikuti urutan konsep yang jelas agar anak tidak hanya mampu menjawab soal langsung, tetapi juga memahami hubungan antarangka dan menerapkannya pada bentuk soal yang berbeda.`;
+  }Latihan sebaiknya mengikuti urutan konsep yang jelas agar anak tidak hanya mampu menjawab soal secara langsung, tetapi juga memahami hubungan antarangka dan menerapkannya pada bentuk soal yang berbeda.`;
 }
 
 /* =========================================================
  * LEGACY CATEGORY SCORE
  * ======================================================= */
 
-function buildLegacyCategoryScores(answers: AnswerRow[]) {
+function buildLegacyCategoryScores(
+  answers: AnswerRow[],
+  questionMap: Map<string, DiagnosticQuestion>,
+) {
   return diagnosticCategories.map((category) => {
     const rows = answers.filter((answer) => answer.category === category);
 
     const correct = rows.filter((answer) => answer.is_correct).length;
+    const totalWeight = rows.reduce((sum, answer) => {
+      const question = questionMap.get(answer.question_id);
+      return sum + (question ? questionWeight(question) : 1);
+    }, 0);
+    const correctWeight = rows.reduce((sum, answer) => {
+      const question = questionMap.get(answer.question_id);
+      return sum + (answer.is_correct ? question ? questionWeight(question) : 1 : 0);
+    }, 0);
 
     return {
       category,
 
-      score: percentage(correct, rows.length),
+      score: percentage(correctWeight, totalWeight),
 
       correct,
 
@@ -726,12 +773,12 @@ export async function GET(_req: Request, props: Params) {
       `
         id,
         student_name,
-        parent_whatsapp,
         grade_level,
         concern,
         score,
         result_level,
         category_scores,
+        question_ids,
         created_at,
         completed_at
       `,
@@ -781,7 +828,14 @@ export async function GET(_req: Request, props: Params) {
     );
   }
 
-  const questionMap = await getDiagnosticQuestionMapFromDb(attempt.grade_level);
+  const questions = await getDiagnosticQuestionsByIdsFromDb(
+    attempt.grade_level,
+    normalizeQuestionIds(attempt.question_ids),
+  );
+
+  const questionMap = new Map(
+    questions.map((question) => [question.id, question]),
+  );
 
   const rawAnswers = (answerRows ?? []) as AnswerRow[];
 
@@ -877,6 +931,7 @@ export async function GET(_req: Request, props: Params) {
 
   const narrative = buildDiagnosticNarrative({
     studentName: attempt.student_name,
+    gradeLevel: attempt.grade_level,
 
     status: readinessStatus,
 
@@ -897,7 +952,19 @@ export async function GET(_req: Request, props: Params) {
 
   const profile = getScoreProfile(legacyScore);
 
-  const categoryScores = buildLegacyCategoryScores(sortedAnswers);
+  const categoryScores = buildLegacyCategoryScores(sortedAnswers, questionMap);
+
+  const safeAttempt = {
+    id: attempt.id,
+    student_name: attempt.student_name,
+    grade_level: attempt.grade_level,
+    concern: attempt.concern,
+    score: attempt.score,
+    result_level: attempt.result_level,
+    category_scores: attempt.category_scores,
+    created_at: attempt.created_at,
+    completed_at: attempt.completed_at,
+  };
 
   return NextResponse.json({
     ok: true,
@@ -907,7 +974,7 @@ export async function GET(_req: Request, props: Params) {
      * ============================================= */
 
     attempt: {
-      ...attempt,
+      ...safeAttempt,
 
       /*
        * score database lama tidak kita ubah dulu.

@@ -1,7 +1,7 @@
 "use client";
-/* eslint-disable @next/next/no-img-element */
 
 import { ChangeEvent, useEffect, useState } from "react";
+import Image from "next/image";
 import { useToast } from "@/app/components/ToastProvider";
 import type { GradeCard } from "@/lib/gradeCards";
 
@@ -142,10 +142,13 @@ export default function GradeCardsClient() {
           >
             <div className="grid sm:grid-cols-[220px_1fr]">
               <div className="relative min-h-52 bg-emerald-100">
-                <img
+                <Image
                   src={card.imageUrl}
                   alt={`Pratinjau ${card.name}`}
-                  className="absolute inset-0 h-full w-full object-cover"
+                  fill
+                  sizes="(min-width: 640px) 220px, 100vw"
+                  className="object-cover"
+                  unoptimized
                 />
                 <span className="absolute left-3 top-3 rounded-full bg-white/90 px-3 py-1 text-xs font-extrabold text-emerald-800">
                   Kelas {card.level}

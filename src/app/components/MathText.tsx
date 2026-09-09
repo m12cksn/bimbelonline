@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 
 type MathTextProps = {
   text?: string | null;
@@ -13,6 +14,13 @@ type VisualIconType =
   | "circlePink"
   | "circlePurple"
   | "triangle"
+  | "square"
+  | "rectangle"
+  | "oval"
+  | "diamond"
+  | "pentagon"
+  | "hexagon"
+  | "trapezoid"
   | "star"
   | "apple"
   | "banana"
@@ -49,6 +57,19 @@ const visualIconAliases: Record<string, VisualIconType> = {
   "lingkaran-ungu": "circlePurple",
   triangle: "triangle",
   segitiga: "triangle",
+  square: "square",
+  persegi: "square",
+  rectangle: "rectangle",
+  "persegi-panjang": "rectangle",
+  oval: "oval",
+  diamond: "diamond",
+  "belah-ketupat": "diamond",
+  pentagon: "pentagon",
+  "segi-lima": "pentagon",
+  hexagon: "hexagon",
+  "segi-enam": "hexagon",
+  trapezoid: "trapezoid",
+  trapesium: "trapezoid",
   star: "star",
   bintang: "star",
   apple: "apple",
@@ -165,7 +186,7 @@ function renderSqrt(
 
 function VisualIcon({ type }: { type: VisualIconType }) {
   const common =
-    "h-5 w-5 drop-shadow-[0_2px_3px_rgba(15,23,42,0.18)] sm:h-6 sm:w-6";
+    "h-6 w-6 drop-shadow-[0_2px_3px_rgba(15,23,42,0.18)] sm:h-7 sm:w-7";
 
   if (type === "circle") {
     return (
@@ -213,6 +234,76 @@ function VisualIcon({ type }: { type: VisualIconType }) {
         <path d="M16 4 29 27H3Z" fill="#fb923c" />
         <path d="M16 8 9 22h14Z" fill="#fed7aa" opacity="0.45" />
         <path d="M16 4 29 27H3Z" fill="none" stroke="#ea580c" strokeWidth="1.5" />
+      </svg>
+    );
+  }
+
+  if (type === "square") {
+    return (
+      <svg viewBox="0 0 32 32" className={common} aria-label="persegi">
+        <rect x="6" y="6" width="20" height="20" rx="2.5" fill="#60a5fa" />
+        <path d="M10 10h12v12H10Z" fill="#bfdbfe" opacity="0.55" />
+        <rect x="6" y="6" width="20" height="20" rx="2.5" fill="none" stroke="#2563eb" strokeWidth="1.5" />
+      </svg>
+    );
+  }
+
+  if (type === "rectangle") {
+    return (
+      <svg viewBox="0 0 32 32" className={common} aria-label="persegi panjang">
+        <rect x="4" y="9" width="24" height="14" rx="2.5" fill="#2dd4bf" />
+        <path d="M8 12h16v8H8Z" fill="#ccfbf1" opacity="0.55" />
+        <rect x="4" y="9" width="24" height="14" rx="2.5" fill="none" stroke="#0f766e" strokeWidth="1.5" />
+      </svg>
+    );
+  }
+
+  if (type === "oval") {
+    return (
+      <svg viewBox="0 0 32 32" className={common} aria-label="oval">
+        <ellipse cx="16" cy="16" rx="12" ry="8.5" fill="#f472b6" />
+        <ellipse cx="12" cy="13" rx="4.5" ry="2.5" fill="#fce7f3" opacity="0.8" />
+        <ellipse cx="16" cy="16" rx="12" ry="8.5" fill="none" stroke="#db2777" strokeWidth="1.5" />
+      </svg>
+    );
+  }
+
+  if (type === "diamond") {
+    return (
+      <svg viewBox="0 0 32 32" className={common} aria-label="belah ketupat">
+        <path d="M16 4 28 16 16 28 4 16Z" fill="#a78bfa" />
+        <path d="M16 8 23 16 16 24 9 16Z" fill="#ede9fe" opacity="0.52" />
+        <path d="M16 4 28 16 16 28 4 16Z" fill="none" stroke="#7c3aed" strokeWidth="1.5" />
+      </svg>
+    );
+  }
+
+  if (type === "pentagon") {
+    return (
+      <svg viewBox="0 0 32 32" className={common} aria-label="segi lima">
+        <path d="M16 4 28 13.5 23.4 28H8.6L4 13.5Z" fill="#facc15" />
+        <path d="M16 8 23.5 14.2 20.6 23.5h-9.2L8.5 14.2Z" fill="#fef3c7" opacity="0.6" />
+        <path d="M16 4 28 13.5 23.4 28H8.6L4 13.5Z" fill="none" stroke="#ca8a04" strokeWidth="1.5" />
+      </svg>
+    );
+  }
+
+  if (type === "hexagon") {
+    return (
+      <svg viewBox="0 0 32 32" className={common} aria-label="segi enam">
+        <path d="M10 5h12l6 11-6 11H10L4 16Z" fill="#4ade80" />
+        <path d="M12.5 9h7l4 7-4 7h-7l-4-7Z" fill="#dcfce7" opacity="0.55" />
+        <path d="M10 5h12l6 11-6 11H10L4 16Z" fill="none" stroke="#16a34a" strokeWidth="1.5" />
+      </svg>
+    );
+  }
+
+  if (type === "trapezoid") {
+    return (
+      <svg viewBox="0 0 32 32" className={common} aria-label="trapesium">
+        <path d="M10 8h12l6 16H4Z" fill="#fb7185" />
+        <path d="M12.5 12h7l3.4 8H9.1Z" fill="#ffe4e6" opacity="0.58" />
+        <path d="M10 8h12l6 16H4Z" fill="none" stroke="#e11d48" strokeWidth="1.5" />
       </svg>
     );
   }
@@ -332,11 +423,14 @@ function renderIconSet(
     >
       {Array.from({ length: icon.count }, (_, index) => (
         icon.kind === "asset" ? (
-          <img
+          <Image
             key={`${key}-${index}`}
             src={icon.src}
             alt={icon.name}
-            className="h-5 w-5 object-contain drop-shadow-[0_2px_3px_rgba(15,23,42,0.18)] sm:h-6 sm:w-6"
+            width={28}
+            height={28}
+            className="h-6 w-6 object-contain drop-shadow-[0_2px_3px_rgba(15,23,42,0.18)] sm:h-7 sm:w-7"
+            unoptimized
             loading="lazy"
           />
         ) : (

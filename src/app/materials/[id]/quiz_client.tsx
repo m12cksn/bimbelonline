@@ -1,5 +1,4 @@
 "use client";
-/* eslint-disable @next/next/no-img-element */
 
 import {
   ReactNode,
@@ -11,6 +10,7 @@ import {
   useRef,
   useState,
 } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import {
@@ -1636,11 +1636,16 @@ export default function MaterialQuiz({
 
                     {normalizedQuestion.imageUrl && (
                       <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 p-2 shadow-inner shadow-slate-200/70">
-                        <img
-                          src={normalizedQuestion.imageUrl}
-                          alt="Ilustrasi soal"
-                          className="h-full w-full rounded-xl object-contain"
-                        />
+                        <div className="relative h-64 w-full">
+                          <Image
+                            src={normalizedQuestion.imageUrl}
+                            alt="Ilustrasi soal"
+                            fill
+                            sizes="(min-width: 1024px) 50vw, 100vw"
+                            className="rounded-xl object-contain"
+                            unoptimized
+                          />
+                        </div>
                       </div>
                     )}
                   </div>
@@ -1658,11 +1663,16 @@ export default function MaterialQuiz({
                             >
                               {opt.imageUrl && (
                                 <div className="mb-2 overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
-                                  <img
-                                    src={opt.imageUrl}
-                                    alt={opt.label}
-                                    className="h-32 w-full object-contain"
-                                  />
+                                  <div className="relative h-32 w-full">
+                                    <Image
+                                      src={opt.imageUrl}
+                                      alt={opt.label}
+                                      fill
+                                      sizes="(min-width: 768px) 50vw, 100vw"
+                                      className="object-contain"
+                                      unoptimized
+                                    />
+                                  </div>
                                 </div>
                               )}
                               <span className="font-semibold text-slate-900">
@@ -1802,11 +1812,16 @@ export default function MaterialQuiz({
                               </p>
                               {item.image_url && (
                                 <div className="mt-2 overflow-hidden rounded-xl border border-slate-200 bg-white">
-                                  <img
-                                    src={item.image_url}
-                                    alt={`Ilustrasi ${item.label}`}
-                                    className="h-32 w-full object-contain"
-                                  />
+                                  <div className="relative h-32 w-full">
+                                    <Image
+                                      src={item.image_url}
+                                      alt={`Ilustrasi ${item.label}`}
+                                      fill
+                                      sizes="(min-width: 768px) 50vw, 100vw"
+                                      className="object-contain"
+                                      unoptimized
+                                    />
+                                  </div>
                                 </div>
                               )}
                               <input
@@ -2255,11 +2270,16 @@ export default function MaterialQuiz({
                         )}
                         {!feedback.isCorrect && feedback.imageUrl && (
                           <div className="mt-3 overflow-hidden rounded-2xl border border-slate-200 bg-white p-2">
-                            <img
-                              src={feedback.imageUrl}
-                              alt="Jawaban benar"
-                              className="h-36 w-full object-contain"
-                            />
+                            <div className="relative h-36 w-full">
+                              <Image
+                                src={feedback.imageUrl}
+                                alt="Jawaban benar"
+                                fill
+                                sizes="100vw"
+                                className="object-contain"
+                                unoptimized
+                              />
+                            </div>
                           </div>
                         )}
                         {!feedback.isCorrect && (
@@ -2291,11 +2311,16 @@ export default function MaterialQuiz({
                       <div>{feedback.message}</div>
                       {feedback.imageUrl && !feedback.isCorrect && (
                         <div className="mt-2 overflow-hidden rounded-xl border border-slate-200 bg-slate-50 p-2">
-                          <img
-                            src={feedback.imageUrl}
-                            alt="Jawaban benar"
-                            className="h-32 w-full object-contain"
-                          />
+                          <div className="relative h-32 w-full">
+                            <Image
+                              src={feedback.imageUrl}
+                              alt="Jawaban benar"
+                              fill
+                              sizes="100vw"
+                              className="object-contain"
+                              unoptimized
+                            />
+                          </div>
                         </div>
                       )}
                     </div>

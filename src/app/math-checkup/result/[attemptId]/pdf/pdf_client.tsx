@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Image from "next/image";
 
 type CategoryScore = {
   category: string;
@@ -11,7 +12,6 @@ type CategoryScore = {
 type Attempt = {
   id: string;
   student_name: string;
-  parent_whatsapp: string;
   grade_level: number;
   concern?: string | null;
   score: number;
@@ -87,16 +87,6 @@ function categoryCopy(category: string) {
   };
   return map[category] ?? map["Soal Cerita"];
 }
-function iconFor(category: string) {
-  if (category === "Kelancaran Berhitung")
-    return "/images/icons/aritmatika.webp";
-  if (category === "Pecahan") return "/images/icons/fraction.webp";
-  if (category === "Soal Cerita") return "/images/icons/soal.webp";
-  if (category === "Penalaran Logis") return "/images/icons/geometry.webp";
-  if (category === "Pemahaman Bilangan") return "/images/icons/aritmatika.webp";
-  return "/images/icons/pengukuran.webp";
-}
-
 function shortSummary(name: string, score: number, weakest: CategoryScore[]) {
   const focus = weakest.map((item) => item.category).join(" dan ");
   if (score >= 80)
@@ -105,35 +95,6 @@ function shortSummary(name: string, score: number, weakest: CategoryScore[]) {
     return `${name} sudah memiliki fondasi yang cukup baik. Agar lebih percaya diri, latihan perlu diarahkan terutama pada ${focus}.`;
   return `${name} masih perlu membangun fondasi secara bertahap. Fokus awal yang disarankan adalah ${focus}, dengan latihan visual dan pembahasan perlahan.`;
 }
-function BarCompare({ scores }: { scores: CategoryScore[] }) {
-  return (
-    <div className="pdf-chart">
-      {scores.map((item) => {
-        const average = Math.max(45, Math.min(82, item.score - 12));
-        return (
-          <div key={item.category} className="pdf-chart-col">
-            <div className="pdf-bars">
-              <span
-                className="pdf-bar pdf-bar-main"
-                style={{ height: `${item.score}%` }}
-              >
-                <b>{item.score}</b>
-              </span>
-              <span
-                className="pdf-bar pdf-bar-avg"
-                style={{ height: `${average}%` }}
-              >
-                <b>{average}</b>
-              </span>
-            </div>
-            <p>{item.category}</p>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-
 export default function MathCheckupPdfClient({
   attemptId,
 }: {
@@ -583,14 +544,20 @@ export default function MathCheckupPdfClient({
 
       <div className="print-toolbar">
         <button type="button" onClick={() => window.print()}>
-          Unduh / Cetak PDF
+          Download / Print PDF
         </button>
         <a href={`/math-checkup/result/${attemptId}`}>Kembali ke Hasil</a>
       </div>
 
       <section className="pdf-page">
         <div className="brand">
-          <img src="/images/logo_horizontal.png" alt="BeSmartKids" />
+          <Image
+            src="/images/logo_horizontal.png"
+            alt="BeSmartKids"
+            width={170}
+            height={48}
+            priority
+          />
           <small>Laporan Hasil Math Check-Up</small>
         </div>
 
@@ -689,7 +656,13 @@ export default function MathCheckupPdfClient({
 
       <section className="pdf-page">
         <div className="brand">
-          <img src="/images/logo_horizontal.png" alt="BeSmartKids" />
+          <Image
+            src="/images/logo_horizontal.png"
+            alt="BeSmartKids"
+            width={170}
+            height={48}
+            priority
+          />
           <small>Rekomendasi Belajar</small>
         </div>
 
@@ -746,7 +719,7 @@ export default function MathCheckupPdfClient({
             <div className="next-step">
               <h3>Rekomendasi BeSmartKids</h3>
               <p>
-                Berdasarkan hasil diagnosis ini, area belajar yang paling perlu
+                Berdasarkan hasil diagnostic ini, area belajar yang paling perlu
                 diprioritaskan adalah{" "}
                 <strong>
                   {weakest.map((item) => item.category).join(", ")}

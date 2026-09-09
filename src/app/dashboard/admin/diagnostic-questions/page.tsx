@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import MathText from "@/app/components/MathText";
 import { useToast } from "@/app/components/ToastProvider";
 
@@ -75,6 +75,13 @@ const visualIconTools = [
   { label: "Lingkaran Pink", token: "{{circle-pink:6}}" },
   { label: "Lingkaran Ungu", token: "{{circle-purple:6}}" },
   { label: "Segitiga", token: "{{triangle:6}}" },
+  { label: "Persegi", token: "{{square:6}}" },
+  { label: "Persegi Panjang", token: "{{rectangle:6}}" },
+  { label: "Oval", token: "{{oval:6}}" },
+  { label: "Belah Ketupat", token: "{{diamond:6}}" },
+  { label: "Segi Lima", token: "{{pentagon:6}}" },
+  { label: "Segi Enam", token: "{{hexagon:6}}" },
+  { label: "Trapesium", token: "{{trapezoid:6}}" },
   { label: "Bintang", token: "{{star:6}}" },
   { label: "Apel", token: "{{apple:6}}" },
   { label: "Pisang", token: "{{banana:6}}" },
@@ -116,6 +123,53 @@ function SectionTitle({
       <p className="mt-1 text-sm font-semibold leading-6 text-slate-500">
         {description}
       </p>
+    </div>
+  );
+}
+
+function IconToolbar({
+  onInsert,
+  targetLabel,
+  compact = false,
+  disabled = false,
+}: {
+  onInsert: (token: string) => void;
+  targetLabel: string;
+  compact?: boolean;
+  disabled?: boolean;
+}) {
+  return (
+    <div className="rounded-lg border border-emerald-100 bg-emerald-50/70 p-2">
+      <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+        <span className="text-[11px] font-black uppercase tracking-[0.12em] text-emerald-700">
+          Toolbar Ikon
+        </span>
+        <span className="rounded-md bg-white px-2 py-1 text-[11px] font-black text-slate-600">
+          Target: {targetLabel}
+        </span>
+      </div>
+      <div
+        className={`flex gap-2 ${
+          compact
+            ? "max-h-28 flex-wrap overflow-y-auto pr-1"
+            : "flex-wrap"
+        }`}
+      >
+        {visualIconTools.map((tool) => (
+          <button
+            key={tool.token}
+            type="button"
+            onMouseDown={(event) => event.preventDefault()}
+            onClick={() => onInsert(tool.token)}
+            disabled={disabled}
+            className="inline-flex items-center gap-2 rounded-md border border-white bg-white px-3 py-2 text-xs font-black text-slate-700 shadow-sm transition hover:border-emerald-300 hover:bg-emerald-50 disabled:cursor-not-allowed disabled:opacity-50"
+            title={`Masukkan ${tool.token}`}
+          >
+            <MathText text={tool.token.replace(":6", ":1")} />
+            <span>{tool.label}</span>
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
@@ -183,6 +237,9 @@ export default function AdminDiagnosticQuestionsPage() {
   const [testAnswers, setTestAnswers] = useState<Record<string, string>>({});
   const [showResult, setShowResult] = useState(false);
   const [showAdvanced, setShowAdvanced] = useState(false);
+  const [iconTarget, setIconTarget] = useState<
+    { type: "prompt" } | { type: "option"; index: number }
+  >({ type: "prompt" });
 
   const testScore = useMemo(() => {
     const total = questions.length;
@@ -196,11 +253,7 @@ export default function AdminDiagnosticQuestionsPage() {
     };
   }, [questions, testAnswers]);
 
-  useEffect(() => {
-    void loadQuestions(gradeLevel);
-  }, [gradeLevel]);
-
-  async function loadQuestions(nextGrade = gradeLevel) {
+  const loadQuestions = useCallback(async (nextGrade = gradeLevel) => {
     setLoading(true);
     setShowResult(false);
     setTestAnswers({});
@@ -219,7 +272,11 @@ export default function AdminDiagnosticQuestionsPage() {
     } finally {
       setLoading(false);
     }
-  }
+  }, [gradeLevel, toast]);
+
+  useEffect(() => {
+    void loadQuestions(gradeLevel);
+  }, [gradeLevel, loadQuestions]);
 
   function selectQuestion(question: DiagnosticQuestion) {
     setSelectedId(question.id);
@@ -288,6 +345,14 @@ export default function AdminDiagnosticQuestionsPage() {
           current.correctAnswer === removed ? "" : current.correctAnswer,
       };
     });
+    setIconTarget((current) => {
+      if (current.type !== "option") return current;
+      if (current.index === index) return { type: "prompt" };
+      if (current.index > index) {
+        return { type: "option", index: current.index - 1 };
+      }
+      return current;
+    });
   }
 
   function updateCategory(category: DiagnosticCategory) {
@@ -308,10 +373,29 @@ export default function AdminDiagnosticQuestionsPage() {
   }
 
   function insertVisualIconToken(token: string) {
-    setForm((current) => ({
-      ...current,
-      prompt: current.prompt ? `${current.prompt}\n${token}` : token,
-    }));
+    setForm((current) => {
+      if (iconTarget.type === "option") {
+        const options = [...current.options];
+        const currentOption = options[iconTarget.index] ?? "";
+        options[iconTarget.index] = currentOption
+          ? `${currentOption} ${token}`
+          : token;
+
+        return {
+          ...current,
+          options,
+          correctAnswer:
+            current.correctAnswer === currentOption
+              ? options[iconTarget.index]
+              : current.correctAnswer,
+        };
+      }
+
+      return {
+        ...current,
+        prompt: current.prompt ? `${current.prompt}\n${token}` : token,
+      };
+    });
   }
 
   function payload() {
@@ -710,19 +794,15 @@ export default function AdminDiagnosticQuestionsPage() {
                     />
                     <label className="mt-4 block">
                       <FieldLabel>Teks Soal</FieldLabel>
-                      <div className="mt-2 flex flex-wrap gap-2 border border-emerald-100 bg-emerald-50/70 p-2">
-                        {visualIconTools.map((tool) => (
-                          <button
-                            key={tool.token}
-                            type="button"
-                            onClick={() => insertVisualIconToken(tool.token)}
-                            className="inline-flex items-center gap-2 border border-white bg-white px-3 py-2 text-xs font-black text-slate-700 shadow-sm transition hover:border-emerald-300 hover:bg-emerald-50"
-                            title={`Masukkan ${tool.token}`}
-                          >
-                            <MathText text={tool.token.replace(":6", ":1")} />
-                            {tool.label}
-                          </button>
-                        ))}
+                      <div className="mt-2">
+                        <IconToolbar
+                          onInsert={insertVisualIconToken}
+                          targetLabel={
+                            iconTarget.type === "prompt"
+                              ? "Teks soal"
+                              : `Opsi ${iconTarget.index + 1}`
+                          }
+                        />
                       </div>
                       <p className="mt-2 text-xs font-semibold leading-5 text-slate-500">
                         Bisa juga ketik manual, misalnya: Kelompok A:{" "}
@@ -730,6 +810,7 @@ export default function AdminDiagnosticQuestionsPage() {
                       </p>
                       <textarea
                         value={form.prompt}
+                        onFocus={() => setIconTarget({ type: "prompt" })}
                         onChange={(event) =>
                           setForm((current) => ({
                             ...current,
@@ -753,6 +834,22 @@ export default function AdminDiagnosticQuestionsPage() {
                           + Tambah Opsi
                         </button>
                       </div>
+                      <div className="mt-3">
+                        <IconToolbar
+                          compact
+                          onInsert={insertVisualIconToken}
+                          disabled={iconTarget.type !== "option"}
+                          targetLabel={
+                            iconTarget.type === "option"
+                              ? `Opsi ${iconTarget.index + 1}`
+                              : "Pilih/fokuskan opsi dulu"
+                          }
+                        />
+                        <p className="mt-2 text-xs font-semibold leading-5 text-slate-500">
+                          Klik input opsi yang ingin diisi, lalu pilih ikon di
+                          toolbar ini. Halaman tidak perlu discroll ke atas.
+                        </p>
+                      </div>
                       <div className="mt-2 grid gap-2 sm:grid-cols-2">
                         {form.options.map((option, index) => (
                           <div
@@ -761,6 +858,9 @@ export default function AdminDiagnosticQuestionsPage() {
                           >
                             <input
                               value={option}
+                              onFocus={() =>
+                                setIconTarget({ type: "option", index })
+                              }
                               onChange={(event) =>
                                 updateOption(index, event.target.value)
                               }
@@ -793,8 +893,8 @@ export default function AdminDiagnosticQuestionsPage() {
                           className="mt-2 w-full border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold outline-none transition focus:border-emerald-500 focus:bg-white"
                         >
                           <option value="">Pilih jawaban benar</option>
-                          {form.options.filter(Boolean).map((option) => (
-                            <option key={option} value={option}>
+                          {form.options.filter(Boolean).map((option, index) => (
+                            <option key={`${option}-${index}`} value={option}>
                               {option}
                             </option>
                           ))}
@@ -1074,9 +1174,9 @@ export default function AdminDiagnosticQuestionsPage() {
                         />
                       </p>
                       <div className="mt-4 space-y-2">
-                        {form.options.filter(Boolean).map((option) => (
+                        {form.options.filter(Boolean).map((option, index) => (
                           <div
-                            key={option}
+                            key={`${option}-${index}`}
                             className={`border bg-white p-3 text-sm font-bold ${option === form.correctAnswer ? "border-emerald-500 text-emerald-700" : "border-slate-200 text-slate-700"}`}
                           >
                             <MathText text={option} />
@@ -1146,9 +1246,9 @@ export default function AdminDiagnosticQuestionsPage() {
                               <MathText text={question.prompt} />
                             </p>
                             <div className="mt-3 space-y-2">
-                              {question.options.map((option) => (
+                              {question.options.map((option, optionIndex) => (
                                 <button
-                                  key={option}
+                                  key={`${option}-${optionIndex}`}
                                   type="button"
                                   onClick={() =>
                                     setTestAnswers((current) => ({

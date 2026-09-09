@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import Image from "next/image";
 import { useToast } from "@/app/components/ToastProvider";
 import MathText from "@/app/components/MathText";
 import { confirmAction } from "@/lib/alerts";
@@ -88,6 +89,32 @@ const defaultMultipartItem = (): MultipartItem => ({
 function previewImageSrc(url: string) {
   if (!url || url.startsWith("blob:") || url.startsWith("data:")) return url;
   return `${url}${url.includes("?") ? "&" : "?"}preview=${Date.now()}`;
+}
+
+function PreviewImage({
+  src,
+  alt,
+  className = "",
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+}) {
+  if (src.startsWith("blob:") || src.startsWith("data:")) {
+    // eslint-disable-next-line @next/next/no-img-element
+    return <img src={src} alt={alt} className={className} />;
+  }
+
+  return (
+    <Image
+      src={src}
+      alt={alt}
+      fill
+      sizes="(min-width: 1024px) 50vw, 100vw"
+      className={className}
+      unoptimized
+    />
+  );
 }
 
 const gradeOptions = [
@@ -1017,11 +1044,13 @@ export default function AdminQuestionsPage() {
             </button>
           </div>
           {materialImageUrl ? (
-            <img
-              src={materialImageUrl}
-              alt="Preview gambar materi"
-              className="mt-2 max-h-40 w-full rounded-lg border border-slate-200 object-contain"
-            />
+            <div className="relative mt-2 h-40 w-full overflow-hidden rounded-lg border border-slate-200 bg-white">
+              <PreviewImage
+                src={materialImageUrl}
+                alt="Preview gambar materi"
+                className="h-full w-full object-contain"
+              />
+            </div>
           ) : null}
         </div>
         <div className="space-y-2">
@@ -1457,11 +1486,16 @@ export default function AdminQuestionsPage() {
                 }}
               />
               {(questionImagePreviewUrl || questionImageUrl) && (
-                <img
-                  src={questionImagePreviewUrl || previewImageSrc(questionImageUrl)}
-                  alt="Preview soal"
-                  className="max-h-32 rounded-lg border border-slate-200 bg-white object-contain"
-                />
+                <div className="relative h-32 w-full overflow-hidden rounded-lg border border-slate-200 bg-white">
+                  <PreviewImage
+                    src={
+                      questionImagePreviewUrl ||
+                      previewImageSrc(questionImageUrl)
+                    }
+                    alt="Preview soal"
+                    className="h-full w-full object-contain"
+                  />
+                </div>
               )}
             </div>
 
@@ -1496,11 +1530,16 @@ export default function AdminQuestionsPage() {
                 }}
               />
               {(answerImagePreviewUrl || answerImageUrl) && (
-                <img
-                  src={answerImagePreviewUrl || previewImageSrc(answerImageUrl)}
-                  alt="Preview jawaban"
-                  className="max-h-32 rounded-lg border border-slate-200 bg-white object-contain"
-                />
+                <div className="relative h-32 w-full overflow-hidden rounded-lg border border-slate-200 bg-white">
+                  <PreviewImage
+                    src={
+                      answerImagePreviewUrl ||
+                      previewImageSrc(answerImageUrl)
+                    }
+                    alt="Preview jawaban"
+                    className="h-full w-full object-contain"
+                  />
+                </div>
               )}
             </div>
           </div>

@@ -24,22 +24,42 @@ function normalizeWhatsapp(value: string) {
   return digits;
 }
 
+const diagnosticLevelGrades: Record<string, number[]> = {
+  grade_1_2: [1, 2],
+  grade_3_4: [3, 4],
+  grade_5_6: [5, 6],
+  grade_7_9: [7, 8, 9],
+  grade_10_12: [10, 11, 12],
+};
+
 export async function POST(req: Request) {
   const body = (await req.json()) as {
     studentName?: string;
     parentWhatsapp?: string;
     gradeLevel?: number;
+    diagnosticLevel?: string;
     concern?: string;
   };
 
   const studentName = capitalizeWords(String(body.studentName ?? ""));
   const parentWhatsapp = normalizeWhatsapp(String(body.parentWhatsapp ?? ""));
   const gradeLevel = Number(body.gradeLevel);
+  const diagnosticLevel = String(body.diagnosticLevel ?? "").trim();
   const concern = String(body.concern ?? "").trim() || null;
 
   if (!studentName || !parentWhatsapp || !Number.isInteger(gradeLevel) || gradeLevel < 1 || gradeLevel > 12) {
     return NextResponse.json(
       { ok: false, error: "Nama anak, kelas, dan WhatsApp wajib diisi dengan benar." },
+      { status: 400 },
+    );
+  }
+
+  if (
+    diagnosticLevel &&
+    !diagnosticLevelGrades[diagnosticLevel]?.includes(gradeLevel)
+  ) {
+    return NextResponse.json(
+      { ok: false, error: "Kelas tidak sesuai dengan jenjang diagnostic yang dipilih." },
       { status: 400 },
     );
   }

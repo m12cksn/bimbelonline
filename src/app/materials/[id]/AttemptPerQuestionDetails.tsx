@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
 type QuestionStatus = "unanswered" | "correct" | "wrong";
 
@@ -122,11 +123,16 @@ export default function AttemptPerQuestionDetails({
               </span>
             </p>
             {active.correctAnswerImage && (
-              <img
-                src={active.correctAnswerImage}
-                alt="Jawaban benar"
-                className="mt-2 max-h-40 w-full rounded-xl border border-slate-200 bg-white object-contain"
-              />
+              <div className="relative mt-2 h-40 w-full overflow-hidden rounded-xl border border-slate-200 bg-white">
+                <Image
+                  src={active.correctAnswerImage}
+                  alt="Jawaban benar"
+                  fill
+                  sizes="100vw"
+                  className="object-contain"
+                  unoptimized
+                />
+              </div>
             )}
 
             {active.explanation ? (
