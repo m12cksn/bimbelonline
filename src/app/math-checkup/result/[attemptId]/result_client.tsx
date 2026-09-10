@@ -901,7 +901,7 @@ export default function MathCheckupResultClient({
                     sm:text-3xl
                   "
                 >
-                  Peta kesiapan matematika anak
+                  Peta Kesiapan Matematika Anak
                 </h2>
 
                 <p
@@ -982,13 +982,13 @@ export default function MathCheckupResultClient({
             "
           >
             <BandCard
-              title="Fondasi"
+              title="Pemahaman Dasar"
               band="foundation"
               data={diagnostic.bandScores.foundation}
             />
 
             <BandCard
-              title="Level Kelas"
+              title="Materi Sesuai Kelas"
               band="core"
               data={diagnostic.bandScores.core}
             />

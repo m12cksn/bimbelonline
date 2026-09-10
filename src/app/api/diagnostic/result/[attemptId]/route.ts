@@ -179,6 +179,13 @@ function unique<T>(items: T[]) {
  * pada halaman hasil dan laporan orang tua.
  */
 const diagnosticLabelTranslations: Record<string, string> = {
+  "counting & cardinality": "Menghitung dan Memahami Banyak Benda",
+  "number sequence": "Mengurutkan Bilangan",
+  "subtraction word problem": "Soal Cerita Pengurangan",
+  "addition word problem": "Soal Cerita Penjumlahan",
+  "fraction as part of a whole": "Pecahan sebagai Bagian dari Keseluruhan",
+  "numeral quantity connection": "Hubungan Lambang Bilangan dan Banyak Benda",
+
   "counting and cardinality": "Menghitung dan Memahami Banyak Benda",
   "counting cardinality": "Menghitung dan Memahami Banyak Benda",
   "number representation": "Representasi Bilangan",
@@ -785,7 +792,7 @@ function buildDiagnosticNarrative({
   }
 
   if (status === "foundation_support_needed") {
-    return `${firstName} membutuhkan penguatan pada beberapa kemampuan fondasi sebelum materi ${gradeText} dilanjutkan lebih jauh. ${
+    return `${firstName} membutuhkan penguatan pada beberapa kemampuan dasar sebelum materi ${gradeText} dilanjutkan lebih jauh. ${
       rootText
         ? `Analisis menunjukkan ${rootText} menjadi salah satu kemampuan dasar yang perlu diperkuat terlebih dahulu. `
         : ""
