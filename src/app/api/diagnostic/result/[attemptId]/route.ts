@@ -169,6 +169,85 @@ function unique<T>(items: T[]) {
   return [...new Set(items)];
 }
 
+/*
+ * =========================================================
+ * LABEL HASIL DALAM BAHASA INDONESIA
+ * =========================================================
+ *
+ * Field internal/database tetap boleh menggunakan Bahasa Inggris.
+ * Function ini hanya menerjemahkan istilah yang ditampilkan
+ * pada halaman hasil dan laporan orang tua.
+ */
+const diagnosticLabelTranslations: Record<string, string> = {
+  "counting and cardinality": "Menghitung dan Memahami Banyak Benda",
+  "counting cardinality": "Menghitung dan Memahami Banyak Benda",
+  "number representation": "Representasi Bilangan",
+  "number magnitude": "Membandingkan Nilai Bilangan",
+  "number composition": "Menyusun dan Memecah Bilangan",
+  "place value": "Nilai Tempat",
+  "basic addition": "Penjumlahan Dasar",
+  "basic subtraction": "Pengurangan Dasar",
+  "missing addend": "Mencari Bilangan yang Hilang",
+  "missing number": "Mencari Bilangan yang Hilang",
+  equality: "Kesamaan Bilangan",
+  "word problem": "Soal Cerita",
+  "word problem modeling": "Pemodelan Soal Cerita",
+  pattern: "Pola",
+  "number pattern": "Pola Bilangan",
+  measurement: "Pengukuran",
+  "shape attributes": "Ciri-Ciri Bentuk",
+  "spatial position": "Posisi dan Arah",
+  "fraction foundation": "Dasar Pecahan",
+  "data interpretation": "Interpretasi Data",
+
+  "number sense": "Pemahaman Bilangan",
+  numbers: "Bilangan",
+  operations: "Operasi Hitung",
+  "number and operations": "Bilangan dan Operasi Hitung",
+  addition: "Penjumlahan",
+  subtraction: "Pengurangan",
+  multiplication: "Perkalian",
+  division: "Pembagian",
+  fractions: "Pecahan",
+  fraction: "Pecahan",
+  "equivalent fractions": "Pecahan Senilai",
+  "comparing fractions": "Membandingkan Pecahan",
+  "fraction comparison": "Membandingkan Pecahan",
+  "fraction representation": "Representasi Pecahan",
+  "fraction operations": "Operasi Pecahan",
+  decimals: "Desimal",
+  decimal: "Desimal",
+  geometry: "Geometri",
+  shapes: "Bangun dan Bentuk",
+  data: "Data",
+  "data and statistics": "Data dan Statistik",
+  statistics: "Statistika",
+  "problem solving": "Pemecahan Masalah",
+  algebra: "Aljabar",
+  "algebraic thinking": "Pola dan Pemikiran Aljabar",
+  time: "Waktu",
+  money: "Uang",
+  length: "Panjang",
+  area: "Luas",
+  perimeter: "Keliling",
+};
+
+function translateDiagnosticLabel(value: string | null | undefined) {
+  const original = String(value ?? "").trim();
+
+  if (!original) {
+    return "";
+  }
+
+  const normalized = original
+    .replace(/[_-]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .toLowerCase();
+
+  return diagnosticLabelTranslations[normalized] ?? original;
+}
+
 /* =========================================================
  * BAND SCORES
  * ======================================================= */
@@ -240,7 +319,10 @@ function calculateBandScores(
     core: {
       ...accumulator.core,
 
-      score: percentage(accumulator.core.correctWeight, accumulator.core.totalWeight),
+      score: percentage(
+        accumulator.core.correctWeight,
+        accumulator.core.totalWeight,
+      ),
     },
 
     stretch: {
@@ -309,13 +391,15 @@ function getReadinessStatus({
 
 function readinessLabel(status: ReadinessStatus) {
   const labels: Record<ReadinessStatus, string> = {
-    foundation_support_needed: "Foundation Support Needed",
+    foundation_support_needed: "Pemahaman Konsep Dasar Perlu Ditingkatkan",
 
-    developing_at_grade_level: "Developing at Grade Level",
+    developing_at_grade_level:
+      "Penguasaan Materi Sesuai Kelas Mulai Berkembang",
 
-    secure_at_grade_level: "Secure at Grade Level",
+    secure_at_grade_level: "Sudah Menguasai Materi Sesuai Kelas dengan Baik",
 
-    ready_for_enrichment: "Ready for Enrichment",
+    ready_for_enrichment:
+      "Siap Mendalami Materi dan Mengerjakan Soal Lebih Menantang",
   };
 
   return labels[status];
@@ -397,12 +481,14 @@ function calculateSkillResults(
       continue;
     }
 
-    const skill = question.skill || question.domain || question.category;
+    const skill = translateDiagnosticLabel(
+      question.skill || question.domain || question.category,
+    );
 
     const current = map.get(skill) ?? {
       skill,
 
-      domain: question.domain,
+      domain: translateDiagnosticLabel(question.domain),
 
       subskills: new Set<string>(),
 
@@ -432,7 +518,7 @@ function calculateSkillResults(
     }
 
     if (question.subskill) {
-      current.subskills.add(question.subskill);
+      current.subskills.add(translateDiagnosticLabel(question.subskill));
     }
 
     if (question.recommendationKey) {
@@ -440,7 +526,9 @@ function calculateSkillResults(
     }
 
     if (question.prerequisiteSkill) {
-      current.prerequisiteSkills.add(question.prerequisiteSkill);
+      current.prerequisiteSkills.add(
+        translateDiagnosticLabel(question.prerequisiteSkill),
+      );
     }
 
     current.bands.add(question.assessmentBand);
@@ -551,13 +639,14 @@ function calculateRootGaps(skillResults: SkillResult[]): RootGap[] {
  * ======================================================= */
 
 function recommendationTitle(key: string) {
+  const fallbackTitle = key
+    .replace(/^G\d+_/, "")
+    .replace(/_/g, " ")
+    .toLowerCase()
+    .replace(/\b\w/g, (character) => character.toUpperCase());
+
   return (
-    grade1RecommendationTitles[key] ??
-    key
-      .replace(/^G\d+_/, "")
-      .replace(/_/g, " ")
-      .toLowerCase()
-      .replace(/\b\w/g, (character) => character.toUpperCase())
+    grade1RecommendationTitles[key] ?? translateDiagnosticLabel(fallbackTitle)
   );
 }
 
@@ -622,7 +711,7 @@ function buildLearningPlan(skillResults: SkillResult[], rootGaps: RootGap[]) {
     : {
         key: "GRADE_LEVEL_PRACTICE",
 
-        title: "Grade Level Practice",
+        title: "Latihan Sesuai Level Kelas",
       };
 
   return {
@@ -635,7 +724,7 @@ function buildLearningPlan(skillResults: SkillResult[], rootGaps: RootGap[]) {
     trialFocus:
       learningPath.length > 0
         ? learningPath.slice(0, 2).join(" & ")
-        : "Grade Level Mathematics",
+        : "Matematika Sesuai Level Kelas",
   };
 }
 
@@ -730,7 +819,10 @@ function buildLegacyCategoryScores(
     }, 0);
     const correctWeight = rows.reduce((sum, answer) => {
       const question = questionMap.get(answer.question_id);
-      return sum + (answer.is_correct ? question ? questionWeight(question) : 1 : 0);
+      return (
+        sum +
+        (answer.is_correct ? (question ? questionWeight(question) : 1) : 0)
+      );
     }, 0);
 
     return {
@@ -820,7 +912,7 @@ export async function GET(_req: Request, props: Params) {
       {
         ok: false,
 
-        error: "Jawaban diagnostic tidak dapat dimuat.",
+        error: "Jawaban asesmen diagnostik tidak dapat dimuat.",
       },
       {
         status: 500,
@@ -871,13 +963,15 @@ export async function GET(_req: Request, props: Params) {
 
       assessmentBand: question?.assessmentBand ?? "core",
 
-      domain: question?.domain ?? row.category,
+      domain: translateDiagnosticLabel(question?.domain ?? row.category),
 
-      skill: question?.skill ?? row.category,
+      skill: translateDiagnosticLabel(question?.skill ?? row.category),
 
-      subskill: question?.subskill ?? "",
+      subskill: translateDiagnosticLabel(question?.subskill ?? ""),
 
-      prerequisiteSkill: question?.prerequisiteSkill ?? "",
+      prerequisiteSkill: translateDiagnosticLabel(
+        question?.prerequisiteSkill ?? "",
+      ),
 
       cognitiveType: question?.cognitiveType ?? "concept",
 

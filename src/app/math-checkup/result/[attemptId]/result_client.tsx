@@ -170,13 +170,15 @@ function formatName(value: string) {
 
 function readinessText(status: ReadinessStatus) {
   const map: Record<ReadinessStatus, string> = {
-    foundation_support_needed: "Fondasi Perlu Dikuatkan",
+    foundation_support_needed: "Pemahaman Konsep Dasar Perlu Ditingkatkan",
 
-    developing_at_grade_level: "Sedang Berkembang",
+    developing_at_grade_level:
+      "Penguasaan Materi Sesuai Kelas Mulai Berkembang",
 
-    secure_at_grade_level: "Siap di Level Kelas",
+    secure_at_grade_level: "Sudah Menguasai Materi Sesuai Kelas dengan Baik",
 
-    ready_for_enrichment: "Siap untuk Tantangan Lebih",
+    ready_for_enrichment:
+      "Siap Mendalami Materi dan Mengerjakan Soal Lebih Menantang",
   };
 
   return map[status];
@@ -185,16 +187,16 @@ function readinessText(status: ReadinessStatus) {
 function readinessDescription(status: ReadinessStatus) {
   const map: Record<ReadinessStatus, string> = {
     foundation_support_needed:
-      "Beberapa kemampuan dasar perlu diperkuat terlebih dahulu agar anak lebih siap mengikuti materi kelas.",
+      "Anak perlu memperkuat pemahaman konsep dasar agar lebih siap mempelajari materi matematika sesuai kelasnya.",
 
     developing_at_grade_level:
-      "Sebagian kemampuan sudah terbentuk, tetapi masih ada konsep penting yang perlu dibuat lebih stabil.",
+      "Anak mulai menguasai materi matematika sesuai kelasnya, tetapi masih membutuhkan latihan dan pendampingan pada beberapa konsep penting.",
 
     secure_at_grade_level:
-      "Fondasi dan kemampuan inti anak sudah cukup kuat untuk mengikuti materi matematika pada level kelasnya.",
+      "Pemahaman Dasar dan kemampuan anak sudah cukup kuat untuk mengikuti materi matematika pada level kelasnya.",
 
     ready_for_enrichment:
-      "Anak menunjukkan kesiapan yang kuat dan dapat mulai diberikan soal dengan penalaran serta tantangan yang lebih tinggi.",
+      "Anak sudah menguasai materi yang diujikan dengan baik dan siap mencoba soal yang membutuhkan penalaran lebih mendalam serta strategi pemecahan masalah yang lebih beragam.",
   };
 
   return map[status];
@@ -218,15 +220,15 @@ function readinessClass(status: ReadinessStatus) {
 
 function skillStatusLabel(status: SkillStatus) {
   const map: Record<SkillStatus, string> = {
-    strong: "Kuat",
+    strong: "Pemahaman Konsep Sangat Baik",
 
-    secure: "Dikuasai",
+    secure: "Sudah Menguasai Konsep",
 
-    developing: "Sedang Berkembang",
+    developing: "Mulai Memahami Konsep dan masih perlu pendampingan",
 
-    needs_review: "Perlu Ditinjau",
+    needs_review: "Perlu Penguatan Pemahaman Pada Konsep",
 
-    priority_gap: "Prioritas Penguatan",
+    priority_gap: "Perlu Penguatan Pemahaman sebagai Prioritas",
   };
 
   return map[status];
@@ -266,7 +268,7 @@ function bandStatus(score: number, band: "foundation" | "core" | "stretch") {
 
     if (score >= 34) return "Berkembang";
 
-    return "Emerging";
+    return "Mulai Berkembang";
   }
 
   if (score >= 83) return "Kuat";
@@ -288,6 +290,15 @@ function bandDescription(band: "foundation" | "core" | "stretch") {
   return "Soal tantangan untuk melihat kesiapan menuju materi yang lebih tinggi.";
 }
 
+function assessmentBandLabel(band: "foundation" | "core" | "stretch") {
+  const map: Record<"foundation" | "core" | "stretch", string> = {
+    foundation: "Pemahaman Konsep Dasar",
+    core: "Penguasaan Materi Sesuai Kelas",
+    stretch: "Penalaran dan Pemecahan Masalah",
+  };
+
+  return map[band];
+}
 
 /* =========================================================
  * SCORE CIRCLE
@@ -536,7 +547,7 @@ export default function MathCheckupResultClient({
         };
 
         if (!response.ok || !data.ok) {
-          throw new Error(data.error ?? "Gagal memuat hasil diagnostic.");
+          throw new Error(data.error ?? "Gagal memuat hasil diagnostik.");
         }
 
         if (!active) {
@@ -630,7 +641,7 @@ export default function MathCheckupResultClient({
   ).replace(/\D/g, "");
 
   const whatsappMessage = encodeURIComponent(
-    `Halo BeSmartKids, saya ingin konsultasi hasil Math Check-Up ${displayName} kelas ${attempt?.grade_level ?? ""}. Hasil readiness: ${diagnostic?.readinessScore ?? "-"} / 100 (${diagnostic ? readinessText(diagnostic.readinessStatus) : ""}). Saya ingin mengetahui program belajar yang disarankan.`,
+    `Halo BeSmartKids, saya ingin konsultasi hasil Math Check-Up ${displayName} kelas ${attempt?.grade_level ?? ""}. Skor kesiapan: ${diagnostic?.readinessScore ?? "-"} / 100 (${diagnostic ? readinessText(diagnostic.readinessStatus) : ""}). Saya ingin mengetahui program belajar yang disarankan.`,
   );
 
   const whatsappHref = businessWhatsapp
@@ -713,7 +724,7 @@ export default function MathCheckupResultClient({
           text-red-700
         "
       >
-        {error ?? "Hasil diagnostic tidak tersedia."}
+        {error ?? "Hasil diagnostik tidak tersedia."}
       </main>
     );
   }
@@ -775,7 +786,7 @@ export default function MathCheckupResultClient({
               sm:text-sm
             "
           >
-            Math Check-Up Report
+            Laporan Math Check-Up
           </span>
         </div>
       </header>
@@ -825,7 +836,7 @@ export default function MathCheckupResultClient({
                   text-blue-600
                 "
               >
-                Mathematics Readiness
+                Kesiapan Matematika
               </p>
 
               <h1
@@ -847,7 +858,8 @@ export default function MathCheckupResultClient({
                   text-slate-600
                 "
               >
-                Kelas {attempt.grade_level} • Diagnostic {diagnostic.version}
+                Kelas {attempt.grade_level} • Versi diagnostik{" "}
+                {diagnostic.version}
               </p>
             </div>
 
@@ -947,7 +959,7 @@ export default function MathCheckupResultClient({
                 text-blue-700
               "
             >
-              Performance by Level
+              Kesiapan Berdasarkan Level
             </p>
 
             <h2
@@ -970,19 +982,19 @@ export default function MathCheckupResultClient({
             "
           >
             <BandCard
-              title="Foundation"
+              title="Fondasi"
               band="foundation"
               data={diagnostic.bandScores.foundation}
             />
 
             <BandCard
-              title="Grade Level"
+              title="Level Kelas"
               band="core"
               data={diagnostic.bandScores.core}
             />
 
             <BandCard
-              title="Stretch"
+              title="Tantangan"
               band="stretch"
               data={diagnostic.bandScores.stretch}
             />
@@ -1001,10 +1013,10 @@ export default function MathCheckupResultClient({
               text-slate-700
             "
           >
-            Skor readiness tidak dihitung hanya dari jumlah jawaban benar.
-            Foundation dan materi inti digunakan untuk membaca kesiapan anak,
-            sedangkan soal Stretch berfungsi sebagai indikator kesiapan menuju
-            tantangan berikutnya.
+            Skor kesiapan tidak dihitung hanya dari jumlah jawaban benar.
+            Kemampuan dasar dan materi utama digunakan untuk membaca kesiapan
+            anak, sedangkan soal tantangan berfungsi sebagai indikator kesiapan
+            menuju tantangan berikutnya.
           </div>
         </section>
 
@@ -1061,7 +1073,7 @@ export default function MathCheckupResultClient({
                     text-emerald-700
                   "
                 >
-                  Strengths
+                  Kekuatan
                 </p>
 
                 <h2
@@ -1132,7 +1144,7 @@ export default function MathCheckupResultClient({
                             text-slate-500
                           "
                     >
-                      Benar {skill.correct} dari {skill.total} evidence •{" "}
+                      Benar {skill.correct} dari {skill.total} bukti •{" "}
                       {confidenceLabel(skill.confidence)}
                     </p>
                   </div>
@@ -1146,8 +1158,8 @@ export default function MathCheckupResultClient({
                     text-slate-600
                   "
                 >
-                  Belum ada skill dengan evidence cukup untuk dikategorikan
-                  sebagai kekuatan utama.
+                  Belum ada kemampuan dengan bukti yang cukup untuk
+                  dikategorikan sebagai kekuatan utama.
                 </p>
               )}
             </div>
@@ -1198,7 +1210,7 @@ export default function MathCheckupResultClient({
                     text-amber-700
                   "
                 >
-                  Learning Gaps
+                  Area yang Perlu Dikuatkan
                 </p>
 
                 <h2
@@ -1301,7 +1313,7 @@ export default function MathCheckupResultClient({
                                 text-slate-500
                               "
                         >
-                          Benar {skill.correct} dari {skill.total} evidence •{" "}
+                          Benar {skill.correct} dari {skill.total} bukti •{" "}
                           {confidenceLabel(skill.confidence)}
                         </p>
                       </div>
@@ -1321,8 +1333,8 @@ export default function MathCheckupResultClient({
                     text-emerald-800
                   "
                 >
-                  Tidak ditemukan priority gap yang signifikan pada diagnostic
-                  ini.
+                  Tidak ditemukan area prioritas yang signifikan pada asesmen
+                  diagnostik ini.
                 </div>
               )}
             </div>
@@ -1352,7 +1364,7 @@ export default function MathCheckupResultClient({
                 text-rose-700
               "
             >
-              Prerequisite Analysis
+              Analisis Kemampuan Prasyarat
             </p>
 
             <h2
@@ -1407,7 +1419,7 @@ export default function MathCheckupResultClient({
                           text-rose-600
                         "
                   >
-                    Root / prerequisite
+                    Akar Kemampuan / Prasyarat
                   </p>
 
                   <p
@@ -1460,7 +1472,7 @@ export default function MathCheckupResultClient({
               text-blue-700
             "
           >
-            Personalized Recommendation
+            Rekomendasi Belajar Personal
           </p>
 
           <h2
@@ -1493,7 +1505,7 @@ export default function MathCheckupResultClient({
                 text-blue-600
               "
             >
-              Recommended Starting Point
+              Titik Awal yang Disarankan
             </p>
 
             <p
@@ -1534,7 +1546,7 @@ export default function MathCheckupResultClient({
                   text-slate-800
                 "
               >
-                Personalized Learning Path
+                Urutan Belajar yang Disarankan
               </p>
 
               <div
@@ -1624,7 +1636,7 @@ export default function MathCheckupResultClient({
                   text-blue-200
                 "
               >
-                Recommended Free Trial
+                Sesi Percobaan Gratis yang Disarankan
               </p>
 
               <h2
@@ -1648,8 +1660,9 @@ export default function MathCheckupResultClient({
                   text-blue-100
                 "
               >
-                Free Trial dapat difokuskan pada area yang ditemukan dari
-                diagnostic ini, sehingga sesi pertama tidak dimulai secara acak.
+                Sesi percobaan gratis dapat difokuskan pada area yang ditemukan
+                dari asesmen diagnostik ini, sehingga sesi pertama tidak dimulai
+                secara acak.
               </p>
             </div>
 
@@ -1674,7 +1687,7 @@ export default function MathCheckupResultClient({
                   hover:bg-emerald-50
                 "
               >
-                Konsultasi Hasil & Free Trial
+                Konsultasi Hasil & Sesi Percobaan Gratis
               </a>
             ) : (
               <div
@@ -1716,7 +1729,7 @@ export default function MathCheckupResultClient({
               text-blue-700
             "
           >
-            Answer History
+            Riwayat Jawaban
           </p>
 
           <h2
@@ -1840,9 +1853,9 @@ export default function MathCheckupResultClient({
             text-slate-400
           "
         >
-          Hasil Math Check-Up BeSmartKids merupakan diagnostic pembelajaran
-          internal untuk membantu menentukan titik awal belajar. Hasil ini bukan
-          diagnosis klinis atau nilai sekolah.
+          Hasil Math Check-Up BeSmartKids merupakan asesmen diagnostik
+          pembelajaran internal untuk membantu menentukan titik awal belajar.
+          Hasil ini bukan diagnosis klinis atau nilai sekolah.
         </p>
       </div>
 
@@ -2125,7 +2138,7 @@ export default function MathCheckupResultClient({
                       text-slate-800
                     "
                   >
-                    {selectedAnswer.assessmentBand}
+                    {assessmentBandLabel(selectedAnswer.assessmentBand)}
                   </p>
                 </div>
               </div>
