@@ -1210,7 +1210,7 @@ export default function MathCheckupResultClient({
                     text-amber-700
                   "
                 >
-                  Area yang Perlu Dikuatkan
+                  MATERI YANG PERLU DIPERKUAT
                 </p>
 
                 <h2
@@ -1219,7 +1219,7 @@ export default function MathCheckupResultClient({
                     font-black
                   "
                 >
-                  Prioritas Penguatan
+                  Apa yang Mungkin Membuat Anak Kesulitan?
                 </h2>
               </div>
             </div>
@@ -1387,9 +1387,9 @@ export default function MathCheckupResultClient({
                 text-slate-600
               "
             >
-              Ketika kemampuan prasyarat dan skill di atasnya sama-sama
-              bermasalah, pembelajaran sebaiknya dimulai dari kemampuan
-              prasyarat terlebih dahulu.
+              Kesulitan mengerjakan suatu materi bisa berkaitan dengan konsep
+              dasar yang belum dipahami. Berikut bagian yang disarankan untuk
+              dilatih terlebih dahulu.
             </p>
 
             <div
@@ -1419,7 +1419,7 @@ export default function MathCheckupResultClient({
                           text-rose-600
                         "
                   >
-                    Akar Kemampuan / Prasyarat
+                    Materi yang perlu di latih terlebih dahulu
                   </p>
 
                   <p
