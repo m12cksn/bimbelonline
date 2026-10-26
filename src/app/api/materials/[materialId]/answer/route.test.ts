@@ -113,4 +113,17 @@ describe("answer submission boundaries", () => {
     expect((await response.json()).isCorrect).toBe(true);
     expect(mockWrites).toEqual(["question_attempts", "student_material_progress"]);
   });
+
+  test.each([
+    ["y=2,x=3", "x=3,y=2", true],
+    ["2(x+3)", "2x+6", true],
+    ["x=2,y=3", "x=3,y=2", false],
+    ["2(x+2)", "2x+6", false],
+  ])("grades algebra through the answer API: %s", async (answer, key, expected) => {
+    mockQuestion!.type = "essay";
+    mockQuestion!.correct_answer = key;
+    const response = await submit({ questionId: "q1", selectedAnswer: answer });
+    expect(response.status).toBe(200);
+    expect((await response.json()).isCorrect).toBe(expected);
+  });
 });

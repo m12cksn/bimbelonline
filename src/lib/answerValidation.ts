@@ -1,3 +1,5 @@
+import { compareAlgebra } from "./algebraValidation";
+
 type Fraction = { numerator: number; denominator: number; label: string };
 type Rational = { numerator: bigint; denominator: bigint; unit: string };
 const ZERO = BigInt(0);
@@ -162,6 +164,15 @@ export function isInputAnswerCorrect(selected: string, correct: string | null): 
     if (actual.unit && actual.unit !== expected.unit) return false;
     return actual.numerator * expected.denominator === expected.numerator * actual.denominator;
   }
+
+  const algebra = compareAlgebra(normalizedSelected, normalizedCorrect, (actualText, expectedText) => {
+    const expectedScalar = parseScalar(expectedText);
+    if (!expectedScalar) return null;
+    const actualScalar = parseScalar(actualText);
+    return actualScalar !== null && (!actualScalar.unit || actualScalar.unit === expectedScalar.unit) &&
+      actualScalar.numerator * expectedScalar.denominator === expectedScalar.numerator * actualScalar.denominator;
+  });
+  if (algebra !== null) return algebra;
 
   // Legacy equation keys may contain working. Only a plain numeric RHS is a scalar key.
   // Restrict the LHS to arithmetic characters: structured/algebraic keys remain exact-match.
