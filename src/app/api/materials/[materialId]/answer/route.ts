@@ -53,29 +53,36 @@ function buildFallbackExplanation(
 
 export async function POST(req: Request, props: MaterialParams) {
   const { materialId: materialIdStr } = await props.params;
-  const materialId = parseInt(materialIdStr, 10);
+  const materialId = Number(materialIdStr);
 
-  if (Number.isNaN(materialId)) {
+  if (!/^\d+$/.test(materialIdStr) || !Number.isSafeInteger(materialId) || materialId < 1) {
     return NextResponse.json(
       { error: "Invalid material id", raw: materialIdStr },
       { status: 400 }
     );
   }
 
-  const body = (await req.json()) as {
-    questionId: number | string;
-    questionNumber?: number;
-    selectedAnswer: string;
-    attemptNumber?: number;
-  };
-
-  const { questionId, selectedAnswer } = body;
-
-  // --- Ambil attemptNumber dari body (1 atau 2). Default = 1 ---
-  let attemptNumber = Number(body.attemptNumber);
-  if (!attemptNumber || ![1, 2].includes(attemptNumber)) {
-    attemptNumber = 1;
+  let body: unknown;
+  try {
+    body = await req.json();
+  } catch {
+    return NextResponse.json({ error: "Payload tidak valid" }, { status: 400 });
   }
+  if (!body || typeof body !== "object" || Array.isArray(body)) {
+    return NextResponse.json({ error: "Payload tidak valid" }, { status: 400 });
+  }
+  const payload = body as Record<string, unknown>;
+  const { questionId, selectedAnswer } = payload;
+  const validQuestionId =
+    (typeof questionId === "string" && questionId.trim().length > 0 && questionId.length <= 128) ||
+    (typeof questionId === "number" && Number.isSafeInteger(questionId) && questionId > 0);
+  if (!validQuestionId || typeof selectedAnswer !== "string" ||
+      !selectedAnswer.trim() || selectedAnswer.length > 10000 ||
+      (payload.attemptNumber !== undefined && payload.attemptNumber !== 1 && payload.attemptNumber !== 2)) {
+    return NextResponse.json({ error: "Jawaban tidak valid" }, { status: 400 });
+  }
+  // Legacy whole-material run number; not authorization for per-question attempts.
+  const attemptNumber = payload.attemptNumber === 2 ? 2 : 1;
 
   const cookieStore = await cookies();
 
@@ -141,6 +148,7 @@ export async function POST(req: Request, props: MaterialParams) {
       "id, material_id, question_number, type, prompt, correct_answer, correct_answer_image_url, explanation, question_mode"
     )
     .eq("id", qId)
+    .eq("material_id", materialId)
     .single();
 
   if (questionError || !question) {
@@ -157,7 +165,7 @@ export async function POST(req: Request, props: MaterialParams) {
   // 5. cek jawaban
   let isCorrect = false;
   let correctAnswerText: string | null = null;
-  let correctAnswerImage: string | null =
+  const correctAnswerImage: string | null =
     (question as { correct_answer_image_url?: string | null })
       ?.correct_answer_image_url ?? null;
   let multipartResults:
@@ -176,7 +184,10 @@ export async function POST(req: Request, props: MaterialParams) {
   } else if (question.type === "multipart") {
     let parsed: Record<string, string> = {};
     try {
-      parsed = JSON.parse(selectedAnswer);
+      const value: unknown = JSON.parse(selectedAnswer);
+      parsed = value && typeof value === "object" && !Array.isArray(value) &&
+        Object.values(value).every((entry) => typeof entry === "string")
+        ? value as Record<string, string> : {};
     } catch {
       parsed = {};
     }
@@ -242,7 +253,10 @@ export async function POST(req: Request, props: MaterialParams) {
   } else if (question.type === "drag_drop") {
     let parsed: Record<string, string> = {};
     try {
-      parsed = JSON.parse(selectedAnswer);
+      const value: unknown = JSON.parse(selectedAnswer);
+      parsed = value && typeof value === "object" && !Array.isArray(value) &&
+        Object.values(value).every((entry) => typeof entry === "string")
+        ? value as Record<string, string> : {};
     } catch {
       parsed = {};
     }
@@ -262,21 +276,27 @@ export async function POST(req: Request, props: MaterialParams) {
       if (item?.id && item?.correct_target_id) {
         itemMap.set(item.id, item.correct_target_id);
         if (typeof item.label === "string") {
-          labelMap.set(normalizeText(item.label), item.correct_target_id);
+          const label = normalizeText(item.label);
+          // Legacy label answers are accepted only when that label is unique.
+          labelMap.set(label, labelMap.has(label) ? "" : item.id);
         }
       }
     }
 
+    const usedItemIds = new Set<string>();
     isCorrect =
-      Object.keys(parsed).length > 0 &&
+      !!parsed && typeof parsed === "object" && !Array.isArray(parsed) &&
+      itemMap.size > 0 &&
+      Object.keys(parsed).length === itemMap.size &&
+      new Set(Object.values(parsed)).size === itemMap.size &&
       Object.entries(parsed).every(
         ([targetId, itemValue]) => {
-          if (!itemValue) return false;
-          const byId = itemMap.get(itemValue);
-          if (byId) return byId === targetId;
-          const byLabel = labelMap.get(normalizeText(itemValue));
-          if (byLabel) return byLabel === targetId;
-          return false;
+          if (typeof itemValue !== "string" || !itemValue) return false;
+          const itemId = itemMap.has(itemValue)
+            ? itemValue : labelMap.get(normalizeText(itemValue));
+          if (!itemId || usedItemIds.has(itemId)) return false;
+          usedItemIds.add(itemId);
+          return itemMap.get(itemId) === targetId;
         }
       );
   } else {
@@ -306,6 +326,10 @@ export async function POST(req: Request, props: MaterialParams) {
 
     if (attemptError) {
       console.error("Attempt save error:", attemptError);
+      return NextResponse.json(
+        { error: "Jawaban belum berhasil disimpan. Coba lagi." },
+        { status: 503 }
+      );
     }
 
     // 7. simpan progress last_question_number

@@ -1216,7 +1216,17 @@ export default function MaterialQuiz({
         return;
       }
 
-      const isCorrect: boolean = !!data.isCorrect;
+      if (!res.ok || typeof data.isCorrect !== "boolean") {
+        setFeedback({
+          isCorrect: null,
+          message: data.error || "Jawaban belum berhasil diproses. Coba lagi.",
+          imageUrl: null,
+          explanation: null,
+        });
+        return;
+      }
+
+      const isCorrect: boolean = data.isCorrect;
       const correctAnswer: string | undefined = data.correctAnswer;
       const correctAnswerImage: string | undefined = data.correctAnswerImage;
       const explanation: string | undefined = data.explanation ?? undefined;
