@@ -28,14 +28,12 @@ type QuestionOption = {
   value: string;
   label: string;
   imageUrl?: string;
-  targetKey?: string;
 };
 
 type QuestionOptionRow = {
   label: string;
   value: string;
   image_url?: string | null;
-  is_correct?: boolean | null;
   sort_order?: number | null;
 };
 
@@ -50,7 +48,6 @@ type DropItemRow = {
   id: string;
   label: string;
   image_url?: string | null;
-  correct_target_id: string;
   sort_order?: number | null;
 };
 
@@ -717,7 +714,6 @@ export default function MaterialQuiz({
       value: item.id,
       label: item.label,
       imageUrl: item.image_url ?? undefined,
-      targetKey: item.correct_target_id,
     }));
 
     const questionType: NormalizedQuestion["type"] =
@@ -1220,7 +1216,17 @@ export default function MaterialQuiz({
         return;
       }
 
-      const isCorrect: boolean = !!data.isCorrect;
+      if (!res.ok || typeof data.isCorrect !== "boolean") {
+        setFeedback({
+          isCorrect: null,
+          message: data.error || "Jawaban belum berhasil diproses. Coba lagi.",
+          imageUrl: null,
+          explanation: null,
+        });
+        return;
+      }
+
+      const isCorrect: boolean = data.isCorrect;
       const correctAnswer: string | undefined = data.correctAnswer;
       const correctAnswerImage: string | undefined = data.correctAnswerImage;
       const explanation: string | undefined = data.explanation ?? undefined;

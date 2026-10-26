@@ -1,136 +1,89 @@
-type Fraction = {
-  numerator: number;
-  denominator: number;
-  label: string;
-};
+import { compareAlgebra } from "./algebraValidation";
 
-export function normalizeFraction(value: string): Fraction | null {
-  const normalizedValue = replaceLatexFractions(value);
-  const match = normalizedValue.match(/(-?\d+)\s*\/\s*(-?\d+)/);
-  if (!match) return null;
-  const numerator = Number(match[1]);
-  const denominator = Number(match[2]);
-  if (!Number.isFinite(numerator) || !Number.isFinite(denominator) || denominator === 0) {
-    return null;
-  }
-  const gcd = (a: number, b: number): number => {
-    if (b === 0) return Math.abs(a);
-    return gcd(b, a % b);
-  };
-  const factor = gcd(numerator, denominator) || 1;
-  const simplifiedNum = numerator / factor;
-  const simplifiedDen = denominator / factor;
-  const sign = simplifiedDen < 0 ? -1 : 1;
-  return {
-    numerator: simplifiedNum * sign,
-    denominator: Math.abs(simplifiedDen),
-    label: `${simplifiedNum * sign}/${Math.abs(simplifiedDen)}`,
-  };
-}
+type Fraction = { numerator: number; denominator: number; label: string };
+type Rational = { numerator: bigint; denominator: bigint; unit: string };
+const ZERO = BigInt(0);
+const ONE = BigInt(1);
 
 function replaceLatexFractions(value: string) {
-  return value.replace(
-    /\\frac\s*\{\s*(-?\d+)\s*\}\s*\{\s*(-?\d+)\s*\}/g,
-    "$1/$2"
-  );
+  return value.replace(/\\frac\s*\{\s*(-?\d+)\s*\}\s*\{\s*(-?\d+)\s*\}/g, "$1/$2");
 }
 
-function extractMixedFractions(answer: string) {
-  const normalized = replaceLatexFractions(replaceUnicodeFractions(answer));
-  const matches = normalized.matchAll(/(-?\d+)\s+(\d+)\s*\/\s*(-?\d+)/g);
-  const values: number[] = [];
-
-  for (const match of matches) {
-    const whole = Number(match[1]);
-    const numerator = Number(match[2]);
-    const denominator = Number(match[3]);
-    if (
-      !Number.isFinite(whole) ||
-      !Number.isFinite(numerator) ||
-      !Number.isFinite(denominator) ||
-      denominator === 0
-    ) {
-      continue;
-    }
-    const sign = whole < 0 ? -1 : 1;
-    values.push(whole + sign * (Math.abs(numerator) / Math.abs(denominator)));
+// Parse the entire scalar. Never extract one matching number from an answer.
+function parseScalar(raw: string): Rational | null {
+  if (raw.length > 256) return null;
+  let value = replaceLatexFractions(replaceUnicodeFractions(raw)).trim()
+    .replace(/−/g, "-").replace(/°|derajat/gi, "deg");
+  let unit = "";
+  if (/^rp\s*/i.test(value)) { unit = "rp"; value = value.replace(/^rp\s*/i, ""); }
+  const suffix = value.match(/\s*(%|deg|mm[²³23]?|cm[²³23]?|km[²³23]?|m[²³23]?|kg|g|ml|liter|l|jam|menit|detik|ms)$/i);
+  let percent = false;
+  if (suffix) {
+    if (unit) return null;
+    percent = suffix[1] === "%";
+    unit = percent ? "" : suffix[1].toLowerCase().replace(/²/g, "2").replace(/³/g, "3");
+    value = value.slice(0, suffix.index).trim();
   }
-
-  return values;
-}
-
-function extractFractions(answer: string) {
-  const normalized = replaceLatexFractions(answer);
-  const matches = normalized.match(/-?\d+\s*\/\s*-?\d+/g) ?? [];
-  return matches
-    .map((chunk) => normalizeFraction(chunk))
-    .filter((item): item is NonNullable<typeof item> => item !== null);
-}
-
-function extractNumericValues(answer: string) {
-  const normalized = replaceLatexFractions(replaceUnicodeFractions(answer));
-  const mixedValues = extractMixedFractions(normalized);
-  const fractionValues = extractFractions(normalized).map(
-    (item) => item.numerator / item.denominator
-  );
-  const numberValues = extractNumbers(normalized)
-    .map((item) => Number(item))
-    .filter((item) => Number.isFinite(item));
-
-  return [...mixedValues, ...fractionValues, ...numberValues];
-}
-
-function normalizeNumberToken(raw: string) {
-  let value = raw.trim();
-  const hasDot = value.includes(".");
-  const hasComma = value.includes(",");
-
-  if (hasDot && hasComma) {
-    const lastDot = value.lastIndexOf(".");
-    const lastComma = value.lastIndexOf(",");
-    if (lastDot > lastComma) {
-      value = value.replace(/,/g, "");
-    } else {
-      value = value.replace(/\./g, "").replace(",", ".");
-    }
-    return value;
+  const mixed = value.match(/^([+-]?\d+)\s+(\d+)\s*\/\s*(\d+)$/);
+  const fraction = value.match(/^([+-]?\d+)\s*\/\s*([+-]?\d+)$/);
+  let numerator: bigint;
+  let denominator: bigint;
+  if (mixed) {
+    if (mixed.slice(1).some((part) => part.length > 32)) return null;
+    denominator = BigInt(mixed[3]);
+    const part = BigInt(mixed[2]);
+    if (denominator === ZERO || part >= denominator) return null;
+    numerator = BigInt(mixed[1]) * denominator + (mixed[1].startsWith("-") ? -part : part);
+  } else if (fraction) {
+    if (fraction.slice(1).some((part) => part.length > 32)) return null;
+    numerator = BigInt(fraction[1]); denominator = BigInt(fraction[2]);
+    if (denominator === ZERO) return null;
+  } else {
+    const sign = value.startsWith("-") ? -ONE : ONE;
+    value = value.replace(/^[+-]/, "");
+    if (!/^\d+(?:[.,]\d+)*$/.test(value)) return null;
+    const dots = (value.match(/\./g) || []).length;
+    const commas = (value.match(/,/g) || []).length;
+    let integer: string;
+    let decimal = "";
+    if (dots && commas) {
+      const separator = value.lastIndexOf(".") > value.lastIndexOf(",") ? "." : ",";
+      const grouping = separator === "." ? "," : ".";
+      const parts = value.split(separator);
+      if (parts.length !== 2 || !parts[1] || parts[1].includes(grouping)) return null;
+      const groups = parts[0].split(grouping);
+      if (!/^\d{1,3}$/.test(groups[0]) || groups.length < 2 || groups.slice(1).some((part) => !/^\d{3}$/.test(part))) return null;
+      integer = groups.join(""); decimal = parts[1];
+    } else if (dots || commas) {
+      const parts = value.split(dots ? "." : ",");
+      // Preserve the existing legacy thousands convention for 10.000 / 10,000.
+      const grouped = /^[1-9]\d{0,2}$/.test(parts[0]) && parts.slice(1).every((part) => /^\d{3}$/.test(part));
+      if (grouped) integer = parts.join("");
+      else if (parts.length === 2) { integer = parts[0]; decimal = parts[1]; }
+      else return null;
+    } else integer = value;
+    if (integer.length + decimal.length > 32) return null;
+    numerator = sign * BigInt(integer + decimal);
+    denominator = BigInt(10) ** BigInt(decimal.length);
   }
-
-  if (hasDot) {
-    const parts = value.split(".");
-    if (parts.length === 2) {
-      const decimalPart = parts[1];
-      if (decimalPart.length === 3 && !value.startsWith("0.")) {
-        value = value.replace(/\./g, "");
-        return value;
-      }
-      return value;
-    }
-    if (/^\d{1,3}(\.\d{3})+$/.test(value)) {
-      return value.replace(/\./g, "");
-    }
-  }
-
-  if (hasComma) {
-    const parts = value.split(",");
-    if (parts.length === 2) {
-      const decimalPart = parts[1];
-      if (decimalPart.length === 3 && !value.startsWith("0,")) {
-        return value.replace(/,/g, "");
-      }
-      return value.replace(",", ".");
-    }
-    if (/^\d{1,3}(,\d{3})+$/.test(value)) {
-      return value.replace(/,/g, "");
-    }
-  }
-
-  return value;
+  if (denominator < ZERO) { numerator = -numerator; denominator = -denominator; }
+  if (percent) denominator *= BigInt(100);
+  return { numerator, denominator, unit };
 }
 
-function extractNumbers(answer: string) {
-  const matches = answer.match(/-?\d+(?:[.,]\d+)?/g) ?? [];
-  return matches.map((chunk) => normalizeNumberToken(chunk));
+export function normalizeFraction(value: string): Fraction | null {
+  const normalized = replaceLatexFractions(replaceUnicodeFractions(value)).trim();
+  if (!/^[+-]?\d+\s*\/\s*[+-]?\d+$/.test(normalized)) return null;
+  const parsed = parseScalar(normalized);
+  if (!parsed) return null;
+  let a = parsed.numerator < ZERO ? -parsed.numerator : parsed.numerator;
+  let b = parsed.denominator;
+  while (b !== ZERO) { const rest = a % b; a = b; b = rest; }
+  const factor = a || ONE;
+  const numerator = Number(parsed.numerator / factor);
+  const denominator = Number(parsed.denominator / factor);
+  if (!Number.isSafeInteger(numerator) || !Number.isSafeInteger(denominator)) return null;
+  return { numerator, denominator, label: `${numerator}/${denominator}` };
 }
 
 function normalizeText(value: string) {
@@ -150,6 +103,10 @@ function normalizeSymbolAnswer(value: string) {
 }
 
 function replaceUnicodeFractions(value: string) {
+  if (value.includes("⁄")) {
+    const digits: Record<string, string> = { "⁰": "0", "¹": "1", "²": "2", "³": "3", "⁴": "4", "⁵": "5", "⁶": "6", "⁷": "7", "⁸": "8", "⁹": "9", "₀": "0", "₁": "1", "₂": "2", "₃": "3", "₄": "4", "₅": "5", "₆": "6", "₇": "7", "₈": "8", "₉": "9" };
+    value = value.replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹₀₁₂₃₄₅₆₇₈₉]/g, (digit) => digits[digit]).replace(/⁄/g, "/");
+  }
   const map: Record<string, string> = {
     "½": "1/2",
     "¼": "1/4",
@@ -170,7 +127,8 @@ function replaceUnicodeFractions(value: string) {
 
   return value.replace(
     /[½¼¾⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]/g,
-    (char) => map[char] ?? char
+    (char, offset: number, source: string) =>
+      `${offset > 0 && /\d/.test(source[offset - 1]) ? " " : ""}${map[char] ?? char}`
   );
 }
 
@@ -192,83 +150,62 @@ function extractAltGroups(value: string) {
   return groups;
 }
 
-export function isInputAnswerCorrect(selected: string, correct: string | null) {
-  if (!correct) return false;
-  const normalizedSelected = replaceLatexFractions(replaceUnicodeFractions(selected));
-  const normalizedCorrect = replaceLatexFractions(replaceUnicodeFractions(correct));
-  const symbolCorrect = normalizeSymbolAnswer(normalizedCorrect);
-  const symbolSelected = normalizeSymbolAnswer(normalizedSelected);
-  if (/[<>]=?/.test(symbolCorrect)) {
-    return symbolCorrect === symbolSelected;
+export function isInputAnswerCorrect(selected: string, correct: string | null): boolean {
+  if (typeof selected !== "string" || typeof correct !== "string" ||
+      !selected.trim() || !correct.trim() || selected.length > 3000 || correct.length > 3000) return false;
+  const normalizedSelected = replaceLatexFractions(replaceUnicodeFractions(selected)).trim();
+  const normalizedCorrect = replaceLatexFractions(replaceUnicodeFractions(correct)).trim();
+  if (/^(?:nan|[+-]?infinity)$/i.test(normalizedCorrect)) return false;
+  const expected = parseScalar(normalizedCorrect);
+  if (expected) {
+    const actual = parseScalar(normalizedSelected);
+    if (!actual) return false;
+    // Legacy inputs may omit a unit from a unit-bearing key, but cannot invent or change one.
+    if (actual.unit && actual.unit !== expected.unit) return false;
+    return actual.numerator * expected.denominator === expected.numerator * actual.denominator;
   }
 
-  const correctMixedValues = extractMixedFractions(normalizedCorrect);
-  if (correctMixedValues.length > 0) {
-    const selectedValues = extractNumericValues(normalizedSelected);
-    return correctMixedValues.some((expected) =>
-      selectedValues.some((value) => Math.abs(value - expected) < 1e-9)
-    );
+  const algebra = compareAlgebra(normalizedSelected, normalizedCorrect, (actualText, expectedText) => {
+    const expectedScalar = parseScalar(expectedText);
+    if (!expectedScalar) return null;
+    const actualScalar = parseScalar(actualText);
+    return actualScalar !== null && (!actualScalar.unit || actualScalar.unit === expectedScalar.unit) &&
+      actualScalar.numerator * expectedScalar.denominator === expectedScalar.numerator * actualScalar.denominator;
+  });
+  if (algebra !== null) return algebra;
+
+  // Legacy equation keys may contain working. Only a plain numeric RHS is a scalar key.
+  // Restrict the LHS to arithmetic characters: structured/algebraic keys remain exact-match.
+  const equation = normalizedCorrect.match(/^([\d\s+*/().,−×÷-]+)=([^=]+)$/);
+  if (equation && parseScalar(equation[2])) {
+    return normalizeSymbolAnswer(normalizedSelected) === normalizeSymbolAnswer(normalizedCorrect) ||
+      isInputAnswerCorrect(normalizedSelected, equation[2]);
   }
 
-  const correctFraction = normalizeFraction(normalizedCorrect);
-  if (correctFraction) {
-    const fractions = extractFractions(normalizedSelected);
-    if (fractions.some((item) => item.label === correctFraction.label)) {
-      return true;
-    }
-    const correctDecimal =
-      correctFraction.numerator / correctFraction.denominator;
-    const selectedValues = extractNumericValues(normalizedSelected);
-    return selectedValues.some(
-      (value) => Math.abs(value - correctDecimal) < 1e-9
-    );
+  // A legacy comma-separated list is not a scalar; require its whole representation.
+  if (/^[+-]?\d+(?:\s*,\s*[+-]?\d+){2,}$/.test(normalizedCorrect)) {
+    return normalizeSymbolAnswer(normalizedSelected) === normalizeSymbolAnswer(normalizedCorrect);
   }
+  // Malformed single scalars (including zero denominators) are never valid keys.
+  if (/^[+-]?\d+(?:[.,]\d+)*%?$/.test(normalizedCorrect) ||
+      /^[+-]?\d+\s*\/\s*[+-]?\d+%?$/.test(normalizedCorrect)) return false;
 
-  const correctNumbers = extractNumbers(normalizedCorrect).map((item) =>
-    item.trim()
-  );
-  const answerNumbers = extractNumbers(normalizedSelected).map((item) =>
-    item.trim()
-  );
-
-  if (correctNumbers.length > 0) {
-    const expected = correctNumbers[correctNumbers.length - 1];
-    if (answerNumbers.some((value) => value === expected)) {
-      return true;
-    }
-    if (answerNumbers.some((value) => correctNumbers.includes(value))) {
-      return true;
-    }
-    const selectedNumericValues = extractNumericValues(normalizedSelected);
-    if (selectedNumericValues.length > 0) {
-      if (
-        selectedNumericValues.some((value) =>
-          correctNumbers.some(
-            (num) => Math.abs(Number(num) - value) < 1e-9
-          )
-        )
-      ) {
-        return true;
-      }
-    }
+  // Lists, expressions, ratios, algebra and numeric prose must never use token overlap.
+  // Until typed rubrics exist, require the complete legacy key, preserving math signs.
+  if (/\d|[<>=%+*^:≤≥−²³⊥∥√π∞]/.test(normalizedCorrect)) {
+    return normalizeSymbolAnswer(normalizedSelected).toLowerCase() ===
+      normalizeSymbolAnswer(normalizedCorrect).toLowerCase();
   }
-
-  const selectedTokens = new Set(getTextTokens(normalizedSelected));
+  // Pure text supports legacy slash alternatives, but rejects contradictory extra words.
+  const selectedTokens = getTextTokens(normalizedSelected);
   const correctTokens = getTextTokens(normalizedCorrect);
-  if (!selectedTokens.size || correctTokens.length === 0) return false;
-
+  if (!selectedTokens.length || !correctTokens.length) return false;
   const altGroups = extractAltGroups(normalizedCorrect);
   const altTokens = new Set(altGroups.flat());
   const requiredTokens = correctTokens.filter((token) => !altTokens.has(token));
-
-  const hasRequired = requiredTokens.every((token) => selectedTokens.has(token));
-  if (!hasRequired) return false;
-
-  if (altGroups.length === 0) {
-    return true;
-  }
-
-  return altGroups.every((group) =>
-    group.some((token) => selectedTokens.has(token))
-  );
+  const selectedSet = new Set(selectedTokens);
+  const allowed = new Set(correctTokens);
+  return selectedTokens.every((token) => allowed.has(token)) &&
+    requiredTokens.every((token) => selectedSet.has(token)) &&
+    altGroups.every((group) => group.some((token) => selectedSet.has(token)));
 }
