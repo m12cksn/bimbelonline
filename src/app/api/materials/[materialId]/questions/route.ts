@@ -99,7 +99,7 @@ export async function GET(
   if (questionIds.length > 0) {
     const { data: optionRows, error: optionsError } = await dbClient
       .from("question_options")
-      .select("question_id, label, value, image_url, sort_order, is_correct")
+      .select("question_id, label, value, image_url, sort_order")
       .in("question_id", questionIds)
       .order("sort_order", { ascending: true });
 
@@ -119,7 +119,7 @@ export async function GET(
 
     const { data: itemRows, error: itemsError } = await dbClient
       .from("question_drop_items")
-      .select("id, question_id, label, image_url, correct_target_id, sort_order")
+      .select("id, question_id, label, image_url, sort_order")
       .in("question_id", questionIds)
       .order("sort_order", { ascending: true });
 
@@ -139,7 +139,12 @@ export async function GET(
 
     for (const row of optionRows || []) {
       const list = optionsByQuestion.get(row.question_id) || [];
-      list.push(row);
+      list.push({
+        label: row.label,
+        value: row.value,
+        image_url: row.image_url,
+        sort_order: row.sort_order,
+      });
       optionsByQuestion.set(row.question_id, list);
     }
 
@@ -151,7 +156,12 @@ export async function GET(
 
     for (const row of itemRows || []) {
       const list = itemsByQuestion.get(row.question_id) || [];
-      list.push(row);
+      list.push({
+        id: row.id,
+        label: row.label,
+        image_url: row.image_url,
+        sort_order: row.sort_order,
+      });
       itemsByQuestion.set(row.question_id, list);
     }
 
