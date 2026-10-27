@@ -3,6 +3,7 @@
 import { useRef, useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import VisualArithmetic from "@/components/learning/VisualArithmetic";
 import MathText from "@/app/components/MathText";
 import DoodleOverlay, {
   DoodleHandle,
@@ -443,6 +444,8 @@ export default function BatchPracticeQuiz({
                 )}
               </div>
             </div>
+
+            {childFriendly && !question.question_image_url && <VisualArithmetic key={question.id} prompt={question.prompt} variation={question.question_number} />}
 
             {question.question_image_url && (
               <div className="relative mx-auto mt-4 h-[min(420px,60vw)] min-h-48 w-full max-w-3xl overflow-hidden rounded-md border border-slate-200 bg-white">
