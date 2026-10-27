@@ -1,5 +1,6 @@
 "use client";
 import { useState, useRef, useLayoutEffect } from 'react';
+import { parseIconArithmetic } from './iconArithmetic';
 import { parseStoryVisual } from './storyVisual';
 import { parseVisualArithmetic } from './visualArithmetic';
 import styles from './visualArithmetic.module.css';
@@ -9,7 +10,7 @@ const themes = [
   { title: 'Rak mainan', object: '🧸', noun: 'boneka', destination: 'Kotak mainan' },
 ];
 export default function VisualArithmetic({ prompt, variation }: { prompt: string; variation: number }) {
-  const storyConfig = parseStoryVisual(prompt);
+  const storyConfig = parseStoryVisual(prompt) ?? parseIconArithmetic(prompt);
   const config = storyConfig ?? parseVisualArithmetic(prompt);
   const [marked, setMarked] = useState<number[]>([]);
   const objectButtons = useRef(new Map<number, HTMLButtonElement>());
