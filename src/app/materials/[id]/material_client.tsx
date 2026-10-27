@@ -60,6 +60,7 @@ type QuestionMeta = {
 };
 
 type MaterialData = {
+  grade_id?: number | null;
   id: number;
   title: string;
   description: string | null;
@@ -443,6 +444,7 @@ export default function MaterialWithResources({
             <>
               {mode === "practice" ? (
                 <BatchPracticeQuiz
+                  childFriendly={material.grade_id === 1}
                   materialId={material.id}
                   questionMeta={visiblePracticeQuestions}
                   isAdmin={isAdmin}

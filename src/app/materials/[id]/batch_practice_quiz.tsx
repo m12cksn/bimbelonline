@@ -68,10 +68,11 @@ type Props = {
   materialId: number;
   questionMeta: QuestionMeta[];
   isGuest?: boolean;
+  childFriendly?: boolean;
   isAdmin?: boolean;
 };
 
-const PAGE_SIZE = 10;
+const DEFAULT_PAGE_SIZE = 10;
 const MAX_PRACTICE_QUESTIONS = 20;
 
 function PageDoodleLayer({ resetKey }: { resetKey: string }) {
@@ -157,7 +158,9 @@ export default function BatchPracticeQuiz({
   questionMeta,
   isGuest = false,
   isAdmin = false,
+  childFriendly = false,
 }: Props) {
+  const PAGE_SIZE = childFriendly ? 1 : DEFAULT_PAGE_SIZE;
   const orderedMeta = useMemo(
     () =>
       questionMeta
@@ -177,7 +180,7 @@ export default function BatchPracticeQuiz({
   const totalPages = Math.max(1, Math.ceil(orderedMeta.length / PAGE_SIZE));
   const pageMeta = useMemo(
     () => orderedMeta.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE),
-    [orderedMeta, page],
+    [orderedMeta, page, PAGE_SIZE],
   );
 
   useEffect(() => {
@@ -392,7 +395,7 @@ export default function BatchPracticeQuiz({
   }
 
   return (
-    <section id="batch-practice-top" className="space-y-5">
+    <section id="batch-practice-top" className={childFriendly ? "mx-auto max-w-3xl space-y-6 rounded-3xl bg-[#f5f8f5] p-3 sm:p-6 [&_button]:min-h-12 [&_input]:min-h-12 [&_button:focus-visible]:outline-2 [&_button:focus-visible]:outline-offset-4 [&_button:focus-visible]:outline-emerald-700" : "space-y-5"}>
       <PageDoodleLayer resetKey={`material-${materialId}-page-${page}`} />
       <header className="sticky top-0 z-30 flex flex-col gap-3 border border-emerald-200 bg-white/95 p-4 shadow-sm backdrop-blur sm:rounded-lg sm:flex-row sm:items-center sm:justify-between">
         <div>
@@ -400,8 +403,9 @@ export default function BatchPracticeQuiz({
             Latihan Soal
           </p>
           <h2 className="mt-1 text-lg font-extrabold text-slate-900">
-            Soal {page * PAGE_SIZE + 1}–
-            {Math.min((page + 1) * PAGE_SIZE, orderedMeta.length)} dari{" "}
+            Soal {page * PAGE_SIZE + 1}{!childFriendly && "–"}
+            {!childFriendly &&
+            Math.min((page + 1) * PAGE_SIZE, orderedMeta.length)} dari{" "}
             {orderedMeta.length}
           </h2>
         </div>
@@ -424,7 +428,7 @@ export default function BatchPracticeQuiz({
         return (
           <article
             key={question.id}
-            className={`rounded-lg border p-4 shadow-sm transition sm:p-6 ${cardColor}`}
+            className={`border p-4 shadow-sm sm:p-6 ${childFriendly ? "rounded-3xl bg-white" : "rounded-lg transition"} ${cardColor}`}
           >
             <div className="flex items-start gap-3">
               <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-emerald-600 text-sm font-extrabold text-white">
@@ -435,9 +439,7 @@ export default function BatchPracticeQuiz({
                   <MathText text={question.prompt} />
                 </h3>
                 {question.helper_text && (
-                  <p className="mt-1 text-sm text-slate-600">
-                    <MathText text={question.helper_text} />
-                  </p>
+                  <details className="mt-3 text-sm text-slate-600"><summary className="cursor-pointer py-3 font-bold text-emerald-800">Butuh petunjuk?</summary><MathText text={question.helper_text} /></details>
                 )}
               </div>
             </div>
@@ -703,7 +705,7 @@ export default function BatchPracticeQuiz({
               ? "Submit dan Periksa Jawaban (Mode Admin)"
               : allAnswered
               ? "Submit dan Periksa Jawaban"
-              : "Jawab semua soal untuk mengaktifkan Submit"}
+              : childFriendly ? "Pilih atau isi jawabanmu dulu" : "Jawab semua soal untuk mengaktifkan Submit"}
         </button>
       ) : (
         <div className="flex flex-col gap-3 sm:flex-row">
@@ -713,7 +715,7 @@ export default function BatchPracticeQuiz({
               onClick={() => movePage(page - 1)}
               className="flex-1 rounded-lg border border-emerald-300 bg-white px-5 py-3 font-bold text-emerald-700 hover:bg-emerald-50"
             >
-              Halaman Sebelumnya
+              {childFriendly ? "Soal sebelumnya" : "Halaman Sebelumnya"}
             </button>
           )}
           {page < totalPages - 1 ? (
@@ -722,8 +724,8 @@ export default function BatchPracticeQuiz({
               onClick={() => movePage(page + 1)}
               className="flex-1 rounded-lg bg-emerald-600 px-5 py-3 font-bold text-white hover:bg-emerald-500"
             >
-              Lanjut ke Soal {page * PAGE_SIZE + PAGE_SIZE + 1}–
-              {Math.min(
+              Lanjut ke Soal {page * PAGE_SIZE + PAGE_SIZE + 1}{!childFriendly && "–"}
+              {!childFriendly && Math.min(
                 page * PAGE_SIZE + PAGE_SIZE * 2,
                 orderedMeta.length,
               )}
