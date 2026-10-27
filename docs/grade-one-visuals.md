@@ -1,5 +1,7 @@
 # Grade one regular practice visuals
 
-Three deterministic object themes (fruit, fish, toys) augment explicit arithmetic prompts only (bounded whole numbers, totals up to 20, no negative subtraction). Existing images take precedence. Unsupported stories/patterns retain original UI. Tapping marks objects with a short transform transition; reduced motion disables movement. Buttons support keyboard and pressed state. No auto-answer, key access or grading changes.
+Three themes: orchard, aquarium and toy shelf. Explicit bounded arithmetic only; existing images take precedence. Addition displays two labeled groups. Subtraction moves clicked objects into a separate destination, leaves empty slots at original positions and supports return/reset. Short arrival animation respects reduced motion. Original grading and answer state remain separate.
 
-This first pass is a counting aid, not fully animated storytelling. No live content inventory verified. 176 Jest tests passed and TypeScript noEmit passed. Browser interactions, viewport layouts and live persistence remain unverified. All Grade 1 content has NOT been converted; existing practice cap retained.
+Preview: /preview/grade-one shows three subtraction themes and one addition example without student data or persistence. It is a design sample, not live question inventory. Unsupported story/pattern prompts retain original rendering; not all Grade 1 questions have been converted.
+
+Verification: TypeScript noEmit, 176 Jest tests, targeted component ESLint and diff check passed. Tests cover existing grading and parser; browser interaction, focus after movement, mobile layouts and live persistence still need verification. No production merge or deploy performed.
