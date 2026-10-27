@@ -4,7 +4,7 @@ import MissingAddend from "@/components/learning/MissingAddend";
 import { useRef, useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { regularPracticeCatalog, mergePracticeResults } from "@/components/learning/practiceSession";
+import { regularPracticeCatalog, mergePracticeResults, shouldAdvancePractice } from "@/components/learning/practiceSession";
 import NumberOrdering from "@/components/learning/NumberOrdering";
 import MatchingCards from "@/components/learning/MatchingCards";
 import LearningVisual from "@/components/learning/LearningVisual";
@@ -177,6 +177,9 @@ export default function BatchPracticeQuiz({
     [questionMeta, childFriendly, isGuest],
   );
   const [page, setPage] = useState(0);
+  const questionCache = useMemo(() => new Map<string, Question>(), [materialId, isGuest, childFriendly]);
+  const pendingLoads = useMemo(() => new Map<string, Promise<Question[]>>(), [materialId, isGuest, childFriendly]);
+  const [autoAdvancePage, setAutoAdvancePage] = useState<number | null>(null);
   const [questions, setQuestions] = useState<Question[]>([]);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [results, setResults] = useState<Record<string, AnswerResult>>({});
@@ -200,25 +203,43 @@ export default function BatchPracticeQuiz({
         return;
       }
 
+      const cached = pageMeta.map(meta => questionCache.get(meta.id));
+      if (cached.every((question): question is Question => Boolean(question))) {
+        setQuestions(cached);
+        setLoading(false);
+        setError(null);
+        return;
+      }
+      setQuestions([]);
       setLoading(true);
       setError(null);
 
       try {
-        const start = pageMeta[0].question_number;
-        const end = pageMeta[pageMeta.length - 1].question_number;
-        const response = await fetch(
-          `/api/materials/${materialId}/questions?mode=practice&start=${start}&end=${end}`,
-        );
-        const data = (await response.json()) as {
-          ok?: boolean;
-          questions?: Question[];
-          error?: string;
-        };
-
-        if (!response.ok || !data.ok) {
-          throw new Error(data.error ?? "Gagal memuat latihan soal.");
+        // Fetch a small authorized window once, rather than repeating auth and
+        // content queries for each single-question screen. Cache is session-local.
+        const startIndex = orderedMeta.findIndex(meta => meta.id === pageMeta[0].id);
+        const windowMeta = childFriendly ? orderedMeta.slice(startIndex, startIndex + 5) : pageMeta;
+        const start = windowMeta[0].question_number;
+        const end = windowMeta[windowMeta.length - 1].question_number;
+        const key = `${start}:${end}`;
+        let pending = pendingLoads.get(key);
+        if (!pending) {
+          pending = (async () => {
+            const response = await fetch(`/api/materials/${materialId}/questions?mode=practice&start=${start}&end=${end}`);
+            const data = await response.json() as {ok?: boolean; questions?: Question[]; error?: string};
+            if (!response.ok || !data.ok) throw new Error(data.error ?? "Gagal memuat latihan soal.");
+            const loaded = data.questions ?? [];
+            loaded.forEach(question => questionCache.set(question.id, question));
+            return loaded;
+          })();
+          pendingLoads.set(key, pending);
+          void pending.finally(() => pendingLoads.delete(key)).catch(() => {});
         }
-        if (active) setQuestions(data.questions ?? []);
+        await pending;
+        if (active) setQuestions(pageMeta.flatMap(meta => {
+          const question = questionCache.get(meta.id);
+          return question ? [question] : [];
+        }));
       } catch (loadError) {
         if (active) setError((loadError as Error).message);
       } finally {
@@ -230,7 +251,17 @@ export default function BatchPracticeQuiz({
     return () => {
       active = false;
     };
-  }, [materialId, pageMeta]);
+  }, [materialId, pageMeta, orderedMeta, childFriendly, questionCache, pendingLoads]);
+
+  useEffect(() => {
+    if (autoAdvancePage === null || autoAdvancePage !== page) return;
+    const timer = window.setTimeout(() => {
+      setAutoAdvancePage(null);
+      setPage(current => current === autoAdvancePage ? current + 1 : current);
+      document.getElementById("batch-practice-top")?.focus();
+    }, 800);
+    return () => window.clearTimeout(timer);
+  }, [autoAdvancePage, page]);
 
   function setAnswer(questionId: string, value: string) {
     if (results[questionId]) return;
@@ -349,6 +380,9 @@ export default function BatchPracticeQuiz({
       );
 
       setResults(previous => mergePracticeResults(previous, responses));
+      if (shouldAdvancePractice(childFriendly, page, totalPages, responses.map(([, result]) => result))) {
+        setAutoAdvancePage(page);
+      }
     } catch (submitError) {
       setError((submitError as Error).message);
     } finally {
@@ -357,6 +391,7 @@ export default function BatchPracticeQuiz({
   }
 
   function movePage(nextPage: number) {
+    setAutoAdvancePage(null);
     setPage(nextPage);
     window.setTimeout(() => {
       document
@@ -366,6 +401,7 @@ export default function BatchPracticeQuiz({
   }
 
   function restartPractice() {
+    setAutoAdvancePage(null);
     setAnswers({});
     setResults({});
     setError(null);
@@ -402,7 +438,7 @@ export default function BatchPracticeQuiz({
   }
 
   return (
-    <section id="batch-practice-top" className={childFriendly ? "mx-auto max-w-3xl space-y-6 rounded-3xl bg-[#f5f8f5] p-3 sm:p-6 [&_button]:min-h-12 [&_input]:min-h-12 [&_button:focus-visible]:outline-2 [&_button:focus-visible]:outline-offset-4 [&_button:focus-visible]:outline-emerald-700" : "space-y-5"}>
+    <section id="batch-practice-top" tabIndex={-1} className={childFriendly ? "mx-auto max-w-3xl space-y-6 rounded-3xl bg-[#f5f8f5] p-3 sm:p-6 [&_button]:min-h-12 [&_input]:min-h-12 [&_button:focus-visible]:outline-2 [&_button:focus-visible]:outline-offset-4 [&_button:focus-visible]:outline-emerald-700" : "space-y-5"}>
       <PageDoodleLayer resetKey={`material-${materialId}-page-${page}`} />
       <header className="sticky top-0 z-30 flex flex-col gap-3 border border-emerald-200 bg-white/95 p-4 shadow-sm backdrop-blur sm:rounded-lg sm:flex-row sm:items-center sm:justify-between">
         <div>
@@ -738,7 +774,7 @@ export default function BatchPracticeQuiz({
               {childFriendly ? "Soal sebelumnya" : "Halaman Sebelumnya"}
             </button>
           )}
-          {page < totalPages - 1 ? (
+          {autoAdvancePage === page ? <p role="status" className="p-3 text-center font-bold text-emerald-800">Benar! Lanjut ke soal berikutnya…</p> : page < totalPages - 1 ? (
             <button
               type="button"
               onClick={() => movePage(page + 1)}

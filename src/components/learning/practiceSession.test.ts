@@ -5,3 +5,14 @@ test('guest catalog matches API first-four limit',()=>expect(regularPracticeCata
 test('other grades keep existing twenty question behavior',()=>expect(regularPracticeCatalog(questions,false,false)).toHaveLength(20));
 test('tryout rows never enter regular practice',()=>expect(regularPracticeCatalog([...questions,{id:'tryout',question_number:41,question_mode:'tryout' as const}],true,false)).toHaveLength(40));
 test('forty page submissions retain all results and replay does not duplicate totals',()=>{let results:Record<string,{isCorrect:boolean}>={};for(let n=1;n<=40;n++)results=mergePracticeResults(results,[[`q${n}`,{isCorrect:n%2===0}]]);results=mergePracticeResults(results,[['q40',{isCorrect:true}]]);expect(Object.keys(results)).toHaveLength(40);expect(Object.values(results).filter(r=>r.isCorrect)).toHaveLength(20);expect(results.q1).toEqual({isCorrect:false});});
+
+import {shouldAdvancePractice} from './practiceSession';
+test('advances correct grade one answer but keeps final result visible',()=>{
+ expect(shouldAdvancePractice(true,0,40,[{isCorrect:true}])).toBe(true);
+ expect(shouldAdvancePractice(true,39,40,[{isCorrect:true}])).toBe(false);
+});
+test('does not advance wrong, absent or other-grade results',()=>{
+ expect(shouldAdvancePractice(true,0,40,[{isCorrect:false}])).toBe(false);
+ expect(shouldAdvancePractice(true,0,40,[])).toBe(false);
+ expect(shouldAdvancePractice(false,0,4,[{isCorrect:true}])).toBe(false);
+});

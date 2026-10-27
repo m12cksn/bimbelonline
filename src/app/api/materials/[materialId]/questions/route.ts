@@ -97,42 +97,43 @@ export async function GET(
   const partsByQuestion = new Map<string, unknown[]>();
 
   if (questionIds.length > 0) {
-    const { data: optionRows, error: optionsError } = await dbClient
+    const [
+      { data: optionRows, error: optionsError },
+      { data: targetRows, error: targetsError },
+      { data: itemRows, error: itemsError },
+      { data: partRows, error: partsError }
+    ] = await Promise.all([
+      dbClient
       .from("question_options")
       .select("question_id, label, value, image_url, sort_order")
       .in("question_id", questionIds)
-      .order("sort_order", { ascending: true });
+      .order("sort_order", { ascending: true }),
+      dbClient
+      .from("question_drop_targets")
+      .select("id, question_id, label, placeholder, sort_order")
+      .in("question_id", questionIds)
+      .order("sort_order", { ascending: true }),
+      dbClient
+      .from("question_drop_items")
+      .select("id, question_id, label, image_url, sort_order")
+      .in("question_id", questionIds)
+      .order("sort_order", { ascending: true }),
+      dbClient
+      .from("question_items")
+      .select("id, question_id, label, prompt, image_url, sort_order")
+      .in("question_id", questionIds)
+      .order("sort_order", { ascending: true })
+    ]);
 
     if (optionsError) {
       console.error("question_options error", optionsError);
     }
-
-    const { data: targetRows, error: targetsError } = await dbClient
-      .from("question_drop_targets")
-      .select("id, question_id, label, placeholder, sort_order")
-      .in("question_id", questionIds)
-      .order("sort_order", { ascending: true });
-
     if (targetsError) {
       console.error("question_drop_targets error", targetsError);
     }
-
-    const { data: itemRows, error: itemsError } = await dbClient
-      .from("question_drop_items")
-      .select("id, question_id, label, image_url, sort_order")
-      .in("question_id", questionIds)
-      .order("sort_order", { ascending: true });
-
     if (itemsError) {
       console.error("question_drop_items error", itemsError);
     }
-
-    const { data: partRows, error: partsError } = await dbClient
-      .from("question_items")
-      .select("id, question_id, label, prompt, image_url, sort_order")
-      .in("question_id", questionIds)
-      .order("sort_order", { ascending: true });
-
     if (partsError) {
       console.error("question_items error", partsError);
     }
