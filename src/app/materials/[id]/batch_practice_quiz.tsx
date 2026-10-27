@@ -3,6 +3,7 @@
 import { useRef, useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import NumberSequence from "@/components/learning/NumberSequence";
 import CountingVisual from "@/components/learning/CountingVisual";
 import VisualArithmetic from "@/components/learning/VisualArithmetic";
 import MathText from "@/app/components/MathText";
@@ -446,6 +447,7 @@ export default function BatchPracticeQuiz({
               </div>
             </div>
 
+            {childFriendly && !question.question_image_url && <NumberSequence key={`sequence-${question.id}`} prompt={question.prompt} />}
             {childFriendly && !question.question_image_url && <CountingVisual key={`count-${question.id}`} prompt={question.prompt} />}
             {childFriendly && !question.question_image_url && <VisualArithmetic key={question.id} prompt={question.prompt} variation={question.question_number} />}
 
