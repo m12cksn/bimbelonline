@@ -24,7 +24,7 @@ function formatDateTime(iso: string) {
 export default function AdminClassAttendancePage({
   params,
 }: {
-  params: { id: string } | Promise<{ id: string }>;
+  params: Promise<{ id: string }>;
 }) {
   const { id: classId } = use(params as Promise<{ id: string }>);
 

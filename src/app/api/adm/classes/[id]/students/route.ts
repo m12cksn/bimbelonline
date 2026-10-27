@@ -11,7 +11,7 @@ function hasCodeProp(v: unknown): v is { code?: unknown } {
 
 export async function POST(
   req: Request,
-  { params }: { params: { id: string } | Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     // unwrap params jika Promise (Next.js kadang memberikan Promise)

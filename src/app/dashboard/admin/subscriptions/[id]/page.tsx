@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 type ApiResponse = {
@@ -13,9 +13,9 @@ type ApiResponse = {
 export default function SubscriptionDetailPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const subscriptionId = params.id;
+  const subscriptionId = use(params).id;
   const router = useRouter();
 
   const [loading, setLoading] = useState<boolean>(false);

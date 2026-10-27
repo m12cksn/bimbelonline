@@ -5,7 +5,7 @@ import { createSupabaseServerClient } from "@/lib/supabaseServer";
 
 export async function GET(
   _req: Request,
-  { params }: { params: { id: string } | Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const resolved =
     typeof params === "object" && "then" in params ? await params : params;
@@ -61,7 +61,7 @@ export async function GET(
 
 export async function POST(
   req: Request,
-  { params }: { params: { id: string } | Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const resolved =
     typeof params === "object" && "then" in params ? await params : params;

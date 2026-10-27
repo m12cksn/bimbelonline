@@ -3,7 +3,7 @@ import { createSupabaseServerClient } from "@/lib/supabaseServer";
 
 export async function POST(
   _req: Request,
-  { params }: { params: { zoomId: string } | Promise<{ zoomId: string }> }
+  { params }: { params: Promise<{ zoomId: string }> }
 ) {
   const resolved =
     typeof params === "object" && "then" in params ? await params : params;

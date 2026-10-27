@@ -25,7 +25,7 @@ function formatDateShort(iso: string | null | undefined): string {
 export default function ClassTeachersPage({
   params,
 }: {
-  params: { id: string } | Promise<{ id: string }>;
+  params: Promise<{ id: string }>;
 }) {
   const { id: classId } = use(params as Promise<{ id: string }>);
 

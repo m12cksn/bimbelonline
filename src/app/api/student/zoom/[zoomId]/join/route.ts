@@ -3,7 +3,7 @@ import { createSupabaseServerClient } from "@/lib/supabaseServer";
 
 export async function GET(
   _req: Request,
-  { params }: { params: { zoomId: string } | Promise<{ zoomId: string }> }
+  { params }: { params: Promise<{ zoomId: string }> }
 ) {
   try {
     const resolved =

@@ -13,7 +13,7 @@ function getString(o: Raw | null | undefined, k: string): string {
 
 export async function GET(
   _req: Request,
-  { params }: { params: { id: string } | Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const resolved =

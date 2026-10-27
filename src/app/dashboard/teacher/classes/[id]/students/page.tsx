@@ -17,7 +17,7 @@ type StudentRow = {
 export default function TeacherClassStudentsPage({
   params,
 }: {
-  params: { id: string } | Promise<{ id: string }>;
+  params: Promise<{ id: string }>;
 }) {
   // ambil classId dari params (pakai React.use() seperti di file-file lain)
   const { id: classId } = use(params as Promise<{ id: string }>);
