@@ -3,6 +3,7 @@
 import { useRef, useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import MatchingCards from "@/components/learning/MatchingCards";
 import LearningVisual from "@/components/learning/LearningVisual";
 import PlaceValue from "@/components/learning/PlaceValue";
 import ShapeVisual from "@/components/learning/ShapeVisual";
@@ -617,7 +618,9 @@ export default function BatchPracticeQuiz({
                 </div>
               )}
 
-              {question.type === "drag_drop" && (
+              {question.type === "drag_drop" && childFriendly && (<MatchingCards targets={question.drop_targets} items={question.drop_items} value={answers[question.id] ?? "{}"} disabled={submitted} onChange={(targetId,itemId)=>setDropAnswer(question.id,targetId,itemId)} />)}
+
+              {question.type === "drag_drop" && !childFriendly && (
                 <div className="space-y-3">
                   {question.drop_targets.map((target) => {
                     let parsed: Record<string, string> = {};
