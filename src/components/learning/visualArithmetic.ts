@@ -1,5 +1,5 @@
 export function parseVisualArithmetic(prompt: string) {
-  const match = prompt.trim().match(/^(\d{1,2})\s*([+−-])\s*(\d{1,2})\s*=\s*(?:\?|\.{3}|…)\s*$/u);
+  const match = prompt.trim().replace(/^(?:Hitunglah(?: penjumlahan(?: berikut)?)?|Hitung|Lengkapi|Jumlah)\s*:?\s*/iu, '').match(/^(\d{1,2})\s*([+−-])\s*(\d{1,2})\s*=\s*(?:\?|\.{3}|…)\s*$/u);
   if (!match) return null;
   const left = Number(match[1]), right = Number(match[3]);
   const operation = match[2] === '+' ? 'add' : 'subtract';
