@@ -6,3 +6,7 @@ export function regularPracticeCatalog<T extends Meta>(questions:T[],childFriend
 export function mergePracticeResults<T>(previous:Record<string,T>,incoming:readonly (readonly [string,T])[]):Record<string,T>{
   return {...previous,...Object.fromEntries(incoming)};
 }
+
+export function shouldAdvancePractice(childFriendly:boolean,page:number,totalPages:number,results:readonly {isCorrect:boolean}[]):boolean {
+  return childFriendly && page < totalPages - 1 && results.length > 0 && results.every(result=>result.isCorrect);
+}
