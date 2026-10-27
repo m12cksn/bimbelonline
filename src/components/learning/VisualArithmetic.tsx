@@ -1,5 +1,6 @@
 "use client";
 import { useState, useRef, useLayoutEffect } from 'react';
+import { parseStoryVisual } from './storyVisual';
 import { parseVisualArithmetic } from './visualArithmetic';
 import styles from './visualArithmetic.module.css';
 const themes = [
@@ -8,7 +9,8 @@ const themes = [
   { title: 'Rak mainan', object: '🧸', noun: 'boneka', destination: 'Kotak mainan' },
 ];
 export default function VisualArithmetic({ prompt, variation }: { prompt: string; variation: number }) {
-  const config = parseVisualArithmetic(prompt);
+  const storyConfig = parseStoryVisual(prompt);
+  const config = storyConfig ?? parseVisualArithmetic(prompt);
   const [marked, setMarked] = useState<number[]>([]);
   const objectButtons = useRef(new Map<number, HTMLButtonElement>());
   const pendingFocus = useRef<number | null>(null);
@@ -19,7 +21,7 @@ export default function VisualArithmetic({ prompt, variation }: { prompt: string
     }
   }, [marked]);
   if (!config) return null;
-  const theme = themes[Math.abs(variation) % themes.length];
+  const theme = storyConfig?.scene ?? themes[Math.abs(variation) % themes.length];
   const subtract = config.operation === 'subtract';
   const total = subtract ? config.left : config.left + config.right;
   const ids = Array.from({ length: total }, (_, index) => index);
