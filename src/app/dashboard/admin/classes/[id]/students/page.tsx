@@ -23,7 +23,7 @@ interface Profile {
 export default function ClassStudentsPage({
   params,
 }: {
-  params: { id: string } | Promise<{ id: string }>;
+  params: Promise<{ id: string }>;
 }) {
   // unwrap params (support sync or Promise)
   const { id: classId } = use(params as Promise<{ id: string }>);

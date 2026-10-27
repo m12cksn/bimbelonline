@@ -20,7 +20,7 @@ type ClassDetail = {
 export default function TeacherClassDetailPage({
   params,
 }: {
-  params: { id: string } | Promise<{ id: string }>;
+  params: Promise<{ id: string }>;
 }) {
   // unwrap params (Next App Router safe)
   const { id: classId } = use(params as Promise<{ id: string }>);

@@ -1,8 +1,19 @@
 "use client";
+import MissingAddend from "@/components/learning/MissingAddend";
 
 import { useRef, useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { regularPracticeCatalog, mergePracticeResults } from "@/components/learning/practiceSession";
+import NumberOrdering from "@/components/learning/NumberOrdering";
+import MatchingCards from "@/components/learning/MatchingCards";
+import LearningVisual from "@/components/learning/LearningVisual";
+import PlaceValue from "@/components/learning/PlaceValue";
+import ShapeVisual from "@/components/learning/ShapeVisual";
+import ComparisonVisual from "@/components/learning/ComparisonVisual";
+import NumberSequence from "@/components/learning/NumberSequence";
+import CountingVisual from "@/components/learning/CountingVisual";
+import VisualArithmetic from "@/components/learning/VisualArithmetic";
 import MathText from "@/app/components/MathText";
 import DoodleOverlay, {
   DoodleHandle,
@@ -68,11 +79,11 @@ type Props = {
   materialId: number;
   questionMeta: QuestionMeta[];
   isGuest?: boolean;
+  childFriendly?: boolean;
   isAdmin?: boolean;
 };
 
-const PAGE_SIZE = 10;
-const MAX_PRACTICE_QUESTIONS = 20;
+const DEFAULT_PAGE_SIZE = 10;
 
 function PageDoodleLayer({ resetKey }: { resetKey: string }) {
   const doodleRef = useRef<DoodleHandle | null>(null);
@@ -157,14 +168,13 @@ export default function BatchPracticeQuiz({
   questionMeta,
   isGuest = false,
   isAdmin = false,
+  childFriendly = false,
 }: Props) {
+  const PAGE_SIZE = childFriendly ? 1 : DEFAULT_PAGE_SIZE;
   const orderedMeta = useMemo(
     () =>
-      questionMeta
-        .filter((question) => question.question_mode !== "tryout")
-        .sort((a, b) => a.question_number - b.question_number)
-        .slice(0, MAX_PRACTICE_QUESTIONS),
-    [questionMeta],
+      regularPracticeCatalog(questionMeta, childFriendly, isGuest),
+    [questionMeta, childFriendly, isGuest],
   );
   const [page, setPage] = useState(0);
   const [questions, setQuestions] = useState<Question[]>([]);
@@ -177,7 +187,7 @@ export default function BatchPracticeQuiz({
   const totalPages = Math.max(1, Math.ceil(orderedMeta.length / PAGE_SIZE));
   const pageMeta = useMemo(
     () => orderedMeta.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE),
-    [orderedMeta, page],
+    [orderedMeta, page, PAGE_SIZE],
   );
 
   useEffect(() => {
@@ -338,7 +348,7 @@ export default function BatchPracticeQuiz({
         }),
       );
 
-      setResults(Object.fromEntries(responses));
+      setResults(previous => mergePracticeResults(previous, responses));
     } catch (submitError) {
       setError((submitError as Error).message);
     } finally {
@@ -370,7 +380,7 @@ export default function BatchPracticeQuiz({
   if (loading) {
     return (
       <div className="rounded-lg border border-slate-200 bg-white p-6 text-sm text-slate-600">
-        Memuat 10 soal latihan...
+        Memuat soal latihan...
       </div>
     );
   }
@@ -392,7 +402,7 @@ export default function BatchPracticeQuiz({
   }
 
   return (
-    <section id="batch-practice-top" className="space-y-5">
+    <section id="batch-practice-top" className={childFriendly ? "mx-auto max-w-3xl space-y-6 rounded-3xl bg-[#f5f8f5] p-3 sm:p-6 [&_button]:min-h-12 [&_input]:min-h-12 [&_button:focus-visible]:outline-2 [&_button:focus-visible]:outline-offset-4 [&_button:focus-visible]:outline-emerald-700" : "space-y-5"}>
       <PageDoodleLayer resetKey={`material-${materialId}-page-${page}`} />
       <header className="sticky top-0 z-30 flex flex-col gap-3 border border-emerald-200 bg-white/95 p-4 shadow-sm backdrop-blur sm:rounded-lg sm:flex-row sm:items-center sm:justify-between">
         <div>
@@ -400,8 +410,9 @@ export default function BatchPracticeQuiz({
             Latihan Soal
           </p>
           <h2 className="mt-1 text-lg font-extrabold text-slate-900">
-            Soal {page * PAGE_SIZE + 1}–
-            {Math.min((page + 1) * PAGE_SIZE, orderedMeta.length)} dari{" "}
+            Soal {page * PAGE_SIZE + 1}{!childFriendly && "–"}
+            {!childFriendly &&
+            Math.min((page + 1) * PAGE_SIZE, orderedMeta.length)} dari{" "}
             {orderedMeta.length}
           </h2>
         </div>
@@ -424,7 +435,7 @@ export default function BatchPracticeQuiz({
         return (
           <article
             key={question.id}
-            className={`rounded-lg border p-4 shadow-sm transition sm:p-6 ${cardColor}`}
+            className={`border p-4 shadow-sm sm:p-6 ${childFriendly ? "rounded-3xl bg-white" : "rounded-lg transition"} ${cardColor}`}
           >
             <div className="flex items-start gap-3">
               <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-emerald-600 text-sm font-extrabold text-white">
@@ -435,12 +446,18 @@ export default function BatchPracticeQuiz({
                   <MathText text={question.prompt} />
                 </h3>
                 {question.helper_text && (
-                  <p className="mt-1 text-sm text-slate-600">
-                    <MathText text={question.helper_text} />
-                  </p>
+                  <details className="mt-3 text-sm text-slate-600"><summary className="cursor-pointer py-3 font-bold text-emerald-800">Butuh petunjuk?</summary><MathText text={question.helper_text} /></details>
                 )}
               </div>
             </div>
+
+            {childFriendly && !question.question_image_url && <MissingAddend key={`missing-${question.id}`} prompt={question.prompt} />}
+            {childFriendly && !question.question_image_url && <PlaceValue key={`place-${question.id}`} prompt={question.prompt} />}
+            {childFriendly && !question.question_image_url && <ShapeVisual key={`shape-${question.id}`} prompt={question.prompt} />}
+            {childFriendly && !question.question_image_url && <ComparisonVisual key={`comparison-${question.id}`} prompt={question.prompt} />}
+            {childFriendly && !question.question_image_url && <NumberSequence key={`sequence-${question.id}`} prompt={question.prompt} />}
+            {childFriendly && !question.question_image_url && <CountingVisual key={`count-${question.id}`} prompt={question.prompt} />}
+            {childFriendly && !question.question_image_url && <VisualArithmetic key={question.id} prompt={question.prompt} variation={question.question_number} />}
 
             {question.question_image_url && (
               <div className="relative mx-auto mt-4 h-[min(420px,60vw)] min-h-48 w-full max-w-3xl overflow-hidden rounded-md border border-slate-200 bg-white">
@@ -520,6 +537,7 @@ export default function BatchPracticeQuiz({
                 </div>
               )}
 
+              {question.type === "essay" && childFriendly && <NumberOrdering key={`ordering-${question.id}`} prompt={question.prompt} value={answers[question.id] ?? ""} disabled={submitted} onChange={value=>setAnswer(question.id,value)} />}
               {question.type === "essay" && (
                 <textarea
                   value={answers[question.id] ?? ""}
@@ -551,10 +569,11 @@ export default function BatchPracticeQuiz({
                         : "border-red-500 bg-red-200 text-red-950 disabled:bg-red-200"
                       : "border-slate-300 bg-white focus:border-emerald-500 disabled:bg-slate-100";
                     return (
-                      <label key={item.id} className="block">
+                      <div key={item.id} className="block">
                         <span className="text-sm font-semibold text-slate-700">
                           {item.label}. <MathText text={item.prompt} />
                         </span>
+                        {childFriendly && !item.image_url && <LearningVisual key={item.id} prompt={item.prompt} variation={question.question_number} />}
                         {item.image_url && (
                           <span className="relative my-2 block h-52 w-full overflow-hidden rounded-md bg-white">
                             <Image
@@ -568,6 +587,7 @@ export default function BatchPracticeQuiz({
                           </span>
                         )}
                         <input
+                          aria-label={`Jawaban bagian ${item.label}: ${item.prompt}`}
                           value={parsed[item.id] ?? ""}
                           disabled={submitted}
                           onChange={(event) =>
@@ -593,13 +613,15 @@ export default function BatchPracticeQuiz({
                               : `Bagian ini belum tepat. Jawaban benar: ${itemResult.correctAnswer}`}
                           </div>
                         )}
-                      </label>
+                      </div>
                     );
                   })}
                 </div>
               )}
 
-              {question.type === "drag_drop" && (
+              {question.type === "drag_drop" && childFriendly && (<MatchingCards targets={question.drop_targets} items={question.drop_items} value={answers[question.id] ?? "{}"} disabled={submitted} onChange={(targetId,itemId)=>setDropAnswer(question.id,targetId,itemId)} />)}
+
+              {question.type === "drag_drop" && !childFriendly && (
                 <div className="space-y-3">
                   {question.drop_targets.map((target) => {
                     let parsed: Record<string, string> = {};
@@ -703,7 +725,7 @@ export default function BatchPracticeQuiz({
               ? "Submit dan Periksa Jawaban (Mode Admin)"
               : allAnswered
               ? "Submit dan Periksa Jawaban"
-              : "Jawab semua soal untuk mengaktifkan Submit"}
+              : childFriendly ? "Pilih atau isi jawabanmu dulu" : "Jawab semua soal untuk mengaktifkan Submit"}
         </button>
       ) : (
         <div className="flex flex-col gap-3 sm:flex-row">
@@ -713,7 +735,7 @@ export default function BatchPracticeQuiz({
               onClick={() => movePage(page - 1)}
               className="flex-1 rounded-lg border border-emerald-300 bg-white px-5 py-3 font-bold text-emerald-700 hover:bg-emerald-50"
             >
-              Halaman Sebelumnya
+              {childFriendly ? "Soal sebelumnya" : "Halaman Sebelumnya"}
             </button>
           )}
           {page < totalPages - 1 ? (
@@ -722,8 +744,8 @@ export default function BatchPracticeQuiz({
               onClick={() => movePage(page + 1)}
               className="flex-1 rounded-lg bg-emerald-600 px-5 py-3 font-bold text-white hover:bg-emerald-500"
             >
-              Lanjut ke Soal {page * PAGE_SIZE + PAGE_SIZE + 1}–
-              {Math.min(
+              Lanjut ke Soal {page * PAGE_SIZE + PAGE_SIZE + 1}{!childFriendly && "–"}
+              {!childFriendly && Math.min(
                 page * PAGE_SIZE + PAGE_SIZE * 2,
                 orderedMeta.length,
               )}

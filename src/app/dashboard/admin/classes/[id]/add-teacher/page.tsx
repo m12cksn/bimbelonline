@@ -9,7 +9,7 @@ type Profile = { id: string; full_name?: string | null; email?: string | null };
 export default function AddTeacherPage({
   params,
 }: {
-  params: { id: string } | Promise<{ id: string }>;
+  params: Promise<{ id: string }>;
 }) {
   const { id: classId } = use(params as Promise<{ id: string }>);
   const [profiles, setProfiles] = useState<Profile[]>([]);

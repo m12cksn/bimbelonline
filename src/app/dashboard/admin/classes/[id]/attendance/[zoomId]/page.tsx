@@ -29,9 +29,7 @@ function formatDateTime(iso: string | null): string {
 export default function AdminAttendanceDetailPage({
   params,
 }: {
-  params:
-    | { id: string; zoomId: string }
-    | Promise<{ id: string; zoomId: string }>;
+  params: Promise<{ id: string; zoomId: string }>;
 }) {
   const { id: classId, zoomId } = use(
     params as Promise<{ id: string; zoomId: string }>

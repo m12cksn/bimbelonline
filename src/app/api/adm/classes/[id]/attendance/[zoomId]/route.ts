@@ -9,14 +9,11 @@ export async function GET(
   {
     params,
   }: {
-    params:
-      | { id: string; zoomId: string }
-      | Promise<{ id: string; zoomId: string }>;
+    params: Promise<{ id: string; zoomId: string }>;
   }
 ) {
   try {
-    const resolved =
-      typeof params === "object" && "then" in params ? await params : params;
+    const resolved = await params;
 
     const classId = Number(resolved.id);
     const zoomId = Number(resolved.zoomId);

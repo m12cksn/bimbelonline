@@ -20,9 +20,7 @@ export async function DELETE(
   {
     params,
   }: {
-    params:
-      | { id: string; teacherId: string }
-      | Promise<{ id: string; teacherId: string }>;
+    params: Promise<{ id: string; teacherId: string }>;
   }
 ) {
   try {

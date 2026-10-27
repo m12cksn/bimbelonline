@@ -7,9 +7,7 @@ export async function DELETE(
   {
     params,
   }: {
-    params:
-      | { id: string; zoomId: string }
-      | Promise<{ id: string; zoomId: string }>;
+    params: Promise<{ id: string; zoomId: string }>;
   }
 ) {
   const resolved =
