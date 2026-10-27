@@ -1,0 +1,7 @@
+import {regularPracticeCatalog,mergePracticeResults} from './practiceSession';
+const questions=Array.from({length:40},(_,index)=>({id:`q${index+1}`,question_number:index+1,question_mode:'practice' as const}));
+test('all forty grade one questions stay reachable and input is not reordered',()=>{const reversed=[...questions].reverse();expect(regularPracticeCatalog(reversed,true,false).map(q=>q.question_number)).toEqual(questions.map(q=>q.question_number));expect(reversed[0].question_number).toBe(40);});
+test('guest catalog matches API first-four limit',()=>expect(regularPracticeCatalog(questions,true,true).map(q=>q.question_number)).toEqual([1,2,3,4]));
+test('other grades keep existing twenty question behavior',()=>expect(regularPracticeCatalog(questions,false,false)).toHaveLength(20));
+test('tryout rows never enter regular practice',()=>expect(regularPracticeCatalog([...questions,{id:'tryout',question_number:41,question_mode:'tryout' as const}],true,false)).toHaveLength(40));
+test('forty page submissions retain all results and replay does not duplicate totals',()=>{let results:Record<string,{isCorrect:boolean}>={};for(let n=1;n<=40;n++)results=mergePracticeResults(results,[[`q${n}`,{isCorrect:n%2===0}]]);results=mergePracticeResults(results,[['q40',{isCorrect:true}]]);expect(Object.keys(results)).toHaveLength(40);expect(Object.values(results).filter(r=>r.isCorrect)).toHaveLength(20);expect(results.q1).toEqual({isCorrect:false});});

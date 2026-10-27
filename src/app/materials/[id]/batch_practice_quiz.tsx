@@ -3,6 +3,7 @@
 import { useRef, useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { regularPracticeCatalog, mergePracticeResults } from "@/components/learning/practiceSession";
 import MatchingCards from "@/components/learning/MatchingCards";
 import LearningVisual from "@/components/learning/LearningVisual";
 import PlaceValue from "@/components/learning/PlaceValue";
@@ -81,7 +82,6 @@ type Props = {
 };
 
 const DEFAULT_PAGE_SIZE = 10;
-const MAX_PRACTICE_QUESTIONS = 20;
 
 function PageDoodleLayer({ resetKey }: { resetKey: string }) {
   const doodleRef = useRef<DoodleHandle | null>(null);
@@ -171,11 +171,8 @@ export default function BatchPracticeQuiz({
   const PAGE_SIZE = childFriendly ? 1 : DEFAULT_PAGE_SIZE;
   const orderedMeta = useMemo(
     () =>
-      questionMeta
-        .filter((question) => question.question_mode !== "tryout")
-        .sort((a, b) => a.question_number - b.question_number)
-        .slice(0, MAX_PRACTICE_QUESTIONS),
-    [questionMeta],
+      regularPracticeCatalog(questionMeta, childFriendly, isGuest),
+    [questionMeta, childFriendly, isGuest],
   );
   const [page, setPage] = useState(0);
   const [questions, setQuestions] = useState<Question[]>([]);
@@ -349,7 +346,7 @@ export default function BatchPracticeQuiz({
         }),
       );
 
-      setResults(Object.fromEntries(responses));
+      setResults(previous => mergePracticeResults(previous, responses));
     } catch (submitError) {
       setError((submitError as Error).message);
     } finally {
@@ -381,7 +378,7 @@ export default function BatchPracticeQuiz({
   if (loading) {
     return (
       <div className="rounded-lg border border-slate-200 bg-white p-6 text-sm text-slate-600">
-        Memuat 10 soal latihan...
+        Memuat soal latihan...
       </div>
     );
   }
