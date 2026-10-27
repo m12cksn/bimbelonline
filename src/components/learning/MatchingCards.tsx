@@ -1,7 +1,7 @@
 "use client";
 import Image from 'next/image';
 import {useId,useState} from 'react';
-import {DndContext,DragOverlay,PointerSensor,useSensor,useSensors,useDraggable,useDroppable,type DragEndEvent} from '@dnd-kit/core';
+import {DndContext,DragOverlay,PointerSensor,pointerWithin,useSensor,useSensors,useDraggable,useDroppable,type DragEndEvent} from '@dnd-kit/core';
 import styles from './matchingCards.module.css';
 type Item={id:string;label:string;image_url?:string|null};
 type Target={id:string;label:string;placeholder?:string|null};
@@ -21,5 +21,5 @@ export default function MatchingCards({targets,items,value,disabled,onChange}:{t
   let selected:Record<string,string>={};
   try {const parsed:unknown=JSON.parse(value||'{}');if(parsed&&typeof parsed==='object'&&!Array.isArray(parsed))selected=Object.fromEntries(Object.entries(parsed).filter(([,v])=>typeof v==='string'));} catch { /* Empty until valid answer is provided. */ }
   function finish(event:DragEndEvent){setDragItem(null);if(disabled||!event.over)return;const target=targets.find(t=>t.id===event.over?.id);const item=items.find(i=>i.id===event.active.data.current?.itemId);if(!target||!item)return;if(Object.entries(selected).some(([key,value])=>key!==target.id&&value===item.id)){setStatus('Batalkan pilihan sebelumnya untuk memindahkan kartu ini.');return;}onChange(target.id,item.id);setStatus(`Kartu ${item.label} dipilih untuk ${target.label}.`);}
-  return <DndContext id={id} sensors={sensors} onDragStart={event=>setDragItem(String(event.active.data.current?.itemId??''))} onDragCancel={()=>setDragItem(null)} onDragEnd={finish}><div className={styles.scene}><p>Seret pegangan kartu ke kelompok tujuan, atau sentuh kartunya.</p>{targets.map(target=><Group key={target.id} target={target} items={items} selected={selected} disabled={disabled} onChange={onChange}/>)}<p className={styles.hint}>Sentuh kartu yang dipilih lagi untuk membatalkan.</p><p role="status" className={styles.hint}>{status}</p></div><DragOverlay>{dragItem&&<div className={styles.overlay}>{items.find(item=>item.id===dragItem)?.label}</div>}</DragOverlay></DndContext>;
+  return <DndContext id={id} sensors={sensors} collisionDetection={pointerWithin} onDragStart={event=>setDragItem(String(event.active.data.current?.itemId??''))} onDragCancel={()=>setDragItem(null)} onDragEnd={finish}><div className={styles.scene}><p>Seret pegangan kartu ke kelompok tujuan, atau sentuh kartunya.</p>{targets.map(target=><Group key={target.id} target={target} items={items} selected={selected} disabled={disabled} onChange={onChange}/>)}<p className={styles.hint}>Sentuh kartu yang dipilih lagi untuk membatalkan.</p><p role="status" className={styles.hint}>{status}</p></div><DragOverlay>{dragItem&&<div className={styles.overlay}>{items.find(item=>item.id===dragItem)?.label}</div>}</DragOverlay></DndContext>;
 }
