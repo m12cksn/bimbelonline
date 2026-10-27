@@ -4,6 +4,7 @@ import { useRef, useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { regularPracticeCatalog, mergePracticeResults } from "@/components/learning/practiceSession";
+import NumberOrdering from "@/components/learning/NumberOrdering";
 import MatchingCards from "@/components/learning/MatchingCards";
 import LearningVisual from "@/components/learning/LearningVisual";
 import PlaceValue from "@/components/learning/PlaceValue";
@@ -534,6 +535,7 @@ export default function BatchPracticeQuiz({
                 </div>
               )}
 
+              {question.type === "essay" && childFriendly && <NumberOrdering key={`ordering-${question.id}`} prompt={question.prompt} value={answers[question.id] ?? ""} disabled={submitted} onChange={value=>setAnswer(question.id,value)} />}
               {question.type === "essay" && (
                 <textarea
                   value={answers[question.id] ?? ""}
