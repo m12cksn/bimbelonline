@@ -3,6 +3,7 @@
 import { useRef, useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import LearningVisual from "@/components/learning/LearningVisual";
 import PlaceValue from "@/components/learning/PlaceValue";
 import ShapeVisual from "@/components/learning/ShapeVisual";
 import ComparisonVisual from "@/components/learning/ComparisonVisual";
@@ -566,10 +567,11 @@ export default function BatchPracticeQuiz({
                         : "border-red-500 bg-red-200 text-red-950 disabled:bg-red-200"
                       : "border-slate-300 bg-white focus:border-emerald-500 disabled:bg-slate-100";
                     return (
-                      <label key={item.id} className="block">
+                      <div key={item.id} className="block">
                         <span className="text-sm font-semibold text-slate-700">
                           {item.label}. <MathText text={item.prompt} />
                         </span>
+                        {childFriendly && !item.image_url && <LearningVisual key={item.id} prompt={item.prompt} variation={question.question_number} />}
                         {item.image_url && (
                           <span className="relative my-2 block h-52 w-full overflow-hidden rounded-md bg-white">
                             <Image
@@ -583,6 +585,7 @@ export default function BatchPracticeQuiz({
                           </span>
                         )}
                         <input
+                          aria-label={`Jawaban bagian ${item.label}: ${item.prompt}`}
                           value={parsed[item.id] ?? ""}
                           disabled={submitted}
                           onChange={(event) =>
@@ -608,7 +611,7 @@ export default function BatchPracticeQuiz({
                               : `Bagian ini belum tepat. Jawaban benar: ${itemResult.correctAnswer}`}
                           </div>
                         )}
-                      </label>
+                      </div>
                     );
                   })}
                 </div>
