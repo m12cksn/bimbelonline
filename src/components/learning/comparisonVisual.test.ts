@@ -1,0 +1,4 @@
+import { parseComparisonVisual } from './comparisonVisual';
+test.each(['Mana lebih besar: 12 atau 18?','manakah angka yang lebih kecil : 9 atau 6','Bandingkan: 9 dan 12. Mana lebih banyak?','Selisih 14 dan 9 adalah...','Beda banyak 13 dan 10 adalah...','Bandingkan: 17 .... 19 (isi dengan < atau >)','Lebih dari/kuran g dari: 11 __ 15 (isi < atau >)','12 lebih ... dari 9 (isi lebih/kurang)'])('supports reviewed comparison %s', prompt => expect(parseComparisonVisual(prompt)).not.toBeNull());
+test('preserves given order', () => expect(parseComparisonVisual('Beda 9 dan 13 adalah...')).toEqual({left:9,right:13}));
+test.each(['Mana lebih banyak?','Pasangkan perbandingan.','Selisih 99 dan 9 adalah...','Selisih 14 dan 9 adalah... lalu tambah 2','Ada 8 bunga dan 5 kupu-kupu'])('rejects unspecified or ambiguous quantities %s', prompt => expect(parseComparisonVisual(prompt)).toBeNull());
