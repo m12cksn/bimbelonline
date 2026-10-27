@@ -1,4 +1,5 @@
 "use client";
+import MissingAddend from "@/components/learning/MissingAddend";
 
 import { useRef, useState, useEffect, useMemo } from "react";
 import Image from "next/image";
@@ -450,6 +451,7 @@ export default function BatchPracticeQuiz({
               </div>
             </div>
 
+            {childFriendly && !question.question_image_url && <MissingAddend key={`missing-${question.id}`} prompt={question.prompt} />}
             {childFriendly && !question.question_image_url && <PlaceValue key={`place-${question.id}`} prompt={question.prompt} />}
             {childFriendly && !question.question_image_url && <ShapeVisual key={`shape-${question.id}`} prompt={question.prompt} />}
             {childFriendly && !question.question_image_url && <ComparisonVisual key={`comparison-${question.id}`} prompt={question.prompt} />}

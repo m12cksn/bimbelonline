@@ -3,7 +3,7 @@ const ts = require('typescript');
 const fs = require('fs');
 const path = require('path');
 const Module = require('module');
-const names = ['visualArithmetic','iconArithmetic','countingVisual','numberSequence','comparisonVisual','shapeVisual','storyVisual','placeValue','numberOrdering'];
+const names = ['visualArithmetic','iconArithmetic','countingVisual','numberSequence','comparisonVisual','shapeVisual','storyVisual','placeValue','numberOrdering','missingAddend'];
 const parsers = names.map(name => {
   const filename = path.resolve(__dirname, '../src/components/learning', name + '.ts');
   const compiled = new Module(filename, module);
