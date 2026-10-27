@@ -3,6 +3,7 @@
 import { useRef, useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import PlaceValue from "@/components/learning/PlaceValue";
 import ShapeVisual from "@/components/learning/ShapeVisual";
 import ComparisonVisual from "@/components/learning/ComparisonVisual";
 import NumberSequence from "@/components/learning/NumberSequence";
@@ -449,6 +450,7 @@ export default function BatchPracticeQuiz({
               </div>
             </div>
 
+            {childFriendly && !question.question_image_url && <PlaceValue key={`place-${question.id}`} prompt={question.prompt} />}
             {childFriendly && !question.question_image_url && <ShapeVisual key={`shape-${question.id}`} prompt={question.prompt} />}
             {childFriendly && !question.question_image_url && <ComparisonVisual key={`comparison-${question.id}`} prompt={question.prompt} />}
             {childFriendly && !question.question_image_url && <NumberSequence key={`sequence-${question.id}`} prompt={question.prompt} />}
