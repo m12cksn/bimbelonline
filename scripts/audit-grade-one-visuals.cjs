@@ -10,11 +10,11 @@ const parsers = names.map(name => {
   compiled.filename = filename;
   compiled.paths = module.paths;
   compiled._compile(ts.transpileModule(fs.readFileSync(filename, 'utf8'), {compilerOptions:{module:ts.ModuleKind.CommonJS}}).outputText, filename);
-  return Object.values(compiled.exports)[0];
+  return {name,parse:Object.values(compiled.exports)[0]};
 });
 if (!process.argv[2]) throw new Error('Provide a public-content snapshot JSON with rows and parts arrays.');
 const {rows, parts} = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
-const qualifies = row => !row.question_image_url && !row.image_url && parsers.some(parse => parse(row.prompt || ''));
+const qualifies = row => !row.question_image_url && !row.image_url && parsers.some(({name,parse}) => (name !== 'numberOrdering' || row.type === 'essay') && parse(row.prompt || ''));
 const multipart = rows.filter(row => row.type === 'multipart').map(row => {
   const items = parts.filter(part => part.question_id === row.id);
   return {id:row.id,total:items.length,visual:items.filter(qualifies).length};
