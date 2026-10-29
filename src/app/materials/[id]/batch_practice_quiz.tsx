@@ -11,6 +11,7 @@ import LearningVisual from "@/components/learning/LearningVisual";
 import PlaceValue from "@/components/learning/PlaceValue";
 import ShapeVisual from "@/components/learning/ShapeVisual";
 import ComparisonVisual from "@/components/learning/ComparisonVisual";
+import { parseNumberSequence } from "@/components/learning/numberSequence";
 import NumberSequence from "@/components/learning/NumberSequence";
 import CountingVisual from "@/components/learning/CountingVisual";
 import VisualArithmetic from "@/components/learning/VisualArithmetic";
@@ -491,7 +492,7 @@ export default function BatchPracticeQuiz({
             {childFriendly && !question.question_image_url && <PlaceValue key={`place-${question.id}`} prompt={question.prompt} />}
             {childFriendly && !question.question_image_url && <ShapeVisual key={`shape-${question.id}`} prompt={question.prompt} />}
             {childFriendly && !question.question_image_url && <ComparisonVisual key={`comparison-${question.id}`} prompt={question.prompt} />}
-            {childFriendly && !question.question_image_url && <NumberSequence key={`sequence-${question.id}`} prompt={question.prompt} />}
+            {childFriendly && !question.question_image_url && <NumberSequence key={`sequence-${question.id}`} prompt={question.prompt} answer={answers[question.id] ?? ""} disabled={submitted} onAnswerChange={question.type === "essay" ? value=>setAnswer(question.id,value) : undefined} />}
             {childFriendly && !question.question_image_url && <CountingVisual key={`count-${question.id}`} prompt={question.prompt} />}
             {childFriendly && !question.question_image_url && <VisualArithmetic key={question.id} prompt={question.prompt} variation={question.question_number} />}
 
@@ -574,7 +575,7 @@ export default function BatchPracticeQuiz({
               )}
 
               {question.type === "essay" && childFriendly && <NumberOrdering key={`ordering-${question.id}`} prompt={question.prompt} value={answers[question.id] ?? ""} disabled={submitted} onChange={value=>setAnswer(question.id,value)} />}
-              {question.type === "essay" && (
+              {question.type === "essay" && !(childFriendly && !question.question_image_url && parseNumberSequence(question.prompt)) && (
                 <textarea
                   value={answers[question.id] ?? ""}
                   disabled={submitted}
@@ -609,7 +610,7 @@ export default function BatchPracticeQuiz({
                         <span className="text-sm font-semibold text-slate-700">
                           {item.label}. <MathText text={item.prompt} />
                         </span>
-                        {childFriendly && !item.image_url && <LearningVisual key={item.id} prompt={item.prompt} variation={question.question_number} />}
+                        {childFriendly && !item.image_url && <LearningVisual key={item.id} prompt={item.prompt} variation={question.question_number} answer={parsed[item.id] ?? ""} disabled={submitted} onAnswerChange={value=>setMultipartAnswer(question.id,item.id,value)} />}
                         {item.image_url && (
                           <span className="relative my-2 block h-52 w-full overflow-hidden rounded-md bg-white">
                             <Image
@@ -622,7 +623,7 @@ export default function BatchPracticeQuiz({
                             />
                           </span>
                         )}
-                        <input
+                        {!(childFriendly && !item.image_url && parseNumberSequence(item.prompt)) && <input
                           aria-label={`Jawaban bagian ${item.label}: ${item.prompt}`}
                           value={parsed[item.id] ?? ""}
                           disabled={submitted}
@@ -635,7 +636,7 @@ export default function BatchPracticeQuiz({
                           }
                           className={`mt-2 w-full rounded-md border p-3 text-sm outline-none ${inputStateClass}`}
                           placeholder="Jawaban bagian ini..."
-                        />
+                        />}
                         {itemResult && (
                           <div
                             className={`mt-2 rounded-md px-3 py-2 text-xs font-semibold ${
