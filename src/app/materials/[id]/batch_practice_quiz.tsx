@@ -438,9 +438,9 @@ export default function BatchPracticeQuiz({
   }
 
   return (
-    <section id="batch-practice-top" tabIndex={-1} className={childFriendly ? "mx-auto max-w-3xl space-y-6 rounded-3xl border border-emerald-100 bg-[#fffdf5] shadow-lg shadow-emerald-950/5 p-3 sm:p-6 [&_button]:min-h-12 [&_input]:min-h-12 [&_button:focus-visible]:outline-2 [&_button:focus-visible]:outline-offset-4 [&_button:focus-visible]:outline-emerald-700" : "space-y-5"}>
+    <section id="batch-practice-top" tabIndex={-1} className={childFriendly ? "mx-auto max-w-3xl space-y-6 rounded-xl border border-emerald-100 bg-[#fffdf5] shadow-lg shadow-emerald-950/5 p-3 sm:p-6 [&_button]:min-h-12 [&_input]:min-h-12 [&_button:focus-visible]:outline-2 [&_button:focus-visible]:outline-offset-4 [&_button:focus-visible]:outline-emerald-700" : "space-y-5"}>
       <PageDoodleLayer resetKey={`material-${materialId}-page-${page}`} />
-      <header className="rounded-2xl sticky top-0 z-30 flex flex-col gap-3 border border-emerald-200 bg-white/95 p-4 shadow-sm backdrop-blur sm:rounded-lg sm:flex-row sm:items-center sm:justify-between">
+      <header className="rounded-lg sticky top-0 z-30 flex flex-col gap-3 border border-emerald-200 bg-white/95 p-4 shadow-sm backdrop-blur sm:rounded-lg sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-emerald-700">
             Latihan Soal
@@ -471,7 +471,7 @@ export default function BatchPracticeQuiz({
         return (
           <article
             key={question.id}
-            className={`border p-4 shadow-sm sm:p-6 ${childFriendly ? "rounded-3xl bg-white border-2 shadow-[0_5px_0_#e0eadf]" : "rounded-lg transition"} ${cardColor}`}
+            className={`border p-4 shadow-sm sm:p-6 ${childFriendly ? "rounded-xl bg-white border-2 shadow-[0_5px_0_#e0eadf]" : "rounded-lg transition"} ${cardColor}`}
           >
             <div className="flex items-start gap-3">
               <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-emerald-600 text-sm font-extrabold text-white">
@@ -583,7 +583,7 @@ export default function BatchPracticeQuiz({
                   }
                   rows={3}
                   placeholder="Tuliskan jawabanmu..."
-                  className={childFriendly ? "w-full rounded-2xl border-2 border-emerald-200 bg-white p-4 text-xl text-slate-900 outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-100 disabled:bg-slate-100" : "w-full rounded-md border border-slate-300 bg-white p-3 text-sm text-slate-900 outline-none focus:border-emerald-500 disabled:bg-slate-100"}
+                  className={childFriendly ? "w-full rounded-lg border-2 border-emerald-200 bg-white p-4 text-xl text-slate-900 outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-100 disabled:bg-slate-100" : "w-full rounded-md border border-slate-300 bg-white p-3 text-sm text-slate-900 outline-none focus:border-emerald-500 disabled:bg-slate-100"}
                 />
               )}
 
