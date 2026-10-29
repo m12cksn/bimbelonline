@@ -1,4 +1,7 @@
 "use client";
+import ContextualAnswer from "@/components/learning/ContextualAnswer";
+import { contextualAnswer } from "@/components/learning/contextualAnswer";
+import { parseMissingAddend } from "@/components/learning/missingAddend";
 import MissingAddend from "@/components/learning/MissingAddend";
 
 import { useRef, useState, useEffect, useMemo } from "react";
@@ -488,7 +491,7 @@ export default function BatchPracticeQuiz({
               </div>
             </div>
 
-            {childFriendly && !question.question_image_url && <MissingAddend key={`missing-${question.id}`} prompt={question.prompt} />}
+            {childFriendly && !question.question_image_url && <MissingAddend key={`missing-${question.id}`} prompt={question.prompt} answer={answers[question.id] ?? ""} disabled={submitted} onAnswerChange={question.type === "essay" ? value=>setAnswer(question.id,value) : undefined} />}
             {childFriendly && !question.question_image_url && <PlaceValue key={`place-${question.id}`} prompt={question.prompt} />}
             {childFriendly && !question.question_image_url && <ShapeVisual key={`shape-${question.id}`} prompt={question.prompt} />}
             {childFriendly && !question.question_image_url && <ComparisonVisual key={`comparison-${question.id}`} prompt={question.prompt} />}
@@ -575,7 +578,8 @@ export default function BatchPracticeQuiz({
               )}
 
               {question.type === "essay" && childFriendly && <NumberOrdering key={`ordering-${question.id}`} prompt={question.prompt} value={answers[question.id] ?? ""} disabled={submitted} onChange={value=>setAnswer(question.id,value)} />}
-              {question.type === "essay" && !(childFriendly && !question.question_image_url && parseNumberSequence(question.prompt)) && (
+              {question.type === "essay" && childFriendly && !question.question_image_url && <ContextualAnswer prompt={question.prompt} value={answers[question.id] ?? ""} disabled={submitted} onChange={value=>setAnswer(question.id,value)}/>}
+              {question.type === "essay" && !(childFriendly && !question.question_image_url && (parseNumberSequence(question.prompt) || parseMissingAddend(question.prompt) || contextualAnswer(question.prompt))) && (
                 <textarea
                   value={answers[question.id] ?? ""}
                   disabled={submitted}
@@ -623,7 +627,7 @@ export default function BatchPracticeQuiz({
                             />
                           </span>
                         )}
-                        {!(childFriendly && !item.image_url && parseNumberSequence(item.prompt)) && <input
+                        {!(childFriendly && !item.image_url && (parseNumberSequence(item.prompt) || parseMissingAddend(item.prompt) || contextualAnswer(item.prompt))) && <input
                           aria-label={`Jawaban bagian ${item.label}: ${item.prompt}`}
                           value={parsed[item.id] ?? ""}
                           disabled={submitted}
