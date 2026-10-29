@@ -13,9 +13,9 @@ export default function NumberSequence({prompt,answer='',onAnswerChange,disabled
     <p>{inline?'Isi angka pada gerbong kosong.':'Ikuti angkanya. Angka apa yang hilang?'}</p>
     <ol className={styles.train}>{values.map((value,index)=><li key={index}>
       {value===null && inline ? <div className={`${styles.wagon} ${styles.blank}`}>
-        <input className={styles.answer} type="text" inputMode="numeric" autoComplete="off" aria-label={`Angka pada gerbong ke-${index+1}`} placeholder="?" value={answer} disabled={disabled} onChange={event=>onAnswerChange?.(event.target.value)} />
+        <input className={styles.answer} type="text" inputMode="numeric" autoComplete="off" aria-label={`Angka pada gerbong ke-${index+1}`} placeholder="...." value={answer} disabled={disabled} onChange={event=>onAnswerChange?.(event.target.value)} />
         <span className={styles.wheels} aria-hidden="true">●　●</span>
-      </div> : <button type="button" aria-label={`Posisi ${index+1}: ${value===null?'angka kosong':value}`} aria-pressed={active===index} onClick={()=>setActive(index)} className={`${styles.wagon} ${value===null?styles.blank:''} ${active===index?styles.active:''}`}><span>{value??'?'}</span><span className={styles.wheels} aria-hidden="true">●　●</span></button>}
+      </div> : <button type="button" aria-label={`Posisi ${index+1}: ${value===null?'angka kosong':value}`} aria-pressed={active===index} onClick={()=>setActive(index)} className={`${styles.wagon} ${value===null?styles.blank:''} ${active===index?styles.active:''}`}><span>{value??'....'}</span><span className={styles.wheels} aria-hidden="true">●　●</span></button>}
     </li>)}</ol>
     {!inline && <p className={styles.caption}>Pilih atau tulis angka yang hilang di bagian jawaban.</p>}
   </section>;
