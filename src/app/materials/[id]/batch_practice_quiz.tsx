@@ -174,7 +174,9 @@ export default function BatchPracticeQuiz({
   isAdmin = false,
   childFriendly = false,
 }: Props) {
-  const PAGE_SIZE = childFriendly ? 1 : DEFAULT_PAGE_SIZE;
+  const [showAll, setShowAll] = useState(false);
+  const adminPreview = isAdmin && showAll;
+  const PAGE_SIZE = adminPreview ? Math.max(1, questionMeta.length) : childFriendly ? 1 : DEFAULT_PAGE_SIZE;
   const orderedMeta = useMemo(
     () =>
       regularPracticeCatalog(questionMeta, childFriendly, isGuest),
@@ -222,7 +224,7 @@ export default function BatchPracticeQuiz({
         // Fetch a small authorized window once, rather than repeating auth and
         // content queries for each single-question screen. Cache is session-local.
         const startIndex = orderedMeta.findIndex(meta => meta.id === pageMeta[0].id);
-        const windowMeta = childFriendly ? orderedMeta.slice(startIndex, startIndex + 5) : pageMeta;
+        const windowMeta = childFriendly && !adminPreview ? orderedMeta.slice(startIndex, startIndex + 5) : pageMeta;
         const start = windowMeta[0].question_number;
         const end = windowMeta[windowMeta.length - 1].question_number;
         const key = `${start}:${end}`;
@@ -255,7 +257,7 @@ export default function BatchPracticeQuiz({
     return () => {
       active = false;
     };
-  }, [materialId, pageMeta, orderedMeta, childFriendly, questionCache, pendingLoads]);
+  }, [materialId, pageMeta, orderedMeta, childFriendly, questionCache, pendingLoads, adminPreview]);
 
   useEffect(() => {
     if (autoAdvancePage === null || autoAdvancePage !== page) return;
@@ -356,7 +358,7 @@ export default function BatchPracticeQuiz({
       : 0;
 
   async function submitPage() {
-    if (!canSubmitPage || submitting) return;
+    if (adminPreview || !canSubmitPage || submitting) return;
     setSubmitting(true);
     setError(null);
 
@@ -444,14 +446,20 @@ export default function BatchPracticeQuiz({
   return (
     <section id="batch-practice-top" tabIndex={-1} className={childFriendly ? "mx-auto max-w-3xl space-y-6 rounded-xl border border-emerald-100 bg-[#fffdf5] shadow-lg shadow-emerald-950/5 p-3 sm:p-6 [&_button]:min-h-12 [&_input]:min-h-12 [&_button:focus-visible]:outline-2 [&_button:focus-visible]:outline-offset-4 [&_button:focus-visible]:outline-emerald-700" : "space-y-5"}>
       <PageDoodleLayer resetKey={`material-${materialId}-page-${page}`} />
+      {isAdmin && <div className="rounded-lg border border-amber-200 bg-amber-50 p-4">
+        <button type="button" aria-pressed={adminPreview} className="rounded-lg border border-emerald-700 bg-white px-4 py-3 font-bold text-emerald-800" onClick={() => { setAutoAdvancePage(null); setPage(0); setShowAll(current => !current); }}>
+          {adminPreview ? "Kembali ke latihan per halaman" : "Preview semua soal"}
+        </button>
+        {adminPreview && <p className="mt-2 text-sm text-slate-700">Preview seluruh soal latihan pada materi ini. Input dapat dicoba tanpa mengirim jawaban atau menyimpan progres.</p>}
+      </div>}
       <header className="rounded-lg sticky top-0 z-30 flex flex-col gap-3 border border-emerald-200 bg-white/95 p-4 shadow-sm backdrop-blur sm:rounded-lg sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-emerald-700">
             Latihan Soal
           </p>
           <h2 className="mt-1 text-lg font-extrabold text-slate-900">
-            Soal {page * PAGE_SIZE + 1}{!childFriendly && "–"}
-            {!childFriendly &&
+            Soal {page * PAGE_SIZE + 1}{(!childFriendly || adminPreview) && "–"}
+            {(!childFriendly || adminPreview) &&
             Math.min((page + 1) * PAGE_SIZE, orderedMeta.length)} dari{" "}
             {orderedMeta.length}
           </h2>
@@ -753,7 +761,7 @@ export default function BatchPracticeQuiz({
         </div>
       )}
 
-      {!submitted ? (
+      {adminPreview ? null : !submitted ? (
         <button
           type="button"
           disabled={!canSubmitPage || submitting}
