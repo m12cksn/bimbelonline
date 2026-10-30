@@ -3,6 +3,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import MaterialQuiz from "./quiz_client";
 import MaterialLeaderboard from "./leaderboard_client";
 import BatchPracticeQuiz from "./batch_practice_quiz";
