@@ -48,3 +48,18 @@ test("authenticated handoff starts the regular engine with exactly 15 selected q
   expect(quiz?.isGuest).toBe(false);
   expect((quiz?.questionMeta as typeof metadata).map(q=>q.id)).toEqual(TAMAN_TAMBAH_QUESTION_IDS);
 });
+
+test("material 42 entry shows learning links without mounting the old quiz/video view", async () => {
+  mockDatabase(true);
+  const page = await MaterialPage({params:Promise.resolve({id:"42"})});
+  expect(findQuiz(page)).toBeNull();
+  function describe(node: ReactNode): string {
+    if (Array.isArray(node)) return node.map(describe).join(" ");
+    if (!isValidElement<{children?: ReactNode; href?: string}>(node)) return typeof node === "string" ? node : "";
+    return `${node.props.href ?? ""} ${describe(node.props.children)}`;
+  }
+  const content = describe(page);
+  expect(content).toContain("Mulai pemanasan");
+  expect(content).toContain(TAMAN_TAMBAH_TEST_PATH);
+  expect(content).not.toContain("Video pembelajaran akan tersedia");
+});

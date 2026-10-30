@@ -135,6 +135,40 @@ export default async function MaterialPage(props: MaterialPageProps) {
     redirect("/materials");
   }
 
+  if (id === "42" && !isTamanTambahTest && !autoStartPractice && !isEmbed) {
+    return (
+      <main className="min-h-screen bg-slate-50 px-4 py-8 sm:px-6 sm:py-12">
+        <div className="mx-auto max-w-4xl">
+          <Link href="/dashboard/student" className="inline-flex min-h-11 items-center font-semibold text-emerald-700 underline underline-offset-4">← Kembali ke Dashboard</Link>
+          <header className="py-8">
+            <p className="text-base font-semibold text-emerald-700">Matematika · Kelas 1</p>
+            <h1 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Ayo belajar penjumlahan!</h1>
+            <p className="mt-4 max-w-xl text-lg leading-relaxed text-slate-600">Gabungkan benda, coba lima soal pemanasan, lalu kerjakan tes sendiri.</p>
+            <div aria-label="Dua ditambah tiga sama dengan lima" className="mt-6 flex flex-wrap items-center gap-3 text-2xl font-bold text-emerald-800 sm:text-3xl">
+              <span aria-hidden="true">●● + ●●● = 5</span>
+            </div>
+          </header>
+          <div className="grid gap-5 md:grid-cols-2">
+            <section className="flex flex-col rounded-xl border border-emerald-200 bg-white p-6 shadow-sm">
+              <p className="font-semibold text-emerald-700">Langkah 1 · Belajar & pemanasan</p>
+              <h2 className="mt-3 text-2xl font-bold">Jelajahi Taman Tambah</h2>
+              <p className="mb-6 mt-3 text-lg leading-relaxed text-slate-600">Mainkan benda hitung dan coba 5 soal. Kamu boleh mengulang sesukamu.</p>
+              <a href="https://bsk-taman-tambah-kelas-satu.iwaniwset.chatgpt.site" className="mt-auto inline-flex min-h-12 items-center justify-center rounded-lg bg-emerald-700 px-5 py-3 text-center text-lg font-bold text-white hover:bg-emerald-800 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-emerald-700">Mulai pemanasan →</a>
+              <p className="mt-3 text-base text-slate-600">Dibuka di website belajar terpisah.</p>
+            </section>
+            <section className="flex flex-col rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+              <p className="font-semibold text-emerald-700">Langkah 2 · Tes pemahaman</p>
+              <h2 className="mt-3 text-2xl font-bold">Sekarang giliranmu!</h2>
+              <p className="mb-6 mt-3 text-lg leading-relaxed text-slate-600">Kerjakan 15 soal penjumlahan di BeSmartKids. Masuk ke akunmu agar jawaban tercatat.</p>
+              <Link href={TAMAN_TAMBAH_TEST_PATH} className="mt-auto inline-flex min-h-12 items-center justify-center rounded-lg border-2 border-emerald-700 px-5 py-3 text-center text-lg font-bold text-emerald-800 hover:bg-emerald-50 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-emerald-700">Mulai tes · 15 soal →</Link>
+              <p className="mt-3 text-base text-slate-600">Sudah pemanasan? Kamu bisa langsung mulai tes.</p>
+            </section>
+          </div>
+        </div>
+      </main>
+    );
+  }
+
   // 4. ambil daftar soal (metadata saja untuk mempercepat render)
   const { data: questionMeta, error: questionError } = await dbClient
     .from("questions")
