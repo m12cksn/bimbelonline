@@ -444,7 +444,7 @@ export default function BatchPracticeQuiz({
   }
 
   return (
-    <section id="batch-practice-top" tabIndex={-1} className={childFriendly ? "mx-auto max-w-3xl space-y-6 rounded-xl border border-emerald-100 bg-[#fffdf5] shadow-lg shadow-emerald-950/5 p-3 sm:p-6 [&_button]:min-h-12 [&_input]:min-h-12 [&_button:focus-visible]:outline-2 [&_button:focus-visible]:outline-offset-4 [&_button:focus-visible]:outline-emerald-700" : "space-y-5"}>
+    <section id="batch-practice-top" tabIndex={-1} className={childFriendly ? "mx-auto max-w-3xl text-xl leading-relaxed [&_.text-sm]:text-xl [&_.text-xs]:text-xl [&_input]:text-xl [&_select]:text-xl space-y-6 rounded-xl border border-emerald-100 bg-[#fffdf5] shadow-lg shadow-emerald-950/5 p-3 sm:p-6 [&_button]:min-h-12 [&_input]:min-h-12 [&_button:focus-visible]:outline-2 [&_button:focus-visible]:outline-offset-4 [&_button:focus-visible]:outline-emerald-700" : "space-y-5"}>
       <PageDoodleLayer resetKey={`material-${materialId}-page-${page}`} />
       {isAdmin && <div className="rounded-lg border border-amber-200 bg-amber-50 p-4">
         <button type="button" aria-pressed={adminPreview} className="rounded-lg border border-emerald-700 bg-white px-4 py-3 font-bold text-emerald-800" onClick={() => { setAutoAdvancePage(null); setPage(0); setShowAll(current => !current); }}>
@@ -557,12 +557,12 @@ export default function BatchPracticeQuiz({
                         <span className="text-sm font-semibold">
                           <MathText text={option.label} />
                           {result && isSelected && !isCorrectOption && (
-                            <span className="ml-2 rounded bg-red-600 px-2 py-0.5 text-[10px] font-extrabold text-white">
+                            <span className="ml-2 rounded bg-red-600 px-2 py-0.5 text-base font-extrabold text-white">
                               Jawaban kamu
                             </span>
                           )}
                           {result && isCorrectOption && (
-                            <span className="ml-2 rounded bg-emerald-600 px-2 py-0.5 text-[10px] font-extrabold text-white">
+                            <span className="ml-2 rounded bg-emerald-600 px-2 py-0.5 text-base font-extrabold text-white">
                               Jawaban benar
                             </span>
                           )}
