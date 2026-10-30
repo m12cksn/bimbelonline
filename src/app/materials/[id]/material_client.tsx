@@ -3,6 +3,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import MaterialQuiz from "./quiz_client";
 import MaterialLeaderboard from "./leaderboard_client";
 import BatchPracticeQuiz from "./batch_practice_quiz";
@@ -233,8 +234,17 @@ export default function MaterialWithResources({
 
       {/* Video pembelajaran menjadi fokus utama saat halaman dibuka */}
       {!embedMaterial && simpleView && (
-        <div ref={startRef} className="space-y-4">
-          <div className="overflow-hidden border-x border-b border-slate-200 bg-white shadow-sm sm:rounded-b-lg">
+        <div ref={startRef} className="space-y-6 py-5 sm:py-8">
+          <nav aria-label="Navigasi materi"><Link href="/materials" className="inline-flex min-h-11 items-center text-base font-bold text-emerald-800 hover:underline">← Daftar materi</Link></nav>
+          <header className="rounded-xl border border-emerald-100 bg-white p-5 shadow-sm sm:p-8">
+            <p className="text-sm font-bold uppercase tracking-widest text-emerald-700">BeSmartKids · Ruang belajar</p>
+            <h1 className="mt-3 text-2xl font-extrabold leading-tight text-slate-900 sm:text-4xl">{material.title}</h1>
+            <p className="mt-3 max-w-2xl text-lg leading-relaxed text-slate-600">Belajar pelan-pelan, lalu coba soalmu. Siap memulai?</p>
+          </header>
+          <div className="grid min-w-0 gap-5 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:items-start">
+          <div className="min-w-0 space-y-3">
+          <h2 className="text-lg font-bold text-slate-900">Pahami materinya</h2>
+          <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
             {material.video_url ? (
               isYouTube ? (
                 <div className="relative w-full bg-black pb-[56.25%]">
@@ -260,12 +270,18 @@ export default function MaterialWithResources({
                 </div>
               )
             ) : (
-              <div className="flex min-h-64 items-center justify-center bg-amber-50 p-6 text-center text-sm font-semibold text-amber-800">
-                Video pembelajaran akan tersedia secepatnya.
+              <div className="flex items-start gap-4 bg-emerald-50 p-6 sm:p-8">
+                <span aria-hidden="true" className="text-3xl">▶</span>
+                <div><h3 className="text-lg font-bold text-emerald-950">Video sedang disiapkan</h3><p className="mt-2 text-base leading-relaxed text-emerald-900">Kamu sudah bisa mencoba soal latihan. Video penjelasan belum tersedia untuk materi ini.</p></div>
               </div>
             )}
           </div>
 
+          </div>
+          <section className="rounded-xl border border-emerald-200 bg-white p-5 shadow-sm sm:p-6">
+          <span className="text-sm font-bold text-emerald-700">LANGKAH BERIKUTNYA</span>
+          <h2 className="mt-2 text-2xl font-extrabold text-slate-900">Ayo, coba latihan!</h2>
+          <p className="mb-5 mt-3 text-lg leading-relaxed text-slate-600">Baca soal, pilih atau isi jawaban, lalu periksa hasilnya.</p>
           <button
             type="button"
             onClick={() => handleStart("practice")}
@@ -275,6 +291,8 @@ export default function MaterialWithResources({
               ? "Lanjutkan Latihan Soal"
               : "Mulai Latihan Soal"}
           </button>
+          </section>
+          </div>
         </div>
       )}
 
