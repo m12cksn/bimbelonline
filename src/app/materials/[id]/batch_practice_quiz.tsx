@@ -1,4 +1,7 @@
 "use client";
+import ContextualAnswer from "@/components/learning/ContextualAnswer";
+import { contextualAnswer } from "@/components/learning/contextualAnswer";
+import { parseMissingAddend } from "@/components/learning/missingAddend";
 import MissingAddend from "@/components/learning/MissingAddend";
 
 import { useRef, useState, useEffect, useMemo } from "react";
@@ -11,6 +14,7 @@ import LearningVisual from "@/components/learning/LearningVisual";
 import PlaceValue from "@/components/learning/PlaceValue";
 import ShapeVisual from "@/components/learning/ShapeVisual";
 import ComparisonVisual from "@/components/learning/ComparisonVisual";
+import { parseNumberSequence } from "@/components/learning/numberSequence";
 import NumberSequence from "@/components/learning/NumberSequence";
 import CountingVisual from "@/components/learning/CountingVisual";
 import VisualArithmetic from "@/components/learning/VisualArithmetic";
@@ -170,7 +174,9 @@ export default function BatchPracticeQuiz({
   isAdmin = false,
   childFriendly = false,
 }: Props) {
-  const PAGE_SIZE = childFriendly ? 1 : DEFAULT_PAGE_SIZE;
+  const [showAll, setShowAll] = useState(false);
+  const adminPreview = isAdmin && showAll;
+  const PAGE_SIZE = adminPreview ? Math.max(1, questionMeta.length) : childFriendly ? 1 : DEFAULT_PAGE_SIZE;
   const orderedMeta = useMemo(
     () =>
       regularPracticeCatalog(questionMeta, childFriendly, isGuest),
@@ -218,7 +224,7 @@ export default function BatchPracticeQuiz({
         // Fetch a small authorized window once, rather than repeating auth and
         // content queries for each single-question screen. Cache is session-local.
         const startIndex = orderedMeta.findIndex(meta => meta.id === pageMeta[0].id);
-        const windowMeta = childFriendly ? orderedMeta.slice(startIndex, startIndex + 5) : pageMeta;
+        const windowMeta = childFriendly && !adminPreview ? orderedMeta.slice(startIndex, startIndex + 5) : pageMeta;
         const start = windowMeta[0].question_number;
         const end = windowMeta[windowMeta.length - 1].question_number;
         const key = `${start}:${end}`;
@@ -251,7 +257,7 @@ export default function BatchPracticeQuiz({
     return () => {
       active = false;
     };
-  }, [materialId, pageMeta, orderedMeta, childFriendly, questionCache, pendingLoads]);
+  }, [materialId, pageMeta, orderedMeta, childFriendly, questionCache, pendingLoads, adminPreview]);
 
   useEffect(() => {
     if (autoAdvancePage === null || autoAdvancePage !== page) return;
@@ -352,7 +358,7 @@ export default function BatchPracticeQuiz({
       : 0;
 
   async function submitPage() {
-    if (!canSubmitPage || submitting) return;
+    if (adminPreview || !canSubmitPage || submitting) return;
     setSubmitting(true);
     setError(null);
 
@@ -438,16 +444,22 @@ export default function BatchPracticeQuiz({
   }
 
   return (
-    <section id="batch-practice-top" tabIndex={-1} className={childFriendly ? "mx-auto max-w-3xl space-y-6 rounded-3xl bg-[#f5f8f5] p-3 sm:p-6 [&_button]:min-h-12 [&_input]:min-h-12 [&_button:focus-visible]:outline-2 [&_button:focus-visible]:outline-offset-4 [&_button:focus-visible]:outline-emerald-700" : "space-y-5"}>
+    <section id="batch-practice-top" tabIndex={-1} className={childFriendly ? "mx-auto max-w-3xl space-y-6 rounded-xl border border-emerald-100 bg-[#fffdf5] shadow-lg shadow-emerald-950/5 p-3 sm:p-6 [&_button]:min-h-12 [&_input]:min-h-12 [&_button:focus-visible]:outline-2 [&_button:focus-visible]:outline-offset-4 [&_button:focus-visible]:outline-emerald-700" : "space-y-5"}>
       <PageDoodleLayer resetKey={`material-${materialId}-page-${page}`} />
-      <header className="sticky top-0 z-30 flex flex-col gap-3 border border-emerald-200 bg-white/95 p-4 shadow-sm backdrop-blur sm:rounded-lg sm:flex-row sm:items-center sm:justify-between">
+      {isAdmin && <div className="rounded-lg border border-amber-200 bg-amber-50 p-4">
+        <button type="button" aria-pressed={adminPreview} className="rounded-lg border border-emerald-700 bg-white px-4 py-3 font-bold text-emerald-800" onClick={() => { setAutoAdvancePage(null); setPage(0); setShowAll(current => !current); }}>
+          {adminPreview ? "Kembali ke latihan per halaman" : "Preview semua soal"}
+        </button>
+        {adminPreview && <p className="mt-2 text-sm text-slate-700">Preview seluruh soal latihan pada materi ini. Input dapat dicoba tanpa mengirim jawaban atau menyimpan progres.</p>}
+      </div>}
+      <header className="rounded-lg sticky top-0 z-30 flex flex-col gap-3 border border-emerald-200 bg-white/95 p-4 shadow-sm backdrop-blur sm:rounded-lg sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-emerald-700">
             Latihan Soal
           </p>
           <h2 className="mt-1 text-lg font-extrabold text-slate-900">
-            Soal {page * PAGE_SIZE + 1}{!childFriendly && "–"}
-            {!childFriendly &&
+            Soal {page * PAGE_SIZE + 1}{(!childFriendly || adminPreview) && "–"}
+            {(!childFriendly || adminPreview) &&
             Math.min((page + 1) * PAGE_SIZE, orderedMeta.length)} dari{" "}
             {orderedMeta.length}
           </h2>
@@ -471,14 +483,14 @@ export default function BatchPracticeQuiz({
         return (
           <article
             key={question.id}
-            className={`border p-4 shadow-sm sm:p-6 ${childFriendly ? "rounded-3xl bg-white" : "rounded-lg transition"} ${cardColor}`}
+            className={`border p-4 shadow-sm sm:p-6 ${childFriendly ? "rounded-xl bg-white border-2 shadow-[0_5px_0_#e0eadf]" : "rounded-lg transition"} ${cardColor}`}
           >
             <div className="flex items-start gap-3">
               <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-emerald-600 text-sm font-extrabold text-white">
                 {page * PAGE_SIZE + index + 1}
               </span>
               <div className="min-w-0 flex-1">
-                <h3 className="text-base font-bold leading-relaxed text-slate-900">
+                <h3 className={childFriendly ? "text-xl font-bold leading-relaxed text-slate-900" : "text-base font-bold leading-relaxed text-slate-900"}>
                   <MathText text={question.prompt} />
                 </h3>
                 {question.helper_text && (
@@ -487,11 +499,11 @@ export default function BatchPracticeQuiz({
               </div>
             </div>
 
-            {childFriendly && !question.question_image_url && <MissingAddend key={`missing-${question.id}`} prompt={question.prompt} />}
+            {childFriendly && !question.question_image_url && <MissingAddend key={`missing-${question.id}`} prompt={question.prompt} answer={answers[question.id] ?? ""} disabled={submitted} onAnswerChange={question.type === "essay" ? value=>setAnswer(question.id,value) : undefined} />}
             {childFriendly && !question.question_image_url && <PlaceValue key={`place-${question.id}`} prompt={question.prompt} />}
             {childFriendly && !question.question_image_url && <ShapeVisual key={`shape-${question.id}`} prompt={question.prompt} />}
             {childFriendly && !question.question_image_url && <ComparisonVisual key={`comparison-${question.id}`} prompt={question.prompt} />}
-            {childFriendly && !question.question_image_url && <NumberSequence key={`sequence-${question.id}`} prompt={question.prompt} />}
+            {childFriendly && !question.question_image_url && <NumberSequence key={`sequence-${question.id}`} prompt={question.prompt} answer={answers[question.id] ?? ""} disabled={submitted} onAnswerChange={question.type === "essay" ? value=>setAnswer(question.id,value) : undefined} />}
             {childFriendly && !question.question_image_url && <CountingVisual key={`count-${question.id}`} prompt={question.prompt} />}
             {childFriendly && !question.question_image_url && <VisualArithmetic key={question.id} prompt={question.prompt} variation={question.question_number} />}
 
@@ -574,7 +586,8 @@ export default function BatchPracticeQuiz({
               )}
 
               {question.type === "essay" && childFriendly && <NumberOrdering key={`ordering-${question.id}`} prompt={question.prompt} value={answers[question.id] ?? ""} disabled={submitted} onChange={value=>setAnswer(question.id,value)} />}
-              {question.type === "essay" && (
+              {question.type === "essay" && childFriendly && !question.question_image_url && <ContextualAnswer prompt={question.prompt} value={answers[question.id] ?? ""} disabled={submitted} onChange={value=>setAnswer(question.id,value)}/>}
+              {question.type === "essay" && !(childFriendly && !question.question_image_url && (parseNumberSequence(question.prompt) || parseMissingAddend(question.prompt) || contextualAnswer(question.prompt))) && (
                 <textarea
                   value={answers[question.id] ?? ""}
                   disabled={submitted}
@@ -583,7 +596,7 @@ export default function BatchPracticeQuiz({
                   }
                   rows={3}
                   placeholder="Tuliskan jawabanmu..."
-                  className="w-full rounded-md border border-slate-300 bg-white p-3 text-sm text-slate-900 outline-none focus:border-emerald-500 disabled:bg-slate-100"
+                  className={childFriendly ? "w-full rounded-lg border-2 border-emerald-200 bg-white p-4 text-xl text-slate-900 outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-100 disabled:bg-slate-100" : "w-full rounded-md border border-slate-300 bg-white p-3 text-sm text-slate-900 outline-none focus:border-emerald-500 disabled:bg-slate-100"}
                 />
               )}
 
@@ -609,7 +622,7 @@ export default function BatchPracticeQuiz({
                         <span className="text-sm font-semibold text-slate-700">
                           {item.label}. <MathText text={item.prompt} />
                         </span>
-                        {childFriendly && !item.image_url && <LearningVisual key={item.id} prompt={item.prompt} variation={question.question_number} />}
+                        {childFriendly && !item.image_url && <LearningVisual key={item.id} prompt={item.prompt} variation={question.question_number} answer={parsed[item.id] ?? ""} disabled={submitted} onAnswerChange={value=>setMultipartAnswer(question.id,item.id,value)} />}
                         {item.image_url && (
                           <span className="relative my-2 block h-52 w-full overflow-hidden rounded-md bg-white">
                             <Image
@@ -622,7 +635,7 @@ export default function BatchPracticeQuiz({
                             />
                           </span>
                         )}
-                        <input
+                        {!(childFriendly && !item.image_url && (parseNumberSequence(item.prompt) || parseMissingAddend(item.prompt) || contextualAnswer(item.prompt))) && <input
                           aria-label={`Jawaban bagian ${item.label}: ${item.prompt}`}
                           value={parsed[item.id] ?? ""}
                           disabled={submitted}
@@ -635,7 +648,7 @@ export default function BatchPracticeQuiz({
                           }
                           className={`mt-2 w-full rounded-md border p-3 text-sm outline-none ${inputStateClass}`}
                           placeholder="Jawaban bagian ini..."
-                        />
+                        />}
                         {itemResult && (
                           <div
                             className={`mt-2 rounded-md px-3 py-2 text-xs font-semibold ${
@@ -748,7 +761,7 @@ export default function BatchPracticeQuiz({
         </div>
       )}
 
-      {!submitted ? (
+      {adminPreview ? null : !submitted ? (
         <button
           type="button"
           disabled={!canSubmitPage || submitting}
