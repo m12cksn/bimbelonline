@@ -33,22 +33,22 @@ function buildFallbackExplanation(
     lowerPrompt.includes("bandingkan") ||
     lowerPrompt.includes("urut")
   ) {
-    return `Jawaban benar: ${correctAnswer}. Bandingkan pecahan dengan menyamakan penyebut atau ubah ke desimal agar mudah dibandingkan.`;
+    return `Jawaban benar: ${correctAnswer}. Bandingkan jumlah atau nilai pada soal satu per satu.`;
   }
   if (lowerPrompt.includes("+") || lowerPrompt.includes("jumlah")) {
-    return `Jawaban benar: ${correctAnswer}. Samakan penyebut, jumlahkan pembilang, lalu sederhanakan jika perlu.`;
+    return `Jawaban benar: ${correctAnswer}. Hitung jumlahnya kembali. Kamu bisa menghitung maju atau mengelompokkan benda.`;
   }
   if (
     lowerPrompt.includes("-") ||
     lowerPrompt.includes("selisih") ||
     lowerPrompt.includes("sisa")
   ) {
-    return `Jawaban benar: ${correctAnswer}. Samakan penyebut, kurangi pembilang, lalu sederhanakan jika perlu.`;
+    return `Jawaban benar: ${correctAnswer}. Hitung sisanya kembali. Kamu bisa menghitung mundur atau mengurangi benda satu per satu.`;
   }
   if (lowerPrompt.includes("sederhanakan")) {
     return `Jawaban benar: ${correctAnswer}. Bagi pembilang dan penyebut dengan FPB agar pecahan paling sederhana.`;
   }
-  return `Jawaban benar: ${correctAnswer}. Cek kembali langkah perhitunganmu dan pastikan penyebut sama sebelum menghitung.`;
+  return `Jawaban benar: ${correctAnswer}. Baca kembali pertanyaannya, lalu periksa jawabanmu satu per satu.`;
 }
 
 export async function POST(req: Request, props: MaterialParams) {
