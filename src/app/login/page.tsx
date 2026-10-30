@@ -5,6 +5,7 @@ import { FormEvent, Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { createSupabaseClient } from "@/lib/supabaseClient";
+import { tamanTambahLoginDestination } from "@/lib/tamanTambah";
 
 function isEmail(value: string) {
   return value.includes("@");
@@ -14,6 +15,7 @@ function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const fromCoding = searchParams.get("from") === "coding";
+  const testDestination = tamanTambahLoginDestination(searchParams.get("next"));
   const supabase = createSupabaseClient();
 
   const [identifier, setIdentifier] = useState("");
@@ -73,7 +75,7 @@ function LoginForm() {
         return;
       }
 
-      let target = fromCoding ? "/coding/start" : "/dashboard/student";
+      let target = testDestination ?? (fromCoding ? "/coding/start" : "/dashboard/student");
       try {
         if (data.user) {
           const { data: profile } = await supabase
@@ -88,7 +90,7 @@ function LoginForm() {
             ((data.user as any)?.app_metadata?.role as string | undefined);
 
           if (role === "admin") {
-            target = "/dashboard/admin";
+            target = testDestination ?? "/dashboard/admin";
           } else if (role === "teacher") {
             target = "/dashboard/teacher";
           } else if (role === "student" && fromCoding) {

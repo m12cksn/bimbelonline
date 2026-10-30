@@ -5,6 +5,7 @@ import { createClient } from "@supabase/supabase-js";
 import { createSupabaseServerClient } from "@/lib/supabaseServer";
 import type { UserRole } from "@/lib/type";
 import MaterialWithResources from "./material_client";
+import { TAMAN_TAMBAH_TEST_PATH, selectTamanTambahQuestions } from "@/lib/tamanTambah";
 
 // params: Promise<{ id: string }> -> sesuai file kamu
 interface MaterialPageProps {
@@ -19,6 +20,7 @@ export default async function MaterialPage(props: MaterialPageProps) {
     : undefined;
   const isEmbed = resolvedSearchParams?.embed === "1";
   const autoStartPractice = resolvedSearchParams?.start === "practice";
+  const isTamanTambahTest = id === "42" && resolvedSearchParams?.set === "taman-tambah";
 
   const materialId = parseInt(id, 10);
   if (Number.isNaN(materialId)) {
@@ -33,6 +35,9 @@ export default async function MaterialPage(props: MaterialPageProps) {
     data: { user },
   } = await supabase.auth.getUser();
   const isGuest = !user;
+  if (isTamanTambahTest && isGuest) {
+    redirect(`/login?next=${encodeURIComponent(TAMAN_TAMBAH_TEST_PATH)}`);
+  }
 
   let profile: {
     role?: UserRole | null;
@@ -141,7 +146,12 @@ export default async function MaterialPage(props: MaterialPageProps) {
     console.error(questionError);
   }
 
-  const questionMetaList = questionMeta || [];
+  const questionMetaList = isTamanTambahTest
+    ? selectTamanTambahQuestions(questionMeta || [])
+    : questionMeta || [];
+  if (isTamanTambahTest && questionMetaList.length !== 15) {
+    return <main className="mx-auto max-w-2xl p-6"><h1 className="text-2xl font-bold">Tes belum bisa dimuat</h1><p className="mt-3">Paket 15 soal sedang diperiksa. Coba kembali nanti.</p><Link className="mt-4 inline-block underline" href="/materials">Kembali ke materi</Link></main>;
+  }
   const questionCount = questionMetaList.length;
   questionLimit = questionCount;
   if (isAdmin) {
@@ -213,6 +223,7 @@ export default async function MaterialPage(props: MaterialPageProps) {
     return (
       <main className="min-h-screen bg-slate-50">
         <div className="mx-auto max-w-5xl px-3 pb-6 sm:px-5">
+          {isTamanTambahTest && <section className="py-5"><h1 className="text-2xl font-bold">Tes pemahaman: penjumlahan sampai 10</h1><p className="mt-2 text-lg">15 soal. Jawabanmu dicatat di BeSmartKids.</p></section>}
           <MaterialWithResources
             material={material}
             questionMeta={questionMetaList}
@@ -228,7 +239,7 @@ export default async function MaterialPage(props: MaterialPageProps) {
             isGuest={isGuest}
             embedUrl={embedUrl}
             simpleView
-            autoStartPractice={autoStartPractice}
+            autoStartPractice={autoStartPractice || isTamanTambahTest}
           />
         </div>
       </main>
