@@ -232,7 +232,7 @@ export default function MaterialWithResources({
       )}
 
       {/* Video pembelajaran menjadi fokus utama saat halaman dibuka */}
-      {!embedMaterial && simpleView && (
+      {!embedMaterial && simpleView && mode !== "practice" && (
         <div ref={startRef} className="space-y-4">
           <div className="overflow-hidden border-x border-b border-slate-200 bg-white shadow-sm sm:rounded-b-lg">
             {material.video_url ? (
@@ -271,9 +271,7 @@ export default function MaterialWithResources({
             onClick={() => handleStart("practice")}
             className="w-full rounded-lg bg-emerald-600 px-6 py-4 text-base font-bold text-white shadow-md transition hover:bg-emerald-500"
           >
-            {mode === "practice"
-              ? "Lanjutkan Latihan Soal"
-              : "Mulai Latihan Soal"}
+            Mulai Latihan Soal
           </button>
         </div>
       )}

@@ -41,7 +41,7 @@ test("guest must sign in with the exact test return path before content queries"
   await expect(MaterialPage(props)).rejects.toThrow(`redirect:/login?next=${encodeURIComponent(TAMAN_TAMBAH_TEST_PATH)}`);
   expect(from).not.toHaveBeenCalled();
 });
-test("authenticated handoff starts the regular engine with exactly 15 selected questions", async () => {
+test("authenticated handoff starts the regular engine with exactly 24 selected questions", async () => {
   mockDatabase(true);
   const quiz = findQuiz(await MaterialPage(props));
   expect(quiz?.autoStartPractice).toBe(true);

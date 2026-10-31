@@ -1,10 +1,10 @@
 import { TAMAN_TAMBAH_QUESTION_IDS, TAMAN_TAMBAH_TEST_PATH, selectTamanTambahQuestions, tamanTambahLoginDestination } from "./tamanTambah";
 
 const catalog: Array<{id: string; type: string; question_mode: string}> = TAMAN_TAMBAH_QUESTION_IDS.map((id, index) => ({id, type: index < 10 ? "essay" : "mcq", question_mode: "practice"}));
-test("selects exactly the reviewed 15 questions in stable order from a larger catalog", () => {
+test("selects exactly the selected 24 questions in stable order from a larger catalog", () => {
   const selected = selectTamanTambahQuestions([...catalog].reverse().concat([{id:"unrelated",type:"essay",question_mode:"practice"}]));
   expect(selected.map(q => q.id)).toEqual(TAMAN_TAMBAH_QUESTION_IDS);
-  expect(new Set(selected.map(q => q.id)).size).toBe(15);
+  expect(new Set(selected.map(q => q.id)).size).toBe(24);
 });
 test.each(["missing", "tryout", "drag_drop"])("does not silently offer an incomplete or changed set: %s", change => {
   const changed = catalog.map(q => ({...q}));
