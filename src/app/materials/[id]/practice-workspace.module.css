@@ -6,15 +6,15 @@
 .workspace>article>div:first-child{grid-column:1/-1;margin:0 0 8px}
 .workspace>article h3{font-size:clamp(19px,2vw,26px);line-height:1.45}
 .visual:empty{display:none}.visual>section{margin:0;padding:16px;border:0;border-radius:10px;background:#f4f7ef}
-.visual>section>p{font-size:15px;line-height:1.4}.visual>section>p:last-child{display:none}
+.visual>section>p{font-size:15px;line-height:1.4}
 .visual [role=group]{padding:12px 0;gap:8px;min-height:0}
 .visual [role=group] button{width:48px;min-height:48px;border-width:2px;border-radius:10px;font-size:28px}
 .visual section>div>div{border-radius:8px}
 .answer{align-self:center;width:100%;margin-top:16px}
 .answer>div{margin:0;padding:12px;border-radius:10px}
-.answer>div:has(label){display:grid;grid-template-columns:repeat(2,minmax(0,1fr));padding:0;gap:10px}
-.answer label{min-height:60px;padding:12px;border-width:1px;border-radius:8px}
-.answer label:has(input:checked){border:2px solid #13836b;background:#eef8f2}
+.choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));padding:0;gap:10px}
+.choices label{min-height:60px;padding:12px;border-width:1px;border-radius:8px}
+.choices label:has(input:checked){border:2px solid #13836b;background:#eef8f2}
 .answer input{font-size:24px}.answer textarea{min-height:70px;max-height:100px}
 .workspace>button{min-height:48px;padding:12px 20px;border-radius:8px;background:#087f65;font-size:17px}
 .workspace>button:disabled{background:#e9eeeb;color:#5a6a60}
@@ -31,8 +31,27 @@
 .workspace>header>div>p,.workspace>header+div>p{display:none}
 .workspace>header{flex-direction:row;align-items:center;gap:8px}
 .workspace>header>span{font-size:13px;line-height:1.3;padding:6px 8px}
-@media(max-width:759px){.workspace{gap:8px}.visual>section>p{display:none}.answer{margin-top:10px}.workspace>article h3{font-size:19px}.workspace>header h2{white-space:nowrap;font-size:18px}}
+@media(max-width:759px){.workspace{gap:8px}.answer{margin-top:10px}.workspace>article h3{font-size:19px}.workspace>header h2{white-space:nowrap;font-size:18px}}
 
-@media(max-width:759px){.workspace>div:first-child>span>span:last-child{display:none}.visual>section>div:first-child>strong{font-size:14px}.visual>section[aria-label="Penjumlahan dengan angka yang hilang"]>p{display:block;margin:6px 0;font-size:17px}.visual>section[aria-label="Penjumlahan dengan angka yang hilang"]>div{margin:4px 0}.visual>section[aria-label="Penjumlahan dengan angka yang hilang"] strong{font-size:12px}.visual>section[aria-label^="Alat bantu"]>div:first-child{display:none}}
+@media(max-width:759px){.workspace>div:first-child>span>span:last-child{display:none}.visual>section>div:first-child>strong{font-size:14px}.visual>section[aria-label="Penjumlahan dengan angka yang hilang"]>p{display:block;margin:6px 0;font-size:17px}.visual>section[aria-label="Penjumlahan dengan angka yang hilang"]>div{margin:4px 0}.visual>section[aria-label="Penjumlahan dengan angka yang hilang"] strong{font-size:12px}}
 
 @media(max-width:759px){.visual>section[aria-label="Penjumlahan dengan angka yang hilang"]>div>div>strong{display:none}.visual>section[aria-label="Penjumlahan dengan angka yang hilang"]>div>div>span:last-child:not([aria-label]){display:none}.visual>section[aria-label="Penjumlahan dengan angka yang hilang"]>p+p{display:none}}
+
+/* Wider renderers keep their complete controls in the reading column. */
+.workspace>article[data-workspace-layout="full"]{display:block}
+.workspace>article[data-workspace-layout="full"] .answer{max-width:none}
+.visual{min-width:0}
+.visual>section{overflow-wrap:anywhere}
+.visual>section[aria-label="Penjumlahan dengan angka yang hilang"]>p:first-of-type{display:block}
+.visual>section[aria-label="Penjumlahan dengan angka yang hilang"]>p+p{display:none}
+.visual>section[aria-label="Bandingkan dua kelompok benda"] [role="group"]{grid-template-columns:repeat(5,minmax(0,1fr))}
+.visual>section[aria-label="Bandingkan dua kelompok benda"] [role="group"] button{width:100%;min-width:0}
+.visual>section[aria-label="Rangkaian angka"] ol{gap:8px;padding:16px 0}
+.visual>section[aria-label="Rangkaian angka"] button{min-width:44px}
+.visual>section[aria-label="Alat bantu puluhan dan satuan"]>div{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px}
+.visual>section[aria-label="Alat bantu puluhan dan satuan"]>div>div{padding:8px}
+.workspace>article>div:has(>p.font-extrabold){grid-column:1/-1}
+@media(max-width:759px){.choices{gap:8px}.choices label{min-height:56px;padding:10px}.choices label>span{font-size:20px;overflow-wrap:anywhere}.visual>section{padding:10px}.visual>section>p{margin:8px 0;line-height:1.4}.visual>section[aria-label="Alat bantu puluhan dan satuan"] button{max-width:100%}.workspace>article[data-workspace-layout="full"] .answer{margin-top:12px}}
+
+/* Remove only redundant closing captions, keeping the scene's main instruction. */
+.visual>section:not([aria-label="Rangkaian angka"]):not([aria-label="Penjumlahan dengan angka yang hilang"])>p:last-child{display:none}

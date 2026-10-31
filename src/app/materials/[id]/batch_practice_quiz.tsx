@@ -178,6 +178,7 @@ export default function BatchPracticeQuiz({
 }: Props) {
   const [showAll, setShowAll] = useState(false);
   const adminPreview = isAdmin && showAll;
+  const compactWorkspace = childFriendly && !adminPreview;
   const PAGE_SIZE = adminPreview ? Math.max(1, questionMeta.length) : childFriendly ? 1 : DEFAULT_PAGE_SIZE;
   const orderedMeta = useMemo(
     () =>
@@ -446,8 +447,8 @@ export default function BatchPracticeQuiz({
   }
 
   return (
-    <section id="batch-practice-top" tabIndex={-1} className={materialId === 42 && !adminPreview ? workspaceStyles.workspace : childFriendly ? "mx-auto max-w-3xl space-y-6 rounded-xl border border-emerald-100 bg-[#f6faf7] shadow-lg shadow-emerald-950/5 p-4 sm:p-8 [&_button]:min-h-12 [&_input]:min-h-12 [&_button:focus-visible]:outline-2 [&_button:focus-visible]:outline-offset-4 [&_button:focus-visible]:outline-emerald-700" : "space-y-5"}>
-      {materialId === 42 && <div className="mb-2 flex items-center justify-between gap-3 border-b border-emerald-100 pb-4"><span className="text-lg font-extrabold tracking-tight text-emerald-900">BeSmart<span className="text-emerald-600">Kids</span> <span className="ml-2 text-sm font-semibold text-slate-500">Ruang latihan</span></span><Link href="/materials/42" className="rounded-md px-3 py-2 text-base font-semibold text-slate-600 underline underline-offset-4">Keluar</Link></div>}
+    <section id="batch-practice-top" tabIndex={-1} className={compactWorkspace ? workspaceStyles.workspace : childFriendly ? "mx-auto max-w-3xl space-y-6 rounded-xl border border-emerald-100 bg-[#f6faf7] shadow-lg shadow-emerald-950/5 p-4 sm:p-8 [&_button]:min-h-12 [&_input]:min-h-12 [&_button:focus-visible]:outline-2 [&_button:focus-visible]:outline-offset-4 [&_button:focus-visible]:outline-emerald-700" : "space-y-5"}>
+      {childFriendly && <div className="mb-2 flex items-center justify-between gap-3 border-b border-emerald-100 pb-4"><span className="text-lg font-extrabold tracking-tight text-emerald-900">BeSmart<span className="text-emerald-600">Kids</span> <span className="ml-2 text-sm font-semibold text-slate-500">Ruang latihan</span></span><Link href={`/materials/${materialId}`} className="rounded-md px-3 py-2 text-base font-semibold text-slate-600 underline underline-offset-4">Keluar</Link></div>}
       <PageDoodleLayer resetKey={`material-${materialId}-page-${page}`} />
       {isAdmin && <div className="rounded-lg border border-amber-200 bg-amber-50 p-4">
         <button type="button" aria-pressed={adminPreview} className="rounded-lg border border-emerald-700 bg-white px-4 py-3 font-bold text-emerald-800" onClick={() => { setAutoAdvancePage(null); setPage(0); setShowAll(current => !current); }}>
@@ -468,11 +469,11 @@ export default function BatchPracticeQuiz({
           </h2>
         </div>
         <span className="rounded-md bg-emerald-50 px-3 py-2 text-xs font-bold text-emerald-700">
-          {materialId === 42 ? "Penjumlahan · sampai 10" : `Halaman ${page + 1} dari ${totalPages}`}
+          {materialId === 42 ? "Penjumlahan · sampai 10" : childFriendly ? "Matematika · kelas 1" : `Halaman ${page + 1} dari ${totalPages}`}
         </span>
       </header>
 
-      {materialId === 42 && !adminPreview && <div className="space-y-2"><div role="progressbar" aria-label="Progres pengerjaan" aria-valuemin={0} aria-valuemax={orderedMeta.length} aria-valuenow={Math.min(page * PAGE_SIZE, orderedMeta.length)} className="h-2 overflow-hidden rounded-full bg-emerald-100"><div className="h-full rounded-full bg-emerald-600 transition-[width] motion-reduce:transition-none" style={{width:`${orderedMeta.length ? Math.min(page * PAGE_SIZE / orderedMeta.length * 100, 100) : 0}%`}} /></div><p className="text-base text-slate-600">Amati, hitung, lalu jawab.</p></div>}
+      {compactWorkspace && <div className="space-y-2"><div role="progressbar" aria-label="Progres pengerjaan" aria-valuemin={0} aria-valuemax={orderedMeta.length} aria-valuenow={Math.min(page * PAGE_SIZE, orderedMeta.length)} className="h-2 overflow-hidden rounded-full bg-emerald-100"><div className="h-full rounded-full bg-emerald-600 transition-[width] motion-reduce:transition-none" style={{width:`${orderedMeta.length ? Math.min(page * PAGE_SIZE / orderedMeta.length * 100, 100) : 0}%`}} /></div><p className="text-base text-slate-600">Amati, hitung, lalu jawab.</p></div>}
       {questions.map((question, index) => {
         const result = results[question.id];
         const isEvenQuestion = (page * PAGE_SIZE + index + 1) % 2 === 0;
@@ -487,7 +488,8 @@ export default function BatchPracticeQuiz({
         return (
           <article
             key={question.id}
-            data-workspace-question={materialId === 42 && !adminPreview ? "true" : undefined}
+            data-workspace-question={compactWorkspace ? "true" : undefined}
+            data-workspace-layout={question.type === "multipart" || question.type === "drag_drop" || question.question_image_url || question.options.some(option => option.image_url) ? "full" : undefined}
             className={`border p-4 shadow-sm sm:p-6 ${childFriendly ? "rounded-xl bg-white border-2 shadow-[0_5px_0_#e0eadf]" : "rounded-lg transition"} ${cardColor}`}
           >
             <div className="flex items-start gap-3">
@@ -504,8 +506,8 @@ export default function BatchPracticeQuiz({
               </div>
             </div>
 
-            <div className={materialId === 42 && !adminPreview ? workspaceStyles.visual : undefined}>
-            {childFriendly && !question.question_image_url && <MissingAddend compact={materialId === 42 && !adminPreview} key={`missing-${question.id}`} prompt={question.prompt} answer={answers[question.id] ?? ""} disabled={submitted} onAnswerChange={question.type === "essay" ? value=>setAnswer(question.id,value) : undefined} />}
+            <div className={compactWorkspace ? workspaceStyles.visual : undefined}>
+            {childFriendly && !question.question_image_url && <MissingAddend compact={compactWorkspace} key={`missing-${question.id}`} prompt={question.prompt} answer={answers[question.id] ?? ""} disabled={submitted} onAnswerChange={question.type === "essay" ? value=>setAnswer(question.id,value) : undefined} />}
             {childFriendly && !question.question_image_url && <PlaceValue key={`place-${question.id}`} prompt={question.prompt} />}
             {childFriendly && !question.question_image_url && <ShapeVisual key={`shape-${question.id}`} prompt={question.prompt} />}
             {childFriendly && !question.question_image_url && <ComparisonVisual key={`comparison-${question.id}`} prompt={question.prompt} />}
@@ -527,9 +529,9 @@ export default function BatchPracticeQuiz({
               </div>
             )}
 
-            <div className={materialId === 42 && !adminPreview ? workspaceStyles.answer : "mt-5"}>
+            <div className={compactWorkspace ? workspaceStyles.answer : "mt-5"}>
               {question.type === "mcq" && (
-                <div className="grid gap-3 sm:grid-cols-2">
+                <div className={compactWorkspace ? workspaceStyles.choices : "grid gap-3 sm:grid-cols-2"}>
                   {question.options.map((option) => {
                     const selectedValue = answers[question.id];
                     const isSelected = selectedValue === option.value;
@@ -548,7 +550,7 @@ export default function BatchPracticeQuiz({
                     return (
                       <label
                         key={option.value}
-                        className={`flex cursor-pointer items-center gap-3 rounded-lg border-2 p-4 transition ${materialId === 42 ? "min-h-20 hover:border-emerald-500 hover:shadow-sm" : ""} ${optionStateClass} ${
+                        className={`flex cursor-pointer items-center gap-3 rounded-lg border-2 p-4 transition ${childFriendly ? "min-h-20 hover:border-emerald-500 hover:shadow-sm" : ""} ${optionStateClass} ${
                           submitted ? "cursor-default" : ""
                         }`}
                       >
@@ -561,7 +563,7 @@ export default function BatchPracticeQuiz({
                           onChange={() => setAnswer(question.id, option.value)}
                           className="mt-1 accent-emerald-600"
                         />
-                        <span className={materialId === 42 ? "text-xl font-bold leading-relaxed" : "text-sm font-semibold"}>
+                        <span className={childFriendly ? "text-xl font-bold leading-relaxed" : "text-sm font-semibold"}>
                           <MathText text={option.label} />
                           {result && isSelected && !isCorrectOption && (
                             <span className="ml-2 rounded bg-red-600 px-2 py-0.5 text-[10px] font-extrabold text-white">
@@ -626,10 +628,10 @@ export default function BatchPracticeQuiz({
                       : "border-slate-300 bg-white focus:border-emerald-500 disabled:bg-slate-100";
                     return (
                       <div key={item.id} className="block">
-                        <span className="text-sm font-semibold text-slate-700">
+                        <span className={childFriendly ? "text-xl font-semibold leading-relaxed text-slate-700" : "text-sm font-semibold text-slate-700"}>
                           {item.label}. <MathText text={item.prompt} />
                         </span>
-                        {childFriendly && !item.image_url && <LearningVisual key={item.id} prompt={item.prompt} variation={question.question_number} answer={parsed[item.id] ?? ""} disabled={submitted} onAnswerChange={value=>setMultipartAnswer(question.id,item.id,value)} />}
+                        {childFriendly && !item.image_url && <div className={compactWorkspace ? workspaceStyles.visual : undefined}><LearningVisual compact={compactWorkspace} key={item.id} prompt={item.prompt} variation={question.question_number} answer={parsed[item.id] ?? ""} disabled={submitted} onAnswerChange={value=>setMultipartAnswer(question.id,item.id,value)} /></div>}
                         {item.image_url && (
                           <span className="relative my-2 block h-52 w-full overflow-hidden rounded-md bg-white">
                             <Image
@@ -780,7 +782,7 @@ export default function BatchPracticeQuiz({
             : isAdmin
               ? "Submit dan Periksa Jawaban (Mode Admin)"
               : allAnswered
-              ? (materialId === 42 ? "Periksa jawaban →" : "Submit dan Periksa Jawaban")
+              ? (childFriendly ? "Periksa jawaban →" : "Submit dan Periksa Jawaban")
               : childFriendly ? "Pilih atau isi jawabanmu dulu" : "Jawab semua soal untuk mengaktifkan Submit"}
         </button>
       ) : (
