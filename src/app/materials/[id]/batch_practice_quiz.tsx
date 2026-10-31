@@ -181,8 +181,8 @@ export default function BatchPracticeQuiz({
   const PAGE_SIZE = adminPreview ? Math.max(1, questionMeta.length) : childFriendly ? 1 : DEFAULT_PAGE_SIZE;
   const orderedMeta = useMemo(
     () =>
-      materialId === 42 && !isGuest ? selectTamanTambahQuestions(questionMeta) : regularPracticeCatalog(questionMeta, childFriendly, isGuest),
-    [questionMeta, childFriendly, isGuest, materialId],
+      materialId === 42 && !isGuest && !adminPreview ? selectTamanTambahQuestions(questionMeta) : regularPracticeCatalog(questionMeta, childFriendly, isGuest),
+    [questionMeta, childFriendly, isGuest, materialId, adminPreview],
   );
   const [page, setPage] = useState(0);
   const questionCache = useMemo(() => new Map<string, Question>(), [materialId, isGuest, childFriendly]);
@@ -227,8 +227,8 @@ export default function BatchPracticeQuiz({
         // content queries for each single-question screen. Cache is session-local.
         const startIndex = orderedMeta.findIndex(meta => meta.id === pageMeta[0].id);
         const windowMeta = childFriendly && !adminPreview ? orderedMeta.slice(startIndex, startIndex + 5) : pageMeta;
-        const start = windowMeta[0].question_number;
-        const end = windowMeta[windowMeta.length - 1].question_number;
+        const start = Math.min(...windowMeta.map(meta => meta.question_number));
+        const end = Math.max(...windowMeta.map(meta => meta.question_number));
         const key = `${start}:${end}`;
         let pending = pendingLoads.get(key);
         if (!pending) {
@@ -468,11 +468,11 @@ export default function BatchPracticeQuiz({
           </h2>
         </div>
         <span className="rounded-md bg-emerald-50 px-3 py-2 text-xs font-bold text-emerald-700">
-          Halaman {page + 1} dari {totalPages}
+          {materialId === 42 ? "Penjumlahan · sampai 10" : `Halaman ${page + 1} dari ${totalPages}`}
         </span>
       </header>
 
-      {materialId === 42 && !adminPreview && <div className="space-y-2"><div role="progressbar" aria-label="Progres pengerjaan" aria-valuemin={0} aria-valuemax={orderedMeta.length} aria-valuenow={Math.min(page * PAGE_SIZE, orderedMeta.length)} className="h-2 overflow-hidden rounded-full bg-emerald-100"><div className="h-full rounded-full bg-emerald-600 transition-[width] motion-reduce:transition-none" style={{width:`${orderedMeta.length ? Math.min(page * PAGE_SIZE / orderedMeta.length * 100, 100) : 0}%`}} /></div><p className="text-base text-slate-600">Pelan-pelan saja. Perhatikan gambar, lalu jawab.</p></div>}
+      {materialId === 42 && !adminPreview && <div className="space-y-2"><div role="progressbar" aria-label="Progres pengerjaan" aria-valuemin={0} aria-valuemax={orderedMeta.length} aria-valuenow={Math.min(page * PAGE_SIZE, orderedMeta.length)} className="h-2 overflow-hidden rounded-full bg-emerald-100"><div className="h-full rounded-full bg-emerald-600 transition-[width] motion-reduce:transition-none" style={{width:`${orderedMeta.length ? Math.min(page * PAGE_SIZE / orderedMeta.length * 100, 100) : 0}%`}} /></div><p className="text-base text-slate-600">Amati, hitung, lalu jawab.</p></div>}
       {questions.map((question, index) => {
         const result = results[question.id];
         const isEvenQuestion = (page * PAGE_SIZE + index + 1) % 2 === 0;
@@ -487,6 +487,7 @@ export default function BatchPracticeQuiz({
         return (
           <article
             key={question.id}
+            data-workspace-question={materialId === 42 && !adminPreview ? "true" : undefined}
             className={`border p-4 shadow-sm sm:p-6 ${childFriendly ? "rounded-xl bg-white border-2 shadow-[0_5px_0_#e0eadf]" : "rounded-lg transition"} ${cardColor}`}
           >
             <div className="flex items-start gap-3">
@@ -503,13 +504,15 @@ export default function BatchPracticeQuiz({
               </div>
             </div>
 
-            {childFriendly && !question.question_image_url && <MissingAddend key={`missing-${question.id}`} prompt={question.prompt} answer={answers[question.id] ?? ""} disabled={submitted} onAnswerChange={question.type === "essay" ? value=>setAnswer(question.id,value) : undefined} />}
+            <div className={materialId === 42 && !adminPreview ? workspaceStyles.visual : undefined}>
+            {childFriendly && !question.question_image_url && <MissingAddend compact={materialId === 42 && !adminPreview} key={`missing-${question.id}`} prompt={question.prompt} answer={answers[question.id] ?? ""} disabled={submitted} onAnswerChange={question.type === "essay" ? value=>setAnswer(question.id,value) : undefined} />}
             {childFriendly && !question.question_image_url && <PlaceValue key={`place-${question.id}`} prompt={question.prompt} />}
             {childFriendly && !question.question_image_url && <ShapeVisual key={`shape-${question.id}`} prompt={question.prompt} />}
             {childFriendly && !question.question_image_url && <ComparisonVisual key={`comparison-${question.id}`} prompt={question.prompt} />}
             {childFriendly && !question.question_image_url && <NumberSequence key={`sequence-${question.id}`} prompt={question.prompt} answer={answers[question.id] ?? ""} disabled={submitted} onAnswerChange={question.type === "essay" ? value=>setAnswer(question.id,value) : undefined} />}
             {childFriendly && !question.question_image_url && <CountingVisual key={`count-${question.id}`} prompt={question.prompt} />}
             {childFriendly && !question.question_image_url && <VisualArithmetic key={question.id} prompt={question.prompt} variation={question.question_number} />}
+            </div>
 
             {question.question_image_url && (
               <div className="relative mx-auto mt-4 h-[min(420px,60vw)] min-h-48 w-full max-w-3xl overflow-hidden rounded-md border border-slate-200 bg-white">
@@ -524,7 +527,7 @@ export default function BatchPracticeQuiz({
               </div>
             )}
 
-            <div className="mt-5">
+            <div className={materialId === 42 && !adminPreview ? workspaceStyles.answer : "mt-5"}>
               {question.type === "mcq" && (
                 <div className="grid gap-3 sm:grid-cols-2">
                   {question.options.map((option) => {

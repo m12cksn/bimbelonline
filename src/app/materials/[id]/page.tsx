@@ -255,9 +255,9 @@ export default async function MaterialPage(props: MaterialPageProps) {
 
   if (simpleView) {
     return (
-      <main className="min-h-screen bg-slate-50">
-        <div className="mx-auto max-w-5xl px-3 pb-6 sm:px-5">
-          {false && isTamanTambahTest && <section className="py-5"><h1 className="text-2xl font-bold">Tes pemahaman: penjumlahan sampai 10</h1><p className="mt-2 text-lg">24 soal. Jawabanmu dicatat di BeSmartKids.</p></section>}
+      <main className="min-h-screen bg-[#f4f6f3]">
+        <div className="mx-auto max-w-6xl px-3 py-3 sm:px-5">
+
           <MaterialWithResources
             material={material}
             questionMeta={questionMetaList}
