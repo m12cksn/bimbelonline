@@ -1,0 +1,22 @@
+.workspace {
+  width: 100%; max-width: 1100px; margin: 0 auto; padding: clamp(12px, 2vw, 24px);
+  background: #f8faf8; border: 1px solid #dce7df; border-radius: 12px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.workspace > * { margin-top: 0 !important; }
+.workspace > header { position: static; box-shadow: none; border: 0; padding: 4px 0; background: transparent; }
+.workspace > article { border: 1px solid #e2e8e4; box-shadow: none; padding: clamp(12px, 2vw, 24px); }
+.workspace > article h3 { font-size: clamp(18px, 2vw, 26px); line-height: 1.4; }
+.workspace > article > div { margin-top: 12px; }
+.workspace > article > div:first-child { margin-top: 0; }
+.workspace input { font-size: 22px; }
+.workspace label { min-height: 56px; }
+.workspace > button { min-height: 48px; padding: 12px; }
+@media (min-width: 900px) and (min-height: 700px) {
+  .workspace { min-height: calc(100svh - 32px); }
+  .workspace > article { flex: 1; }
+}
+@media (max-height: 700px) {
+  .workspace { gap: 8px; padding: 10px; }
+  .workspace > article { padding: 12px; }
+}

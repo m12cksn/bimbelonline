@@ -159,8 +159,8 @@ export default async function MaterialPage(props: MaterialPageProps) {
             <section className="flex flex-col rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
               <p className="font-semibold text-emerald-700">Langkah 2 · Tes pemahaman</p>
               <h2 className="mt-3 text-2xl font-bold">Sekarang giliranmu!</h2>
-              <p className="mb-6 mt-3 text-lg leading-relaxed text-slate-600">Kerjakan 15 soal penjumlahan di BeSmartKids. Masuk ke akunmu agar jawaban tercatat.</p>
-              <Link href={TAMAN_TAMBAH_TEST_PATH} className="mt-auto inline-flex min-h-12 items-center justify-center rounded-lg border-2 border-emerald-700 px-5 py-3 text-center text-lg font-bold text-emerald-800 hover:bg-emerald-50 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-emerald-700">Mulai tes · 15 soal →</Link>
+              <p className="mb-6 mt-3 text-lg leading-relaxed text-slate-600">Kerjakan 24 soal penjumlahan di BeSmartKids. Masuk ke akunmu agar jawaban tercatat.</p>
+              <Link href={TAMAN_TAMBAH_TEST_PATH} className="mt-auto inline-flex min-h-12 items-center justify-center rounded-lg border-2 border-emerald-700 px-5 py-3 text-center text-lg font-bold text-emerald-800 hover:bg-emerald-50 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-emerald-700">Mulai tes · 24 soal →</Link>
               <p className="mt-3 text-base text-slate-600">Sudah pemanasan? Kamu bisa langsung mulai tes.</p>
             </section>
           </div>
@@ -183,8 +183,8 @@ export default async function MaterialPage(props: MaterialPageProps) {
   const questionMetaList = isTamanTambahTest
     ? selectTamanTambahQuestions(questionMeta || [])
     : questionMeta || [];
-  if (isTamanTambahTest && questionMetaList.length !== 15) {
-    return <main className="mx-auto max-w-2xl p-6"><h1 className="text-2xl font-bold">Tes belum bisa dimuat</h1><p className="mt-3">Paket 15 soal sedang diperiksa. Coba kembali nanti.</p><Link className="mt-4 inline-block underline" href="/materials">Kembali ke materi</Link></main>;
+  if (isTamanTambahTest && questionMetaList.length !== 24) {
+    return <main className="mx-auto max-w-2xl p-6"><h1 className="text-2xl font-bold">Tes belum bisa dimuat</h1><p className="mt-3">Paket 24 soal sedang diperiksa. Coba kembali nanti.</p><Link className="mt-4 inline-block underline" href="/materials">Kembali ke materi</Link></main>;
   }
   const questionCount = questionMetaList.length;
   questionLimit = questionCount;
@@ -257,7 +257,7 @@ export default async function MaterialPage(props: MaterialPageProps) {
     return (
       <main className="min-h-screen bg-slate-50">
         <div className="mx-auto max-w-5xl px-3 pb-6 sm:px-5">
-          {isTamanTambahTest && <section className="py-5"><h1 className="text-2xl font-bold">Tes pemahaman: penjumlahan sampai 10</h1><p className="mt-2 text-lg">15 soal. Jawabanmu dicatat di BeSmartKids.</p></section>}
+          {false && isTamanTambahTest && <section className="py-5"><h1 className="text-2xl font-bold">Tes pemahaman: penjumlahan sampai 10</h1><p className="mt-2 text-lg">24 soal. Jawabanmu dicatat di BeSmartKids.</p></section>}
           <MaterialWithResources
             material={material}
             questionMeta={questionMetaList}

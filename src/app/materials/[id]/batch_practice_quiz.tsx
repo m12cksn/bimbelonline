@@ -1,4 +1,6 @@
 "use client";
+import workspaceStyles from "./practice-workspace.module.css";
+import { selectTamanTambahQuestions } from "@/lib/tamanTambah";
 import ContextualAnswer from "@/components/learning/ContextualAnswer";
 import { contextualAnswer } from "@/components/learning/contextualAnswer";
 import { parseMissingAddend } from "@/components/learning/missingAddend";
@@ -179,8 +181,8 @@ export default function BatchPracticeQuiz({
   const PAGE_SIZE = adminPreview ? Math.max(1, questionMeta.length) : childFriendly ? 1 : DEFAULT_PAGE_SIZE;
   const orderedMeta = useMemo(
     () =>
-      regularPracticeCatalog(questionMeta, childFriendly, isGuest),
-    [questionMeta, childFriendly, isGuest],
+      materialId === 42 && !isGuest ? selectTamanTambahQuestions(questionMeta) : regularPracticeCatalog(questionMeta, childFriendly, isGuest),
+    [questionMeta, childFriendly, isGuest, materialId],
   );
   const [page, setPage] = useState(0);
   const questionCache = useMemo(() => new Map<string, Question>(), [materialId, isGuest, childFriendly]);
@@ -444,7 +446,7 @@ export default function BatchPracticeQuiz({
   }
 
   return (
-    <section id="batch-practice-top" tabIndex={-1} className={childFriendly ? "mx-auto max-w-3xl space-y-6 rounded-xl border border-emerald-100 bg-[#f6faf7] shadow-lg shadow-emerald-950/5 p-4 sm:p-8 [&_button]:min-h-12 [&_input]:min-h-12 [&_button:focus-visible]:outline-2 [&_button:focus-visible]:outline-offset-4 [&_button:focus-visible]:outline-emerald-700" : "space-y-5"}>
+    <section id="batch-practice-top" tabIndex={-1} className={materialId === 42 && !adminPreview ? workspaceStyles.workspace : childFriendly ? "mx-auto max-w-3xl space-y-6 rounded-xl border border-emerald-100 bg-[#f6faf7] shadow-lg shadow-emerald-950/5 p-4 sm:p-8 [&_button]:min-h-12 [&_input]:min-h-12 [&_button:focus-visible]:outline-2 [&_button:focus-visible]:outline-offset-4 [&_button:focus-visible]:outline-emerald-700" : "space-y-5"}>
       {materialId === 42 && <div className="mb-2 flex items-center justify-between gap-3 border-b border-emerald-100 pb-4"><span className="text-lg font-extrabold tracking-tight text-emerald-900">BeSmart<span className="text-emerald-600">Kids</span> <span className="ml-2 text-sm font-semibold text-slate-500">Ruang latihan</span></span><Link href="/materials/42" className="rounded-md px-3 py-2 text-base font-semibold text-slate-600 underline underline-offset-4">Keluar</Link></div>}
       <PageDoodleLayer resetKey={`material-${materialId}-page-${page}`} />
       {isAdmin && <div className="rounded-lg border border-amber-200 bg-amber-50 p-4">
