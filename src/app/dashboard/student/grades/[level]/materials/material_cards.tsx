@@ -132,10 +132,10 @@ export default function MaterialCards({
                   Lihat Video
                 </button>
                 <Link
-                  href={`/materials/${material.id}?start=practice`}
+                  href={material.id === 42 ? "/learn/addition" : `/materials/${material.id}?start=practice`}
                   className="inline-flex items-center justify-center rounded-md bg-emerald-600 px-3 py-2.5 text-sm font-bold text-white transition hover:bg-emerald-500"
                 >
-                  Latihan Soal
+                  {material.id === 42 ? "Belajar & Latihan" : "Latihan Soal"}
                 </Link>
               </div>
             </div>

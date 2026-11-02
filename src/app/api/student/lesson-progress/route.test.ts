@@ -1,0 +1,14 @@
+import { POST } from './route';
+let mockUser: { id: string } | null = { id: 'owner' };
+let mockRole = 'student';
+let mockError: unknown = null;
+const mockUpsert = jest.fn(async (_value: unknown, _options: unknown) => ({ error: mockError }));
+jest.mock('@/lib/supabaseServer', () => ({ createSupabaseServerClient: async () => ({ auth: { getUser: async () => ({ data: { user: mockUser } }) }, from: (table: string) => table === 'profiles' ? { select: () => ({ eq: () => ({ single: async () => ({ data: { role: mockRole, learning_track: 'math' } }) }) }) } : { upsert: mockUpsert } }) }));
+const payload = { lesson_stage: 2, lesson_completed: false, warmup_answers: [5] };
+const request = (body: unknown) => new Request('https://example.test/api/student/lesson-progress', { method: 'POST', body: JSON.stringify(body) });
+beforeEach(() => { mockUser = { id: 'owner' }; mockRole = 'student'; mockError = null; mockUpsert.mockClear(); });
+test('rejects anonymous save without writing', async () => { mockUser = null; expect((await POST(request(payload))).status).toBe(401); expect(mockUpsert).not.toHaveBeenCalled(); });
+test('does not use client identity or material to write another record', async () => { const response = await POST(request({ ...payload, user_id: 'victim', material_id: 99 })); expect(response.status).toBe(200); expect(mockUpsert.mock.calls[0][0]).toMatchObject({ user_id: 'owner', material_id: 42 }); });
+test('rejects non-students', async () => { mockRole = 'teacher'; expect((await POST(request(payload))).status).toBe(403); expect(mockUpsert).not.toHaveBeenCalled(); });
+test('invalid checkpoint does not write', async () => { expect((await POST(request({ ...payload, lesson_stage: 90 }))).status).toBe(400); expect(mockUpsert).not.toHaveBeenCalled(); });
+test('failed persistence is not reported as saved', async () => { mockError = { message: 'denied' }; expect((await POST(request(payload))).status).toBe(503); });

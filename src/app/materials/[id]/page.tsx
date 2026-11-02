@@ -135,6 +135,8 @@ export default async function MaterialPage(props: MaterialPageProps) {
     redirect("/materials");
   }
 
+  if (id === "42" && !isGuest && !isAdmin && !isTamanTambahTest && !autoStartPractice && !isEmbed) redirect("/learn/addition");
+
   if (id === "42" && !isTamanTambahTest && !autoStartPractice && !isEmbed) {
     return (
       <main className="min-h-screen bg-slate-50 px-4 py-8 sm:px-6 sm:py-12">
