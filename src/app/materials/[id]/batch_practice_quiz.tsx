@@ -196,6 +196,26 @@ export default function BatchPracticeQuiz({
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const [resumeReady, setResumeReady] = useState(isGuest || isAdmin);
+  useEffect(() => {
+    if (isGuest || isAdmin) { setResumeReady(true); return; }
+    let active = true;
+    setResumeReady(false);
+    fetch(`/api/materials/${materialId}/practice-state`, { cache: "no-store" })
+      .then(async response => { const data = await response.json(); if (!response.ok) throw new Error(data.error ?? "Progres belum bisa dimuat."); return data; })
+      .then(data => {
+        if (!active) return;
+        const ids = new Set(orderedMeta.map(question => question.id));
+        const restored = Object.fromEntries(Object.entries(data.results ?? {}).filter(([id]) => ids.has(id))) as Record<string, AnswerResult>;
+        setResults(restored);
+        setAnswers(Object.fromEntries(Object.entries(data.answers ?? {}).filter(([id]) => ids.has(id))) as Record<string, string>);
+        const next = orderedMeta.findIndex(question => !restored[question.id]);
+        setPage(Math.floor((next < 0 ? Math.max(0, orderedMeta.length - 1) : next) / PAGE_SIZE));
+        setResumeReady(true);
+      }).catch(error => { if (active) { setError((error as Error).message); setLoading(false); } });
+    return () => { active = false; };
+  }, [materialId, isGuest, isAdmin, orderedMeta, PAGE_SIZE]);
+
   const totalPages = Math.max(1, Math.ceil(orderedMeta.length / PAGE_SIZE));
   const pageMeta = useMemo(
     () => orderedMeta.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE),
@@ -203,6 +223,7 @@ export default function BatchPracticeQuiz({
   );
 
   useEffect(() => {
+    if (!resumeReady) return;
     let active = true;
 
     async function loadPage() {
@@ -260,7 +281,7 @@ export default function BatchPracticeQuiz({
     return () => {
       active = false;
     };
-  }, [materialId, pageMeta, orderedMeta, childFriendly, questionCache, pendingLoads, adminPreview]);
+  }, [materialId, pageMeta, orderedMeta, childFriendly, questionCache, pendingLoads, adminPreview, resumeReady]);
 
   useEffect(() => {
     if (autoAdvancePage === null || autoAdvancePage !== page) return;
@@ -422,7 +443,9 @@ export default function BatchPracticeQuiz({
     }, 0);
   }
 
-  if (loading) {
+  if (!resumeReady && error) return <div role="alert" className="rounded-lg border border-red-200 bg-red-50 p-5 text-red-800">{error} <button className="underline font-bold" onClick={() => window.location.reload()}>Coba lagi</button></div>;
+
+  if (loading || !resumeReady) {
     return (
       <div className="rounded-lg border border-slate-200 bg-white p-6 text-sm text-slate-600">
         Memuat soal latihan...
@@ -858,6 +881,7 @@ export default function BatchPracticeQuiz({
           </div>
 
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
+            <Link href={`/dashboard/student/materials/${materialId}/analysis`} className="rounded-lg border border-emerald-300 px-5 py-3 text-center font-bold text-emerald-800">Lihat laporan dan jawaban</Link>
             <button
               type="button"
               onClick={restartPractice}
@@ -869,7 +893,7 @@ export default function BatchPracticeQuiz({
               href="/dashboard/student"
               className="inline-flex items-center justify-center rounded-lg bg-emerald-600 px-5 py-3 font-bold text-white transition hover:bg-emerald-500"
             >
-              Kembali ke Daftar Materi
+              Kembali ke Dashboard
             </Link>
           </div>
         </section>
