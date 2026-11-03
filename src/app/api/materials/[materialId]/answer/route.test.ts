@@ -126,4 +126,21 @@ describe("answer submission boundaries", () => {
     expect(response.status).toBe(200);
     expect((await response.json()).isCorrect).toBe(expected);
   });
+  test.each(["4 + 4 = ?", "7 - 2 =", "Mana yang lebih besar?", "Hitung benda pada gambar"])(
+    "keeps fallback feedback relevant to elementary questions: %s", async (prompt) => {
+      mockQuestion = { ...mockQuestion, type: "essay", prompt, correct_answer: "8" };
+      const response = await submit({ questionId: "q1", selectedAnswer: "1" });
+      const result = await response.json();
+      expect(result.isCorrect).toBe(false);
+      expect(result.explanation).toContain("Jawaban benar: 8");
+      expect(result.explanation).not.toMatch(/penyebut|pembilang|pecahan|desimal/);
+    },
+  );
+
+  test("preserves an explanation written by the teacher", async () => {
+    mockQuestion = { ...mockQuestion, type: "essay", prompt: "7 - 2 =", correct_answer: "5", explanation: "Kurangi dua apel dari tujuh apel." };
+    const result = await (await submit({ questionId: "q1", selectedAnswer: "1" })).json();
+    expect(result.explanation).toBe("Kurangi dua apel dari tujuh apel.");
+  });
+
 });
