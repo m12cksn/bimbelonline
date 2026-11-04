@@ -1,3 +1,4 @@
+import { loadServerScore, ScoreError } from "@/lib/serverScore";
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { createServerClient } from "@supabase/ssr";
@@ -47,7 +48,7 @@ export async function GET(_: Request, props: Params) {
   const { materialId } = await props.params;
   const materialIdNum = Number(materialId);
 
-  if (Number.isNaN(materialIdNum)) {
+  if (!/^\d+$/.test(materialId) || !Number.isSafeInteger(materialIdNum) || materialIdNum < 1) {
     return NextResponse.json({ error: "Invalid material id" }, { status: 400 });
   }
 
@@ -144,20 +145,8 @@ export async function POST(req: Request, props: Params) {
   const { materialId } = await props.params;
   const materialIdNum = Number(materialId);
 
-  if (Number.isNaN(materialIdNum)) {
+  if (!/^\d+$/.test(materialId) || !Number.isSafeInteger(materialIdNum) || materialIdNum < 1) {
     return NextResponse.json({ error: "Invalid material id" }, { status: 400 });
-  }
-
-  const body = await req.json();
-  const correctCount = Number(body.correctCount ?? 0);
-  const wrongCount = Number(body.wrongCount ?? 0);
-  const totalQuestions = Number(body.totalQuestions ?? 0);
-
-  if (totalQuestions <= 0) {
-    return NextResponse.json(
-      { error: "Total soal tidak valid" },
-      { status: 400 }
-    );
   }
 
   const supabase = await getSupabase();
@@ -191,10 +180,8 @@ export async function POST(req: Request, props: Params) {
     );
   }
 
-  if (attemptsError && isMissingMaterialAttemptsTable(attemptsError)) {
-    console.warn(
-      "material_attempts table missing; skipping persistence and returning fallback"
-    );
+  if (attemptsError) {
+    return NextResponse.json({ error: "Riwayat nilai belum tersedia." }, { status: 503 });
   }
 
   if (
@@ -213,22 +200,18 @@ export async function POST(req: Request, props: Params) {
     );
   }
 
-  const nextAttemptNumber = isMissingMaterialAttemptsTable(attemptsError)
-    ? 1
-    : (existingAttempts?.length ?? 0) + 1;
-  const clampedCorrect = Math.max(0, correctCount);
-  const computedTotal = Math.max(totalQuestions, clampedCorrect + wrongCount);
-  const score =
-    computedTotal > 0 ? Math.round((clampedCorrect / computedTotal) * 100) : 0;
-
-  if (isAdmin) {
-    return NextResponse.json({
-      ok: true,
-      skipped: true,
-      attempt_number: nextAttemptNumber,
-      score,
-    });
+  const nextAttemptNumber = Math.max(0, ...(existingAttempts || []).map((row) => Number(row.attempt_number) || 0)) + 1;
+  if (isAdmin) return NextResponse.json({ ok: true, skipped: true });
+  if (nextAttemptNumber > MAX_MATERIAL_ATTEMPTS) return NextResponse.json({ locked: true, reason: "max_attempts" }, { status: 403 });
+  let summary;
+  try {
+    summary = await loadServerScore(supabase, user.id, materialIdNum, nextAttemptNumber, "practice");
+  } catch (error) {
+    return NextResponse.json({ error: error instanceof ScoreError ? error.message : "Gagal memverifikasi nilai." },
+      { status: error instanceof ScoreError ? error.status : 503 });
   }
+  const { totalQuestions, correct: clampedCorrect, wrong: wrongCount, score } = summary;
+  const computedTotal = totalQuestions;
 
   if (!isMissingMaterialAttemptsTable(attemptsError)) {
     const { error: insertError } = await supabase

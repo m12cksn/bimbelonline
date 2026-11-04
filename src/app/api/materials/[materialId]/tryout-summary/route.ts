@@ -1,3 +1,4 @@
+import { loadServerScore, ScoreError } from "@/lib/serverScore";
 import { NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabaseServer";
 
@@ -9,7 +10,7 @@ export async function GET(_req: Request, props: Params) {
   const { materialId } = await props.params;
   const materialIdNum = Number(materialId);
 
-  if (Number.isNaN(materialIdNum)) {
+  if (!/^\d+$/.test(materialId) || !Number.isSafeInteger(materialIdNum) || materialIdNum < 1) {
     return NextResponse.json({ error: "Invalid material id" }, { status: 400 });
   }
 
@@ -63,7 +64,7 @@ export async function POST(req: Request, props: Params) {
   const { materialId } = await props.params;
   const materialIdNum = Number(materialId);
 
-  if (Number.isNaN(materialIdNum)) {
+  if (!/^\d+$/.test(materialId) || !Number.isSafeInteger(materialIdNum) || materialIdNum < 1) {
     return NextResponse.json({ error: "Invalid material id" }, { status: 400 });
   }
 
@@ -86,21 +87,30 @@ export async function POST(req: Request, props: Params) {
     return NextResponse.json({ ok: true, skipped: true });
   }
 
-  const body = (await req.json()) as {
-    attemptNumber?: number;
-    correct?: number;
-    totalAnswered?: number;
-  };
-
-  const correct = Number(body.correct ?? 0);
-  const totalAnswered = Number(body.totalAnswered ?? 0);
-  const wrong = Math.max(0, totalAnswered - correct);
-  const score = totalAnswered > 0 ? Math.round((correct / totalAnswered) * 100) : 0;
+  let body: unknown;
+  try { body = await req.json(); } catch {
+    return NextResponse.json({ error: "Payload tidak valid." }, { status: 400 });
+  }
+  if (!body || typeof body !== "object" || Array.isArray(body)) {
+    return NextResponse.json({ error: "Payload tidak valid." }, { status: 400 });
+  }
+  const requestedRun = (body as Record<string, unknown>).attemptNumber ?? 1;
+  if (requestedRun !== 1 && requestedRun !== 2) {
+    return NextResponse.json({ error: "Nomor percobaan tidak valid." }, { status: 400 });
+  }
+  let summary;
+  try {
+    summary = await loadServerScore(supabase, user.id, materialIdNum, requestedRun, "tryout");
+  } catch (error) {
+    return NextResponse.json({ error: error instanceof ScoreError ? error.message : "Gagal memverifikasi nilai." },
+      { status: error instanceof ScoreError ? error.status : 503 });
+  }
+  const { correct, wrong, totalQuestions: totalAnswered, score } = summary;
 
   const { error } = await supabase.from("material_tryout_attempts").insert({
     user_id: user.id,
     material_id: materialIdNum,
-    attempt_number: body.attemptNumber ?? 1,
+    attempt_number: requestedRun,
     correct_count: correct,
     wrong_count: wrong,
     total_questions: totalAnswered,
