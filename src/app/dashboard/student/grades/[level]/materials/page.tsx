@@ -105,6 +105,17 @@ export default async function StudentGradeMaterialsPage({ params }: PageProps) {
         </div>
       </section>
 
+      {level === 1 && (
+        <Link
+          href="/dashboard/student/grades/1/bab-5"
+          className="block rounded-xl border border-emerald-300 bg-emerald-50 p-5 transition hover:bg-emerald-100"
+        >
+          <span className="text-xs font-bold uppercase tracking-wider text-emerald-700">Bab 5 · Kelas 1</span>
+          <h2 className="mt-1 text-xl font-extrabold text-emerald-950">Ayo Membilang sampai 20</h2>
+          <p className="mt-1 text-sm text-emerald-800">4 materi, 48 soal latihan, dan 20 soal evaluasi. Buka materi dan latihan →</p>
+        </Link>
+      )}
+
       {materials.length === 0 ? (
         <section className="rounded-lg border border-dashed border-emerald-300 bg-white p-10 text-center">
           <div className="text-4xl">📚</div>
