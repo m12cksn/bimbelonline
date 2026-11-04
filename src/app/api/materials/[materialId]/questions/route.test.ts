@@ -2,8 +2,11 @@ import { GET } from "./route";
 
 const mockSelections: Record<string, string> = {};
 const mockRows: Record<string, unknown[]> = {
-  questions: [{ id: "q1", question_number: 1, type: "drag_drop", prompt: "Pasangkan" }],
-  question_options: [{ question_id: "q1", label: "A", value: "a", image_url: null, sort_order: 1, is_correct: true }],
+  questions: [
+    { id: "q0", question_number: 1, type: "mcq", prompt: "Pilih" },
+    { id: "q1", question_number: 2, type: "drag_drop", prompt: "Pasangkan" },
+  ],
+  question_options: [{ question_id: "q0", label: "A", value: "a", image_url: null, sort_order: 1, is_correct: true }],
   question_drop_targets: [{ id: "t1", question_id: "q1", label: "Target", sort_order: 1 }],
   question_drop_items: [{ id: "i1", question_id: "q1", label: "Item", image_url: null, sort_order: 1, correct_target_id: "t1" }],
   question_items: [],
@@ -36,6 +39,11 @@ describe("public question payload", () => {
     else process.env.SUPABASE_SERVICE_ROLE_KEY = originalServiceKey;
   });
 
+  beforeEach(() => {
+    for (const table of Object.keys(mockSelections)) delete mockSelections[table];
+    mockDb.from.mockClear();
+  });
+
   test.each([true, false])("does not disclose keys for guest=%s", async (guest) => {
     mockDb.auth.getUser.mockResolvedValue({ data: { user: guest ? null : { id: "student" } } });
     process.env.SUPABASE_SERVICE_ROLE_KEY = "test-only";
@@ -49,7 +57,21 @@ describe("public question payload", () => {
     // Even unexpected secret columns from the data layer must not be forwarded.
     expect(JSON.stringify(payload)).not.toMatch(/is_correct|correct_target_id/);
     expect(payload.questions[0].options).toEqual([{ label: "A", value: "a", image_url: null, sort_order: 1 }]);
-    expect(payload.questions[0].drop_items).toEqual([{ id: "i1", label: "Item", image_url: null, sort_order: 1 }]);
-    expect(payload.questions[0].drop_targets[0].id).toBe("t1");
+    expect(payload.questions[1].drop_items).toEqual([{ id: "i1", label: "Item", image_url: null, sort_order: 1 }]);
+    expect(payload.questions[1].drop_targets[0].id).toBe("t1");
+    expect(mockSelections).not.toHaveProperty("question_items");
+  });
+  test("skips every relation query when no questions are returned", async () => {
+    const saved = mockRows.questions;
+    mockRows.questions = [];
+    try {
+      mockDb.auth.getUser.mockResolvedValue({ data: { user: { id: "student" } } });
+      const response = await GET(new Request("http://localhost/api/materials/1/questions"), {
+        params: Promise.resolve({ materialId: "1" }),
+      });
+      expect(response.status).toBe(200);
+      expect((await response.json()).questions).toEqual([]);
+      expect(mockDb.from.mock.calls.map(([table]) => table)).toEqual(["questions"]);
+    } finally { mockRows.questions = saved; }
   });
 });

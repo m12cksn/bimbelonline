@@ -97,31 +97,34 @@ export async function GET(
   const partsByQuestion = new Map<string, unknown[]>();
 
   if (questionIds.length > 0) {
+    const mcqIds = questionList.filter(q => q.type === "mcq").map(q => q.id);
+    const dropIds = questionList.filter(q => q.type === "drag_drop").map(q => q.id);
+    const partIds = questionList.filter(q => q.type === "multipart").map(q => q.id);
     const [
       { data: optionRows, error: optionsError },
       { data: targetRows, error: targetsError },
       { data: itemRows, error: itemsError },
       { data: partRows, error: partsError }
     ] = await Promise.all([
-      dbClient
+      mcqIds.length === 0 ? Promise.resolve({ data: [], error: null }) : dbClient
       .from("question_options")
       .select("question_id, label, value, image_url, sort_order")
-      .in("question_id", questionIds)
+      .in("question_id", mcqIds)
       .order("sort_order", { ascending: true }),
-      dbClient
+      dropIds.length === 0 ? Promise.resolve({ data: [], error: null }) : dbClient
       .from("question_drop_targets")
       .select("id, question_id, label, placeholder, sort_order")
-      .in("question_id", questionIds)
+      .in("question_id", dropIds)
       .order("sort_order", { ascending: true }),
-      dbClient
+      dropIds.length === 0 ? Promise.resolve({ data: [], error: null }) : dbClient
       .from("question_drop_items")
       .select("id, question_id, label, image_url, sort_order")
-      .in("question_id", questionIds)
+      .in("question_id", dropIds)
       .order("sort_order", { ascending: true }),
-      dbClient
+      partIds.length === 0 ? Promise.resolve({ data: [], error: null }) : dbClient
       .from("question_items")
       .select("id, question_id, label, prompt, image_url, sort_order")
-      .in("question_id", questionIds)
+      .in("question_id", partIds)
       .order("sort_order", { ascending: true })
     ]);
 
