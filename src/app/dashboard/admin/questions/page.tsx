@@ -1374,7 +1374,7 @@ export default function AdminQuestionsPage() {
                 <option value="mcq">Pilihan ganda</option>
                 <option value="essay">Essay / input</option>
                 <option value="multipart">Multi-part (a/b/c)</option>
-                <option value="drag_drop">Drag & drop</option>
+                <option value="drag_drop" disabled>Pencocokan lama (ditampilkan sebagai dropdown)</option>
               </select>
             </div>
             <div>
